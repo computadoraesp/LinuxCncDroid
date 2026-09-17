@@ -226,6 +226,13 @@
     <string name="tp_dim_info">DIM: X%1$d Y%2$d Z%3$d</string>
     <string name="tp_block_info">BLOQUE %1$d/%2$d (%3$d%%)</string>
     <string name="tp_vc_info">Vc: %d m/min</string>
+    <string name="tp_toggle_lod">LOD AUTO</string>
+    <string name="tp_toggle_lod_full">LOD 1:1</string>
+    <string name="tp_hud_zmin">Z-MÍN: %1$.2f mm</string>
+    <string name="tp_hud_zsafe">Z-SEG: %1$.2f mm</string>
+    <string name="tp_hud_plane">PLANO SEGURIDAD</string>
+    <string name="tp_hud_tool_dia">Ø%1$.1f mm</string>
+    <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
 
     <!-- Probing & Calibration -->
     <string name="probing_title">PALPADOR 3D Y METROLOGÍA (NIVEL 2)</string>
@@ -294,27 +301,27 @@
     <string name="config_ip_address_placeholder">Dirección IP (ej. 192.168.1.100)</string>
 
     <!-- Calibration Dialog -->
-    <string name="calib_header">CALIBRACIÓN METROLÓGICA DE EJES (ISO 230–2)</string>
-    <string name="calib_subtitle">Mapeo de Error de Paso y Evaluación de Incertidumbre</string>
-    <string name="calib_section1_header">1. PARÁMETROS DE CALIBRACIÓN E INCERTIDUMBRE</string>
-    <string name="calib_init_btn">INICIAR SESIÓN</string>
+    <string name="calib_header">CALIBRACIÓN DE EJES (ISO 230–2)</string>
+    <string name="calib_subtitle">Mapeo de Error de Paso e Incertidumbre</string>
+    <string name="calib_section1_header">1. PARÁMETROS E INCERTIDUMBRE</string>
+    <string name="calib_init_btn">INICIAR</string>
     <string name="calib_axis_label">EJE</string>
-    <string name="calib_travel_label">CARRERA TOTAL (mm)</string>
-    <string name="calib_uncertainty_label">INCERTIDUMBRE INST. ±(mm)</string>
-    <string name="calib_presets_label">Presets:</string>
-    <string name="calib_section2_header">2. ASISTENTE PASO A PASO (CADA 10% DE CARRERA)</string>
-    <string name="calib_point_info">PUNTO %1$d/%2$d : SECTOR %3$d%% (%4$.1f mm)</string>
-    <string name="calib_drive_axis_btn">MOVER EJE A %smm</string>
+    <string name="calib_travel_label">CARRERA (mm)</string>
+    <string name="calib_uncertainty_label">INCERTIDUMBRE ±(mm)</string>
+    <string name="calib_presets_label">Patrones:</string>
+    <string name="calib_section2_header">2. ASISTENTE PASO A PASO (10%)</string>
+    <string name="calib_point_info">PUNTO %1$d/%2$d: %3$d%% (%4$.1f mm)</string>
+    <string name="calib_drive_axis_btn">IR A %s mm</string>
     <string name="calib_step1">• Paso 1: Posicione el eje en la cota nominal %s mm.</string>
-    <string name="calib_step2">• Paso 2: Realice la lectura física en el instrumento patrón (reloj/micrómetro).</string>
-    <string name="calib_step3">• Paso 3: Introduzca el valor medido real observado.</string>
-    <string name="calib_measured_val_label">VALOR MEDIDO REAL (mm)</string>
-    <string name="calib_save_next_btn">GUARDAR Y SIGUIENTE</string>
-    <string name="calib_section3_header">3. CURVA DE ERROR Y BANDAS DE INCERTIDUMBRE</string>
+    <string name="calib_step2">• Paso 2: Realice la lectura en el instrumento patrón.</string>
+    <string name="calib_step3">• Paso 3: Introduzca el valor medido real.</string>
+    <string name="calib_measured_val_label">VALOR MEDIDO (mm)</string>
+    <string name="calib_save_next_btn">GUARDAR &gt;</string>
+    <string name="calib_section3_header">3. CURVA DE ERROR E INCERTIDUMBRE</string>
     <string name="calib_export_btn">EXPORTAR comp.tbl</string>
     <string name="calib_max_error">ERROR MÁX (E_max)</string>
-    <string name="calib_uncertainty_band">INCERTIDUMBRE EXPANDIDA U (k=2)</string>
-    <string name="calib_mean_bias">SESGO MEDIO DE SECTOR</string>
+    <string name="calib_uncertainty_band">INCERTIDUMBRE U (k=2)</string>
+    <string name="calib_mean_bias">SESGO MEDIO</string>
     <string name="calib_export_title">Tabla de Compensación LinuxCNC (comp.tbl)</string>
     <string name="calib_export_text">Esta tabla mapea los errores directamente en el HAL de LinuxCNC:</string>
     <string name="calib_copy_clipboard">COPIAR AL PORTAPAPELES</string>
@@ -391,7 +398,7 @@
         <item>Seleccione el eje (X, Y o Z), la longitud del recorrido y declare la incertidumbre de su instrumento (ej. ±0.003 mm).</item>
         <item>Pulse \'INICIAR SESIÓN\' para generar los 11 puntos de prueba.</item>
         <item>Para cada punto, pulse \'MOVER EJE\' para posicionar el cabezal en la coordenada nominal.</item>
-        <item>Lea el instrumento patrón, introduzca el valor medido y pulse \'GUARDAR Y SIGUIENTE\'.</item>
+        <item>Lea el instrumento patrón, introduzca el valor medido (o use el acceso directo = Nominal y microajuste ±1 µm) y pulse \'GUARDAR Y SIGUIENTE\'.</item>
         <item>Al completar el 100%, revise la curva de error y pulse \'EXPORTAR comp.tbl\' para copiar la tabla de compensación a su configuración de LinuxCNC.</item>
     </string-array>
     <string-array name="manual_sec2_safety">

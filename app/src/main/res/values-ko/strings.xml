@@ -190,6 +190,13 @@
     <string name="tp_dim_info">크기: X%1$d Y%2$d Z%3$d</string>
     <string name="tp_block_info">블록 %1$d/%2$d (%3$d%%)</string>
     <string name="tp_vc_info">Vc: %d m/min</string>
+    <string name="tp_toggle_lod">LOD AUTO</string>
+    <string name="tp_toggle_lod_full">LOD 1:1</string>
+    <string name="tp_hud_zmin">Z최소: %1$.2f mm</string>
+    <string name="tp_hud_zsafe">Z안전고: %1$.2f mm</string>
+    <string name="tp_hud_plane">안전 평면</string>
+    <string name="tp_hud_tool_dia">Ø%1$.1f mm</string>
+    <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
 
     <!-- Probing & Calibration -->
     <string name="probing_title">3D 프로브 측정 (LEVEL 2)</string>
@@ -356,7 +363,7 @@
         <item>Select the axis (X, Y, or Z), travel length, and declare your instrument\'s uncertainty (e.g., ±0.003 mm).</item>
         <item>Press \'INIT SESSION\' to generate the 11 test points.</item>
         <item>For each point, press \'DRIVE AXIS\' to position the head at the nominal coordinate.</item>
-        <item>Read the master instrument, enter the measured value, and press \'SAVE &amp; NEXT\'.</item>
+        <item>마스터 측정기를 확인하고 측정값을 입력(또는 = Nominal 단축키 및 ±1 µm 미세조정 칩 사용)한 후 \'SAVE &amp; NEXT\'를 누릅니다.</item>
         <item>At 100% completion, review the error curve and press \'EXPORT comp.tbl\' to copy the compensation table to your LinuxCNC configuration.</item>
     </string-array>
     <string-array name="manual_sec2_safety">

@@ -299,7 +299,7 @@ fun DroAxisRow(
                         Icon(
                             imageVector = Icons.Default.Home,
                             contentDescription = "Home ${axis.name}",
-                            tint = if (enabled && axis.isHomed) CncActiveGreen else if (enabled) CncTextMuted else CncTextMuted.copy(alpha = 0.5f),
+                            tint = if (enabled && axis.isHomed) CncActiveGreen else if (enabled) CncTextSecondary else CncTextMuted,
                             modifier = Modifier.size(16.dp)
                         )
                     }

@@ -57,7 +57,7 @@ fun CarouselNavButton(
     ) {
         Text(
             text = direction,
-            color = if (enabled) CncCyberCyan else CncTextMuted.copy(alpha = 0.4f),
+            color = if (enabled) CncCyberCyan else CncTextMuted.copy(alpha = 0.6f),
             fontSize = (height.value * 0.42f).coerceIn(10f, 15f).sp,
             fontWeight = FontWeight.Black,
             fontFamily = FontFamily.Monospace

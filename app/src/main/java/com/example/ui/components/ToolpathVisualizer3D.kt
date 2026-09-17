@@ -6,8 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -22,6 +24,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -36,6 +39,7 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.ViewInAr
 import androidx.compose.material3.ButtonDefaults
@@ -85,6 +89,7 @@ import com.example.ui.theme.CncActiveGreen
 import com.example.ui.theme.CncCardBg
 import com.example.ui.theme.CncCardBorder
 import com.example.ui.theme.CncCyberCyan
+import com.example.ui.theme.CncDroDigits
 import com.example.ui.theme.CncEstopRed
 import com.example.ui.theme.CncSurface
 import com.example.ui.theme.CncSurfaceVariant
@@ -105,6 +110,21 @@ enum class ViewPerspective {
     SIDE_YZ,
     ISO_3D
 }
+
+data class ToolpathMetrics(
+    val xSpan: Float,
+    val ySpan: Float,
+    val zSpan: Float,
+    val minX: Float,
+    val maxX: Float,
+    val minY: Float,
+    val maxY: Float,
+    val minZ: Float,
+    val maxZ: Float,
+    val zMinCut: Float,
+    val zSafeRapid: Float,
+    val totalCutDistanceMm: Double,
+)
 
 /**
  * High-performance 3D Toolpath Visualizer & Dry-Run Simulator.
@@ -136,6 +156,8 @@ fun ToolpathVisualizer3D(
     var showRapids by remember { mutableStateOf(true) }
     var showStock by remember { mutableStateOf(true) }
     var showGrid by remember { mutableStateOf(true) }
+    var showHud by remember { mutableStateOf(true) }
+    var lodAutoEnabled by remember { mutableStateOf(true) }
     var followTool by remember { mutableStateOf(false) }
     var showCodePanel by remember { mutableStateOf(true) }
 
@@ -183,14 +205,25 @@ fun ToolpathVisualizer3D(
         }
     }
 
-    // Workpiece Bounding Box Calculation (precalculated once per gcode list)
-    val boundingBox = remember(gcodeList) {
+    // Workpiece Bounding Box and Critical Machining Metrics (precalculated once per gcode list)
+    val toolpathMetrics = remember(gcodeList) {
         if (gcodeList.isEmpty()) {
-            Triple(0f to 50f, 0f to 50f, -2.5f to 10f)
+            ToolpathMetrics(
+                xSpan = 50f, ySpan = 50f, zSpan = 12.5f,
+                minX = 0f, maxX = 50f,
+                minY = 0f, maxY = 50f,
+                minZ = -2.5f, maxZ = 10f,
+                zMinCut = -2.5f,
+                zSafeRapid = 10f,
+                totalCutDistanceMm = 0.0
+            )
         } else {
             var minX = Float.MAX_VALUE; var maxX = -Float.MAX_VALUE
             var minY = Float.MAX_VALUE; var maxY = -Float.MAX_VALUE
             var minZ = Float.MAX_VALUE; var maxZ = -Float.MAX_VALUE
+            var zMinCut = 0f
+            var zSafeRapid = 5f
+            var cutDist = 0.0
 
             gcodeList.forEach { seg ->
                 minX = min(minX, min(seg.startX, seg.endX))
@@ -199,14 +232,87 @@ fun ToolpathVisualizer3D(
                 maxY = max(maxY, max(seg.startY, seg.endY))
                 minZ = min(minZ, min(seg.startZ, seg.endZ))
                 maxZ = max(maxZ, max(seg.startZ, seg.endZ))
+
+                if (seg.isCut) {
+                    zMinCut = min(zMinCut, min(seg.startZ, seg.endZ))
+                    val dx = (seg.endX - seg.startX).toDouble()
+                    val dy = (seg.endY - seg.startY).toDouble()
+                    val dz = (seg.endZ - seg.startZ).toDouble()
+                    cutDist += sqrt(dx * dx + dy * dy + dz * dz)
+                }
+                if (seg.isRapid) {
+                    zSafeRapid = max(zSafeRapid, max(seg.startZ, seg.endZ))
+                }
             }
+
             if (minX == Float.MAX_VALUE) {
-                Triple(0f to 50f, 0f to 50f, -2.5f to 10f)
+                ToolpathMetrics(
+                    xSpan = 50f, ySpan = 50f, zSpan = 12.5f,
+                    minX = 0f, maxX = 50f,
+                    minY = 0f, maxY = 50f,
+                    minZ = -2.5f, maxZ = 10f,
+                    zMinCut = -2.5f,
+                    zSafeRapid = 10f,
+                    totalCutDistanceMm = 0.0
+                )
             } else {
-                Triple(minX to maxX, minY to maxY, minZ to maxZ)
+                ToolpathMetrics(
+                    xSpan = max(1f, maxX - minX),
+                    ySpan = max(1f, maxY - minY),
+                    zSpan = max(1f, maxZ - minZ),
+                    minX = minX, maxX = maxX,
+                    minY = minY, maxY = maxY,
+                    minZ = minZ, maxZ = maxZ,
+                    zMinCut = zMinCut,
+                    zSafeRapid = zSafeRapid,
+                    totalCutDistanceMm = cutDist
+                )
             }
         }
     }
+
+    // Adaptive Level of Detail (LOD) computation
+    // Dynamically subsamples dense toolpaths on mobile devices while strictly preserving:
+    // 1. All G0 rapid positioning moves (safety critical)
+    // 2. All circular/helical arcs (G2/G3)
+    // 3. Local neighborhood (+/- 25 blocks) around active tool position
+    // 4. Critical start/end inflection points
+    val (renderedSegments, lodStride) = remember(gcodeList, lodAutoEnabled, effectiveIndex) {
+        val total = gcodeList.size
+        if (!lodAutoEnabled || total <= 600) {
+            gcodeList to 1
+        } else {
+            val stride = when {
+                total > 15000 -> 16
+                total > 8000 -> 8
+                total > 3000 -> 4
+                total > 1000 -> 2
+                else -> 1
+            }
+            if (stride == 1) {
+                gcodeList to 1
+            } else {
+                val activeStart = (effectiveIndex - 25).coerceAtLeast(0)
+                val activeEnd = (effectiveIndex + 25).coerceAtMost(total - 1)
+
+                val filtered = ArrayList<GCodeSegment>(total / stride + 60)
+                for (i in 0 until total) {
+                    val seg = gcodeList[i]
+                    val isArc = seg.rawText.contains("G2") || seg.rawText.contains("G3") ||
+                            seg.rawText.contains("G02") || seg.rawText.contains("G03")
+                    if (seg.isRapid || isArc || (i in activeStart..activeEnd) || (i % stride == 0) || i == total - 1) {
+                        filtered.add(seg)
+                    }
+                }
+                filtered to stride
+            }
+        }
+    }
+
+    val activeSeg = if (gcodeList.isNotEmpty() && effectiveIndex in gcodeList.indices) gcodeList[effectiveIndex] else null
+    val deltaX = if (activeSeg != null) activeSeg.endX - activeSeg.startX else 0f
+    val deltaY = if (activeSeg != null) activeSeg.endY - activeSeg.startY else 0f
+    val deltaZ = if (activeSeg != null) activeSeg.endZ - activeSeg.startZ else 0f
 
     // Distance To Go (DTG) calculation in mm
     val distanceToGoMm = remember(gcodeList, effectiveIndex) {
@@ -240,12 +346,12 @@ fun ToolpathVisualizer3D(
 
     // Auto-fit function: computes optimal scale and center offset
     val performAutoFit: () -> Unit = {
-        val dx = max(10f, boundingBox.first.second - boundingBox.first.first)
-        val dy = max(10f, boundingBox.second.second - boundingBox.second.first)
-        val dz = max(5f, boundingBox.third.second - boundingBox.third.first)
-        val centerX = (boundingBox.first.first + boundingBox.first.second) / 2f
-        val centerY = (boundingBox.second.first + boundingBox.second.second) / 2f
-        val centerZ = (boundingBox.third.first + boundingBox.third.second) / 2f
+        val dx = max(10f, toolpathMetrics.xSpan)
+        val dy = max(10f, toolpathMetrics.ySpan)
+        val dz = max(5f, toolpathMetrics.zSpan)
+        val centerX = (toolpathMetrics.minX + toolpathMetrics.maxX) / 2f
+        val centerY = (toolpathMetrics.minY + toolpathMetrics.maxY) / 2f
+        val centerZ = (toolpathMetrics.minZ + toolpathMetrics.maxZ) / 2f
 
         val (spanW, spanH) = when (perspective) {
             ViewPerspective.TOP_XY -> dx to dy
@@ -269,192 +375,424 @@ fun ToolpathVisualizer3D(
         border = CardDefaults.outlinedCardBorder().copy(brush = SolidColor(CncCardBorder)),
         modifier = modifier.fillMaxWidth(),
     ) {
-        Column(modifier = Modifier.padding(10.dp)) {
-            // Header Bar
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.ViewInAr,
-                        contentDescription = stringResource(R.string.tp_header),
-                        tint = CncCyberCyan,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = stringResource(R.string.tp_header),
-                        fontWeight = FontWeight.Black,
-                        fontSize = 11.5.sp,
-                        color = CncTextPrimary
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = "[$fileName]",
-                        fontSize = 9.5.sp,
-                        fontFamily = FontFamily.Monospace,
-                        color = CncWarningAmber,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = stringResource(
-                            R.string.tp_dim_info,
-                            (boundingBox.first.second - boundingBox.first.first).toInt(),
-                            (boundingBox.second.second - boundingBox.second.first).toInt(),
-                            (boundingBox.third.second - boundingBox.third.first).toInt()
-                        ),
-                        fontSize = 9.sp,
-                        color = CncTextSecondary,
-                        fontFamily = FontFamily.Monospace
-                    )
-                }
+        BoxWithConstraints(modifier = Modifier.padding(10.dp)) {
+            val isCompactWidth = maxWidth < 680.dp
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    // Auto-Fit button
-                    FilledTonalButton(
-                        onClick = performAutoFit,
-                        shape = RoundedCornerShape(6.dp),
-                        contentPadding = PaddingValues(horizontal = 7.dp, vertical = 2.dp),
-                        colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = CncSurfaceVariant,
-                            contentColor = CncCyberCyan
-                        ),
-                        modifier = Modifier.height(26.dp)
-                    ) {
-                        Icon(imageVector = Icons.Default.FitScreen, contentDescription = stringResource(R.string.tp_autofit), modifier = Modifier.size(12.dp))
-                        Spacer(modifier = Modifier.width(3.dp))
-                        Text(stringResource(R.string.tp_autofit), fontSize = 8.5.sp, fontWeight = FontWeight.Bold)
-                    }
-
-                    FilledTonalButton(
-                        onClick = onOpenLoader,
-                        shape = RoundedCornerShape(6.dp),
-                        contentPadding = PaddingValues(horizontal = 7.dp, vertical = 2.dp),
-                        colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = CncSurfaceVariant,
-                            contentColor = CncCyberCyan
-                        ),
-                        modifier = Modifier.height(26.dp)
-                    ) {
-                        Icon(imageVector = Icons.Default.Shield, contentDescription = stringResource(R.string.toolpath_load_scan), modifier = Modifier.size(12.dp))
-                        Spacer(modifier = Modifier.width(3.dp))
-                        Text(stringResource(R.string.toolpath_load_scan), fontSize = 8.5.sp, fontWeight = FontWeight.Bold)
-                    }
-
-                    // Perspective Selector Pills
+            Column {
+                if (isCompactWidth) {
+                    // --- PORTRAIT / COMPACT LAYOUT (No truncation, no ghost spaces) ---
+                    // Row 1: Title, File Badge & Dimensions in a single cohesive row
                     Row(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(6.dp))
-                            .background(CncSurfaceVariant)
-                            .padding(2.dp),
-                        horizontalArrangement = Arrangement.spacedBy(2.dp)
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        listOf(
-                            ViewPerspective.TOP_XY to stringResource(R.string.view_top),
-                            ViewPerspective.ISO_3D to stringResource(R.string.view_iso),
-                            ViewPerspective.FRONT_XZ to stringResource(R.string.view_front),
-                            ViewPerspective.SIDE_YZ to stringResource(R.string.view_side)
-                        ).forEach { (view, label) ->
-                            val isSelected = perspective == view
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(4.dp))
-                                    .background(if (isSelected) CncCyberCyan else Color.Transparent)
-                                    .clickable { perspective = view }
-                                    .padding(horizontal = 6.dp, vertical = 3.dp)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f, fill = false)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ViewInAr,
+                                contentDescription = stringResource(R.string.tp_header),
+                                tint = CncCyberCyan,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Text(
+                                text = "3D TOOLPATH",
+                                fontWeight = FontWeight.Black,
+                                fontSize = 11.sp,
+                                color = CncTextPrimary
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "[$fileName]",
+                                fontSize = 9.sp,
+                                fontFamily = FontFamily.Monospace,
+                                color = CncWarningAmber,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1
+                            )
+                        }
+
+                        // Workpiece Dimensions (compact badge)
+                        Surface(
+                            shape = RoundedCornerShape(4.dp),
+                            color = CncSurfaceVariant.copy(alpha = 0.7f),
+                            border = BorderStroke(1.dp, Color(0x2200E5FF))
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    R.string.tp_dim_info,
+                                    toolpathMetrics.xSpan.toInt(),
+                                    toolpathMetrics.ySpan.toInt(),
+                                    toolpathMetrics.zSpan.toInt()
+                                ),
+                                fontSize = 8.5.sp,
+                                color = CncCyberCyan,
+                                fontFamily = FontFamily.Monospace,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    // Row 2: Action Buttons (Auto-Fit & Load) + 4 View Perspectives (Fixed, fully visible)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            FilledTonalButton(
+                                onClick = performAutoFit,
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 7.dp, vertical = 2.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = CncSurfaceVariant,
+                                    contentColor = CncCyberCyan
+                                ),
+                                modifier = Modifier.height(26.dp)
                             ) {
-                                Text(
-                                    text = label,
-                                    fontSize = 8.5.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = if (isSelected) Color(0xFF00363D) else CncTextSecondary
-                                )
+                                Icon(imageVector = Icons.Default.FitScreen, contentDescription = stringResource(R.string.tp_autofit), modifier = Modifier.size(11.dp))
+                                Spacer(modifier = Modifier.width(3.dp))
+                                Text(stringResource(R.string.tp_autofit), fontSize = 8.5.sp, fontWeight = FontWeight.Bold)
+                            }
+
+                            FilledTonalButton(
+                                onClick = onOpenLoader,
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 7.dp, vertical = 2.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = CncSurfaceVariant,
+                                    contentColor = CncCyberCyan
+                                ),
+                                modifier = Modifier.height(26.dp)
+                            ) {
+                                Icon(imageVector = Icons.Default.Shield, contentDescription = stringResource(R.string.toolpath_load_scan), modifier = Modifier.size(11.dp))
+                                Spacer(modifier = Modifier.width(3.dp))
+                                Text(stringResource(R.string.toolpath_load_scan), fontSize = 8.5.sp, fontWeight = FontWeight.Bold)
+                            }
+                        }
+
+                        // Perspective Selector Pills (Fixed width, fits perfectly on any portrait screen)
+                        Row(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(CncSurfaceVariant)
+                                .padding(2.dp),
+                            horizontalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            listOf(
+                                ViewPerspective.TOP_XY to stringResource(R.string.view_top),
+                                ViewPerspective.ISO_3D to stringResource(R.string.view_iso),
+                                ViewPerspective.FRONT_XZ to stringResource(R.string.view_front),
+                                ViewPerspective.SIDE_YZ to stringResource(R.string.view_side)
+                            ).forEach { (view, label) ->
+                                val isSelected = perspective == view
+                                Box(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(4.dp))
+                                        .background(if (isSelected) CncCyberCyan else Color.Transparent)
+                                        .clickable { perspective = view }
+                                        .padding(horizontal = 5.dp, vertical = 3.dp)
+                                ) {
+                                    Text(
+                                        text = label,
+                                        fontSize = 8.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (isSelected) Color(0xFF00363D) else CncTextSecondary
+                                    )
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    // --- LANDSCAPE / WIDE LAYOUT (Single elegant continuous row) ---
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f, fill = false)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ViewInAr,
+                                contentDescription = stringResource(R.string.tp_header),
+                                tint = CncCyberCyan,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = stringResource(R.string.tp_header),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 11.5.sp,
+                                color = CncTextPrimary
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "[$fileName]",
+                                fontSize = 9.5.sp,
+                                fontFamily = FontFamily.Monospace,
+                                color = CncWarningAmber,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = stringResource(
+                                    R.string.tp_dim_info,
+                                    toolpathMetrics.xSpan.toInt(),
+                                    toolpathMetrics.ySpan.toInt(),
+                                    toolpathMetrics.zSpan.toInt()
+                                ),
+                                fontSize = 9.sp,
+                                color = CncTextSecondary,
+                                fontFamily = FontFamily.Monospace
+                            )
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        ) {
+                            FilledTonalButton(
+                                onClick = performAutoFit,
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 7.dp, vertical = 2.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = CncSurfaceVariant,
+                                    contentColor = CncCyberCyan
+                                ),
+                                modifier = Modifier.height(26.dp)
+                            ) {
+                                Icon(imageVector = Icons.Default.FitScreen, contentDescription = stringResource(R.string.tp_autofit), modifier = Modifier.size(12.dp))
+                                Spacer(modifier = Modifier.width(3.dp))
+                                Text(stringResource(R.string.tp_autofit), fontSize = 8.5.sp, fontWeight = FontWeight.Bold)
+                            }
+
+                            FilledTonalButton(
+                                onClick = onOpenLoader,
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 7.dp, vertical = 2.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = CncSurfaceVariant,
+                                    contentColor = CncCyberCyan
+                                ),
+                                modifier = Modifier.height(26.dp)
+                            ) {
+                                Icon(imageVector = Icons.Default.Shield, contentDescription = stringResource(R.string.toolpath_load_scan), modifier = Modifier.size(12.dp))
+                                Spacer(modifier = Modifier.width(3.dp))
+                                Text(stringResource(R.string.toolpath_load_scan), fontSize = 8.5.sp, fontWeight = FontWeight.Bold)
+                            }
+
+                            // Perspective Selector Pills
+                            Row(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .background(CncSurfaceVariant)
+                                    .padding(2.dp),
+                                horizontalArrangement = Arrangement.spacedBy(2.dp)
+                            ) {
+                                listOf(
+                                    ViewPerspective.TOP_XY to stringResource(R.string.view_top),
+                                    ViewPerspective.ISO_3D to stringResource(R.string.view_iso),
+                                    ViewPerspective.FRONT_XZ to stringResource(R.string.view_front),
+                                    ViewPerspective.SIDE_YZ to stringResource(R.string.view_side)
+                                ).forEach { (view, label) ->
+                                    val isSelected = perspective == view
+                                    Box(
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(4.dp))
+                                            .background(if (isSelected) CncCyberCyan else Color.Transparent)
+                                            .clickable { perspective = view }
+                                            .padding(horizontal = 6.dp, vertical = 3.dp)
+                                    ) {
+                                        Text(
+                                            text = label,
+                                            fontSize = 8.5.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = if (isSelected) Color(0xFF00363D) else CncTextSecondary
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
 
             Spacer(modifier = Modifier.height(6.dp))
 
-            // Quick Layer Filters & Visual Toggles Toolbar (Ultra-Lean & Ergonomic)
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(CncSurfaceVariant.copy(alpha = 0.5f))
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalAlignment = Alignment.CenterVertically
+            // Quick Layer Filters & Visual Toggles Toolbar (Adaptable: Multi-row or single row)
+            if (isCompactWidth) {
+                // Portrait compact layout: 2 structured rows, no awkward endless carousel feel
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(CncSurfaceVariant.copy(alpha = 0.5f))
+                        .padding(horizontal = 6.dp, vertical = 4.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    // Toggle Rapids G0
-                    FilterToggleChip(
-                        label = stringResource(R.string.tp_toggle_rapids),
-                        isActive = showRapids,
-                        activeColor = CncWarningAmber,
-                        onClick = { showRapids = !showRapids }
-                    )
-
-                    // Toggle Stock 3D
-                    FilterToggleChip(
-                        label = stringResource(R.string.tp_toggle_stock),
-                        isActive = showStock,
-                        activeColor = CncCyberCyan,
-                        onClick = { showStock = !showStock }
-                    )
-
-                    // Toggle Grid
-                    FilterToggleChip(
-                        label = stringResource(R.string.tp_toggle_grid),
-                        isActive = showGrid,
-                        activeColor = Color(0xFF64B5F6),
-                        onClick = { showGrid = !showGrid }
-                    )
-
-                    // Follow Tool
-                    FilterToggleChip(
-                        label = stringResource(R.string.tp_toggle_follow),
-                        isActive = followTool,
-                        activeColor = CncActiveGreen,
-                        onClick = { followTool = !followTool }
-                    )
-                }
-
-                // G-Code split view toggle (collapses code panel on mobile to maximize canvas)
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Legend Badges
+                    // Row 1: Toggles (Rapids, Stock, Grid, HUD, LOD, Follow)
                     Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LegendDot(color = Color(0xFF2E7D32), label = stringResource(R.string.tp_past_cuts))
-                        LegendDot(color = CncActiveGreen, label = stringResource(R.string.tp_current_tool))
-                        LegendDot(color = Color(0xFFE040FB), label = stringResource(R.string.tp_arc_cut))
-                        LegendDot(color = CncCyberCyan, label = "G1")
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_rapids),
+                            isActive = showRapids,
+                            activeColor = CncWarningAmber,
+                            onClick = { showRapids = !showRapids }
+                        )
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_stock),
+                            isActive = showStock,
+                            activeColor = CncCyberCyan,
+                            onClick = { showStock = !showStock }
+                        )
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_grid),
+                            isActive = showGrid,
+                            activeColor = Color(0xFF64B5F6),
+                            onClick = { showGrid = !showGrid }
+                        )
+                        FilterToggleChip(
+                            label = "HUD",
+                            isActive = showHud,
+                            activeColor = CncActiveGreen,
+                            onClick = { showHud = !showHud }
+                        )
+                        FilterToggleChip(
+                            label = if (lodAutoEnabled) stringResource(R.string.tp_toggle_lod) else stringResource(R.string.tp_toggle_lod_full),
+                            isActive = lodAutoEnabled,
+                            activeColor = Color(0xFF80D8FF),
+                            icon = Icons.Default.Speed,
+                            onClick = { lodAutoEnabled = !lodAutoEnabled }
+                        )
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_follow),
+                            isActive = followTool,
+                            activeColor = CncActiveGreen,
+                            onClick = { followTool = !followTool }
+                        )
                     }
 
-                    Spacer(modifier = Modifier.width(4.dp))
+                    // Row 2: Visual Legend & G-Code Panel Toggle
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(5.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            LegendDot(color = Color(0xFF2E7D32), label = stringResource(R.string.tp_past_cuts))
+                            LegendDot(color = CncActiveGreen, label = stringResource(R.string.tp_current_tool))
+                            LegendDot(color = Color(0xFFE040FB), label = stringResource(R.string.tp_arc_cut))
+                            LegendDot(color = CncCyberCyan, label = "G1")
+                        }
 
-                    FilterToggleChip(
-                        label = stringResource(R.string.tp_toggle_code),
-                        isActive = showCodePanel,
-                        activeColor = CncCyberCyan,
-                        icon = Icons.Default.Code,
-                        onClick = { showCodePanel = !showCodePanel }
-                    )
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_code),
+                            isActive = showCodePanel,
+                            activeColor = CncCyberCyan,
+                            icon = Icons.Default.Code,
+                            onClick = { showCodePanel = !showCodePanel }
+                        )
+                    }
+                }
+            } else {
+                // Landscape / Wide toolbar: single clean line
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(CncSurfaceVariant.copy(alpha = 0.5f))
+                        .padding(horizontal = 6.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .weight(1f, fill = false)
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(5.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_rapids),
+                            isActive = showRapids,
+                            activeColor = CncWarningAmber,
+                            onClick = { showRapids = !showRapids }
+                        )
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_stock),
+                            isActive = showStock,
+                            activeColor = CncCyberCyan,
+                            onClick = { showStock = !showStock }
+                        )
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_grid),
+                            isActive = showGrid,
+                            activeColor = Color(0xFF64B5F6),
+                            onClick = { showGrid = !showGrid }
+                        )
+                        FilterToggleChip(
+                            label = "HUD",
+                            isActive = showHud,
+                            activeColor = CncActiveGreen,
+                            onClick = { showHud = !showHud }
+                        )
+                        FilterToggleChip(
+                            label = if (lodAutoEnabled) stringResource(R.string.tp_toggle_lod) else stringResource(R.string.tp_toggle_lod_full),
+                            isActive = lodAutoEnabled,
+                            activeColor = Color(0xFF80D8FF),
+                            icon = Icons.Default.Speed,
+                            onClick = { lodAutoEnabled = !lodAutoEnabled }
+                        )
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_follow),
+                            isActive = followTool,
+                            activeColor = CncActiveGreen,
+                            onClick = { followTool = !followTool }
+                        )
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(5.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            LegendDot(color = Color(0xFF2E7D32), label = stringResource(R.string.tp_past_cuts))
+                            LegendDot(color = CncActiveGreen, label = stringResource(R.string.tp_current_tool))
+                            LegendDot(color = Color(0xFFE040FB), label = stringResource(R.string.tp_arc_cut))
+                            LegendDot(color = CncCyberCyan, label = "G1")
+                        }
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        FilterToggleChip(
+                            label = stringResource(R.string.tp_toggle_code),
+                            isActive = showCodePanel,
+                            activeColor = CncCyberCyan,
+                            icon = Icons.Default.Code,
+                            onClick = { showCodePanel = !showCodePanel }
+                        )
+                    }
                 }
             }
 
@@ -556,12 +894,11 @@ fun ToolpathVisualizer3D(
                             center = originProjected
                         )
 
-                        // 3. 3D Workpiece Stock Bounding Box Wireframe
+                        // 3. 3D Workpiece Stock Bounding Box Wireframe & Safety Clearance Plane
                         if (showStock && gcodeList.isNotEmpty()) {
-                            val (xRange, yRange, zRange) = boundingBox
-                            val x0 = xRange.first; val x1 = xRange.second
-                            val y0 = yRange.first; val y1 = yRange.second
-                            val z0 = zRange.first; val z1 = zRange.second
+                            val x0 = toolpathMetrics.minX; val x1 = toolpathMetrics.maxX
+                            val y0 = toolpathMetrics.minY; val y1 = toolpathMetrics.maxY
+                            val z0 = toolpathMetrics.minZ; val z1 = toolpathMetrics.maxZ
 
                             // 8 corners of the stock bounding box
                             val p000 = projectPoint(x0, y0, z0, zoomScale, panOffset, perspective)
@@ -605,19 +942,41 @@ fun ToolpathVisualizer3D(
                             drawLine(topWireColor, p101, p111, strokeWidth = 1.5f)
                             drawLine(topWireColor, p111, p011, strokeWidth = 1.5f)
                             drawLine(topWireColor, p011, p001, strokeWidth = 1.5f)
+
+                            // Safety Clearance Plane (Z-Safe)
+                            val zSafe = toolpathMetrics.zSafeRapid
+                            val ps00 = projectPoint(x0, y0, zSafe, zoomScale, panOffset, perspective)
+                            val ps10 = projectPoint(x1, y0, zSafe, zoomScale, panOffset, perspective)
+                            val ps11 = projectPoint(x1, y1, zSafe, zoomScale, panOffset, perspective)
+                            val ps01 = projectPoint(x0, y1, zSafe, zoomScale, panOffset, perspective)
+
+                            val safePoly = Path().apply {
+                                moveTo(ps00.x, ps00.y)
+                                lineTo(ps10.x, ps10.y)
+                                lineTo(ps11.x, ps11.y)
+                                lineTo(ps01.x, ps01.y)
+                                close()
+                            }
+                            drawPath(safePoly, color = Color(0x0C00E676))
+                            val safeBorderColor = Color(0x3300E676)
+                            drawLine(safeBorderColor, ps00, ps10, strokeWidth = 1f, pathEffect = dashEffect)
+                            drawLine(safeBorderColor, ps10, ps11, strokeWidth = 1f, pathEffect = dashEffect)
+                            drawLine(safeBorderColor, ps11, ps01, strokeWidth = 1f, pathEffect = dashEffect)
+                            drawLine(safeBorderColor, ps01, ps00, strokeWidth = 1f, pathEffect = dashEffect)
                         }
 
-                        // 4. Render G-Code Toolpath Segments with Dynamic Chromatic History
+                        // 4. Render G-Code Toolpath Segments with Dynamic Chromatic History & Adaptive LOD
                         val rapidDash = PathEffect.dashPathEffect(floatArrayOf(8f, 6f), 0f)
+                        val currentLineNum = gcodeList.getOrNull(effectiveIndex)?.lineNumber ?: -1
 
-                        gcodeList.forEachIndexed { index, seg ->
-                            if (seg.isRapid && !showRapids) return@forEachIndexed
+                        renderedSegments.forEach { seg ->
+                            if (seg.isRapid && !showRapids) return@forEach
 
                             val p1 = projectPoint(seg.startX, seg.startY, seg.startZ, zoomScale, panOffset, perspective)
                             val p2 = projectPoint(seg.endX, seg.endY, seg.endZ, zoomScale, panOffset, perspective)
 
-                            val isCurrent = index == effectiveIndex
-                            val isPast = index < effectiveIndex
+                            val isCurrent = seg.lineNumber == currentLineNum
+                            val isPast = seg.lineNumber < currentLineNum
                             val isArc = seg.rawText.contains("G2") || seg.rawText.contains("G3") ||
                                     seg.rawText.contains("G02") || seg.rawText.contains("G03")
 
@@ -751,6 +1110,80 @@ fun ToolpathVisualizer3D(
                             radius = 24f,
                             center = toolPos
                         )
+                    }
+
+                    // HUD Heads-Up Display Overlay (Industrial Status & Metrology)
+                    if (showHud) {
+                        Surface(
+                            color = Color(0xDD0B131F),
+                            shape = RoundedCornerShape(6.dp),
+                            border = BorderStroke(1.dp, Color(0x3300E5FF)),
+                            modifier = Modifier
+                                .align(Alignment.TopStart)
+                                .padding(6.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp)) {
+                                // Row 1: Z-MIN & Z-SAFE
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.tp_hud_zmin, toolpathMetrics.zMinCut),
+                                        fontSize = 9.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (toolpathMetrics.zMinCut < -5.0f) CncWarningAmber else CncCyberCyan
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.tp_hud_zsafe, toolpathMetrics.zSafeRapid),
+                                        fontSize = 9.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        fontWeight = FontWeight.Bold,
+                                        color = CncActiveGreen
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(2.dp))
+
+                                // Row 2: Tool Dia, LOD, Vc
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(7.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.tp_hud_tool_dia, activeToolDiameter),
+                                        fontSize = 8.5.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        color = CncDroDigits
+                                    )
+                                    Text(
+                                        text = if (lodStride > 1) "LOD 1:$lodStride" else "LOD 1:1",
+                                        fontSize = 8.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (lodStride > 1) Color(0xFF80D8FF) else CncTextMuted
+                                    )
+                                    Text(
+                                        text = "Vc:${surfaceSpeedMMin.toInt()}",
+                                        fontSize = 8.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        color = CncTextSecondary
+                                    )
+                                }
+
+                                // Row 3: Active Block Delta
+                                if (activeSeg != null) {
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = stringResource(R.string.tp_hud_delta, deltaX, deltaY, deltaZ),
+                                        fontSize = 8.5.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        color = if (activeSeg.isCut) CncActiveGreen else CncWarningAmber
+                                    )
+                                }
+                            }
+                        }
                     }
 
                     // Floating Zoom / Overlay Controls
@@ -1045,6 +1478,7 @@ fun ToolpathVisualizer3D(
             }
         }
     }
+}
 }
 
 /**

@@ -190,6 +190,13 @@
     <string name="tp_dim_info">DIM: X%1$d Y%2$d Z%3$d</string>
     <string name="tp_block_info">BLOCK %1$d/%2$d (%3$d%%)</string>
     <string name="tp_vc_info">Vc: %d m/min</string>
+    <string name="tp_toggle_lod">LOD AUTO</string>
+    <string name="tp_toggle_lod_full">LOD 1:1</string>
+    <string name="tp_hud_zmin">Z-MIN: %1$.2f mm</string>
+    <string name="tp_hud_zsafe">Z-SICHER: %1$.2f mm</string>
+    <string name="tp_hud_plane">SICHERHEITSEBENE</string>
+    <string name="tp_hud_tool_dia">Ø%1$.1f mm</string>
+    <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
 
     <!-- Probing & Calibration -->
     <string name="probing_title">3D TASTER &amp; METROLOGIE (LEVEL 2)</string>
@@ -259,22 +266,22 @@
 
     <!-- Calibration Dialog -->
     <string name="calib_header">ACHSKALIBRIERUNG (ISO 230–2)</string>
-    <string name="calib_subtitle">Steigungsfehler-Mapping &amp; Unsicherheitsbewertung</string>
-    <string name="calib_section1_header">1. KALIBRIERUNGSPARAMETER</string>
-    <string name="calib_init_btn">SITZUNG STARTEN</string>
+    <string name="calib_subtitle">Steigungsfehler-Mapping &amp; Unsicherheit</string>
+    <string name="calib_section1_header">1. PARAMETER &amp; UNSICHERHEIT</string>
+    <string name="calib_init_btn">STARTEN</string>
     <string name="calib_axis_label">ACHSE</string>
-    <string name="calib_travel_label">VERFAHRWEG (mm)</string>
-    <string name="calib_uncertainty_label">INSTR.-UNSICHERHEIT ±(mm)</string>
+    <string name="calib_travel_label">WEG (mm)</string>
+    <string name="calib_uncertainty_label">UNSICHERHEIT ±(mm)</string>
     <string name="calib_presets_label">Presets:</string>
-    <string name="calib_section2_header">2. SCHRITT-FÜR-SCHRITT ASSISTENT</string>
-    <string name="calib_point_info">PUNKT %1$d/%2$d: SEKTOR %3$d%% (%4 $.1f mm)</string>
-    <string name="calib_drive_axis_btn">AUF %s mm FAHREN</string>
+    <string name="calib_section2_header">2. SCHRITT-FÜR-SCHRITT-ASSISTENT (10%)</string>
+    <string name="calib_point_info">PUNKT %1$d/%2$d: %3$d%% (%4$.1f mm)</string>
+    <string name="calib_drive_axis_btn">FAHREN: %s mm</string>
     <string name="calib_step1">• Schritt 1: Achse auf Soll-Position %s mm fahren.</string>
-    <string name="calib_step2">• Schritt 2: Physikalischen Ist-Wert am Messgerät ablesen.</string>
+    <string name="calib_step2">• Schritt 2: Physikalischen Ist-Wert ablesen.</string>
     <string name="calib_step3">• Schritt 3: Gemessenen Wert eingeben.</string>
-    <string name="calib_measured_val_label">GEMESSENER IST-WERT (mm)</string>
-    <string name="calib_save_next_btn">SPEICHERN &amp; WEITER</string>
-    <string name="calib_section3_header">3. FEHLERKÜRVE &amp; UNSICHERHEITSBÄNDER</string>
+    <string name="calib_measured_val_label">MESSWERT (mm)</string>
+    <string name="calib_save_next_btn">SPEICHERN &gt;</string>
+    <string name="calib_section3_header">3. FEHLERKÜRVE &amp; UNSICHERHEIT</string>
     <string name="calib_export_btn">EXPORT comp.tbl</string>
     <string name="calib_max_error">MAX. FEHLER (E_max)</string>
     <string name="calib_uncertainty_band">UNSICHERHEIT U (k=2)</string>
@@ -356,7 +363,7 @@
         <item>Select the axis (X, Y, or Z), travel length, and declare your instrument\'s uncertainty (e.g., ±0.003 mm).</item>
         <item>Press \'INIT SESSION\' to generate the 11 test points.</item>
         <item>For each point, press \'DRIVE AXIS\' to position the head at the nominal coordinate.</item>
-        <item>Read the master instrument, enter the measured value, and press \'SAVE &amp; NEXT\'.</item>
+        <item>Master-Messgerät ablesen, Messwert eingeben (oder Tasten = Nominal und ±1 µm Feinjustierung nutzen) und \'SPEICHERN &amp; WEITER\' drücken.</item>
         <item>At 100% completion, review the error curve and press \'EXPORT comp.tbl\' to copy the compensation table to your LinuxCNC configuration.</item>
     </string-array>
     <string-array name="manual_sec2_safety">

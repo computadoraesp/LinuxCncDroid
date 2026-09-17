@@ -176,7 +176,7 @@ fun VirtualMpgWheel(
                                 text = "AXIS $axisName",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Black,
-                                color = if (isSelected) Color.Black else if (isAvailable) CncTextPrimary else CncTextSecondary.copy(alpha = 0.4f)
+                                color = if (isSelected) Color.Black else if (isAvailable) CncTextPrimary else CncTextMuted
                             )
                         }
                     }

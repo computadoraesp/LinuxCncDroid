@@ -25,6 +25,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import com.example.ui.components.CarouselNavButton
+import com.example.ui.components.CncErrorBoundary
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BatteryAlert
@@ -70,6 +71,7 @@ import com.example.R
 import com.example.model.CncNavigationTab
 import com.example.model.LogSeverity
 import com.example.model.ScreenTimeoutPolicy
+import com.example.service.CncAuditExporter
 import com.example.ui.components.AlarmEventLogView
 import com.example.ui.components.AppManualDialog
 import com.example.ui.components.AxisCalibrationDialog
@@ -595,17 +597,22 @@ fun CncMainScreen(
                     }
 
                     CncNavigationTab.TOOLPATH -> {
-                        ToolpathVisualizer3D(
-                            gcodeList = loadedGCode,
-                            activeLineIndex = activeGCodeLine,
-                            axes = axes,
-                            fileName = loadedFileName,
-                            elapsedSeconds = cycleElapsedSeconds,
-                            estimatedTotalSeconds = cycleEstimatedTotalSeconds,
-                            feedRate = feed.actualFeed,
-                            spindleRpm = spindle.actualRpm,
-                            activeToolDiameter = activeTool.diameter,
-                        ) { viewModel.setShowCyberScanDialog(show = true) }
+                        CncErrorBoundary(
+                            componentName = "Visualizador 3D G-Code",
+                            onReset = { /* resets locally */ }
+                        ) {
+                            ToolpathVisualizer3D(
+                                gcodeList = loadedGCode,
+                                activeLineIndex = activeGCodeLine,
+                                axes = axes,
+                                fileName = loadedFileName,
+                                elapsedSeconds = cycleElapsedSeconds,
+                                estimatedTotalSeconds = cycleEstimatedTotalSeconds,
+                                feedRate = feed.actualFeed,
+                                spindleRpm = spindle.actualRpm,
+                                activeToolDiameter = activeTool.diameter,
+                            ) { viewModel.setShowCyberScanDialog(show = true) }
+                        }
 
                         // Compact Spindle / Cycle Control Bar below Toolpath
                         SpindleFeedPanel(
@@ -627,15 +634,17 @@ fun CncMainScreen(
                     }
 
                     CncNavigationTab.CAMERA -> {
-                        IndustrialCameraView(
-                            machineState = machineState,
-                            axes = axes,
-                            currentWcs = currentCoordSystem,
-                            unitSystem = unitSystem,
-                            onJogAxis = { axis, delta -> viewModel.stepJog(axis, if (delta > 0) 1 else -1) },
-                            onZeroAxis = { viewModel.zeroAxis(it) },
-                            onZeroWithOffset = { offX, offY -> viewModel.setWorkOriginWithCameraOffset(offX, offY) },
-                        )
+                        CncErrorBoundary(componentName = "Cámara & Visión Artificial") {
+                            IndustrialCameraView(
+                                machineState = machineState,
+                                axes = axes,
+                                currentWcs = currentCoordSystem,
+                                unitSystem = unitSystem,
+                                onJogAxis = { axis, delta -> viewModel.stepJog(axis, if (delta > 0) 1 else -1) },
+                                onZeroAxis = { viewModel.zeroAxis(it) },
+                                onZeroWithOffset = { offX, offY -> viewModel.setWorkOriginWithCameraOffset(offX, offY) },
+                            )
+                        }
                     }
 
                     CncNavigationTab.PROBING -> {
@@ -645,17 +654,21 @@ fun CncMainScreen(
                             unitSystem = unitSystem,
                         ) { viewModel.zeroAxis(it) }
 
-                        ProbingView(
-                            probeInfo = probe,
-                            onExecuteRoutine = { viewModel.triggerProbe(it) },
-                        )
+                        CncErrorBoundary(componentName = "Ciclos de Palpado") {
+                            ProbingView(
+                                probeInfo = probe,
+                                onExecuteRoutine = { viewModel.triggerProbe(it) },
+                            )
+                        }
                     }
 
                     CncNavigationTab.ETHERCAT -> {
-                        EtherCatTelemetryView(
-                            masterInfo = etherCatMaster,
-                            slaves = etherCatSlaves,
-                        )
+                        CncErrorBoundary(componentName = "Bus de Campo EtherCAT") {
+                            EtherCatTelemetryView(
+                                masterInfo = etherCatMaster,
+                                slaves = etherCatSlaves,
+                            )
+                        }
                     }
 
                     CncNavigationTab.MDI -> {
@@ -679,6 +692,18 @@ fun CncMainScreen(
                         AlarmEventLogView(
                             logs = eventLogs,
                             onClearLogs = { viewModel.clearLogs() },
+                            onGenerateReport = {
+                                CncAuditExporter.generateTextReport(
+                                    machineState = machineState,
+                                    capabilities = capabilities,
+                                    axes = axes,
+                                    spindle = spindle,
+                                    feed = feed,
+                                    etherCatMaster = etherCatMaster,
+                                    etherCatSlaves = etherCatSlaves,
+                                    logs = eventLogs,
+                                )
+                            },
                         )
                     }
 

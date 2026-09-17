@@ -27,10 +27,10 @@ val AxisAColor = Color(0xFFFFD740)
 val AxisBColor = Color(0xFFE040FB)
 val AxisCColor = Color(0xFFFF9100)
 
-// Text Colors
-val CncTextPrimary = Color(0xFFF0F4F8)
-val CncTextSecondary = Color(0xFF90A4AE)
-val CncTextMuted = Color(0xFF607D8B)
+// Text Colors (High-Contrast Industrial Tactical)
+val CncTextPrimary = Color(0xFFF8FAFC)
+val CncTextSecondary = Color(0xFFCBD5E1)
+val CncTextMuted = Color(0xFF94A3B8)
 val CncDroDigits = Color(0xFFE0F7FA)
 
 // Color Aliases

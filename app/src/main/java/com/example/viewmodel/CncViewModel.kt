@@ -38,7 +38,7 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
         application,
         CncAppDatabase::class.java,
         "linuxcnc_hmi.db",
-    ).build()
+    ).fallbackToDestructiveMigration(dropAllTables = true).build()
 
     // State flows from engine
     val machineState: StateFlow<MachineStateEnum> = engine.machineState
@@ -118,19 +118,27 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     val userRole: StateFlow<UserRole> = _userRole.asStateFlow()
 
     // Active Unit System: METRIC (G21 / mm) vs IMPERIAL (G20 / inch)
-    private val _unitSystem = MutableStateFlow(UnitSystem.METRIC)
+    private val _unitSystem = MutableStateFlow(
+        savedStateHandle.get<String>("unit_system")?.let { runCatching { UnitSystem.valueOf(it) }.getOrNull() } ?: UnitSystem.METRIC
+    )
     val unitSystem: StateFlow<UnitSystem> = _unitSystem.asStateFlow()
 
     // Selected Jog increment step
-    private val _jogStep = MutableStateFlow(1.0) // 1.0mm or 0.1in default
+    private val _jogStep = MutableStateFlow(
+        savedStateHandle.get<Double>("jog_step") ?: 1.0
+    ) // 1.0mm or 0.1in default
     val jogStep: StateFlow<Double> = _jogStep.asStateFlow()
 
     // Jog mode: Continuous vs Step
-    private val _isContinuousJog = MutableStateFlow(value = true)
+    private val _isContinuousJog = MutableStateFlow(
+        savedStateHandle.get<Boolean>("is_continuous_jog") ?: true
+    )
     val isContinuousJog: StateFlow<Boolean> = _isContinuousJog.asStateFlow()
 
     // Jog Speed slider
-    private val _jogSpeedMmMin = MutableStateFlow(1500.0)
+    private val _jogSpeedMmMin = MutableStateFlow(
+        savedStateHandle.get<Double>("jog_speed") ?: 1500.0
+    )
     val jogSpeedMmMin: StateFlow<Double> = _jogSpeedMmMin.asStateFlow()
 
     // MDI Input
@@ -167,9 +175,11 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
 
     /** Reads the sticky battery broadcast once at startup to populate initial state. */
     private fun readBatteryStatus() {
-        val ctx = getApplication<Application>()
-        val intent: Intent? = ctx.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        intent?.let { updateBatteryState(it) }
+        try {
+            val ctx = getApplication<Application>()
+            val intent: Intent? = ctx.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            intent?.let { updateBatteryState(it) }
+        } catch (_: Exception) {}
     }
 
     /** Called from MainActivity whenever the system sends a battery-changed broadcast. */
@@ -447,7 +457,10 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
 
     fun setUnitSystem(unit: UnitSystem) {
         _unitSystem.value = unit
-        _jogStep.value = if (unit == UnitSystem.IMPERIAL) 0.010 else 1.000
+        val newStep = if (unit == UnitSystem.IMPERIAL) 0.010 else 1.000
+        _jogStep.value = newStep
+        savedStateHandle["unit_system"] = unit.name
+        savedStateHandle["jog_step"] = newStep
         feedbackManager.triggerActionClick()
         engine.logEvent(
             LogSeverity.INFO,
@@ -633,15 +646,18 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     fun setJogStep(step: Double) {
         feedbackManager.triggerJogTick()
         _jogStep.value = step
+        savedStateHandle["jog_step"] = step
     }
 
     fun setJogMode(continuous: Boolean) {
         feedbackManager.triggerActionClick()
         _isContinuousJog.value = continuous
+        savedStateHandle["is_continuous_jog"] = continuous
     }
 
     fun setJogSpeed(speed: Double) {
         _jogSpeedMmMin.value = speed
+        savedStateHandle["jog_speed"] = speed
     }
 
     fun setMdiText(text: String) {

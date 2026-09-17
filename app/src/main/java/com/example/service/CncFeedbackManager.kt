@@ -18,7 +18,11 @@ class CncFeedbackManager(context: Context) {
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     private val attributionContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        context.createAttributionContext("vibration")
+        try {
+            context.createAttributionContext("vibration")
+        } catch (_: Exception) {
+            context
+        }
     } else {
         context
     }

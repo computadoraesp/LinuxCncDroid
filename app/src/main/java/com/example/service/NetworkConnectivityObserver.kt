@@ -66,9 +66,15 @@ class NetworkConnectivityObserver(
                 }
             }
 
-            connectivityManager.registerDefaultNetworkCallback(callback)
+            try {
+                connectivityManager.registerDefaultNetworkCallback(callback)
+            } catch (_: Exception) {
+                launch { send(ConnectivityObserver.Status.Available) }
+            }
             awaitClose {
-                connectivityManager.unregisterNetworkCallback(callback)
+                try {
+                    connectivityManager.unregisterNetworkCallback(callback)
+                } catch (_: Exception) {}
             }
         }.distinctUntilChanged()
     }

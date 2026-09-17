@@ -2,18 +2,28 @@ package com.example.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.RotateRight
@@ -96,105 +106,127 @@ fun ToolTableDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
-        Card(
-            colors = CardDefaults.cardColors(containerColor = CncSurfaceBg),
-            shape = RoundedCornerShape(16.dp),
-            border = CardDefaults.outlinedCardBorder().copy(brush = SolidColor(CncCardBorder)),
+        BoxWithConstraints(
             modifier = Modifier
-                .fillMaxWidth(0.95f)
-                .fillMaxHeight(0.88f),
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+                .padding(horizontal = 10.dp, vertical = 8.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                // Header
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+            val isCompact = maxWidth < 600.dp
+            Card(
+                colors = CardDefaults.cardColors(containerColor = CncSurfaceBg),
+                shape = RoundedCornerShape(14.dp),
+                border = CardDefaults.outlinedCardBorder().copy(brush = SolidColor(CncCardBorder)),
+                modifier = Modifier
+                    .fillMaxWidth(if (isCompact) 1f else 0.92f)
+                    .fillMaxHeight(if (isCompact) 0.96f else 0.90f),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(if (isCompact) 10.dp else 16.dp)
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Construction,
-                            contentDescription = stringResource(R.string.tt_header),
-                            tint = CncCyberCyan,
-                            modifier = Modifier.size(24.dp),
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Column {
-                            Text(
-                                text = stringResource(R.string.tt_header),
-                                fontWeight = FontWeight.Black,
-                                fontSize = 14.sp,
-                                color = CncTextPrimary,
-                            )
-                            Text(
-                                text = stringResource(R.string.tt_mounted_info, activeTool.id, activeTool.description),
-                                fontSize = 10.sp,
-                                fontFamily = FontFamily.Monospace,
-                                color = CncWarningAmber,
-                            )
-                        }
-                    }
-
-                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        FilledTonalButton(
-                            onClick = { showAddDialog = true },
-                            shape = RoundedCornerShape(6.dp),
-                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                            colors = ButtonDefaults.filledTonalButtonColors(containerColor = CncSurfaceVariant),
+                    // Header
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f, fill = false)
                         ) {
-                            Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.tool_new), modifier = Modifier.size(14.dp))
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(stringResource(R.string.tool_new), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
+                            Icon(
+                                imageVector = Icons.Default.Construction,
+                                contentDescription = stringResource(R.string.tt_header),
+                                tint = CncCyberCyan,
+                                modifier = Modifier.size(if (isCompact) 20.dp else 24.dp),
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.tt_header),
+                                    fontWeight = FontWeight.Black,
+                                    fontSize = if (isCompact) 12.sp else 14.sp,
+                                    color = CncTextPrimary,
+                                    maxLines = 1
+                                )
+                                Text(
+                                    text = stringResource(R.string.tt_mounted_info, activeTool.id, activeTool.description),
+                                    fontSize = 9.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = CncWarningAmber,
+                                    maxLines = 1
+                                )
+                            }
                         }
 
-                        IconButton(onClick = onDismiss, modifier = Modifier.size(32.dp)) {
-                            Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = CncTextSecondary)
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            FilledTonalButton(
+                                onClick = { showAddDialog = true },
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 3.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(containerColor = CncSurfaceVariant),
+                            ) {
+                                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.tool_new), modifier = Modifier.size(14.dp))
+                                Spacer(modifier = Modifier.width(3.dp))
+                                Text(stringResource(R.string.tool_new), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
+                            }
+
+                            IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
+                                Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = CncTextSecondary)
+                            }
                         }
                     }
-                }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
 
-                // Filter chips
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    FilterChip(
-                        selected = selectedFilter == null,
-                        onClick = { selectedFilter = null },
-                        label = { Text(stringResource(R.string.tt_all_filter, tools.size), fontSize = 9.sp) },
-                        colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = CncCyberCyan,
-                            selectedLabelColor = Color(0xFF00363D)
-                        )
-                    )
-
-                    ToolType.entries.toTypedArray().take(4).forEach { type ->
-                        val count = tools.count { it.toolType == type }
-                        if (count > 0) {
+                    // Filter chips in a scrollable Row for portrait/compact compatibility
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        item {
                             FilterChip(
-                                selected = selectedFilter == type,
-                                onClick = { selectedFilter = if (selectedFilter == type) null else type },
-                                label = { Text(stringResource(type.displayNameRes) + " ($count)", fontSize = 9.sp) },
+                                selected = selectedFilter == null,
+                                onClick = { selectedFilter = null },
+                                label = { Text(stringResource(R.string.tt_all_filter, tools.size), fontSize = 9.sp) },
                                 colors = FilterChipDefaults.filterChipColors(
                                     selectedContainerColor = CncCyberCyan,
                                     selectedLabelColor = Color(0xFF00363D)
                                 )
                             )
                         }
+
+                        items(ToolType.entries.toTypedArray()) { type ->
+                            val count = tools.count { it.toolType == type }
+                            if (count > 0) {
+                                FilterChip(
+                                    selected = selectedFilter == type,
+                                    onClick = { selectedFilter = if (selectedFilter == type) null else type },
+                                    label = { Text(stringResource(type.displayNameRes) + " ($count)", fontSize = 9.sp) },
+                                    colors = FilterChipDefaults.filterChipColors(
+                                        selectedContainerColor = CncCyberCyan,
+                                        selectedLabelColor = Color(0xFF00363D)
+                                    )
+                                )
+                            }
+                        }
                     }
-                }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
 
-                // Tool Table List
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
+                    // Tool Table List
+                    LazyColumn(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
                     items(filteredTools, key = { it.id }) { toolItem ->
                         ToolCardItem(
                             tool = toolItem,
@@ -207,6 +239,7 @@ fun ToolTableDialog(
                     }
                 }
             }
+        }
         }
     }
 
@@ -459,14 +492,31 @@ fun EditToolDetailsDialog(
     var maxRpmStr by remember { mutableStateOf(tool.maxRpm.toInt().toString()) }
     var selectedType by remember { mutableStateOf(tool.toolType) }
 
-    Dialog(onDismissRequest = onDismiss) {
-        Card(
-            colors = CardDefaults.cardColors(containerColor = CncSurfaceBg),
-            shape = RoundedCornerShape(14.dp),
-            border = CardDefaults.outlinedCardBorder().copy(brush = SolidColor(CncCardBorder)),
-            modifier = Modifier.fillMaxWidth(0.95f)
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
+            Card(
+                colors = CardDefaults.cardColors(containerColor = CncSurfaceBg),
+                shape = RoundedCornerShape(14.dp),
+                border = CardDefaults.outlinedCardBorder().copy(brush = SolidColor(CncCardBorder)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                        .padding(16.dp)
+                ) {
                 Text(
                     text = if (isNew) stringResource(R.string.tt_new_title) else stringResource(R.string.tt_edit_title, tool.id),
                     fontSize = 13.sp,
@@ -589,6 +639,7 @@ fun EditToolDetailsDialog(
                     }
                 }
             }
+        }
         }
     }
 }

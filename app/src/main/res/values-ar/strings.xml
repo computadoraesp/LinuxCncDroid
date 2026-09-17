@@ -190,6 +190,13 @@
     <string name="tp_dim_info">الأبعاد: X%1$d Y%2$d Z%3$d</string>
     <string name="tp_block_info">الكتلة %1$d/%2$d (%3$d%%)</string>
     <string name="tp_vc_info">السرعة: %d م/دقيقة</string>
+    <string name="tp_toggle_lod">LOD AUTO</string>
+    <string name="tp_toggle_lod_full">LOD 1:1</string>
+    <string name="tp_hud_zmin">Z أدنى: %1$.2f مم</string>
+    <string name="tp_hud_zsafe">Z أمان: %1$.2f مم</string>
+    <string name="tp_hud_plane">مستوى الأمان (G0)</string>
+    <string name="tp_hud_tool_dia">Ø%1$.1f مم</string>
+    <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
 
     <!-- Probing & Calibration -->
     <string name="probing_title">المجس ثلاثي الأبعاد والمترولوجيا (المستوى 2)</string>
@@ -356,7 +363,7 @@
         <item>Select the axis (X, Y, or Z), travel length, and declare your instrument\'s uncertainty (e.g., ±0.003 mm).</item>
         <item>Press \'INIT SESSION\' to generate the 11 test points.</item>
         <item>For each point, press \'DRIVE AXIS\' to position the head at the nominal coordinate.</item>
-        <item>Read the master instrument, enter the measured value, and press \'SAVE &amp; NEXT\'.</item>
+        <item>قراءة أداة القياس المرجعية، وإدخال القيمة المقاسة (أو استخدام أزرار الضبط الدقيق ±1 µm والاختصار = Nominal)، ثم الضغط على \'SAVE &amp; NEXT\'.</item>
         <item>At 100% completion, review the error curve and press \'EXPORT comp.tbl\' to copy the compensation table to your LinuxCNC configuration.</item>
     </string-array>
     <string-array name="manual_sec2_safety">

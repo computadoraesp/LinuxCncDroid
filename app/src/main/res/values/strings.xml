@@ -226,6 +226,13 @@
     <string name="tp_dim_info">DIM: X%1$d Y%2$d Z%3$d</string>
     <string name="tp_block_info">BLOCK %1$d/%2$d (%3$d%%)</string>
     <string name="tp_vc_info">Vc: %d m/min</string>
+    <string name="tp_toggle_lod">LOD AUTO</string>
+    <string name="tp_toggle_lod_full">LOD 1:1</string>
+    <string name="tp_hud_zmin">Z-MIN: %1$.2f mm</string>
+    <string name="tp_hud_zsafe">Z-SAFE: %1$.2f mm</string>
+    <string name="tp_hud_plane">SAFETY PLANE</string>
+    <string name="tp_hud_tool_dia">Ø%1$.1f mm</string>
+    <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
 
     <!-- Probing & Calibration -->
     <string name="probing_title">3D PROBE &amp; METROLOGY (LEVEL 2)</string>
@@ -264,6 +271,12 @@
     <string name="logs_title">ALARM EVENT LOG</string>
     <string name="logs_clear">CLEAR LOGS</string>
     <string name="logs_simulate_alarm">SIMULATE ALARM</string>
+    <string name="logs_export_audit">AUDIT REPORT</string>
+    <string name="logs_copied_to_clipboard">Report copied to clipboard</string>
+    <string name="logs_share_report">SHARE WITH MAINTENANCE</string>
+    <string name="logs_copy_report">COPY REPORT</string>
+    <string name="logs_close">CLOSE</string>
+    <string name="logs_audit_modal_title">INDUSTRIAL AUDIT &amp; TELEMETRY REPORT</string>
 
     <string name="logs_filter_all">ALL</string>
     <string name="logs_filter_errors">ERRORS</string>
@@ -294,27 +307,27 @@
     <string name="config_ip_address_placeholder">IP Address (e.g. 192.168.1.100 or 10.42.0.1)</string>
 
     <!-- Calibration Dialog -->
-    <string name="calib_header">METROLOGICAL AXIS CALIBRATION (ISO 230–2)</string>
-    <string name="calib_subtitle">Screw Pitch Error Mapping &amp; Expanded Uncertainty Evaluation</string>
-    <string name="calib_section1_header">1. CALIBRATION PARAMETERS &amp; INSTRUMENT UNCERTAINTY</string>
-    <string name="calib_init_btn">INIT SESSION</string>
+    <string name="calib_header">AXIS CALIBRATION (ISO 230–2)</string>
+    <string name="calib_subtitle">Pitch Error Mapping &amp; Uncertainty (ISO 230-2)</string>
+    <string name="calib_section1_header">1. PARAMETERS &amp; UNCERTAINTY</string>
+    <string name="calib_init_btn">INIT</string>
     <string name="calib_axis_label">AXIS</string>
-    <string name="calib_travel_label">TOTAL TRAVEL (mm)</string>
-    <string name="calib_uncertainty_label">INST. UNCERTAINTY ±(mm)</string>
+    <string name="calib_travel_label">TRAVEL (mm)</string>
+    <string name="calib_uncertainty_label">UNCERTAINTY ±(mm)</string>
     <string name="calib_presets_label">Presets:</string>
-    <string name="calib_section2_header">2. STEP-BY-STEP CALIBRATION WIZARD (EVERY 10% TRAVEL)</string>
-    <string name="calib_point_info">POINT %1$d/%2$d : SECTOR %3$d%% (%4$.1f mm)</string>
-    <string name="calib_drive_axis_btn">DRIVE AXIS TO %smm</string>
-    <string name="calib_step1">• Step 1: Position the axis at the nominal coordinate %s mm.</string>
-    <string name="calib_step2">• Step 2: Perform the physical reading on the master instrument (dial/micrometer).</string>
-    <string name="calib_step3">• Step 3: Enter the observed actual measured value.</string>
-    <string name="calib_measured_val_label">ACTUAL MEASURED VALUE (mm)</string>
+    <string name="calib_section2_header">2. STEP-BY-STEP WIZARD (10% STEPS)</string>
+    <string name="calib_point_info">POINT %1$d/%2$d: %3$d%% (%4$.1f mm)</string>
+    <string name="calib_drive_axis_btn">GO TO %s mm</string>
+    <string name="calib_step1">• Step 1: Position axis at nominal coordinate %s mm.</string>
+    <string name="calib_step2">• Step 2: Read physical value on master instrument.</string>
+    <string name="calib_step3">• Step 3: Enter observed actual measured value.</string>
+    <string name="calib_measured_val_label">MEASURED VAL (mm)</string>
     <string name="calib_save_next_btn">SAVE &amp; NEXT</string>
-    <string name="calib_section3_header">3. METROLOGY ERROR CURVE &amp; UNCERTAINTY BANDS</string>
+    <string name="calib_section3_header">3. ERROR CURVE &amp; UNCERTAINTY</string>
     <string name="calib_export_btn">EXPORT comp.tbl</string>
     <string name="calib_max_error">MAX ERROR (E_max)</string>
-    <string name="calib_uncertainty_band">EXPANDED UNCERTAINTY U (k=2)</string>
-    <string name="calib_mean_bias">MEAN SECTOR BIAS</string>
+    <string name="calib_uncertainty_band">UNCERTAINTY U (k=2)</string>
+    <string name="calib_mean_bias">MEAN BIAS</string>
     <string name="calib_export_title">LinuxCNC Screw Comp Table (comp.tbl)</string>
     <string name="calib_export_text">This compensation table maps the errors for every 10%% of the axis directly into the LinuxCNC HAL (linear_comp module) for real-time compensation:</string>
     <string name="calib_copy_clipboard">COPY TO CLIPBOARD</string>
@@ -389,7 +402,7 @@
         <item>Select the axis (X, Y, or Z), travel length, and declare your instrument\'s uncertainty (e.g., ±0.003 mm).</item>
         <item>Press \'INIT SESSION\' to generate the 11 test points.</item>
         <item>For each point, press \'DRIVE AXIS\' to position the head at the nominal coordinate.</item>
-        <item>Read the master instrument, enter the measured value, and press \'SAVE &amp; NEXT\'.</item>
+        <item>Read the master instrument, enter the measured value (or use the = Nominal shortcut and ±1 µm micro-adjust chips), and press \'SAVE &amp; NEXT\'.</item>
         <item>At 100% completion, review the error curve and press \'EXPORT comp.tbl\' to copy the compensation table to your LinuxCNC configuration.</item>
     </string-array>
     <string-array name="manual_sec2_safety">

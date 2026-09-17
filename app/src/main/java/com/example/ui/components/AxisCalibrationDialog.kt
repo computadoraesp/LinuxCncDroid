@@ -13,26 +13,36 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -82,6 +92,10 @@ import androidx.compose.ui.res.stringResource
 import com.example.R
 import com.example.model.AxisCalibrationPoint
 import com.example.model.AxisCalibrationSession
+import com.example.ui.theme.AxisAColor
+import com.example.ui.theme.AxisXColor
+import com.example.ui.theme.AxisYColor
+import com.example.ui.theme.AxisZColor
 import com.example.ui.theme.CncActiveGreen
 import com.example.ui.theme.CncBackground
 import com.example.ui.theme.CncCardBorder
@@ -141,79 +155,90 @@ fun AxisCalibrationDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
-        Card(
-            modifier = modifier
-                .fillMaxWidth(0.96f)
-                .fillMaxHeight(0.94f),
-            shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(containerColor = CncSurface),
-            border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.5f)),
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+                .padding(horizontal = 10.dp, vertical = 8.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+            val isCompact = maxWidth < 600.dp
+            Card(
+                modifier = modifier
+                    .fillMaxWidth(if (isCompact) 1f else 0.94f)
+                    .fillMaxHeight(if (isCompact) 0.96f else 0.92f),
+                shape = RoundedCornerShape(14.dp),
+                colors = CardDefaults.cardColors(containerColor = CncSurface),
+                border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.5f)),
             ) {
-                // Header
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(if (isCompact) 10.dp else 16.dp),
                 ) {
+                    // Header
                     Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        Box(
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.weight(1f, fill = false)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(if (isCompact) 28.dp else 36.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(CncCyberCyan.copy(alpha = 0.15f))
+                                    .border(1.dp, CncCyberCyan, RoundedCornerShape(8.dp)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Straighten,
+                                    contentDescription = "Metrology",
+                                    tint = CncCyberCyan,
+                                    modifier = Modifier.size(if (isCompact) 16.dp else 20.dp)
+                                )
+                            }
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.calib_header),
+                                    color = CncCyberCyan,
+                                    fontSize = if (isCompact) 11.sp else 13.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Monospace,
+                                    maxLines = 1
+                                )
+                                Text(
+                                    text = stringResource(R.string.calib_subtitle),
+                                    color = CncTextSecondary,
+                                    fontSize = 8.5.sp,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+
+                        IconButton(
+                            onClick = onDismiss,
                             modifier = Modifier
-                                .size(36.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(CncCyberCyan.copy(alpha = 0.15f))
-                                .border(1.dp, CncCyberCyan, RoundedCornerShape(8.dp)),
-                            contentAlignment = Alignment.Center
+                                .size(28.dp)
+                                .background(CncSurfaceVariant, CircleShape)
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Straighten,
-                                contentDescription = "Metrology",
-                                tint = CncCyberCyan,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                        Column {
-                            Text(
-                                text = stringResource(R.string.calib_header),
-                                color = CncCyberCyan,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Monospace
-                            )
-                            Text(
-                                text = stringResource(R.string.calib_subtitle),
-                                color = CncTextSecondary,
-                                fontSize = 9.sp
+                                imageVector = Icons.Default.Close,
+                                contentDescription = stringResource(R.string.common_close),
+                                tint = CncTextPrimary,
+                                modifier = Modifier.size(15.dp)
                             )
                         }
                     }
 
-                    IconButton(
-                        onClick = onDismiss,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .background(CncSurfaceVariant, CircleShape)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = stringResource(R.string.common_close),
-                            tint = CncTextPrimary,
-                            modifier = Modifier.size(16.dp)
-                        )
-                    }
-                }
-
-                HorizontalDivider(
-                    color = CncCardBorder,
-                    modifier = Modifier.padding(vertical = 10.dp)
-                )
+                    HorizontalDivider(
+                        color = CncCardBorder,
+                        modifier = Modifier.padding(vertical = if (isCompact) 6.dp else 10.dp)
+                    )
 
                 Column(
                     modifier = Modifier
@@ -265,23 +290,37 @@ fun AxisCalibrationDialog(
                                 }
                             }
 
+                            // Row 1: Axis Selector and Init button
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                // Axis Selector
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(stringResource(R.string.calib_axis_label), color = CncTextSecondary, fontSize = 9.sp)
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.calib_axis_label),
+                                        color = CncTextSecondary,
+                                        fontSize = 9.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                     Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                         listOf("X", "Y", "Z", "A").forEach { axis ->
                                             val isSel = selectedAxis == axis
+                                            val axisColor = when (axis) {
+                                                "X" -> AxisXColor
+                                                "Y" -> AxisYColor
+                                                "Z" -> AxisZColor
+                                                else -> AxisAColor
+                                            }
                                             Box(
                                                 modifier = Modifier
-                                                    .weight(1f)
-                                                    .height(32.dp)
+                                                    .size(width = 32.dp, height = 30.dp)
                                                     .clip(RoundedCornerShape(4.dp))
-                                                    .background(if (isSel) CncCyberCyan else CncSurface)
-                                                    .border(1.dp, if (isSel) CncCyberCyan else CncCardBorder, RoundedCornerShape(4.dp))
+                                                    .background(if (isSel) axisColor else CncSurface)
+                                                    .border(1.dp, if (isSel) axisColor else CncCardBorder, RoundedCornerShape(4.dp))
                                                     .clickable { selectedAxis = axis },
                                                 contentAlignment = Alignment.Center
                                             ) {
@@ -296,109 +335,95 @@ fun AxisCalibrationDialog(
                                     }
                                 }
 
-                                // Total Travel
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(stringResource(R.string.calib_travel_label), color = CncTextSecondary, fontSize = 9.sp)
-                                    OutlinedTextField(
-                                        value = totalTravelText,
-                                        onValueChange = { totalTravelText = it },
-                                        singleLine = true,
-                                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                                        colors = OutlinedTextFieldDefaults.colors(
-                                            focusedContainerColor = CncSurface,
-                                            unfocusedContainerColor = CncSurface,
-                                            focusedBorderColor = CncCyberCyan,
-                                            unfocusedBorderColor = CncCardBorder,
-                                            focusedTextColor = CncDroDigits,
-                                            unfocusedTextColor = CncDroDigits
-                                        ),
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(48.dp)
+                                Button(
+                                    onClick = {
+                                        val travel = totalTravelText.toDoubleOrNull() ?: 600.0
+                                        val uInst = instrumentUncertaintyText.toDoubleOrNull() ?: 0.003
+                                        onStartSession(selectedAxis, travel, intervalPercent, instrumentName, uInst)
+                                        currentStepIndex = 0
+                                    },
+                                    colors = ButtonDefaults.buttonColors(containerColor = CncCyberCyan),
+                                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                                    modifier = Modifier.height(30.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.PlayArrow,
+                                        contentDescription = stringResource(R.string.common_init),
+                                        tint = Color.Black,
+                                        modifier = Modifier.size(14.dp)
                                     )
-                                }
-
-                                // Instrument Uncertainty
-                                Column(modifier = Modifier.weight(1.2f)) {
-                                    Text(stringResource(R.string.calib_uncertainty_label), color = CncTextSecondary, fontSize = 9.sp)
-                                    OutlinedTextField(
-                                        value = instrumentUncertaintyText,
-                                        onValueChange = { instrumentUncertaintyText = it },
-                                        singleLine = true,
-                                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                                        colors = OutlinedTextFieldDefaults.colors(
-                                            focusedContainerColor = CncSurface,
-                                            unfocusedContainerColor = CncSurface,
-                                            focusedBorderColor = CncCyberCyan,
-                                            unfocusedBorderColor = CncCardBorder,
-                                            focusedTextColor = CncWarningAmber,
-                                            unfocusedTextColor = CncWarningAmber
-                                        ),
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(48.dp)
-                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(stringResource(R.string.calib_init_btn), color = Color.Black, fontSize = 9.5.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
 
-                            // Quick instrument presets
+                            // Row 2: Generous numeric input fields with unit badges (no truncation)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                IndustrialNumericField(
+                                    value = totalTravelText,
+                                    onValueChange = { totalTravelText = it },
+                                    label = stringResource(R.string.calib_travel_label),
+                                    unit = "mm",
+                                    textColor = CncDroDigits,
+                                    modifier = Modifier.weight(1f)
+                                )
+
+                                IndustrialNumericField(
+                                    value = instrumentUncertaintyText,
+                                    onValueChange = { instrumentUncertaintyText = it },
+                                    label = stringResource(R.string.calib_uncertainty_label),
+                                    unit = "±mm",
+                                    textColor = CncWarningAmber,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+
+                            // Row 3: Quick instrument presets chips with horizontal scroll
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(stringResource(R.string.calib_presets_label), color = CncTextMuted, fontSize = 8.5.sp)
-                                Row(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(CncSurface)
-                                        .border(0.5.dp, CncCardBorder, RoundedCornerShape(4.dp))
-                                        .clickable {
-                                            instrumentName = context.getString(R.string.calib_preset_dial)
-                                            instrumentUncertaintyText = "0.003"
-                                        }
-                                        .padding(horizontal = 6.dp, vertical = 2.dp)
-                                ) {
-                                    Text(stringResource(R.string.calib_preset_dial), color = CncTextSecondary, fontSize = 8.sp)
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(CncSurface)
-                                        .border(0.5.dp, CncCardBorder, RoundedCornerShape(4.dp))
-                                        .clickable {
-                                            instrumentName = context.getString(R.string.calib_preset_glass)
-                                            instrumentUncertaintyText = "0.001"
-                                        }
-                                        .padding(horizontal = 6.dp, vertical = 2.dp)
-                                ) {
-                                    Text(stringResource(R.string.calib_preset_glass), color = CncTextSecondary, fontSize = 8.sp)
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(CncSurface)
-                                        .border(0.5.dp, CncCardBorder, RoundedCornerShape(4.dp))
-                                        .clickable {
-                                            instrumentName = context.getString(R.string.calib_preset_micrometer)
-                                            instrumentUncertaintyText = "0.002"
-                                        }
-                                        .padding(horizontal = 6.dp, vertical = 2.dp)
-                                ) {
-                                    Text(stringResource(R.string.calib_preset_micrometer), color = CncTextSecondary, fontSize = 8.sp)
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(CncSurface)
-                                        .border(0.5.dp, CncCardBorder, RoundedCornerShape(4.dp))
-                                        .clickable {
-                                            instrumentName = context.getString(R.string.calib_preset_laser)
-                                            instrumentUncertaintyText = "0.0005"
-                                        }
-                                        .padding(horizontal = 6.dp, vertical = 2.dp)
-                                ) {
-                                    Text(stringResource(R.string.calib_preset_laser), color = CncTextSecondary, fontSize = 8.sp)
+                                Text(
+                                    text = stringResource(R.string.calib_presets_label),
+                                    color = CncTextMuted,
+                                    fontSize = 8.5.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                listOf(
+                                    Triple(stringResource(R.string.calib_preset_dial), "0.003", context.getString(R.string.calib_preset_dial)),
+                                    Triple(stringResource(R.string.calib_preset_glass), "0.001", context.getString(R.string.calib_preset_glass)),
+                                    Triple(stringResource(R.string.calib_preset_micrometer), "0.002", context.getString(R.string.calib_preset_micrometer)),
+                                    Triple(stringResource(R.string.calib_preset_laser), "0.0005", context.getString(R.string.calib_preset_laser)),
+                                ).forEach { (label, uVal, name) ->
+                                    val isSelected = instrumentUncertaintyText == uVal
+                                    Box(
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(4.dp))
+                                            .background(if (isSelected) CncCyberCyan.copy(alpha = 0.15f) else CncSurface)
+                                            .border(
+                                                width = 1.dp,
+                                                color = if (isSelected) CncCyberCyan else CncCardBorder,
+                                                shape = RoundedCornerShape(4.dp)
+                                            )
+                                            .clickable {
+                                                instrumentName = name
+                                                instrumentUncertaintyText = uVal
+                                            }
+                                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                                    ) {
+                                        Text(
+                                            text = label,
+                                            color = if (isSelected) CncCyberCyan else CncTextSecondary,
+                                            fontSize = 8.sp,
+                                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -575,56 +600,132 @@ fun AxisCalibrationDialog(
                                             }
                                         }
 
+                                        // High-visibility numeric field with ample space for decimals
+                                        IndustrialNumericField(
+                                            value = inputMeasuredText,
+                                            onValueChange = { inputMeasuredText = it },
+                                            label = stringResource(R.string.calib_measured_val_label),
+                                            unit = "mm",
+                                            placeholder = String.format(Locale.US, "%.4f", activePt.nominalPositionMm),
+                                            textColor = CncActiveGreen,
+                                            focusedBorderColor = CncActiveGreen,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+
+                                        // Quick micro-adjust chips (Nominal, -1µm, +1µm, Clear)
                                         Row(
                                             modifier = Modifier.fillMaxWidth(),
-                                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                            horizontalArrangement = Arrangement.spacedBy(6.dp),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            OutlinedTextField(
-                                                value = inputMeasuredText,
-                                                onValueChange = { inputMeasuredText = it },
-                                                label = { Text(stringResource(R.string.calib_measured_val_label), fontSize = 8.5.sp) },
-                                                singleLine = true,
-                                                placeholder = { Text(activePt.nominalPositionMm.toString(), fontSize = 9.sp) },
-                                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                                                colors = OutlinedTextFieldDefaults.colors(
-                                                    focusedContainerColor = CncSurfaceVariant,
-                                                    unfocusedContainerColor = CncSurfaceVariant,
-                                                    focusedBorderColor = CncActiveGreen,
-                                                    unfocusedBorderColor = CncCardBorder,
-                                                    focusedTextColor = CncDroDigits,
-                                                    unfocusedTextColor = CncDroDigits
-                                                ),
+                                            // Copy nominal
+                                            Box(
                                                 modifier = Modifier
-                                                    .weight(1.5f)
-                                                    .height(52.dp)
-                                            )
-
-                                            Button(
-                                                onClick = {
-                                                    val measuredVal = inputMeasuredText.toDoubleOrNull() ?: activePt.nominalPositionMm
-                                                    onRecordPoint(activePt.stepIndex, measuredVal)
-                                                    if (currentStepIndex < (pointsList.size - 1)) {
-                                                        currentStepIndex++
-                                                        val nextPt = pointsList[currentStepIndex]
-                                                        inputMeasuredText = nextPt.measuredPositionMm?.let { String.format(Locale.US, "%.4f", it) } ?: ""
+                                                    .clip(RoundedCornerShape(4.dp))
+                                                    .background(CncSurfaceVariant)
+                                                    .border(0.5.dp, CncCyberCyan.copy(alpha = 0.5f), RoundedCornerShape(4.dp))
+                                                    .clickable {
+                                                        inputMeasuredText = String.format(Locale.US, "%.4f", activePt.nominalPositionMm)
                                                     }
-                                                },
-                                                colors = ButtonDefaults.buttonColors(containerColor = CncActiveGreen),
-                                                shape = RoundedCornerShape(6.dp),
-                                                modifier = Modifier
-                                                    .weight(1f)
-                                                    .height(52.dp)
+                                                    .padding(horizontal = 8.dp, vertical = 4.dp)
                                             ) {
-                                                Icon(
-                                                    imageVector = Icons.Default.Check,
-                                                    contentDescription = stringResource(R.string.common_save),
-                                                    tint = Color.Black,
-                                                    modifier = Modifier.size(16.dp)
+                                                Text(
+                                                    text = "= Nominal",
+                                                    color = CncCyberCyan,
+                                                    fontSize = 8.5.sp,
+                                                    fontFamily = FontFamily.Monospace,
+                                                    fontWeight = FontWeight.Bold
                                                 )
-                                                Spacer(modifier = Modifier.width(4.dp))
-                                                Text(stringResource(R.string.calib_save_next_btn), color = Color.Black, fontSize = 9.sp, fontWeight = FontWeight.Bold)
                                             }
+
+                                            // -1 µm (-0.001)
+                                            Box(
+                                                modifier = Modifier
+                                                    .clip(RoundedCornerShape(4.dp))
+                                                    .background(CncSurfaceVariant)
+                                                    .border(0.5.dp, CncCardBorder, RoundedCornerShape(4.dp))
+                                                    .clickable {
+                                                        val cur = inputMeasuredText.toDoubleOrNull() ?: activePt.nominalPositionMm
+                                                        inputMeasuredText = String.format(Locale.US, "%.4f", cur - 0.001)
+                                                    }
+                                                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                                            ) {
+                                                Text(
+                                                    text = "-1 µm",
+                                                    color = CncTextPrimary,
+                                                    fontSize = 8.5.sp,
+                                                    fontFamily = FontFamily.Monospace
+                                                )
+                                            }
+
+                                            // +1 µm (+0.001)
+                                            Box(
+                                                modifier = Modifier
+                                                    .clip(RoundedCornerShape(4.dp))
+                                                    .background(CncSurfaceVariant)
+                                                    .border(0.5.dp, CncCardBorder, RoundedCornerShape(4.dp))
+                                                    .clickable {
+                                                        val cur = inputMeasuredText.toDoubleOrNull() ?: activePt.nominalPositionMm
+                                                        inputMeasuredText = String.format(Locale.US, "%.4f", cur + 0.001)
+                                                    }
+                                                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                                            ) {
+                                                Text(
+                                                    text = "+1 µm",
+                                                    color = CncTextPrimary,
+                                                    fontSize = 8.5.sp,
+                                                    fontFamily = FontFamily.Monospace
+                                                )
+                                            }
+
+                                            // Clear
+                                            Box(
+                                                modifier = Modifier
+                                                    .clip(RoundedCornerShape(4.dp))
+                                                    .background(CncSurfaceVariant)
+                                                    .border(0.5.dp, CncCardBorder, RoundedCornerShape(4.dp))
+                                                    .clickable { inputMeasuredText = "" }
+                                                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                                            ) {
+                                                Text(
+                                                    text = "CLR",
+                                                    color = CncTextMuted,
+                                                    fontSize = 8.5.sp,
+                                                    fontFamily = FontFamily.Monospace
+                                                )
+                                            }
+                                        }
+
+                                        // Prominent Save & Next button
+                                        Button(
+                                            onClick = {
+                                                val measuredVal = inputMeasuredText.toDoubleOrNull() ?: activePt.nominalPositionMm
+                                                onRecordPoint(activePt.stepIndex, measuredVal)
+                                                if (currentStepIndex < (pointsList.size - 1)) {
+                                                    currentStepIndex++
+                                                    val nextPt = pointsList[currentStepIndex]
+                                                    inputMeasuredText = nextPt.measuredPositionMm?.let { String.format(Locale.US, "%.4f", it) } ?: ""
+                                                }
+                                            },
+                                            colors = ButtonDefaults.buttonColors(containerColor = CncActiveGreen),
+                                            shape = RoundedCornerShape(6.dp),
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(40.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Check,
+                                                contentDescription = stringResource(R.string.common_save),
+                                                tint = Color.Black,
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(
+                                                text = stringResource(R.string.calib_save_next_btn),
+                                                color = Color.Black,
+                                                fontSize = 10.5.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
                                         }
                                     }
                                 }
@@ -714,6 +815,7 @@ fun AxisCalibrationDialog(
                         }
                     }
                 }
+                }
             }
         }
     }
@@ -792,12 +894,106 @@ private fun MetricBox(
             .clip(RoundedCornerShape(6.dp))
             .background(CncSurface)
             .border(1.dp, CncCardBorder, RoundedCornerShape(6.dp))
-            .padding(8.dp),
+            .padding(horizontal = 8.dp, vertical = 6.dp),
     ) {
-        Column {
-            Text(label, color = CncTextSecondary, fontSize = 7.5.sp, fontFamily = FontFamily.Monospace)
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(value, color = color, fontSize = 11.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace)
+        Column(verticalArrangement = Arrangement.Center) {
+            Text(
+                text = label,
+                color = CncTextSecondary,
+                fontSize = 8.sp,
+                fontFamily = FontFamily.Monospace,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                lineHeight = 10.sp
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = value,
+                color = color,
+                fontSize = 11.5.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+}
+
+@Composable
+private fun IndustrialNumericField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    unit: String? = null,
+    modifier: Modifier = Modifier,
+    placeholder: String = "",
+    textColor: Color = CncDroDigits,
+    borderColor: Color = CncCardBorder,
+    focusedBorderColor: Color = CncCyberCyan,
+    keyboardType: KeyboardType = KeyboardType.Decimal,
+) {
+    var isFocused by remember { mutableStateOf(false) }
+    Column(modifier = modifier) {
+        Text(
+            text = label,
+            color = CncTextSecondary,
+            fontSize = 8.5.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        Spacer(modifier = Modifier.height(3.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(42.dp)
+                .clip(RoundedCornerShape(6.dp))
+                .background(CncSurface)
+                .border(
+                    width = 1.dp,
+                    color = if (isFocused) focusedBorderColor else borderColor,
+                    shape = RoundedCornerShape(6.dp)
+                )
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                if (value.isEmpty() && placeholder.isNotEmpty()) {
+                    Text(
+                        text = placeholder,
+                        color = CncTextMuted,
+                        fontSize = 12.5.sp,
+                        fontFamily = FontFamily.Monospace
+                    )
+                }
+                BasicTextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    singleLine = true,
+                    textStyle = TextStyle(
+                        color = textColor,
+                        fontSize = 12.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Monospace
+                    ),
+                    cursorBrush = SolidColor(focusedBorderColor),
+                    keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onFocusChanged { isFocused = it.isFocused }
+                )
+            }
+            if (unit != null) {
+                Text(
+                    text = unit,
+                    color = CncTextMuted,
+                    fontSize = 9.sp,
+                    fontFamily = FontFamily.Monospace,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+            }
         }
     }
 }

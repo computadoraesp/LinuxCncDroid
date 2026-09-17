@@ -7,16 +7,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -102,79 +106,90 @@ fun AppManualDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
-        Card(
-            modifier = modifier
-                .fillMaxWidth(0.96f)
-                .fillMaxHeight(0.94f),
-            shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(containerColor = CncSurface),
-            border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.5f)),
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+                .padding(horizontal = 10.dp, vertical = 8.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+            val isCompact = maxWidth < 600.dp
+            Card(
+                modifier = modifier
+                    .fillMaxWidth(if (isCompact) 1f else 0.94f)
+                    .fillMaxHeight(if (isCompact) 0.96f else 0.92f),
+                shape = RoundedCornerShape(14.dp),
+                colors = CardDefaults.cardColors(containerColor = CncSurface),
+                border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.5f)),
             ) {
-                // Header
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(if (isCompact) 10.dp else 16.dp),
                 ) {
+                    // Header
                     Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Box(
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.weight(1f, fill = false)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(if (isCompact) 28.dp else 36.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(CncCyberCyan.copy(alpha = 0.15f))
+                                    .border(1.dp, CncCyberCyan, RoundedCornerShape(8.dp)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.MenuBook,
+                                    contentDescription = "Manual",
+                                    tint = CncCyberCyan,
+                                    modifier = Modifier.size(if (isCompact) 16.dp else 20.dp)
+                                )
+                            }
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.manual_title),
+                                    color = CncCyberCyan,
+                                    fontSize = if (isCompact) 11.sp else 13.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Monospace,
+                                    maxLines = 1
+                                )
+                                Text(
+                                    text = stringResource(R.string.manual_subtitle),
+                                    color = CncTextSecondary,
+                                    fontSize = 8.5.sp,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+
+                        IconButton(
+                            onClick = onDismiss,
                             modifier = Modifier
-                                .size(36.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(CncCyberCyan.copy(alpha = 0.15f))
-                                .border(1.dp, CncCyberCyan, RoundedCornerShape(8.dp)),
-                            contentAlignment = Alignment.Center
+                                .size(28.dp)
+                                .background(CncSurfaceVariant, CircleShape)
                         ) {
                             Icon(
-                                imageVector = Icons.AutoMirrored.Filled.MenuBook,
-                                contentDescription = "Manual",
-                                tint = CncCyberCyan,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                        Column {
-                            Text(
-                                text = stringResource(R.string.manual_title),
-                                color = CncCyberCyan,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Monospace
-                            )
-                            Text(
-                                text = stringResource(R.string.manual_subtitle),
-                                color = CncTextSecondary,
-                                fontSize = 9.sp,
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Close",
+                                tint = CncTextPrimary,
+                                modifier = Modifier.size(15.dp)
                             )
                         }
                     }
 
-                    IconButton(
-                        onClick = onDismiss,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .background(CncSurfaceVariant, CircleShape)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "Close",
-                            tint = CncTextPrimary,
-                            modifier = Modifier.size(16.dp)
-                        )
-                    }
-                }
-
-                HorizontalDivider(
-                    color = CncCardBorder,
-                    modifier = Modifier.padding(vertical = 10.dp)
-                )
+                    HorizontalDivider(
+                        color = CncCardBorder,
+                        modifier = Modifier.padding(vertical = if (isCompact) 6.dp else 10.dp)
+                    )
 
                 // Search Bar
                 OutlinedTextField(
@@ -408,6 +423,7 @@ fun AppManualDialog(
                             }
                         }
                     }
+                }
                 }
             }
         }

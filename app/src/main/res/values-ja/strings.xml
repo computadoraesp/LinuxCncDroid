@@ -190,6 +190,13 @@
     <string name="tp_dim_info">サイズ: X%1$d Y%2$d Z%3$d</string>
     <string name="tp_block_info">ブロック %1$d/%2$d (%3$d%%)</string>
     <string name="tp_vc_info">Vc: %d m/min</string>
+    <string name="tp_toggle_lod">LOD AUTO</string>
+    <string name="tp_toggle_lod_full">LOD 1:1</string>
+    <string name="tp_hud_zmin">Z最小: %1$.2f mm</string>
+    <string name="tp_hud_zsafe">Z安全高: %1$.2f mm</string>
+    <string name="tp_hud_plane">安全退避面</string>
+    <string name="tp_hud_tool_dia">Ø%1$.1f mm</string>
+    <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
 
     <!-- Probing & Calibration -->
     <string name="probing_title">3D プローブ計測 (LEVEL 2)</string>
@@ -355,7 +362,7 @@
         <item>Select the axis (X, Y, or Z), travel length, and declare your instrument\'s uncertainty (e.g., ±0.003 mm).</item>
         <item>Press \'INIT SESSION\' to generate the 11 test points.</item>
         <item>For each point, press \'DRIVE AXIS\' to position the head at the nominal coordinate.</item>
-        <item>Read the master instrument, enter the measured value, and press \'SAVE &amp; NEXT\'.</item>
+        <item>マスター測定器を読み取り、測定値を入力（または「= Nominal」や「±1 µm」微調整チップを使用）して「SAVE &amp; NEXT」を押します。</item>
         <item>At 100% completion, review the error curve and press \'EXPORT comp.tbl\' to copy the compensation table to your LinuxCNC configuration.</item>
     </string-array>
     <string-array name="manual_sec2_safety">
