@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.aistudio.linuxcncdroid.vjxrkm",
+      "sha256_cert_fingerprints":
+        ["F2:94:0F:DB:B5:E6:EF:34:83:B8:1B:2E:FF:74:AF:5B:29:E5:39:9F:2D:60:82:DC:B6:31:4F:58:60:CA:F7:D7"]
+    }
+  }
+]
