@@ -44,3 +44,8 @@ debug.keystore
 
 # --- Cache ---
 .cache/
+
+# --- Extras / Cache ---
+.kotlin/
+.navigation/
+*.versions.toml.bak
