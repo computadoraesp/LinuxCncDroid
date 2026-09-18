@@ -1,4 +1,5 @@
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
+import java.util.Properties
 
 plugins {
   alias(libs.plugins.android.application)
@@ -11,12 +12,12 @@ plugins {
 
 android {
   namespace = "com.example"
-  compileSdk { version = release(36) { minorApiLevel = 1 } }
+  compileSdk = libs.versions.compileSdk.get().toInt()
 
   defaultConfig {
     applicationId = "com.aistudio.linuxcncdroid.vjxrkm"
-    minSdk = 24
-    targetSdk = 35
+    minSdk = libs.versions.minSdk.get().toInt()
+    targetSdk = libs.versions.targetSdk.get().toInt()
     versionCode = 4
     versionName = "3.1"
 
@@ -24,18 +25,17 @@ android {
   }
 
   signingConfigs {
-    create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "$rootDir/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD") ?: "password"
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD") ?: "password"
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+      localPropertiesFile.inputStream().use { localProperties.load(it) }
     }
-    create("debugConfig") {
-      storeFile = file("$rootDir/debug.keystore")
-      storePassword = "android"
-      keyAlias = "androiddebugkey"
-      keyPassword = "android"
+
+    create("release") {
+      storeFile = file("$rootDir/upload-keystore.jks")
+      storePassword = localProperties.getProperty("release.keystore.password") ?: ""
+      keyAlias = localProperties.getProperty("release.key.alias") ?: "upload"
+      keyPassword = localProperties.getProperty("release.key.password") ?: ""
     }
   }
 
@@ -47,11 +47,12 @@ android {
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       signingConfig = signingConfigs.getByName("release")
     }
-    debug { signingConfig = signingConfigs.getByName("debugConfig") }
+    debug {// signingConfig = signingConfigs.getByName("debugConfig")
+    }
   }
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
   buildFeatures {
     compose = true
@@ -62,6 +63,10 @@ android {
     includeInApk = false
     includeInBundle = true
   }
+}
+
+kotlin {
+  jvmToolchain(libs.versions.jvmTarget.get().toInt())
 }
 
 // Configure the Secrets Gradle Plugin to use .env and .env.example files
