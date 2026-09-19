@@ -25,6 +25,51 @@ class LinuxCncEngine {
     private val _currentCoordSystem = MutableStateFlow("G54")
     val currentCoordSystem: StateFlow<String> = _currentCoordSystem.asStateFlow()
 
+    // Work Coordinate Systems (G54 through G59.3)
+    private val initialWcsOffsets = linkedMapOf(
+        "G54" to WcsOffset(name = "G54", pIndex = 1, x = 100.000, y = 70.000, z = -30.000, a = 0.0, comment = "Vise 1 - Front Left Jaw"),
+        "G55" to WcsOffset(name = "G55", pIndex = 2, x = 250.000, y = 70.000, z = -30.000, a = 0.0, comment = "Vise 2 - Center Plate"),
+        "G56" to WcsOffset(name = "G56", pIndex = 3, x = 400.000, y = 70.000, z = -30.000, a = 0.0, comment = "Vise 3 - 4th Axis Chuck"),
+        "G57" to WcsOffset(name = "G57", pIndex = 4, x = 0.000, y = 0.000, z = 0.000, a = 0.0, comment = "Fixture 4"),
+        "G58" to WcsOffset(name = "G58", pIndex = 5, x = 0.000, y = 0.000, z = 0.000, a = 0.0, comment = "Fixture 5"),
+        "G59" to WcsOffset(name = "G59", pIndex = 6, x = 0.000, y = 0.000, z = 0.000, a = 0.0, comment = "Fixture 6"),
+        "G59.1" to WcsOffset(name = "G59.1", pIndex = 7, x = 0.000, y = 0.000, z = 0.000, a = 0.0, comment = "Auxiliary 1"),
+        "G59.2" to WcsOffset(name = "G59.2", pIndex = 8, x = 0.000, y = 0.000, z = 0.000, a = 0.0, comment = "Auxiliary 2"),
+        "G59.3" to WcsOffset(name = "G59.3", pIndex = 9, x = 0.000, y = 0.000, z = 0.000, a = 0.0, comment = "Toolsetter Reference")
+    )
+
+    private val _wcsOffsets = MutableStateFlow<Map<String, WcsOffset>>(initialWcsOffsets)
+    val wcsOffsets: StateFlow<Map<String, WcsOffset>> = _wcsOffsets.asStateFlow()
+
+    // Real-time HAL Pins & Signals
+    private val initialHalPins = listOf(
+        HalPin("hal.air-pressure-ok", HalPinCategory.SAFETY, HalPinType.BIT, booleanValue = true, description = "Main Pneumatic Pressure > 6.0 Bar (Pneumatics OK)"),
+        HalPin("hal.cabinet-door-closed", HalPinCategory.SAFETY, HalPinType.BIT, booleanValue = true, description = "Enclosure Safety Interlock (Door Closed)"),
+        HalPin("hal.lube-level-ok", HalPinCategory.SAFETY, HalPinType.BIT, booleanValue = true, description = "Automatic Ways Lubrication Tank Level Normal"),
+        HalPin("motion.feed-inhibit", HalPinCategory.SAFETY, HalPinType.BIT, booleanValue = false, description = "Feed Inhibit Active (Holds motion if triggered)"),
+
+        HalPin("joint.0.home-sw-in", HalPinCategory.LIMIT_SWITCHES, HalPinType.BIT, booleanValue = false, description = "X-Axis Reference Limit Switch"),
+        HalPin("joint.1.home-sw-in", HalPinCategory.LIMIT_SWITCHES, HalPinType.BIT, booleanValue = false, description = "Y-Axis Reference Limit Switch"),
+        HalPin("joint.2.home-sw-in", HalPinCategory.LIMIT_SWITCHES, HalPinType.BIT, booleanValue = false, description = "Z-Axis Reference Limit Switch (Top)"),
+        HalPin("joint.3.home-sw-in", HalPinCategory.LIMIT_SWITCHES, HalPinType.BIT, booleanValue = false, description = "A-Axis (Rotary) Index Pulse Switch"),
+
+        HalPin("spindle.0.at-speed", HalPinCategory.SPINDLE, HalPinType.BIT, booleanValue = true, description = "VFD Inverter Ready & Commanded RPM Reached"),
+        HalPin("spindle.0.is-oriented", HalPinCategory.SPINDLE, HalPinType.BIT, booleanValue = true, description = "Spindle M19 Orientation Locked for ATC"),
+        HalPin("spindle.0.brake", HalPinCategory.SPINDLE, HalPinType.BIT, booleanValue = false, description = "Pneumatic Spindle Shaft Brake Engaged"),
+
+        HalPin("motion.adaptive-feed", HalPinCategory.MOTION, HalPinType.FLOAT, floatValue = 1.0, description = "Real-Time Adaptive Feed Override Multiplier"),
+        HalPin("motion.in-position", HalPinCategory.MOTION, HalPinType.BIT, booleanValue = true, description = "Trajectory Planner In-Position Flag"),
+
+        HalPin("iocontrol.0.tool-prep-ok", HalPinCategory.IO_EXPANSION, HalPinType.BIT, booleanValue = true, description = "Carousel Pocket Ready for Tool Exchange"),
+        HalPin("iocontrol.0.tool-change-ok", HalPinCategory.IO_EXPANSION, HalPinType.BIT, booleanValue = true, description = "ATC Arm Cycle Complete & Tool Clamped")
+    )
+
+    private val _halPins = MutableStateFlow<List<HalPin>>(initialHalPins)
+    val halPins: StateFlow<List<HalPin>> = _halPins.asStateFlow()
+
+    val mdiValidator = MdiSyntaxValidator()
+    val softLimitsPreChecker = SoftLimitsPreChecker()
+
     // Axes
     private val _axes = MutableStateFlow(
         mapOf(
@@ -188,6 +233,13 @@ class LinuxCncEngine {
     // GCode & Program execution
     private val _activeGCodeLine = MutableStateFlow(0)
     val activeGCodeLine: StateFlow<Int> = _activeGCodeLine.asStateFlow()
+
+    // PRO MODULE 5: Active Modal G-Code State & Execution Modifiers
+    private val _modalState = MutableStateFlow(ModalGCodeState())
+    val modalState: StateFlow<ModalGCodeState> = _modalState.asStateFlow()
+
+    private val _executionModifiers = MutableStateFlow(ExecutionModifiers())
+    val executionModifiers: StateFlow<ExecutionModifiers> = _executionModifiers.asStateFlow()
 
     private val _loadedGCode = MutableStateFlow<List<GCodeSegment>>(emptyList())
     val loadedGCode: StateFlow<List<GCodeSegment>> = _loadedGCode.asStateFlow()
@@ -380,7 +432,28 @@ class LinuxCncEngine {
                                 loadTorquePct = 30.0 + (Math.random() * 5.0)
                             )
                         } else {
-                            val nextLine = (currentLine + 1)
+                            // Update modal state based on completed line
+                            updateModalStateFromSegment(seg)
+
+                            // Check Execution Modifiers (Single Block, Optional Stop M1, Block Delete)
+                            val modifiers = _executionModifiers.value
+                            val isM1 = seg.rawText.contains("M1") || seg.rawText.contains("M01")
+
+                            if (modifiers.singleBlockMode) {
+                                _machineState.value = MachineStateEnum.PAUSED
+                                logEvent(LogSeverity.INFO, "CYCLE", "SINGLE BLOCK: Stepped to block ${seg.lineNumber}. Paused for next cycle.")
+                            } else if (modifiers.optionalStopM1 && isM1) {
+                                _machineState.value = MachineStateEnum.PAUSED
+                                logEvent(LogSeverity.WARNING, "CYCLE", "OPTIONAL STOP (M1): Paused at line ${seg.lineNumber} by operator condition.")
+                            }
+
+                            // Advance to next valid line, respecting Block Delete ('/' skip)
+                            var nextLine = currentLine + 1
+                            while (nextLine < gcodeList.size && modifiers.blockDelete && gcodeList[nextLine].rawText.trim().startsWith("/")) {
+                                logEvent(LogSeverity.INFO, "CYCLE", "BLOCK DELETE: Skipped block ${gcodeList[nextLine].rawText.trim()}")
+                                nextLine++
+                            }
+
                             if (nextLine >= gcodeList.size) {
                                 _machineState.value = MachineStateEnum.IDLE
                                 logEvent(LogSeverity.INFO, "CYCLE", "Program Completed Successfully")
@@ -480,7 +553,192 @@ class LinuxCncEngine {
 
     fun setCoordinateSystem(gSystem: String) {
         _currentCoordSystem.value = gSystem
+        recalculateWorkPositionsForActiveWcs()
+        logEvent(LogSeverity.INFO, "WCS", "Active Work Coordinate System switched to $gSystem")
         sendRemoteCommand("SET_G_COORD", mapOf("coord" to gSystem))
+    }
+
+    /**
+     * Recalculates work positions for all axes: WorkPos = MachinePos - ActiveWcsOffset
+     */
+    fun recalculateWorkPositionsForActiveWcs() {
+        val activeOffset = _wcsOffsets.value[_currentCoordSystem.value] ?: return
+        val currentAxes = _axes.value.toMutableMap()
+        currentAxes["X"]?.let {
+            currentAxes["X"] = it.copy(workPos = round((it.machinePos - activeOffset.x) * 1000.0) / 1000.0)
+        }
+        currentAxes["Y"]?.let {
+            currentAxes["Y"] = it.copy(workPos = round((it.machinePos - activeOffset.y) * 1000.0) / 1000.0)
+        }
+        currentAxes["Z"]?.let {
+            currentAxes["Z"] = it.copy(workPos = round((it.machinePos - activeOffset.z) * 1000.0) / 1000.0)
+        }
+        currentAxes["A"]?.let {
+            currentAxes["A"] = it.copy(workPos = round((it.machinePos - activeOffset.a) * 1000.0) / 1000.0)
+        }
+        _axes.value = currentAxes
+    }
+
+    /**
+     * Workshop Touch-Off for an axis against the active WCS:
+     * Calculates the offset so that the current physical position equals [targetWorkValue].
+     * Offset = MachinePos - TargetWorkValue
+     */
+    fun touchOff(axis: String, targetWorkValue: Double = 0.0) {
+        val axisObj = _axes.value[axis] ?: return
+        val currentWcsName = _currentCoordSystem.value
+        val existingOffset = _wcsOffsets.value[currentWcsName] ?: return
+
+        val newOffsetVal = round((axisObj.machinePos - targetWorkValue) * 1000.0) / 1000.0
+        val updatedOffset = when (axis.uppercase(Locale.ROOT)) {
+            "X" -> existingOffset.copy(x = newOffsetVal)
+            "Y" -> existingOffset.copy(y = newOffsetVal)
+            "Z" -> existingOffset.copy(z = newOffsetVal)
+            "A" -> existingOffset.copy(a = newOffsetVal)
+            else -> existingOffset
+        }
+
+        val updatedMap = _wcsOffsets.value.toMutableMap()
+        updatedMap[currentWcsName] = updatedOffset
+        _wcsOffsets.value = updatedMap
+
+        recalculateWorkPositionsForActiveWcs()
+        logEvent(LogSeverity.INFO, "TOUCH-OFF", "Touch-Off on $axis: Set to $targetWorkValue mm in $currentWcsName (Offset=$newOffsetVal)")
+        sendRemoteCommand("TOUCH_OFF", mapOf("coord" to currentWcsName, "axis" to axis, "target" to targetWorkValue, "pIndex" to updatedOffset.pIndex))
+    }
+
+    /**
+     * Direct update of a coordinate offset for any WCS (G54..G59.3)
+     */
+    fun setWcsOffset(name: String, axis: String, offsetValue: Double) {
+        val existingOffset = _wcsOffsets.value[name] ?: return
+        val roundedVal = round(offsetValue * 1000.0) / 1000.0
+        val updatedOffset = when (axis.uppercase(Locale.ROOT)) {
+            "X" -> existingOffset.copy(x = roundedVal)
+            "Y" -> existingOffset.copy(y = roundedVal)
+            "Z" -> existingOffset.copy(z = roundedVal)
+            "A" -> existingOffset.copy(a = roundedVal)
+            else -> existingOffset
+        }
+
+        val updatedMap = _wcsOffsets.value.toMutableMap()
+        updatedMap[name] = updatedOffset
+        _wcsOffsets.value = updatedMap
+
+        if (name == _currentCoordSystem.value) {
+            recalculateWorkPositionsForActiveWcs()
+        }
+        logEvent(LogSeverity.INFO, "WCS", "Updated $name offset $axis = $roundedVal mm")
+        sendRemoteCommand("SET_WCS_OFFSET", mapOf("coord" to name, "axis" to axis, "offset" to roundedVal, "pIndex" to updatedOffset.pIndex))
+    }
+
+    fun syncWcsOffsetsFromDatabase(offsets: List<WcsOffset>) {
+        if (offsets.isEmpty()) return
+        val map = _wcsOffsets.value.toMutableMap()
+        for (item in offsets) {
+            map[item.name] = item
+        }
+        _wcsOffsets.value = map
+        recalculateWorkPositionsForActiveWcs()
+    }
+
+    /**
+     * Real-time HAL Pin state toggle (for simulation and shop floor troubleshooting)
+     */
+    fun toggleHalPin(pinName: String) {
+        val currentPins = _halPins.value.toMutableList()
+        val index = currentPins.indexOfFirst { it.name == pinName }
+        if (index != -1) {
+            val pin = currentPins[index]
+            val toggled = pin.copy(booleanValue = !pin.booleanValue)
+            currentPins[index] = toggled
+            _halPins.value = currentPins
+            logEvent(LogSeverity.INFO, "HAL", "Pin ${pin.name} set to ${toggled.booleanValue}")
+            sendRemoteCommand("SET_HAL_PIN", mapOf("pin" to pinName, "val" to toggled.booleanValue))
+        }
+    }
+
+    /**
+     * Professional MDI Command Execution with prior syntax validation and hardware dispatch
+     */
+    fun executeMdiCommand(rawCmd: String): Result<String> {
+        val validation = mdiValidator.validate(rawCmd)
+        if (!validation.isValid) {
+            val errorMsg = validation.errorMessage ?: "Invalid MDI Command"
+            logEvent(LogSeverity.ERROR, "MDI_ERROR", errorMsg)
+            return Result.failure(IllegalArgumentException(errorMsg))
+        }
+
+        val upper = rawCmd.trim().uppercase(Locale.ROOT)
+
+        // Parse Spindle commands
+        if (upper.contains("M3") || upper.contains("M03")) {
+            val sMatch = Regex("S(\\d+(?:\\.\\d+)?)").find(upper)
+            val rpm = sMatch?.groupValues?.get(1)?.toDoubleOrNull() ?: _spindle.value.commandedRpm
+            setSpindleRpm(rpm)
+            _spindle.value = _spindle.value.copy(isEnabled = true, isClockwise = true)
+            sendRemoteCommand("SPINDLE_CW", mapOf("rpm" to rpm))
+        } else if (upper.contains("M4") || upper.contains("M04")) {
+            val sMatch = Regex("S(\\d+(?:\\.\\d+)?)").find(upper)
+            val rpm = sMatch?.groupValues?.get(1)?.toDoubleOrNull() ?: _spindle.value.commandedRpm
+            setSpindleRpm(rpm)
+            _spindle.value = _spindle.value.copy(isEnabled = true, isClockwise = false)
+            sendRemoteCommand("SPINDLE_CCW", mapOf("rpm" to rpm))
+        } else if (upper.contains("M5") || upper.contains("M05")) {
+            _spindle.value = _spindle.value.copy(isEnabled = false)
+            sendRemoteCommand("SPINDLE_STOP", emptyMap())
+        }
+
+        // Parse WCS selection commands
+        val wcsCommand = listOf("G54", "G55", "G56", "G57", "G58", "G59", "G59.1", "G59.2", "G59.3").find { upper.contains(it) }
+        if (wcsCommand != null) {
+            setCoordinateSystem(wcsCommand)
+        }
+
+        // Parse Motion commands in simulation mode
+        if (_isSimulatedMode.value && (upper.contains("G0") || upper.contains("G00") || upper.contains("G1") || upper.contains("G01"))) {
+            val xMatch = Regex("X([+-]?\\d+(?:\\.\\d+)?)").find(upper)
+            val yMatch = Regex("Y([+-]?\\d+(?:\\.\\d+)?)").find(upper)
+            val zMatch = Regex("Z([+-]?\\d+(?:\\.\\d+)?)").find(upper)
+            val aMatch = Regex("A([+-]?\\d+(?:\\.\\d+)?)").find(upper)
+
+            val currentAxes = _axes.value.toMutableMap()
+            val activeOffset = _wcsOffsets.value[_currentCoordSystem.value]
+
+            xMatch?.groupValues?.get(1)?.toDoubleOrNull()?.let { targetWorkX ->
+                currentAxes["X"]?.let { axis ->
+                    val offset = activeOffset?.x ?: 0.0
+                    val newMach = (targetWorkX + offset).coerceIn(axis.minLimit, axis.maxLimit)
+                    currentAxes["X"] = axis.copy(workPos = targetWorkX, machinePos = round(newMach * 1000.0) / 1000.0)
+                }
+            }
+            yMatch?.groupValues?.get(1)?.toDoubleOrNull()?.let { targetWorkY ->
+                currentAxes["Y"]?.let { axis ->
+                    val offset = activeOffset?.y ?: 0.0
+                    val newMach = (targetWorkY + offset).coerceIn(axis.minLimit, axis.maxLimit)
+                    currentAxes["Y"] = axis.copy(workPos = targetWorkY, machinePos = round(newMach * 1000.0) / 1000.0)
+                }
+            }
+            zMatch?.groupValues?.get(1)?.toDoubleOrNull()?.let { targetWorkZ ->
+                currentAxes["Z"]?.let { axis ->
+                    val offset = activeOffset?.z ?: 0.0
+                    val newMach = (targetWorkZ + offset).coerceIn(axis.minLimit, axis.maxLimit)
+                    currentAxes["Z"] = axis.copy(workPos = targetWorkZ, machinePos = round(newMach * 1000.0) / 1000.0)
+                }
+            }
+            aMatch?.groupValues?.get(1)?.toDoubleOrNull()?.let { targetWorkA ->
+                currentAxes["A"]?.let { axis ->
+                    val offset = activeOffset?.a ?: 0.0
+                    val newMach = (targetWorkA + offset).coerceIn(axis.minLimit, axis.maxLimit)
+                    currentAxes["A"] = axis.copy(workPos = targetWorkA, machinePos = round(newMach * 1000.0) / 1000.0)
+                }
+            }
+            _axes.value = currentAxes
+        }
+
+        logEvent(LogSeverity.INFO, "MDI", "MDI Executed: $rawCmd")
+        sendRemoteCommand("MDI", mapOf("command" to rawCmd))
+        return Result.success(rawCmd)
     }
 
     // Motion & Jog Commands
@@ -1101,5 +1359,127 @@ class LinuxCncEngine {
             sb.append(String.format(Locale.US, "%10.4f  %10.4f  %10.4f  %10.4f\n", nominal, comp, nominal, comp))
         }
         return sb.toString()
+    }
+
+    // ============================================================================
+    // PRO MODULE 5: MODAL STATE PARSER & RUN-FROM-LINE IMPLEMENTATION
+    // ============================================================================
+    fun setSingleBlockMode(enabled: Boolean) {
+        _executionModifiers.value = _executionModifiers.value.copy(singleBlockMode = enabled)
+        logEvent(LogSeverity.INFO, "CYCLE", "Single Block Mode ${if (enabled) "ENABLED" else "DISABLED"}")
+        sendRemoteCommand("SET_SINGLE_BLOCK", mapOf("enabled" to enabled))
+    }
+
+    fun setOptionalStop(enabled: Boolean) {
+        _executionModifiers.value = _executionModifiers.value.copy(optionalStopM1 = enabled)
+        logEvent(LogSeverity.INFO, "CYCLE", "Optional Stop (M1) ${if (enabled) "ENABLED" else "DISABLED"}")
+        sendRemoteCommand("SET_OPTIONAL_STOP", mapOf("enabled" to enabled))
+    }
+
+    fun setBlockDelete(enabled: Boolean) {
+        _executionModifiers.value = _executionModifiers.value.copy(blockDelete = enabled)
+        logEvent(LogSeverity.INFO, "CYCLE", "Block Delete (/) ${if (enabled) "ENABLED" else "DISABLED"}")
+        sendRemoteCommand("SET_BLOCK_DELETE", mapOf("enabled" to enabled))
+    }
+
+    fun singleBlockStep() {
+        if (_machineState.value == MachineStateEnum.PAUSED || _machineState.value == MachineStateEnum.IDLE || _machineState.value == MachineStateEnum.ON) {
+            _machineState.value = MachineStateEnum.RUNNING
+            _taskMode.value = TaskMode.AUTO
+            logEvent(LogSeverity.INFO, "CYCLE", "SINGLE BLOCK: Step commanded")
+            sendRemoteCommand("SINGLE_BLOCK_STEP", emptyMap())
+        }
+    }
+
+    fun runFromLine(targetLineIndex: Int) {
+        val gcodeList = _loadedGCode.value
+        if (targetLineIndex in gcodeList.indices) {
+            _activeGCodeLine.value = targetLineIndex
+            val seg = gcodeList[targetLineIndex]
+            
+            // Retract Z to safe clearance, start spindle, then reposition
+            val currentMap = _axes.value.toMutableMap()
+            val zAxis = currentMap["Z"]
+            if (zAxis != null) {
+                // Raise Z safely
+                currentMap["Z"] = zAxis.copy(workPos = 10.0, machinePos = (10.0 + (_wcsOffsets.value[_currentCoordSystem.value]?.z ?: 0.0)))
+                _axes.value = currentMap
+            }
+            
+            _spindle.value = _spindle.value.copy(isEnabled = true)
+            _machineState.value = MachineStateEnum.PAUSED
+            _taskMode.value = TaskMode.AUTO
+            
+            logEvent(LogSeverity.WARNING, "CYCLE", "RUN FROM LINE: Positioned at block ${seg.lineNumber} ('${seg.rawText.trim()}'). Spindle started, Z safe. Press CYCLE START to engage.")
+            sendRemoteCommand("RUN_FROM_LINE", mapOf("line" to targetLineIndex, "lineNumber" to seg.lineNumber))
+        }
+    }
+
+    private fun updateModalStateFromSegment(seg: GCodeSegment) {
+        val text = seg.rawText.uppercase(Locale.ROOT)
+        var cur = _modalState.value
+
+        // Motion group 1
+        when {
+            text.contains("G00") || text.contains("G0 ") -> cur = cur.copy(motionMode = "G0 (RAPID)")
+            text.contains("G01") || text.contains("G1 ") -> cur = cur.copy(motionMode = "G1 (FEED)")
+            text.contains("G02") || text.contains("G2 ") -> cur = cur.copy(motionMode = "G2 (CW ARC)")
+            text.contains("G03") || text.contains("G3 ") -> cur = cur.copy(motionMode = "G3 (CCW ARC)")
+            text.contains("G38.2") -> cur = cur.copy(motionMode = "G38.2 (PROBE)")
+        }
+
+        // Plane select
+        when {
+            text.contains("G17") -> cur = cur.copy(planeSelect = "G17 (XY)")
+            text.contains("G18") -> cur = cur.copy(planeSelect = "G18 (XZ)")
+            text.contains("G19") -> cur = cur.copy(planeSelect = "G19 (YZ)")
+        }
+
+        // Distance mode
+        when {
+            text.contains("G90") && !text.contains("G90.1") -> cur = cur.copy(distanceMode = "G90 (ABS)")
+            text.contains("G91") && !text.contains("G91.1") -> cur = cur.copy(distanceMode = "G91 (INC)")
+        }
+
+        // Units
+        when {
+            text.contains("G20") -> cur = cur.copy(unitsMode = "G20 (INCH)")
+            text.contains("G21") -> cur = cur.copy(unitsMode = "G21 (MM)")
+        }
+
+        // Cutter comp
+        when {
+            text.contains("G40") -> cur = cur.copy(cutterRadiusComp = "G40 (OFF)")
+            text.contains("G41") -> cur = cur.copy(cutterRadiusComp = "G41 (LEFT)")
+            text.contains("G42") -> cur = cur.copy(cutterRadiusComp = "G42 (RIGHT)")
+        }
+
+        // Tool length comp
+        when {
+            text.contains("G43") -> {
+                val activeT = _activeTool.value
+                cur = cur.copy(toolLengthComp = "G43 (ON)", toolLengthZOffsetMm = activeT.lengthOffset)
+            }
+            text.contains("G49") -> cur = cur.copy(toolLengthComp = "G49 (OFF)", toolLengthZOffsetMm = 0.0)
+        }
+
+        // Spindle
+        when {
+            text.contains("M3") || text.contains("M03") -> cur = cur.copy(spindleMode = "M3 (CW)")
+            text.contains("M4") || text.contains("M04") -> cur = cur.copy(spindleMode = "M4 (CCW)")
+            text.contains("M5") || text.contains("M05") -> cur = cur.copy(spindleMode = "M5 (STOP)")
+        }
+
+        // Coolant
+        when {
+            text.contains("M7") || text.contains("M07") -> cur = cur.copy(coolantMode = "M7 (MIST)")
+            text.contains("M8") || text.contains("M08") -> cur = cur.copy(coolantMode = "M8 (FLOOD)")
+            text.contains("M9") || text.contains("M09") -> cur = cur.copy(coolantMode = "M9 (OFF)")
+        }
+
+        _modalState.value = cur.copy(
+            activeWcs = _currentCoordSystem.value,
+            activeToolNumber = _activeTool.value.id
+        )
     }
 }

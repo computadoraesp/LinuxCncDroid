@@ -11,7 +11,9 @@ import androidx.room.Room
 import com.example.R
 import com.example.data.local.CncAppDatabase
 import com.example.data.local.MachineProfileEntity
+import com.example.data.local.MdiHistoryEntity
 import com.example.data.local.MdiMacroEntity
+import com.example.data.local.WcsOffsetEntity
 import com.example.model.*
 import com.example.service.CncFeedbackManager
 import com.example.service.CncSecurityScanner
@@ -153,11 +155,57 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     // Navigation and UI States (Saved in SavedStateHandle for process death survival)
     val selectedTab: StateFlow<CncNavigationTab> = savedStateHandle.getStateFlow("selected_tab", CncNavigationTab.CONTROL)
     
+    // Pro Dialog States
     val showCyberScanDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
     val showCalculatorDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
     val showToolTableDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
     val showCalibrationDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
     val showManualDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+    val showWcsTableDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+    val showHalMonitorDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+    val showSoftLimitsDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+    val showRunFromLineDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+
+    // PRO MODULE 1: WCS Offsets
+    val wcsOffsets: StateFlow<Map<String, WcsOffset>> = engine.wcsOffsets
+
+    // PRO MODULE 5: Active Modal G-Code State & Execution Modifiers
+    val modalState: StateFlow<ModalGCodeState> = engine.modalState
+    val executionModifiers: StateFlow<ExecutionModifiers> = engine.executionModifiers
+
+    // PRO MODULE 2: MDI Real-time validation and Database History
+    val mdiValidationLive: StateFlow<MdiValidationResult> = _mdiCommandText
+        .map { text -> engine.mdiValidator.validate(text) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MdiValidationResult(isValid = false, errorMessage = "Empty"))
+
+    val mdiHistoryEntities: StateFlow<List<MdiHistoryEntity>> = db.mdiHistoryDao().getRecentHistory(30)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    val mdiFavorites: StateFlow<List<MdiHistoryEntity>> = db.mdiHistoryDao().getFavorites()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    // PRO MODULE 3: HAL Signal Monitor
+    val halPins: StateFlow<List<HalPin>> = engine.halPins
+
+    // PRO MODULE 4: Soft Limits Pre-Check
+    val softLimitsCheck: StateFlow<SoftLimitsCheckResult> = combine(
+        engine.loadedGCode,
+        engine.currentCoordSystem,
+        engine.wcsOffsets,
+        engine.axes
+    ) { gcode, wcsName, offsets, axes ->
+        val activeOffset = offsets[wcsName] ?: WcsOffset(name = wcsName, pIndex = 1)
+        engine.softLimitsPreChecker.checkProgramLimits(gcode, activeOffset, axes)
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        SoftLimitsCheckResult(
+            isWithinLimits = true,
+            activeWcs = "G54",
+            boundingBoxWork = GCodeBoundingBox(AxisRange(0.0, 0.0), AxisRange(0.0, 0.0), AxisRange(0.0, 0.0)),
+            boundingBoxMachine = GCodeBoundingBox(AxisRange(0.0, 0.0), AxisRange(0.0, 0.0), AxisRange(0.0, 0.0))
+        )
+    )
 
     // Persistent Profiles and Macros from DB
     val machineProfiles: StateFlow<List<MachineProfileEntity>> = db.profileDao().getAllProfiles()
@@ -438,6 +486,38 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
                 MdiMacroEntity("m5", context.getString(R.string.macro_probe_z_label), "G38.2 Z-50 F100\nG91 G0 Z2\nG90", context.getString(R.string.macro_probe_z_desc), "PROBING"),
             )
             db.macroDao().insertMacros(initialMacros)
+
+            // Seed default WCS offsets if not present
+            val defaultWcs = listOf(
+                WcsOffsetEntity("G54", 1, 100.0, 70.0, -30.0, 0.0, comment = "Vise 1 - Front Left Jaw"),
+                WcsOffsetEntity("G55", 2, 250.0, 70.0, -30.0, 0.0, comment = "Vise 2 - Center Plate"),
+                WcsOffsetEntity("G56", 3, 400.0, 70.0, -30.0, 0.0, comment = "Vise 3 - 4th Axis Chuck"),
+                WcsOffsetEntity("G57", 4, 0.0, 0.0, 0.0, 0.0, comment = "Fixture 4"),
+                WcsOffsetEntity("G58", 5, 0.0, 0.0, 0.0, 0.0, comment = "Fixture 5"),
+                WcsOffsetEntity("G59", 6, 0.0, 0.0, 0.0, 0.0, comment = "Fixture 6"),
+                WcsOffsetEntity("G59.1", 7, 0.0, 0.0, 0.0, 0.0, comment = "Auxiliary 1"),
+                WcsOffsetEntity("G59.2", 8, 0.0, 0.0, 0.0, 0.0, comment = "Auxiliary 2"),
+                WcsOffsetEntity("G59.3", 9, 0.0, 0.0, 0.0, 0.0, comment = "Toolsetter Reference")
+            )
+            db.wcsOffsetDao().insertAll(defaultWcs)
+
+            // Listen to DB WCS offsets and sync into engine
+            db.wcsOffsetDao().getAllOffsets().collect { list ->
+                if (list.isNotEmpty()) {
+                    val domainList = list.map {
+                        WcsOffset(
+                            name = it.name,
+                            pIndex = it.pIndex,
+                            x = it.x,
+                            y = it.y,
+                            z = it.z,
+                            a = it.a,
+                            comment = it.comment
+                        )
+                    }
+                    engine.syncWcsOffsetsFromDatabase(domainList)
+                }
+            }
         }
     }
 
@@ -534,7 +614,19 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
         engine.homeAllAxes()
     }
 
-    fun cycleStart() {
+    fun cycleStart(forceOverrideLimits: Boolean = false) {
+        val limits = softLimitsCheck.value
+        if (!limits.isWithinLimits && !forceOverrideLimits) {
+            feedbackManager.triggerWarningHaptic()
+            feedbackManager.playWarningBeep()
+            showSoftLimitsDialog.value = true
+            engine.logEvent(
+                LogSeverity.WARNING,
+                "SAFETY_LOCK",
+                "Cycle Start blocked: Program exceeds soft limits on axis ${limits.violations.firstOrNull()?.axis}. Resolve or override."
+            )
+            return
+        }
         feedbackManager.triggerActionClick()
         engine.cycleStart()
     }
@@ -548,6 +640,31 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     fun cycleStop() {
         feedbackManager.triggerActionClick()
         engine.cycleStop()
+    }
+
+    fun setSingleBlockMode(enabled: Boolean) {
+        feedbackManager.triggerActionClick()
+        engine.setSingleBlockMode(enabled)
+    }
+
+    fun setOptionalStop(enabled: Boolean) {
+        feedbackManager.triggerActionClick()
+        engine.setOptionalStop(enabled)
+    }
+
+    fun setBlockDelete(enabled: Boolean) {
+        feedbackManager.triggerActionClick()
+        engine.setBlockDelete(enabled)
+    }
+
+    fun singleBlockStep() {
+        feedbackManager.triggerActionClick()
+        engine.singleBlockStep()
+    }
+
+    fun runFromLine(targetIndex: Int) {
+        feedbackManager.triggerActionClick()
+        engine.runFromLine(targetIndex)
     }
 
     fun triggerProbe(routine: String) {
@@ -665,14 +782,92 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     }
 
     fun executeMdiCommand(cmd: String = _mdiCommandText.value) {
-        if (cmd.isNotBlank()) {
+        val trimmed = cmd.trim()
+        if (trimmed.isNotBlank()) {
             feedbackManager.triggerActionClick()
-            val updated = _mdiHistory.value.toMutableList()
-            updated.add(0, cmd)
-            _mdiHistory.value = updated.take(25)
-            _mdiCommandText.value = ""
-            engine.logEvent(LogSeverity.INFO, "MDI", "Executed: $cmd")
+            val result = engine.executeMdiCommand(trimmed)
+            viewModelScope.launch(exceptionHandler) {
+                db.mdiHistoryDao().insertHistoryItem(
+                    MdiHistoryEntity(
+                        command = trimmed,
+                        executionStatus = if (result.isSuccess) "SUCCESS" else "SYNTAX_ERROR"
+                    )
+                )
+            }
+            if (result.isSuccess) {
+                val updated = _mdiHistory.value.toMutableList()
+                updated.remove(trimmed)
+                updated.add(0, trimmed)
+                _mdiHistory.value = updated.take(25)
+                _mdiCommandText.value = ""
+                feedbackManager.triggerSuccessHaptic()
+            } else {
+                feedbackManager.triggerWarningHaptic()
+                feedbackManager.playWarningBeep()
+            }
         }
+    }
+
+    fun toggleMdiFavorite(id: Long, isFavorite: Boolean) {
+        viewModelScope.launch(exceptionHandler) {
+            db.mdiHistoryDao().setFavorite(id, isFavorite)
+            feedbackManager.triggerActionClick()
+        }
+    }
+
+    // PRO MODULE 1: WCS Operations
+    fun setCoordinateSystem(gSystem: String) {
+        feedbackManager.triggerActionClick()
+        engine.setCoordinateSystem(gSystem)
+    }
+
+    fun touchOffAxis(axis: String, targetWorkValue: Double = 0.0) {
+        feedbackManager.triggerSuccessHaptic()
+        engine.touchOff(axis, targetWorkValue)
+        viewModelScope.launch(exceptionHandler) {
+            val currentWcs = engine.currentCoordSystem.value
+            val offset = engine.wcsOffsets.value[currentWcs]
+            if (offset != null) {
+                db.wcsOffsetDao().insertOrUpdate(
+                    WcsOffsetEntity(
+                        name = offset.name,
+                        pIndex = offset.pIndex,
+                        x = offset.x,
+                        y = offset.y,
+                        z = offset.z,
+                        a = offset.a,
+                        comment = offset.comment
+                    )
+                )
+            }
+        }
+    }
+
+    fun setWcsOffset(name: String, axis: String, offsetValue: Double) {
+        feedbackManager.triggerActionClick()
+        engine.setWcsOffset(name, axis, offsetValue)
+        viewModelScope.launch(exceptionHandler) {
+            val offset = engine.wcsOffsets.value[name]
+            if (offset != null) {
+                db.wcsOffsetDao().insertOrUpdate(
+                    WcsOffsetEntity(
+                        name = offset.name,
+                        pIndex = offset.pIndex,
+                        x = offset.x,
+                        y = offset.y,
+                        z = offset.z,
+                        a = offset.a,
+                        comment = offset.comment
+                    )
+                )
+            }
+        }
+    }
+
+    // PRO MODULE 3: HAL Operations
+    fun toggleHalPin(pinName: String) {
+        feedbackManager.triggerActionClick()
+        engine.toggleHalPin(pinName)
     }
 
     fun saveProfile(name: String, ip: String, port: Int, arch: String) {

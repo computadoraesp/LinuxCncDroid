@@ -15,12 +15,7 @@
 -keep class com.example.model.** { *; }
 -keep class com.example.data.** { *; }
 
-# 4. Moshi JSON Serialization
--keepattributes *Annotation*
--keepclassmembers class * {
-    @com.squareup.moshi.Json *;
-}
--keep class com.squareup.moshi.** { *; }
+# 4. JSON Serialization (org.json standard library / Moshi if enabled)
 -dontwarn com.squareup.moshi.**
 
 # 5. CameraX Lifecycle & Core

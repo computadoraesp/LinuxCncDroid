@@ -30,6 +30,7 @@ import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BatteryAlert
 import androidx.compose.material.icons.filled.BatteryChargingFull
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.Hub
 import androidx.compose.material.icons.filled.Notifications
@@ -50,6 +51,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -78,17 +80,22 @@ import com.example.ui.components.AxisCalibrationDialog
 import com.example.ui.components.DroPanel
 import com.example.ui.components.EtherCatTelemetryView
 import com.example.ui.components.GCodeSecurityLoaderDialog
+import com.example.ui.components.HalMonitorDialog
 import com.example.ui.components.IndustrialCameraView
 import com.example.ui.components.IndustrialTopBar
 import com.example.ui.components.JogControlPad
 import com.example.ui.components.MachineConfigView
 import com.example.ui.components.MdiView
 import com.example.ui.components.MiniDroBar
+import com.example.ui.components.ModalGCodeBar
 import com.example.ui.components.ProbingView
+import com.example.ui.components.RunFromLineDialog
+import com.example.ui.components.SoftLimitsDialog
 import com.example.ui.components.SpeedsFeedsCalculatorDialog
 import com.example.ui.components.SpindleFeedPanel
 import com.example.ui.components.ToolTableDialog
 import com.example.ui.components.ToolpathVisualizer3D
+import com.example.ui.components.WcsTableDialog
 import com.example.ui.theme.CncActiveGreen
 import com.example.ui.theme.CncBackground
 import com.example.ui.theme.CncCardBorder
@@ -169,6 +176,18 @@ fun CncMainScreen(
     val showToolTableDialog by viewModel.showToolTableDialog.collectAsStateWithLifecycle()
     val showCalibrationDialog by viewModel.showCalibrationDialog.collectAsStateWithLifecycle()
     val showManualDialog by viewModel.showManualDialog.collectAsStateWithLifecycle()
+    val showWcsTableDialog by viewModel.showWcsTableDialog.collectAsStateWithLifecycle()
+    val showHalMonitorDialog by viewModel.showHalMonitorDialog.collectAsStateWithLifecycle()
+    val showSoftLimitsDialog by viewModel.showSoftLimitsDialog.collectAsStateWithLifecycle()
+    val showRunFromLineDialog by viewModel.showRunFromLineDialog.collectAsStateWithLifecycle()
+
+    val wcsOffsets by viewModel.wcsOffsets.collectAsStateWithLifecycle()
+    val modalState by viewModel.modalState.collectAsStateWithLifecycle()
+    val executionModifiers by viewModel.executionModifiers.collectAsStateWithLifecycle()
+    val halPins by viewModel.halPins.collectAsStateWithLifecycle()
+    val softLimitsCheck by viewModel.softLimitsCheck.collectAsStateWithLifecycle()
+    val mdiValidationLive by viewModel.mdiValidationLive.collectAsStateWithLifecycle()
+    val mdiHistoryEntities by viewModel.mdiHistoryEntities.collectAsStateWithLifecycle()
 
     val errorCount = remember(eventLogs) {
         eventLogs.count { (it.severity == LogSeverity.ERROR) || (it.severity == LogSeverity.CRITICAL) }
@@ -209,6 +228,7 @@ fun CncMainScreen(
                 onBatteryClick = { viewModel.setSelectedTab(CncNavigationTab.CONFIG) },
                 onScreenPolicyClick = { viewModel.setSelectedTab(CncNavigationTab.CONFIG) },
                 onOpenManual = { viewModel.setShowManualDialog(show = true) },
+                onOpenHalMonitor = { viewModel.showHalMonitorDialog.value = true },
             )
         },
         bottomBar = {
@@ -550,7 +570,47 @@ fun CncMainScreen(
                             onZeroAxis = { viewModel.zeroAxis(it) },
                             onZeroAll = { viewModel.zeroAllAxes() },
                             onHomeAxis = { viewModel.homeAxis(it) },
-                        ) { viewModel.homeAllAxes() }
+                            onHomeAll = { viewModel.homeAllAxes() },
+                            onOpenWcsTable = { viewModel.showWcsTableDialog.value = true },
+                        )
+
+                        // Soft Limits Diagnostic Quick-Banner
+                        if (loadedGCode.isNotEmpty()) {
+                            Surface(
+                                color = if (softLimitsCheck.isWithinLimits) Color(0xFF1B5E20).copy(alpha = 0.25f) else MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.35f),
+                                shape = RoundedCornerShape(6.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, if (softLimitsCheck.isWithinLimits) Color(0xFF4CAF50) else MaterialTheme.colorScheme.error),
+                                modifier = Modifier.fillMaxWidth().clickable { viewModel.showSoftLimitsDialog.value = true }
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(
+                                            imageVector = if (softLimitsCheck.isWithinLimits) Icons.Default.CheckCircle else Icons.Default.Warning,
+                                            contentDescription = null,
+                                            tint = if (softLimitsCheck.isWithinLimits) Color(0xFF4CAF50) else MaterialTheme.colorScheme.error,
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            text = if (softLimitsCheck.isWithinLimits) "SOFT LIMITS: SAFE ENVELOPE (${softLimitsCheck.activeWcs})" else "SOFT LIMITS: OVERTRAVEL VIOLATION (${softLimitsCheck.activeWcs})",
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = if (softLimitsCheck.isWithinLimits) Color(0xFF81C784) else MaterialTheme.colorScheme.error
+                                        )
+                                    }
+                                    Text("DIAGNOSTICS >", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
+                                }
+                            }
+                        }
+
+                        // LinuxCNC Modal G-Code Active State Bar
+                        ModalGCodeBar(
+                            modalState = modalState
+                        )
 
                         // Jogging Controls (Button Pad + Virtual MPG Handwheel)
                         JogControlPad(
@@ -584,6 +644,12 @@ fun CncMainScreen(
                             coolant = coolant,
                             machineState = machineState,
                             unitSystem = unitSystem,
+                            executionModifiers = executionModifiers,
+                            onToggleSingleBlock = { viewModel.setSingleBlockMode(it) },
+                            onToggleOptionalStop = { viewModel.setOptionalStop(it) },
+                            onToggleBlockDelete = { viewModel.setBlockDelete(it) },
+                            onSingleBlockStep = { viewModel.singleBlockStep() },
+                            onOpenRunFromLine = { viewModel.showRunFromLineDialog.value = true },
                             onToggleSpindle = { viewModel.engine.toggleSpindle() },
                             onSetSpindleRpm = { viewModel.engine.setSpindleRpm(it) },
                             onSpindleOverride = { viewModel.engine.setSpindleOverride(it) },
@@ -682,9 +748,12 @@ fun CncMainScreen(
                             machineState = machineState,
                             commandText = mdiText,
                             history = mdiHistory,
+                            historyEntities = mdiHistoryEntities,
                             macros = macros,
+                            validationResult = mdiValidationLive,
                             onCommandTextChange = { viewModel.setMdiText(it) },
                             onExecuteCommand = { viewModel.executeMdiCommand(it) },
+                            onToggleFavorite = { id, fav -> viewModel.toggleMdiFavorite(id, fav) },
                         )
                     }
 
@@ -718,6 +787,8 @@ fun CncMainScreen(
                             onWipeAllData = { viewModel.wipeAllAppData() },
                             onOpenMetrologyCalibration = { viewModel.setShowCalibrationDialog(show = true) },
                             onOpenManual = { viewModel.setShowManualDialog(show = true) },
+                            onOpenHalMonitor = { viewModel.showHalMonitorDialog.value = true },
+                            onOpenWcsTable = { viewModel.showWcsTableDialog.value = true },
                             screenTimeoutPolicy = screenTimeoutPolicy,
                             onSelectScreenTimeoutPolicy = { viewModel.setScreenTimeoutPolicy(it) },
                             batterySafetyState = batterySafety,
@@ -793,6 +864,55 @@ fun CncMainScreen(
             if (showManualDialog) {
                 AppManualDialog(
                     onDismiss = { viewModel.setShowManualDialog(show = false) },
+                )
+            }
+
+            // PRO DIALOG 1: WCS Offset Table & Touch-Off
+            if (showWcsTableDialog) {
+                WcsTableDialog(
+                    currentCoordSystem = currentCoordSystem,
+                    wcsOffsets = wcsOffsets,
+                    onSelectWcs = { viewModel.setCoordinateSystem(it) },
+                    onTouchOff = { axis, targetVal -> viewModel.touchOffAxis(axis, targetVal) },
+                    onSetOffset = { wcs, axis, offsetVal -> viewModel.setWcsOffset(wcs, axis, offsetVal) },
+                    onDismiss = { viewModel.showWcsTableDialog.value = false }
+                )
+            }
+
+            // PRO DIALOG 2: HAL Signals & Pin Monitor
+            if (showHalMonitorDialog) {
+                HalMonitorDialog(
+                    pins = halPins,
+                    onTogglePin = { viewModel.toggleHalPin(it) },
+                    onDismiss = { viewModel.showHalMonitorDialog.value = false }
+                )
+            }
+
+            // PRO DIALOG 3: Soft Limits Trajectory Pre-Check
+            if (showSoftLimitsDialog) {
+                SoftLimitsDialog(
+                    checkResult = softLimitsCheck,
+                    onOpenWcsTable = {
+                        viewModel.showSoftLimitsDialog.value = false
+                        viewModel.showWcsTableDialog.value = true
+                    },
+                    onForceCycleStart = {
+                        viewModel.showSoftLimitsDialog.value = false
+                        viewModel.cycleStart(forceOverrideLimits = true)
+                    },
+                    onDismiss = { viewModel.showSoftLimitsDialog.value = false }
+                )
+            }
+
+            // PRO DIALOG 4: Run From Line Dialog
+            if (showRunFromLineDialog) {
+                RunFromLineDialog(
+                    gcodeList = loadedGCode,
+                    currentLineIndex = activeGCodeLine,
+                    onDismiss = { viewModel.showRunFromLineDialog.value = false },
+                    onConfirmRunFromLine = { targetIndex ->
+                        viewModel.runFromLine(targetIndex)
+                    }
                 )
             }
         }

@@ -102,6 +102,8 @@ fun MachineConfigView(
     onWipeAllData: () -> Unit = {},
     onOpenMetrologyCalibration: () -> Unit = {},
     onOpenManual: () -> Unit = {},
+    onOpenHalMonitor: () -> Unit = {},
+    onOpenWcsTable: () -> Unit = {},
     screenTimeoutPolicy: ScreenTimeoutPolicy = ScreenTimeoutPolicy.ALWAYS_ON,
     onSelectScreenTimeoutPolicy: (ScreenTimeoutPolicy) -> Unit = {},
     batterySafetyState: BatterySafetyState = BatterySafetyState(),
@@ -895,6 +897,50 @@ fun MachineConfigView(
                             Icon(imageVector = Icons.Default.Straighten, contentDescription = null, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(stringResource(R.string.config_sim_probe_btn), fontSize = 9.5.sp, fontWeight = FontWeight.Black)
+                        }
+                    }
+                }
+            }
+
+            // Pro Subsystems: WCS Table & HAL Diagnostics
+            Spacer(modifier = Modifier.height(6.dp))
+            Surface(
+                color = CncSurface,
+                shape = RoundedCornerShape(8.dp),
+                border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.4f)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = "LINUXCNC PRO SUBSYSTEMS",
+                        fontWeight = FontWeight.Black,
+                        fontSize = 10.sp,
+                        color = CncCyberCyan,
+                        letterSpacing = 1.sp
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedButton(
+                            onClick = onOpenWcsTable,
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.weight(1f).height(40.dp)
+                        ) {
+                            Icon(Icons.Default.Tune, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("WCS Table", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        }
+
+                        OutlinedButton(
+                            onClick = onOpenHalMonitor,
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.weight(1f).height(40.dp)
+                        ) {
+                            Icon(Icons.Default.SettingsEthernet, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("HAL Pins", fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.example.R
 import com.example.model.CoolantInfo
+import com.example.model.ExecutionModifiers
 import com.example.model.FeedInfo
 import com.example.model.MachineStateEnum
 import com.example.model.SpindleInfo
@@ -47,6 +48,12 @@ fun SpindleFeedPanel(
     onCycleStop: () -> Unit,
     modifier: Modifier = Modifier,
     unitSystem: UnitSystem = UnitSystem.METRIC,
+    executionModifiers: ExecutionModifiers = ExecutionModifiers(),
+    onToggleSingleBlock: (Boolean) -> Unit = {},
+    onToggleOptionalStop: (Boolean) -> Unit = {},
+    onToggleBlockDelete: (Boolean) -> Unit = {},
+    onSingleBlockStep: () -> Unit = {},
+    onOpenRunFromLine: () -> Unit = {},
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = CncCardBg),
@@ -106,6 +113,86 @@ fun SpindleFeedPanel(
                     Icon(imageVector = Icons.Default.Stop, contentDescription = stringResource(R.string.btn_cycle_stop), modifier = Modifier.size(20.dp))
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(text = stringResource(R.string.btn_cycle_stop), fontWeight = FontWeight.Black, fontSize = 11.sp)
+                }
+            }
+
+            // PRO SECTION 1B: Industrial Execution Modifiers (Single Block, Opt Stop, Block Delete, Run From Line)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // SINGLE BLOCK
+                FilterChip(
+                    selected = executionModifiers.singleBlockMode,
+                    onClick = { onToggleSingleBlock(!executionModifiers.singleBlockMode) },
+                    label = { Text("SINGLE (M0)", fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = CncCyberCyan.copy(alpha = 0.25f),
+                        selectedLabelColor = CncCyberCyan,
+                        labelColor = CncTextSecondary
+                    ),
+                    shape = RoundedCornerShape(6.dp),
+                    modifier = Modifier.height(32.dp)
+                )
+
+                // OPT STOP M1
+                FilterChip(
+                    selected = executionModifiers.optionalStopM1,
+                    onClick = { onToggleOptionalStop(!executionModifiers.optionalStopM1) },
+                    label = { Text("OPT STOP (M1)", fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = CncWarningAmber.copy(alpha = 0.25f),
+                        selectedLabelColor = CncWarningAmber,
+                        labelColor = CncTextSecondary
+                    ),
+                    shape = RoundedCornerShape(6.dp),
+                    modifier = Modifier.height(32.dp)
+                )
+
+                // BLOCK DELETE
+                FilterChip(
+                    selected = executionModifiers.blockDelete,
+                    onClick = { onToggleBlockDelete(!executionModifiers.blockDelete) },
+                    label = { Text("BLOCK DEL (/)", fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = Color(0xFF64B5F6).copy(alpha = 0.25f),
+                        selectedLabelColor = Color(0xFF64B5F6),
+                        labelColor = CncTextSecondary
+                    ),
+                    shape = RoundedCornerShape(6.dp),
+                    modifier = Modifier.height(32.dp)
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                // RUN FROM LINE BUTTON
+                OutlinedButton(
+                    onClick = onOpenRunFromLine,
+                    shape = RoundedCornerShape(6.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                    modifier = Modifier.height(32.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.RestartAlt, contentDescription = null, tint = CncCyberCyan, modifier = Modifier.size(14.dp))
+                    Spacer(modifier = Modifier.width(3.dp))
+                    Text("FROM LINE…", fontSize = 10.sp, fontWeight = FontWeight.Black, color = CncCyberCyan)
+                }
+            }
+
+            // Single Block Step button when Single Block is active
+            if (executionModifiers.singleBlockMode) {
+                Button(
+                    onClick = onSingleBlockStep,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = CncCyberCyan,
+                        contentColor = Color.Black
+                    ),
+                    shape = RoundedCornerShape(6.dp),
+                    modifier = Modifier.fillMaxWidth().height(36.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.FastForward, contentDescription = null, modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("SINGLE BLOCK: EXECUTE NEXT LINE >", fontSize = 11.sp, fontWeight = FontWeight.Black)
                 }
             }
 

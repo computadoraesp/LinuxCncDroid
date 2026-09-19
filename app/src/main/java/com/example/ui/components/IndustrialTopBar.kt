@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.Construction
 import androidx.compose.material.icons.filled.Engineering
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.PowerSettingsNew
+import androidx.compose.material.icons.filled.SettingsEthernet
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.Visibility
@@ -114,6 +115,7 @@ fun IndustrialTopBar(
     onOpenLogs: () -> Unit = {},
     onOpenAxisCalibration: () -> Unit = {},
     onOpenManual: () -> Unit = {},
+    onOpenHalMonitor: () -> Unit = {},
     batteryLevelPct: Int = 100,
     isCharging: Boolean = false,
     isLowBattery: Boolean = false,
@@ -631,7 +633,24 @@ fun IndustrialTopBar(
                     )
                 }
 
-                // 10. Event & Alarm Logs Button with Badge
+                // 10. HAL Signals & Pin Monitor Quick Access Button
+                IconButton(
+                    onClick = onOpenHalMonitor,
+                    modifier = Modifier
+                        .size(34.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(CncSurfaceVariant)
+                        .border(1.dp, CncCyberCyan.copy(alpha = 0.5f), RoundedCornerShape(6.dp))
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.SettingsEthernet,
+                        contentDescription = "HAL Signals Monitor",
+                        tint = CncCyberCyan,
+                        modifier = Modifier.size(17.dp)
+                    )
+                }
+
+                // 11. Event & Alarm Logs Button with Badge
                 IconButton(
                     onClick = onOpenLogs,
                     modifier = Modifier

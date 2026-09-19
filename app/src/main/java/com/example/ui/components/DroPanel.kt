@@ -43,6 +43,7 @@ fun DroPanel(
     onZeroAll: () -> Unit,
     onHomeAxis: (String) -> Unit,
     onHomeAll: () -> Unit,
+    onOpenWcsTable: () -> Unit = {},
 ) {
     var displayMode by remember { mutableStateOf(DroDisplayMode.WORK) }
 
@@ -76,6 +77,22 @@ fun DroPanel(
                         letterSpacing = 1.sp,
                         color = CncTextPrimary,
                     )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Surface(
+                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(4.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.5f)),
+                        modifier = Modifier.clickable(onClick = onOpenWcsTable)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(currentCoordSystem, fontSize = 10.sp, fontWeight = FontWeight.Black, color = CncCyberCyan)
+                            Spacer(modifier = Modifier.width(2.dp))
+                            Icon(Icons.Default.Tune, contentDescription = "WCS Table", tint = CncCyberCyan, modifier = Modifier.size(12.dp))
+                        }
+                    }
                 }
 
                 // Mode Selector Tabs (WORK / MACHINE / DTG)

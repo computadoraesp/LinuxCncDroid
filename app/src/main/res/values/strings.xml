@@ -602,4 +602,16 @@
         <item>CRITICAL: Always verify tool plunge points and Z-negative travel in FRONT or SIDE view prior to cutting metal.</item>
         <item>Ensure Work Coordinate System (WCS G54-G59) is physically probed and zeroed before relying on 3D datum alignment.</item>
     </string-array>
+
+    <!-- Modal G-Code & Program Execution Modifiers -->
+    <string name="modal_bar_title">ACTIVE G-CODE MODAL GROUPS</string>
+    <string name="exec_mod_single_block">SINGLE BLOCK (STEP)</string>
+    <string name="exec_mod_opt_stop">OPT STOP (M1)</string>
+    <string name="exec_mod_block_delete">BLOCK DELETE (/)</string>
+    <string name="exec_mod_run_from_line">RUN FROM LINE…</string>
+    <string name="exec_step_next">NEXT BLOCK &gt;</string>
+    <string name="run_from_line_title">RUN FROM LINE (REANUDAR CORTE)</string>
+    <string name="run_from_line_desc">Select a specific block to resume machining after tool replacement or inspection. Safe Z-clearance and spindle restart will be performed automatically.</string>
+    <string name="run_from_line_btn">RESTART AT LINE</string>
+    <string name="run_from_line_cancel">CANCEL</string>
 </resources>

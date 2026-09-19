@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -55,15 +56,15 @@ fun EtherCatTelemetryView(
     slaves: List<EtherCatSlaveInfo>,
     modifier: Modifier = Modifier,
 ) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = CncCardBg),
-        shape = RoundedCornerShape(12.dp),
-        border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
-        modifier = modifier.fillMaxWidth(),
-    ) {
-        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-            val isCompact = maxWidth < 600.dp
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val isCompact = maxWidth < 600.dp
 
+        Card(
+            colors = CardDefaults.cardColors(containerColor = CncCardBg),
+            shape = RoundedCornerShape(12.dp),
+            border = BorderStroke(1.dp, CncCardBorder),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

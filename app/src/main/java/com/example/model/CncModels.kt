@@ -386,3 +386,127 @@ data class DocSectionItem(
     @get:ArrayRes val standardStepsRes: Int = 0,
     @get:ArrayRes val safetyTipsRes: Int = 0,
 )
+
+// ============================================================================
+// PRO MODULE 1: WCS OFFSETS (G54 - G59.3)
+// ============================================================================
+data class WcsOffset(
+    val name: String, // "G54", "G55", "G56", "G57", "G58", "G59", "G59.1", "G59.2", "G59.3"
+    val pIndex: Int, // 1 through 9
+    val x: Double = 0.0,
+    val y: Double = 0.0,
+    val z: Double = 0.0,
+    val a: Double = 0.0,
+    val b: Double = 0.0,
+    val c: Double = 0.0,
+    val comment: String = "",
+)
+
+// ============================================================================
+// PRO MODULE 2: MDI VALIDATION & HISTORY
+// ============================================================================
+data class MdiValidationResult(
+    val isValid: Boolean,
+    val errorMessage: String? = null,
+    val parsedTokens: List<String> = emptyList(),
+    val isMotionCommand: Boolean = false,
+    val isSpindleCommand: Boolean = false,
+)
+
+data class MdiHistoryItem(
+    val id: Long = 0,
+    val command: String,
+    val timestamp: Long = System.currentTimeMillis(),
+    val isFavorite: Boolean = false,
+    val executionStatus: String = "SUCCESS",
+)
+
+// ============================================================================
+// PRO MODULE 3: HAL SIGNALS & REAL-TIME PIN MONITOR
+// ============================================================================
+enum class HalPinType {
+    BIT, FLOAT, S32, U32
+}
+
+enum class HalPinCategory {
+    SAFETY,
+    LIMIT_SWITCHES,
+    SPINDLE,
+    MOTION,
+    IO_EXPANSION
+}
+
+data class HalPin(
+    val name: String,
+    val category: HalPinCategory,
+    val type: HalPinType = HalPinType.BIT,
+    val booleanValue: Boolean = false,
+    val floatValue: Double = 0.0,
+    val description: String,
+    val isAlarmTrigger: Boolean = false,
+    val invertSignal: Boolean = false,
+)
+
+// ============================================================================
+// PRO MODULE 4: SOFT LIMITS PRE-CHECK & BOUNDING BOX
+// ============================================================================
+data class AxisRange(
+    val min: Double,
+    val max: Double,
+) {
+    val span: Double get() = max - min
+}
+
+data class GCodeBoundingBox(
+    val x: AxisRange,
+    val y: AxisRange,
+    val z: AxisRange,
+    val a: AxisRange? = null,
+    val totalMotionLengthMm: Double = 0.0,
+)
+
+data class AxisLimitViolation(
+    val axis: String,
+    val programMin: Double,
+    val programMax: Double,
+    val machineMinLimit: Double,
+    val machineMaxLimit: Double,
+    val excessMinMm: Double = 0.0, // > 0 if overtravel below min
+    val excessMaxMm: Double = 0.0, // > 0 if overtravel above max
+)
+
+data class SoftLimitsCheckResult(
+    val isWithinLimits: Boolean,
+    val activeWcs: String,
+    val boundingBoxWork: GCodeBoundingBox,
+    val boundingBoxMachine: GCodeBoundingBox,
+    val violations: List<AxisLimitViolation> = emptyList(),
+    val checkedAt: Long = System.currentTimeMillis(),
+)
+
+// ============================================================================
+// PRO MODULE 5: ACTIVE G-CODE MODAL GROUPS & EXECUTION MODIFIERS
+// ============================================================================
+data class ModalGCodeState(
+    val motionMode: String = "G0",            // G0, G1, G2, G3, G33, G38.2
+    val planeSelect: String = "G17 (XY)",     // G17, G18, G19
+    val distanceMode: String = "G90 (ABS)",   // G90, G91
+    val arcDistanceMode: String = "G91.1",    // G90.1, G91.1
+    val feedMode: String = "G94 (UNITS/MIN)", // G93, G94, G95
+    val unitsMode: String = "G21 (MM)",       // G20 (INCH), G21 (MM)
+    val cutterRadiusComp: String = "G40 (OFF)", // G40, G41, G42
+    val toolLengthComp: String = "G49 (OFF)", // G43, G49
+    val toolLengthZOffsetMm: Double = 0.0,
+    val activeToolNumber: Int = 1,
+    val activeWcs: String = "G54",            // G54..G59.3
+    val spindleMode: String = "M5 (STOP)",    // M3 (CW), M4 (CCW), M5 (STOP)
+    val coolantMode: String = "M9 (OFF)",     // M7 (MIST), M8 (FLOOD), M9 (OFF)
+)
+
+data class ExecutionModifiers(
+    val singleBlockMode: Boolean = false,      // Paso a paso (una sola línea por Cycle Start)
+    val optionalStopM1: Boolean = true,        // Detenerse en M1 si está activo
+    val blockDelete: Boolean = false,          // Saltar líneas que inician con '/'
+    val runFromLineNumber: Int = 1,            // Reanudar en línea seleccionada
+)
+
