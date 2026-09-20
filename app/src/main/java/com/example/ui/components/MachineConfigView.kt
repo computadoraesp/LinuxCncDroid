@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.PlayCircleOutline
+import androidx.compose.material.icons.filled.Router
 import androidx.compose.material.icons.filled.SettingsEthernet
 import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material3.AlertDialog
@@ -79,7 +81,14 @@ import com.example.model.ConnectionTelemetry
 import com.example.model.HardwareArchitecture
 import com.example.model.ScreenTimeoutPolicy
 import com.example.model.SimulatedFaultType
+import com.example.model.LinuxCncConnectionConfig
+import com.example.model.LinuxCncProtocolType
+import com.example.model.LinuxCncServerTelemetry
+import androidx.compose.material.icons.filled.AutoFixHigh
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Dns
 import com.example.ui.theme.CncActiveGreen
+import com.example.ui.theme.CncRunningGreen
 import com.example.ui.theme.CncCardBg
 import com.example.ui.theme.CncCardBorder
 import com.example.ui.theme.CncCyberCyan
@@ -104,9 +113,17 @@ fun MachineConfigView(
     onOpenManual: () -> Unit = {},
     onOpenHalMonitor: () -> Unit = {},
     onOpenWcsTable: () -> Unit = {},
+    onOpenIniConfig: () -> Unit = {},
+    onOpenConversationalCam: () -> Unit = {},
+    onOpenConnectionWizard: () -> Unit = {},
     screenTimeoutPolicy: ScreenTimeoutPolicy = ScreenTimeoutPolicy.ALWAYS_ON,
     onSelectScreenTimeoutPolicy: (ScreenTimeoutPolicy) -> Unit = {},
     batterySafetyState: BatterySafetyState = BatterySafetyState(),
+    // LinuxCNC Real Hardware Protocol
+    connectionConfig: LinuxCncConnectionConfig = LinuxCncConnectionConfig(),
+    serverTelemetry: LinuxCncServerTelemetry = LinuxCncServerTelemetry(),
+    onConnectLinuxCnc: (LinuxCncConnectionConfig) -> Unit = {},
+    onDisconnectLinuxCnc: () -> Unit = {},
     // Centralized Simulation Panel Parameters
     isSimulatedMode: Boolean = true,
     onToggleSimulatedMode: (Boolean) -> Unit = {},
@@ -122,6 +139,8 @@ fun MachineConfigView(
 ) {
     var hostIpText by remember { mutableStateOf(capabilities.hostIp) }
     var portText by remember { mutableStateOf(capabilities.port.toString()) }
+    var rshPasswordText by remember { mutableStateOf(connectionConfig.password) }
+    var selectedProtocol by remember { mutableStateOf(connectionConfig.protocolType) }
     var profileNameText by remember { mutableStateOf("") }
     var showAddDialog by remember { mutableStateOf(value = false) }
     var showWipeConfirm by remember { mutableStateOf(value = false) }
@@ -133,35 +152,93 @@ fun MachineConfigView(
         modifier = modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            // Quick Tools Bar (Metrology & Manual)
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                OutlinedButton(
-                    onClick = onOpenMetrologyCalibration,
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = CncActiveGreen, containerColor = CncSurfaceVariant),
-                    border = BorderStroke(1.dp, CncActiveGreen.copy(alpha = 0.6f)),
-                    shape = RoundedCornerShape(8.dp),
-                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                    modifier = Modifier.weight(1f).height(36.dp),
+            // Quick Tools Bar (Metrology, Manual, INI Editor, Conversational CAM)
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Icon(imageVector = Icons.Default.Straighten, contentDescription = null, tint = CncActiveGreen, modifier = Modifier.size(16.dp))
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(stringResource(R.string.config_metrology_calib_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                    OutlinedButton(
+                        onClick = onOpenMetrologyCalibration,
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = CncActiveGreen, containerColor = CncSurfaceVariant),
+                        border = BorderStroke(1.dp, CncActiveGreen.copy(alpha = 0.6f)),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        modifier = Modifier.weight(1f).height(40.dp),
+                    ) {
+                        Icon(imageVector = Icons.Default.Straighten, contentDescription = null, tint = CncActiveGreen, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(stringResource(R.string.config_metrology_calib_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                    }
+
+                    OutlinedButton(
+                        onClick = onOpenManual,
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = CncCyberCyan, containerColor = CncSurfaceVariant),
+                        border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.6f)),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        modifier = Modifier.weight(1f).height(40.dp),
+                    ) {
+                        Icon(imageVector = Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = CncCyberCyan, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(stringResource(R.string.config_manual_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                    }
                 }
 
-                OutlinedButton(
-                    onClick = onOpenManual,
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = CncCyberCyan, containerColor = CncSurfaceVariant),
-                    border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.6f)),
-                    shape = RoundedCornerShape(8.dp),
-                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                    modifier = Modifier.weight(1f).height(36.dp),
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Icon(imageVector = Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = CncCyberCyan, modifier = Modifier.size(16.dp))
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(stringResource(R.string.config_manual_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                    OutlinedButton(
+                        onClick = onOpenIniConfig,
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = CncWarningAmber, containerColor = CncSurfaceVariant),
+                        border = BorderStroke(1.dp, CncWarningAmber.copy(alpha = 0.6f)),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        modifier = Modifier.weight(1f).height(40.dp),
+                    ) {
+                        Icon(imageVector = Icons.Default.Settings, contentDescription = null, tint = CncWarningAmber, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("CONFIG INI (machine.ini)", fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                    }
+
+                    OutlinedButton(
+                        onClick = onOpenConversationalCam,
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = CncActiveGreen, containerColor = CncSurfaceVariant),
+                        border = BorderStroke(1.dp, CncActiveGreen.copy(alpha = 0.6f)),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        modifier = Modifier.weight(1f).height(40.dp),
+                    ) {
+                        Icon(imageVector = Icons.Default.AutoFixHigh, contentDescription = null, tint = CncActiveGreen, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("CICLOS CAM (GUI)", fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
+
+                // Row 3: Connection Wizard & Tutorial Step-by-Step
+                Surface(
+                    onClick = onOpenConnectionWizard,
+                    shape = RoundedCornerShape(8.dp),
+                    color = CncCyberCyan.copy(alpha = 0.12f),
+                    border = BorderStroke(1.5.dp, CncCyberCyan.copy(alpha = 0.7f)),
+                    modifier = Modifier.fillMaxWidth().height(42.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxSize().padding(horizontal = 12.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(imageVector = Icons.Default.Router, contentDescription = null, tint = CncCyberCyan, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "ASISTENTE Y TUTORIAL DE CONEXIÓN LINUXCNC",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Black,
+                            color = CncCyberCyan,
+                            letterSpacing = 0.5.sp
+                        )
+                    }
                 }
             }
 
@@ -223,7 +300,7 @@ fun MachineConfigView(
                 }
             }
 
-            // Section 1: Active Connection Settings (IP / Port / Connect)
+            // Section 1: LinuxCNC Real Server Connection (linuxcncrsh / WebSocket / Sim)
             Surface(
                 color = CncSurface,
                 shape = RoundedCornerShape(8.dp),
@@ -231,7 +308,69 @@ fun MachineConfigView(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(stringResource(R.string.config_middleware_header), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncTextSecondary)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.linuxcnc_conn_title),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Black,
+                            color = CncRunningGreen
+                        )
+
+                        // Connected indicator
+                        Surface(
+                            color = if (serverTelemetry.isConnected) CncRunningGreen.copy(alpha = 0.2f) else CncEstopRed.copy(alpha = 0.2f),
+                            shape = RoundedCornerShape(4.dp),
+                            border = BorderStroke(1.dp, if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed)
+                        ) {
+                            Text(
+                                text = if (serverTelemetry.isConnected) "CONECTADO (${serverTelemetry.latencyMs} ms)" else "DESCONECTADO",
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+
+                    // Protocol Selection Chips
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        LinuxCncProtocolType.entries.forEach { proto ->
+                            val isProtoSelected = selectedProtocol == proto
+                            Surface(
+                                selected = isProtoSelected,
+                                onClick = {
+                                    selectedProtocol = proto
+                                    if (proto == LinuxCncProtocolType.LINUXCNCRSH_TCP && portText == "8000") {
+                                        portText = "5007"
+                                    } else if (proto == LinuxCncProtocolType.WEBSOCKET_JSON && portText == "5007") {
+                                        portText = "8000"
+                                    }
+                                },
+                                shape = RoundedCornerShape(6.dp),
+                                color = if (isProtoSelected) CncCyberCyan else CncSurfaceVariant,
+                                border = BorderStroke(1.dp, if (isProtoSelected) CncCyberCyan else CncCardBorder)
+                            ) {
+                                Text(
+                                    text = when (proto) {
+                                        LinuxCncProtocolType.LINUXCNCRSH_TCP -> "linuxcncrsh (TCP 5007)"
+                                        LinuxCncProtocolType.WEBSOCKET_JSON -> "WebSocket (JSON)"
+                                        LinuxCncProtocolType.SIMULATION_LOCAL -> "Simulador"
+                                    },
+                                    fontSize = 9.sp,
+                                    fontWeight = if (isProtoSelected) FontWeight.Bold else FontWeight.Normal,
+                                    color = if (isProtoSelected) Color(0xFF00363D) else CncTextPrimary,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
+                                )
+                            }
+                        }
+                    }
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -265,6 +404,67 @@ fun MachineConfigView(
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.weight(1f)
                         )
+                    }
+
+                    if (selectedProtocol == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+                        OutlinedTextField(
+                            value = rshPasswordText,
+                            onValueChange = { rshPasswordText = it },
+                            label = { Text(stringResource(R.string.linuxcnc_password_label), fontSize = 10.sp) },
+                            singleLine = true,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedTextColor = CncCyberCyan,
+                                unfocusedTextColor = CncTextPrimary
+                            ),
+                            textStyle = LocalTextStyle.current.copy(fontFamily = FontFamily.Monospace, fontSize = 12.sp),
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (!serverTelemetry.isConnected) {
+                            Button(
+                                onClick = {
+                                    val cfg = LinuxCncConnectionConfig(
+                                        hostIp = hostIpText,
+                                        port = portText.toIntOrNull() ?: 5007,
+                                        password = rshPasswordText,
+                                        protocolType = selectedProtocol,
+                                        autoReconnect = true
+                                    )
+                                    onConnectLinuxCnc(cfg)
+                                },
+                                shape = RoundedCornerShape(8.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = CncRunningGreen,
+                                    contentColor = Color.Black
+                                ),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(48.dp)
+                            ) {
+                                Text(stringResource(R.string.linuxcnc_connect_btn), fontWeight = FontWeight.Black, fontSize = 11.sp)
+                            }
+                        } else {
+                            Button(
+                                onClick = onDisconnectLinuxCnc,
+                                shape = RoundedCornerShape(8.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = CncEstopRed,
+                                    contentColor = Color.White
+                                ),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(48.dp)
+                            ) {
+                                Text(stringResource(R.string.linuxcnc_disconnect_btn), fontWeight = FontWeight.Black, fontSize = 11.sp)
+                            }
+                        }
 
                         Button(
                             onClick = { onConnectHost(hostIpText, portText.toIntOrNull() ?: 8000) },
@@ -273,10 +473,19 @@ fun MachineConfigView(
                                 containerColor = CncCyberCyan,
                                 contentColor = Color(0xFF00363D)
                             ),
-                            modifier = Modifier.height(52.dp)
+                            modifier = Modifier.height(48.dp)
                         ) {
-                            Text(stringResource(R.string.config_connect), fontWeight = FontWeight.Black, fontSize = 11.sp)
+                            Text("TEST PING", fontWeight = FontWeight.Bold, fontSize = 10.sp)
                         }
+                    }
+
+                    if (serverTelemetry.errorMessage != null) {
+                        Text(
+                            text = "Error servidor: ${serverTelemetry.errorMessage}",
+                            fontSize = 10.sp,
+                            color = CncEstopRed,
+                            fontFamily = FontFamily.Monospace
+                        )
                     }
                 }
             }

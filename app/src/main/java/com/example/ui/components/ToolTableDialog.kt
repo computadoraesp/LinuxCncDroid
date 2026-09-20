@@ -82,6 +82,15 @@ import com.example.ui.theme.CncTextPrimary
 import com.example.ui.theme.CncTextSecondary
 import com.example.ui.theme.CncWarningAmber
 
+import androidx.compose.material.icons.filled.FileUpload
+import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import com.example.service.LinuxCncToolTableParser
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToolTableDialog(
@@ -93,10 +102,16 @@ fun ToolTableDialog(
     onUpdateTool: (CncToolItem) -> Unit,
     onDeleteTool: (Int) -> Unit,
     onTouchOffZ: (Int) -> Unit,
+    onImportToolTable: (String) -> Int = { 0 },
+    onExportToolTable: () -> String = { "" },
 ) {
     var selectedFilter by remember { mutableStateOf<ToolType?>(null) }
     var editingTool by remember { mutableStateOf<CncToolItem?>(null) }
     var showAddDialog by remember { mutableStateOf(value = false) }
+    var showImportDialog by remember { mutableStateOf(false) }
+    var importText by remember { mutableStateOf("") }
+    var exportStatusMessage by remember { mutableStateOf<String?>(null) }
+    val clipboardManager = LocalClipboardManager.current
 
     val filteredTools = remember(tools, selectedFilter) {
         if (selectedFilter == null) tools else tools.filter { it.toolType == selectedFilter }
@@ -163,24 +178,58 @@ fun ToolTableDialog(
                         }
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             FilledTonalButton(
                                 onClick = { showAddDialog = true },
                                 shape = RoundedCornerShape(6.dp),
-                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 3.dp),
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
                                 colors = ButtonDefaults.filledTonalButtonColors(containerColor = CncSurfaceVariant),
                             ) {
-                                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.tool_new), modifier = Modifier.size(14.dp))
-                                Spacer(modifier = Modifier.width(3.dp))
-                                Text(stringResource(R.string.tool_new), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
+                                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.tool_new), modifier = Modifier.size(13.dp))
+                                Spacer(modifier = Modifier.width(2.dp))
+                                Text(stringResource(R.string.tool_new), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
+                            }
+
+                            FilledTonalButton(
+                                onClick = {
+                                    importText = LinuxCncToolTableParser.generateSampleToolTable()
+                                    showImportDialog = true
+                                },
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(containerColor = CncSurfaceVariant),
+                            ) {
+                                Icon(imageVector = Icons.Default.FileUpload, contentDescription = null, modifier = Modifier.size(13.dp))
+                                Spacer(modifier = Modifier.width(2.dp))
+                                Text(stringResource(R.string.tool_table_import_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = CncRunningGreen)
+                            }
+
+                            FilledTonalButton(
+                                onClick = {
+                                    val exported = onExportToolTable()
+                                    clipboardManager.setText(AnnotatedString(exported))
+                                    exportStatusMessage = "¡tool.tbl copiado al portapapeles!"
+                                },
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(containerColor = CncSurfaceVariant),
+                            ) {
+                                Icon(imageVector = Icons.Default.FileDownload, contentDescription = null, modifier = Modifier.size(13.dp))
+                                Spacer(modifier = Modifier.width(2.dp))
+                                Text(stringResource(R.string.tool_table_export_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = CncWarningAmber)
                             }
 
                             IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
                                 Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = CncTextSecondary)
                             }
                         }
+                    }
+
+                    if (exportStatusMessage != null) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(exportStatusMessage!!, fontSize = 9.sp, color = CncRunningGreen, fontWeight = FontWeight.Bold)
                     }
 
                     Spacer(modifier = Modifier.height(6.dp))
@@ -276,6 +325,67 @@ fun ToolTableDialog(
             onUpdateTool(newTool)
             showAddDialog = false
         }
+    }
+
+    // Import LinuxCNC tool.tbl Dialog
+    if (showImportDialog) {
+        AlertDialog(
+            onDismissRequest = { showImportDialog = false },
+            title = {
+                Text(
+                    text = stringResource(R.string.tool_table_import_title),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
+                    color = CncRunningGreen
+                )
+            },
+            text = {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = stringResource(R.string.tool_table_import_desc),
+                        fontSize = 11.sp,
+                        color = CncTextSecondary
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedTextField(
+                        value = importText,
+                        onValueChange = { importText = it },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp),
+                        textStyle = LocalTextStyle.current.copy(
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 10.sp,
+                            color = CncTextPrimary
+                        ),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = CncRunningGreen,
+                            unfocusedBorderColor = CncCardBorder,
+                            focusedContainerColor = CncSurfaceVariant,
+                            unfocusedContainerColor = CncSurfaceVariant
+                        )
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        val count = onImportToolTable(importText)
+                        exportStatusMessage = "¡$count herramientas importadas exitosamente!"
+                        showImportDialog = false
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = CncRunningGreen)
+                ) {
+                    Text(stringResource(R.string.tool_table_import_confirm), color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 11.sp)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showImportDialog = false }) {
+                    Text(stringResource(R.string.common_cancel), fontSize = 11.sp)
+                }
+            },
+            containerColor = CncSurfaceBg
+        )
     }
 }
 
@@ -385,7 +495,7 @@ fun ToolCardItem(
                         ) {
                             Icon(imageVector = Icons.Default.SwapHoriz, contentDescription = stringResource(R.string.tool_mount), modifier = Modifier.size(13.dp))
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text(stringResource(R.string.tool_mount), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
+                            Text(stringResource(R.string.tool_table_mount_btn, tool.id), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
                         }
                     }
 

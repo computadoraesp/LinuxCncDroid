@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.Construction
 import androidx.compose.material.icons.filled.Engineering
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.PowerSettingsNew
+import androidx.compose.material.icons.filled.Router
 import androidx.compose.material.icons.filled.SettingsEthernet
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Straighten
@@ -116,6 +117,7 @@ fun IndustrialTopBar(
     onOpenAxisCalibration: () -> Unit = {},
     onOpenManual: () -> Unit = {},
     onOpenHalMonitor: () -> Unit = {},
+    onOpenConnectionWizard: () -> Unit = {},
     batteryLevelPct: Int = 100,
     isCharging: Boolean = false,
     isLowBattery: Boolean = false,
@@ -629,6 +631,23 @@ fun IndustrialTopBar(
                         imageVector = Icons.AutoMirrored.Filled.MenuBook,
                         contentDescription = stringResource(R.string.topbar_manual_desc),
                         tint = CncCyberCyan,
+                        modifier = Modifier.size(17.dp)
+                    )
+                }
+
+                // 9b. LinuxCNC Connection Wizard & Hardware Setup Tutorial Button
+                IconButton(
+                    onClick = onOpenConnectionWizard,
+                    modifier = Modifier
+                        .size(34.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(CncSurfaceVariant)
+                        .border(1.dp, CncActiveGreen.copy(alpha = 0.6f), RoundedCornerShape(6.dp))
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Router,
+                        contentDescription = stringResource(R.string.wizard_title),
+                        tint = CncActiveGreen,
                         modifier = Modifier.size(17.dp)
                     )
                 }

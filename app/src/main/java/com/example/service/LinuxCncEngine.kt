@@ -280,6 +280,15 @@ class LinuxCncEngine {
     private var jogDirection = 0
     private var jogSpeed = 1000.0
 
+    // LinuxCNC Real Protocol Connection
+    private val _connectionConfig = MutableStateFlow(LinuxCncConnectionConfig())
+    val connectionConfig: StateFlow<LinuxCncConnectionConfig> = _connectionConfig.asStateFlow()
+
+    private var rshClient: LinuxCncRshClient? = null
+
+    val serverTelemetry: StateFlow<LinuxCncServerTelemetry>
+        get() = getOrCreateRshClient().serverTelemetry
+
     // OkHttp WebSocket client for real hardware
     private var okHttpClient: OkHttpClient? = null
     private var webSocket: WebSocket? = null
@@ -289,6 +298,55 @@ class LinuxCncEngine {
     private var reconnectAttemptCounter = 0
     private var currentBackoffMs = 2000L
     private val maxBackoffMs = 30000L
+
+    private fun getOrCreateRshClient(): LinuxCncRshClient {
+        if (rshClient == null) {
+            rshClient = LinuxCncRshClient(
+                onLog = { sev, tag, msg -> logEvent(sev, tag, msg) },
+                onStateUpdate = { state, mode ->
+                    if (!_isSimulatedMode.value) {
+                        _machineState.value = state
+                        _taskMode.value = mode
+                    }
+                },
+                onPositionUpdate = { x, y, z, a ->
+                    if (!_isSimulatedMode.value) {
+                        val activeOffset = _wcsOffsets.value[_currentCoordSystem.value]
+                        val xOff = activeOffset?.x ?: 0.0
+                        val yOff = activeOffset?.y ?: 0.0
+                        val zOff = activeOffset?.z ?: 0.0
+                        val aOff = activeOffset?.a ?: 0.0
+
+                        val curMap = _axes.value.toMutableMap()
+                        curMap["X"]?.let { curMap["X"] = it.copy(machinePos = x, workPos = round((x - xOff) * 1000.0) / 1000.0) }
+                        curMap["Y"]?.let { curMap["Y"] = it.copy(machinePos = y, workPos = round((y - yOff) * 1000.0) / 1000.0) }
+                        curMap["Z"]?.let { curMap["Z"] = it.copy(machinePos = z, workPos = round((z - zOff) * 1000.0) / 1000.0) }
+                        curMap["A"]?.let { curMap["A"] = it.copy(machinePos = a, workPos = round((a - aOff) * 1000.0) / 1000.0) }
+                        _axes.value = curMap
+                    }
+                },
+                onSpindleUpdate = { isEnabled, rpm ->
+                    if (!_isSimulatedMode.value) {
+                        _spindle.value = _spindle.value.copy(isEnabled = isEnabled, actualRpm = rpm)
+                    }
+                },
+                onFeedUpdate = { actualFeed ->
+                    if (!_isSimulatedMode.value) {
+                        _feed.value = _feed.value.copy(actualFeed = actualFeed)
+                    }
+                },
+                onToolUpdate = { toolNum ->
+                    if (!_isSimulatedMode.value) {
+                        val found = _toolTable.value.find { it.id == toolNum }
+                        if (found != null) {
+                            _activeTool.value = found
+                        }
+                    }
+                }
+            )
+        }
+        return rshClient!!
+    }
 
     init {
         loadSampleGCode()
@@ -514,14 +572,18 @@ class LinuxCncEngine {
 
     // Safety and State Commands
     fun toggleEstop() {
-        if (_machineState.value == MachineStateEnum.ESTOP) {
-            _machineState.value = MachineStateEnum.OFF
-            logEvent(LogSeverity.INFO, "SAFETY", "E-Stop circuit reset. Machine in OFF state")
-        } else {
+        val willBeEstop = _machineState.value != MachineStateEnum.ESTOP
+        if (willBeEstop) {
             _machineState.value = MachineStateEnum.ESTOP
             stopJog()
             _spindle.value = _spindle.value.copy(isEnabled = false)
             logEvent(LogSeverity.CRITICAL, "SAFETY", "EMERGENCY STOP (ESTOP) TRIPPED - Motion Aborted")
+        } else {
+            _machineState.value = MachineStateEnum.OFF
+            logEvent(LogSeverity.INFO, "SAFETY", "E-Stop circuit reset. Machine in OFF state")
+        }
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setEstop(willBeEstop)
         }
         sendRemoteCommand("ESTOP_TOGGLE", emptyMap())
     }
@@ -530,6 +592,9 @@ class LinuxCncEngine {
         if (_machineState.value != MachineStateEnum.ESTOP) {
             _machineState.value = MachineStateEnum.ON
             logEvent(LogSeverity.INFO, "POWER", "Main Servo Drive Bus ON. Machine Ready")
+            if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+                rshClient?.setMachinePower(true)
+            }
             sendRemoteCommand("POWER_ON", emptyMap())
         } else {
             logEvent(LogSeverity.WARNING, "SAFETY", "Cannot power ON while ESTOP is engaged")
@@ -541,6 +606,9 @@ class LinuxCncEngine {
         _spindle.value = _spindle.value.copy(isEnabled = false)
         stopJog()
         logEvent(LogSeverity.INFO, "POWER", "Servo Drives Powered OFF")
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setMachinePower(false)
+        }
         sendRemoteCommand("POWER_OFF", emptyMap())
     }
 
@@ -737,6 +805,9 @@ class LinuxCncEngine {
         }
 
         logEvent(LogSeverity.INFO, "MDI", "MDI Executed: $rawCmd")
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.sendMdi(rawCmd)
+        }
         sendRemoteCommand("MDI", mapOf("command" to rawCmd))
         return Result.success(rawCmd)
     }
@@ -747,6 +818,17 @@ class LinuxCncEngine {
             _activeJogAxis.value = axis
             jogDirection = direction
             jogSpeed = speedMmMin
+            if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+                val axisIdx = when (axis.uppercase(Locale.ROOT)) {
+                    "X" -> 0
+                    "Y" -> 1
+                    "Z" -> 2
+                    "A" -> 3
+                    else -> 0
+                }
+                val speedMmSec = (speedMmMin / 60.0) * direction
+                rshClient?.startJog(axisIdx, speedMmSec)
+            }
             sendRemoteCommand("JOG", mapOf("axis" to axis, "direction" to direction, "speed" to speedMmMin))
         }
     }
@@ -755,6 +837,16 @@ class LinuxCncEngine {
         _activeJogAxis.value?.let { axis ->
             _activeJogAxis.value = null
             jogDirection = 0
+            if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+                val axisIdx = when (axis.uppercase(Locale.ROOT)) {
+                    "X" -> 0
+                    "Y" -> 1
+                    "Z" -> 2
+                    "A" -> 3
+                    else -> 0
+                }
+                rshClient?.stopJog(axisIdx)
+            }
             sendRemoteCommand("JOG_STOP", mapOf("axis" to axis))
         }
     }
@@ -772,6 +864,17 @@ class LinuxCncEngine {
                     workPos = round(newWorkPos * 1000.0) / 1000.0
                 )
                 _axes.value = currentMap
+            }
+            if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+                val axisIdx = when (axis.uppercase(Locale.ROOT)) {
+                    "X" -> 0
+                    "Y" -> 1
+                    "Z" -> 2
+                    "A" -> 3
+                    else -> 0
+                }
+                val speedMmSec = jogSpeed / 60.0
+                rshClient?.jogIncremental(axisIdx, speedMmSec, direction * stepSizeMm)
             }
             sendRemoteCommand("JOG_STEP", mapOf("axis" to axis, "direction" to direction, "step" to stepSizeMm))
         }
@@ -858,11 +961,17 @@ class LinuxCncEngine {
 
     fun setSpindleOverride(pct: Int) {
         _spindle.value = _spindle.value.copy(overridePct = pct.coerceIn(10, 200))
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setSpindleOverride(pct / 100.0)
+        }
         sendRemoteCommand("SPINDLE_OVERRIDE", mapOf("override" to pct))
     }
 
     fun setFeedOverride(pct: Int) {
         _feed.value = _feed.value.copy(feedOverridePct = pct.coerceIn(0, 200))
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setFeedOverride(pct / 100.0)
+        }
         sendRemoteCommand("FEED_OVERRIDE", mapOf("override" to pct))
     }
 
@@ -885,6 +994,9 @@ class LinuxCncEngine {
             _taskMode.value = TaskMode.AUTO
             _spindle.value = _spindle.value.copy(isEnabled = true)
             logEvent(LogSeverity.INFO, "CYCLE", "Cycle Started: Executing program '${_loadedFileName.value}'")
+            if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+                rshClient?.cycleStart()
+            }
             sendRemoteCommand("CYCLE_START", emptyMap())
         } else {
             logEvent(LogSeverity.WARNING, "CYCLE", "Cannot start cycle: Machine is ${_machineState.value.name}")
@@ -895,6 +1007,9 @@ class LinuxCncEngine {
         if (_machineState.value == MachineStateEnum.RUNNING) {
             _machineState.value = MachineStateEnum.PAUSED
             logEvent(LogSeverity.WARNING, "CYCLE", "FEED HOLD / PAUSED by Operator")
+            if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+                rshClient?.feedHold()
+            }
             sendRemoteCommand("FEEDHOLD", emptyMap())
         }
     }
@@ -903,6 +1018,9 @@ class LinuxCncEngine {
         _machineState.value = MachineStateEnum.IDLE
         _activeGCodeLine.value = 0
         logEvent(LogSeverity.INFO, "CYCLE", "Cycle Aborted / Stopped")
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.cycleStop()
+        }
         sendRemoteCommand("ABORT", emptyMap())
     }
 
@@ -1006,6 +1124,98 @@ class LinuxCncEngine {
     }
 
     // Network / Live Server Connection
+    fun connectLinuxCnc(config: LinuxCncConnectionConfig) {
+        _connectionConfig.value = config
+        if (config.protocolType == LinuxCncProtocolType.SIMULATION_LOCAL) {
+            disconnectLinuxCnc()
+            _isSimulatedMode.value = true
+            logEvent(LogSeverity.INFO, "NETWORK", "Cambiado a Modo Simulación Local (Offline)")
+            return
+        }
+
+        _isSimulatedMode.value = false
+        if (config.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            try {
+                webSocket?.close(1000, "Switching to linuxcncrsh")
+            } catch (_: Exception) {}
+            val client = getOrCreateRshClient()
+            client.connect(config.hostIp, config.port, config.password)
+            isConnectedToRealServer = true
+            _capabilities.value = _capabilities.value.copy(hostIp = config.hostIp, port = config.port, isConnected = true)
+        } else if (config.protocolType == LinuxCncProtocolType.WEBSOCKET_JSON) {
+            rshClient?.disconnect()
+            connectToHost(config.hostIp, config.port)
+        }
+    }
+
+    fun disconnectLinuxCnc() {
+        rshClient?.disconnect()
+        try {
+            webSocket?.close(1000, "User disconnected")
+        } catch (_: Exception) {}
+        isConnectedToRealServer = false
+        _isSimulatedMode.value = true
+        _capabilities.value = _capabilities.value.copy(isConnected = false)
+        logEvent(LogSeverity.INFO, "NETWORK", "Desconectado de LinuxCNC. Modo Simulación activo.")
+    }
+
+    fun applyIniConfig(config: LinuxCncMachineConfig) {
+        val currentMap = _axes.value.toMutableMap()
+        currentMap["X"]?.let { currentMap["X"] = it.copy(minLimit = config.xMinLimit, maxLimit = config.xMaxLimit) }
+        currentMap["Y"]?.let { currentMap["Y"] = it.copy(minLimit = config.yMinLimit, maxLimit = config.yMaxLimit) }
+        currentMap["Z"]?.let { currentMap["Z"] = it.copy(minLimit = config.zMinLimit, maxLimit = config.zMaxLimit) }
+        currentMap["A"]?.let { currentMap["A"] = it.copy(minLimit = config.aMinLimit, maxLimit = config.aMaxLimit) }
+        _axes.value = currentMap
+
+        logEvent(
+            LogSeverity.INFO,
+            "CONFIG",
+            "Configuración INI aplicada: ${config.machineName} (Límites: X[${config.xMinLimit}..${config.xMaxLimit}], Y[${config.yMinLimit}..${config.yMaxLimit}], Z[${config.zMinLimit}..${config.zMaxLimit}])"
+        )
+    }
+
+    fun importToolTable(content: String): Int {
+        val tools = LinuxCncToolTableParser.parseToolTable(content)
+        if (tools.isNotEmpty()) {
+            _toolTable.value = tools
+            _activeTool.value = tools.firstOrNull { it.isActive } ?: tools.first()
+            _tool.value = _tool.value.copy(
+                toolNumber = _activeTool.value.id,
+                description = _activeTool.value.description,
+                lengthOffset = _activeTool.value.lengthOffset,
+                diameterOffset = _activeTool.value.diameter,
+                atcSlot = _activeTool.value.pocket
+            )
+            logEvent(LogSeverity.INFO, "TOOL", "Tabla de herramientas importada con éxito: ${tools.size} herramientas cargadas.")
+            return tools.size
+        }
+        return 0
+    }
+
+    fun exportToolTable(): String {
+        return LinuxCncToolTableParser.exportToolTable(_toolTable.value)
+    }
+
+    fun mountToolWithG43(toolId: Int) {
+        val found = _toolTable.value.find { it.id == toolId } ?: return
+        val updated = _toolTable.value.map { it.copy(isActive = it.id == toolId) }
+        _toolTable.value = updated
+        _activeTool.value = found
+        _tool.value = _tool.value.copy(
+            toolNumber = found.id,
+            description = found.description,
+            lengthOffset = found.lengthOffset,
+            diameterOffset = found.diameter,
+            atcSlot = found.pocket
+        )
+        logEvent(
+            LogSeverity.INFO,
+            "TOOL",
+            "Herramienta montada: T${found.id} (${found.description}), compensación G43 H${found.id} (Offset Z: ${found.lengthOffset} mm)"
+        )
+        executeMdiCommand("M6 T${found.id} G43 H${found.id}")
+    }
+
     fun connectToHost(hostIp: String, port: Int = 8000) {
         reconnectJob?.cancel()
         currentBackoffMs = 1000L

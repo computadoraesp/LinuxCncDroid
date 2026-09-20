@@ -77,12 +77,15 @@ import com.example.service.CncAuditExporter
 import com.example.ui.components.AlarmEventLogView
 import com.example.ui.components.AppManualDialog
 import com.example.ui.components.AxisCalibrationDialog
+import com.example.ui.components.ConnectionWizardDialog
+import com.example.ui.components.ConversationalCamDialog
 import com.example.ui.components.DroPanel
 import com.example.ui.components.EtherCatTelemetryView
 import com.example.ui.components.GCodeSecurityLoaderDialog
 import com.example.ui.components.HalMonitorDialog
 import com.example.ui.components.IndustrialCameraView
 import com.example.ui.components.IndustrialTopBar
+import com.example.ui.components.IniConfigDialog
 import com.example.ui.components.JogControlPad
 import com.example.ui.components.MachineConfigView
 import com.example.ui.components.MdiView
@@ -180,6 +183,12 @@ fun CncMainScreen(
     val showHalMonitorDialog by viewModel.showHalMonitorDialog.collectAsStateWithLifecycle()
     val showSoftLimitsDialog by viewModel.showSoftLimitsDialog.collectAsStateWithLifecycle()
     val showRunFromLineDialog by viewModel.showRunFromLineDialog.collectAsStateWithLifecycle()
+    val showIniDialog by viewModel.showIniDialog.collectAsStateWithLifecycle()
+    val showConversationalCamDialog by viewModel.showConversationalCamDialog.collectAsStateWithLifecycle()
+    val showConnectionWizardDialog by viewModel.showConnectionWizardDialog.collectAsStateWithLifecycle()
+    val isWizardPermanentlyDismissed by viewModel.isWizardPermanentlyDismissed.collectAsStateWithLifecycle()
+    val connectionConfig by viewModel.connectionConfig.collectAsStateWithLifecycle()
+    val serverTelemetry by viewModel.serverTelemetry.collectAsStateWithLifecycle()
 
     val wcsOffsets by viewModel.wcsOffsets.collectAsStateWithLifecycle()
     val modalState by viewModel.modalState.collectAsStateWithLifecycle()
@@ -229,6 +238,7 @@ fun CncMainScreen(
                 onScreenPolicyClick = { viewModel.setSelectedTab(CncNavigationTab.CONFIG) },
                 onOpenManual = { viewModel.setShowManualDialog(show = true) },
                 onOpenHalMonitor = { viewModel.showHalMonitorDialog.value = true },
+                onOpenConnectionWizard = { viewModel.setShowConnectionWizardDialog(show = true) },
             )
         },
         bottomBar = {
@@ -789,9 +799,16 @@ fun CncMainScreen(
                             onOpenManual = { viewModel.setShowManualDialog(show = true) },
                             onOpenHalMonitor = { viewModel.showHalMonitorDialog.value = true },
                             onOpenWcsTable = { viewModel.showWcsTableDialog.value = true },
+                            onOpenIniConfig = { viewModel.showIniDialog.value = true },
+                            onOpenConversationalCam = { viewModel.showConversationalCamDialog.value = true },
+                            onOpenConnectionWizard = { viewModel.setShowConnectionWizardDialog(show = true) },
                             screenTimeoutPolicy = screenTimeoutPolicy,
                             onSelectScreenTimeoutPolicy = { viewModel.setScreenTimeoutPolicy(it) },
                             batterySafetyState = batterySafety,
+                            connectionConfig = connectionConfig,
+                            serverTelemetry = serverTelemetry,
+                            onConnectLinuxCnc = { viewModel.connectLinuxCnc(it) },
+                            onDisconnectLinuxCnc = { viewModel.disconnectLinuxCnc() },
                             isSimulatedMode = isSimulated,
                             onToggleSimulatedMode = { viewModel.setEngineSimulatedMode(it) },
                             connectionTelemetry = connectionTelemetry,
@@ -833,13 +850,16 @@ fun CncMainScreen(
                     activeTool = activeTool,
                     currentSpindleZ = axes["Z"]?.workPos ?: 0.0,
                     onDismiss = { viewModel.setShowToolTableDialog(show = false) },
-                    onMountTool = { viewModel.mountTool(it) },
+                    onMountTool = { viewModel.mountToolWithG43(it) },
                     onUpdateTool = { viewModel.updateTool(it) },
                     onDeleteTool = { viewModel.deleteTool(it) },
-                ) {
-                    viewModel.touchOffToolZ(it)
-                    viewModel.engine.logEvent(LogSeverity.INFO, "TOOL", "Touch-off for T$it: Tool # ${tool.toolNumber}")
-                }
+                    onTouchOffZ = { toolId ->
+                        viewModel.touchOffToolZ(toolId)
+                        viewModel.engine.logEvent(LogSeverity.INFO, "TOOL", "Touch-off for T$toolId")
+                    },
+                    onImportToolTable = { viewModel.importToolTable(it) },
+                    onExportToolTable = { viewModel.exportToolTable() }
+                )
             }
 
             if (showCalibrationDialog) {
@@ -912,6 +932,41 @@ fun CncMainScreen(
                     onDismiss = { viewModel.showRunFromLineDialog.value = false },
                     onConfirmRunFromLine = { targetIndex ->
                         viewModel.runFromLine(targetIndex)
+                    }
+                )
+            }
+
+            // PRO DIALOG 5: LinuxCNC INI Configuration Editor & Viewer
+            if (showIniDialog) {
+                IniConfigDialog(
+                    onDismiss = { viewModel.showIniDialog.value = false },
+                    onApplyConfig = { config ->
+                        viewModel.applyIniConfig(config)
+                    }
+                )
+            }
+
+            // PRO DIALOG 6: Canned Cycles & Conversational CAM (Facing, Pocket, Bolt Circle)
+            if (showConversationalCamDialog) {
+                ConversationalCamDialog(
+                    onDismiss = { viewModel.showConversationalCamDialog.value = false },
+                    onLoadToController = { title, gcode ->
+                        viewModel.loadConversationalGCode(title, gcode)
+                    }
+                )
+            }
+
+            // PRO DIALOG 7: Interactive LinuxCNC Connection Wizard & Hardware Tutorial
+            if (showConnectionWizardDialog) {
+                ConnectionWizardDialog(
+                    serverTelemetry = serverTelemetry,
+                    connectionConfig = connectionConfig,
+                    onDismiss = { viewModel.setShowConnectionWizardDialog(show = false) },
+                    onSkipTutorial = { dontShowAgain ->
+                        viewModel.skipConnectionWizard(dontShowAgain)
+                    },
+                    onConnectDirect = { cfg ->
+                        viewModel.connectFromWizard(cfg)
                     }
                 )
             }

@@ -162,85 +162,93 @@ fun JogControlPad(
                             )
                         }
 
+                        // Row 2 (Portrait): Style Selector Tabs spanning full width
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(CncSurfaceVariant)
+                                .padding(3.dp)
                         ) {
-                            // Style Selector Pill (BUTTON PAD vs VIRTUAL MPG)
-                            Row(
+                            Box(
                                 modifier = Modifier
+                                    .weight(1f)
                                     .clip(RoundedCornerShape(6.dp))
-                                    .background(CncSurfaceVariant)
-                                    .padding(2.dp)
+                                    .background(if (jogStyle == JogControlStyle.BUTTON_PAD) CncCyberCyan else Color.Transparent)
+                                    .clickable(enabled = isEnabled) { onSelectJogStyle(JogControlStyle.BUTTON_PAD) }
+                                    .padding(vertical = 7.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(if (jogStyle == JogControlStyle.BUTTON_PAD) CncCyberCyan else Color.Transparent)
-                                        .clickable(enabled = isEnabled) { onSelectJogStyle(JogControlStyle.BUTTON_PAD) }
-                                        .padding(horizontal = 8.dp, vertical = 5.dp),
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.jog_mode_pad),
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = if (jogStyle == JogControlStyle.BUTTON_PAD) Color(0xFF00363D) else CncTextSecondary,
-                                    )
-                                }
-
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(if (jogStyle == JogControlStyle.VIRTUAL_MPG) CncCyberCyan else Color.Transparent)
-                                        .clickable(enabled = isEnabled) { onSelectJogStyle(JogControlStyle.VIRTUAL_MPG) }
-                                        .padding(horizontal = 8.dp, vertical = 5.dp)
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.jog_mode_mpg),
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = if (jogStyle == JogControlStyle.VIRTUAL_MPG) Color(0xFF00363D) else CncTextSecondary,
-                                    )
-                                }
+                                Text(
+                                    text = stringResource(R.string.jog_mode_pad),
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1,
+                                    color = if (jogStyle == JogControlStyle.BUTTON_PAD) Color(0xFF00363D) else CncTextSecondary,
+                                )
                             }
 
-                            // Mode Toggle (Continuous vs Incremental)
-                            Row(
+                            Box(
                                 modifier = Modifier
+                                    .weight(1f)
                                     .clip(RoundedCornerShape(6.dp))
-                                    .background(CncSurfaceVariant)
-                                    .padding(2.dp)
+                                    .background(if (jogStyle == JogControlStyle.VIRTUAL_MPG) CncCyberCyan else Color.Transparent)
+                                    .clickable(enabled = isEnabled) { onSelectJogStyle(JogControlStyle.VIRTUAL_MPG) }
+                                    .padding(vertical = 7.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(if (isContinuous) CncWarningAmber else Color.Transparent)
-                                        .clickable(enabled = isEnabled) { onToggleContinuous(true) }
-                                        .padding(horizontal = 8.dp, vertical = 5.dp)
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.jog_cont),
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = if (isContinuous) Color.Black else CncTextSecondary
-                                    )
-                                }
+                                Text(
+                                    text = stringResource(R.string.jog_mode_mpg),
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1,
+                                    color = if (jogStyle == JogControlStyle.VIRTUAL_MPG) Color(0xFF00363D) else CncTextSecondary,
+                                )
+                            }
+                        }
 
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(4.dp))
-                                        .background(if (!isContinuous) CncCyberCyan else Color.Transparent)
-                                        .clickable(enabled = isEnabled) { onToggleContinuous(false) }
-                                        .padding(horizontal = 8.dp, vertical = 5.dp)
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.jog_step),
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = if (!isContinuous) Color.Black else CncTextSecondary,
-                                    )
-                                }
+                        // Row 3 (Portrait): Continuous vs Incremental Step Mode full width
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(CncSurfaceVariant)
+                                .padding(3.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .background(if (isContinuous) CncWarningAmber else Color.Transparent)
+                                    .clickable(enabled = isEnabled) { onToggleContinuous(true) }
+                                    .padding(vertical = 7.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = "CONTINUO (${stringResource(R.string.jog_cont)})",
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1,
+                                    color = if (isContinuous) Color.Black else CncTextSecondary
+                                )
+                            }
+
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .background(if (!isContinuous) CncCyberCyan else Color.Transparent)
+                                    .clickable(enabled = isEnabled) { onToggleContinuous(false) }
+                                    .padding(vertical = 7.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = "PASO A PASO (${stringResource(R.string.jog_step)})",
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1,
+                                    color = if (!isContinuous) Color.Black else CncTextSecondary,
+                                )
                             }
                         }
                     }

@@ -19,6 +19,7 @@ import com.example.service.CncFeedbackManager
 import com.example.service.CncSecurityScanner
 import com.example.service.ConnectivityObserver
 import com.example.service.LinuxCncEngine
+import com.example.service.LinuxCncMachineConfig
 import com.example.service.NetworkConnectivityObserver
 import java.util.Locale
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -165,6 +166,19 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     val showHalMonitorDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
     val showSoftLimitsDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
     val showRunFromLineDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+    val showIniDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+    val showConversationalCamDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+    val showConnectionWizardDialog: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
+
+    // Tutorial preference: whether the tutorial has been permanently skipped
+    private val _isWizardPermanentlyDismissed = MutableStateFlow(
+        savedStateHandle.get<Boolean>("wizard_permanently_dismissed") ?: false
+    )
+    val isWizardPermanentlyDismissed: StateFlow<Boolean> = _isWizardPermanentlyDismissed.asStateFlow()
+
+    // LinuxCNC Real Protocol & Telemetry
+    val connectionConfig: StateFlow<LinuxCncConnectionConfig> = engine.connectionConfig
+    val serverTelemetry: StateFlow<LinuxCncServerTelemetry> = engine.serverTelemetry
 
     // PRO MODULE 1: WCS Offsets
     val wcsOffsets: StateFlow<Map<String, WcsOffset>> = engine.wcsOffsets
@@ -465,6 +479,18 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
             .filter { it }
             .onEach { feedbackManager.playProbeTripSound() }
             .launchIn(viewModelScope)
+
+        // Tutorial trigger: When LinuxCNC connects for the first time, offer the wizard unless permanently skipped
+        engine.serverTelemetry
+            .map { it.isConnected }
+            .distinctUntilChanged()
+            .filter { it }
+            .onEach { isConnected ->
+                if (isConnected && !_isWizardPermanentlyDismissed.value) {
+                    showConnectionWizardDialog.value = true
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun seedInitialData() {
@@ -715,6 +741,21 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     fun setShowToolTableDialog(show: Boolean) { showToolTableDialog.value = show }
     fun setShowCalibrationDialog(show: Boolean) { showCalibrationDialog.value = show }
     fun setShowManualDialog(show: Boolean) { showManualDialog.value = show }
+    fun setShowConnectionWizardDialog(show: Boolean) { showConnectionWizardDialog.value = show }
+
+    fun skipConnectionWizard(dontShowAgain: Boolean) {
+        feedbackManager.triggerActionClick()
+        if (dontShowAgain) {
+            _isWizardPermanentlyDismissed.value = true
+            savedStateHandle["wizard_permanently_dismissed"] = true
+        }
+        showConnectionWizardDialog.value = false
+    }
+
+    fun connectFromWizard(config: LinuxCncConnectionConfig) {
+        feedbackManager.triggerSuccessHaptic()
+        connectLinuxCnc(config)
+    }
 
     fun setJogStyle(style: JogControlStyle) {
         feedbackManager.triggerActionClick()
@@ -931,5 +972,41 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
 
     fun generateLinuxCncCompTable(session: AxisCalibrationSession): String {
         return engine.generateLinuxCncCompTable(session)
+    }
+
+    // --- LinuxCNC Real Hardware Protocol Operations ---
+    fun connectLinuxCnc(config: LinuxCncConnectionConfig) {
+        feedbackManager.triggerActionClick()
+        engine.connectLinuxCnc(config)
+    }
+
+    fun disconnectLinuxCnc() {
+        feedbackManager.triggerActionClick()
+        engine.disconnectLinuxCnc()
+    }
+
+    fun importToolTable(content: String): Int {
+        feedbackManager.triggerSuccessHaptic()
+        return engine.importToolTable(content)
+    }
+
+    fun exportToolTable(): String {
+        feedbackManager.triggerActionClick()
+        return engine.exportToolTable()
+    }
+
+    fun mountToolWithG43(toolId: Int) {
+        feedbackManager.triggerSuccessHaptic()
+        engine.mountToolWithG43(toolId)
+    }
+
+    fun applyIniConfig(config: LinuxCncMachineConfig) {
+        feedbackManager.triggerSuccessHaptic()
+        engine.applyIniConfig(config)
+    }
+
+    fun loadConversationalGCode(title: String, gcode: String) {
+        feedbackManager.triggerSuccessHaptic()
+        engine.loadGCodeContent(title, gcode)
     }
 }

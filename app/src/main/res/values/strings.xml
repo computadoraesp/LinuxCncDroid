@@ -614,4 +614,68 @@
     <string name="run_from_line_desc">Select a specific block to resume machining after tool replacement or inspection. Safe Z-clearance and spindle restart will be performed automatically.</string>
     <string name="run_from_line_btn">RESTART AT LINE</string>
     <string name="run_from_line_cancel">CANCEL</string>
+
+    <!-- LinuxCNC Real Protocol & Connectivity -->
+    <string name="protocol_linuxcncrsh_name">LinuxCNC Server (linuxcncrsh TCP :5007)</string>
+    <string name="protocol_websocket_name">WebSocket Gateway (:8000)</string>
+    <string name="protocol_sim_name">Simulador Local (Offline)</string>
+    <string name="conn_protocol_label">Protocolo de Enlace LinuxCNC</string>
+    <string name="conn_host_label">Dirección IP del Host LinuxCNC</string>
+    <string name="conn_port_label">Puerto TCP</string>
+    <string name="conn_pass_label">Contraseña (linuxcncrsh)</string>
+    <string name="conn_connect_btn">CONECTAR A LINUXCNC</string>
+    <string name="conn_disconnect_btn">DESCONECTAR</string>
+    <string name="conn_status_label">Estado del Servidor</string>
+
+    <!-- Tool Table Manager (tool.tbl) -->
+    <string name="tool_table_import_btn">IMPORTAR tool.tbl</string>
+    <string name="tool_table_export_btn">EXPORTAR tool.tbl</string>
+    <string name="tool_table_mount_btn">CARGAR (M6 T%1$d G43)</string>
+    <string name="tool_table_import_dialog_title">Importar Archivo tool.tbl de LinuxCNC</string>
+    <string name="tool_table_import_dialog_desc">Pega el contenido de tu archivo tool.tbl de LinuxCNC para actualizar el carrusel de herramientas de la máquina:</string>
+    <string name="tool_table_import_confirm">IMPORTAR Y APLICAR</string>
+    <string name="tool_table_export_copied">Archivo tool.tbl copiado al portapapeles</string>
+
+    <!-- Machine INI Editor & Visualizer (machine.ini) -->
+    <string name="ini_editor_title">CONFIGURACIÓN LINUXCNC (machine.ini)</string>
+    <string name="ini_editor_desc">Inspecciona y edita los límites de carrera (Soft Limits), aceleraciones, pasos y cinemática de LinuxCNC.</string>
+    <string name="ini_apply_btn">APLICAR LÍMITES AL CONTROLADOR</string>
+    <string name="ini_reset_default_btn">RESTAURAR INI DE EJEMPLO</string>
+    <string name="ini_copy_btn">COPIAR INI</string>
+    <string name="ini_tab_summary">RESUMEN DE MÁQUINA</string>
+    <string name="ini_tab_raw">EDITOR machine.ini</string>
+
+    <!-- LinuxCNC Real Server Connection & Telemetry -->
+    <string name="linuxcnc_conn_title">SERVIDOR REMOTO LINUXCNC (linuxcncrsh / WebSocket)</string>
+    <string name="linuxcnc_password_label">Contraseña RSH (por defecto: pwd)</string>
+    <string name="linuxcnc_connect_btn">CONECTAR A LINUXCNC</string>
+    <string name="linuxcnc_disconnect_btn">DESCONECTAR SERVIDOR</string>
+    <string name="tool_table_import_title">IMPORTAR TABLA DE HERRAMIENTAS (tool.tbl)</string>
+    <string name="tool_table_import_desc">Pega el contenido del archivo tool.tbl de LinuxCNC (formato T... P... D... Z... ; comentario):</string>
+
+    <!-- Conversational CAM & Canned Cycles -->
+    <string name="cam_dialog_title">CAM CONVERSACIONAL (CICLOS ENLATADOS)</string>
+    <string name="cam_dialog_desc">Generación rápida de código G al pie de máquina para planeado, cajeados y círculos de barrenos sin necesidad de CAD/CAM externo.</string>
+    <string name="cam_tab_facing">PLANEAR CARA</string>
+    <string name="cam_tab_pocket">CAJEADO RECT</string>
+    <string name="cam_tab_bolt_circle">CÍRCULO BARRENOS (G83)</string>
+    <string name="cam_generate_btn">GENERAR CÓDIGO G</string>
+    <string name="cam_load_to_controller">CARGAR EN CONTROLADOR Y SIMULAR</string>
+    <string name="cam_copy_gcode">COPIAR G-CODE</string>
+    <string name="cam_preview_title">VISTA PREVIA G-CODE GENERADO</string>
+
+    <!-- Connection Wizard & Interactive Tutorial -->
+    <string name="wizard_title">TUTORIAL Y ASISTENTE DE CONEXIÓN LINUXCNC</string>
+    <string name="wizard_subtitle">Guía interactiva paso a paso para vincular tu dispositivo Android con la máquina física</string>
+    <string name="wizard_btn_open">ASISTENTE DE CONEXIÓN</string>
+    <string name="wizard_btn_skip">OMITIR TUTORIAL</string>
+    <string name="wizard_btn_next">SIGUIENTE PASO</string>
+    <string name="wizard_btn_prev">PASO ANTERIOR</string>
+    <string name="wizard_btn_finish">FINALIZAR Y CONECTAR</string>
+    <string name="wizard_dont_show_again">No volver a mostrar automáticamente</string>
+    <string name="wizard_step_1_title">1. Detección de Interfaz y Enlace</string>
+    <string name="wizard_step_2_title">2. Habilitar Servidor en LinuxCNC (machine.ini)</string>
+    <string name="wizard_step_3_title">3. Test de Ping y Firewall en Linux</string>
+    <string name="wizard_step_4_title">4. Autenticación y Handshake RSH</string>
+    <string name="wizard_step_5_title">5. Verificación de Seguridad y E-STOP</string>
 </resources>
