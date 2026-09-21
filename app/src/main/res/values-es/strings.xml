@@ -598,4 +598,163 @@
         <item>CRÍTICO: Inspeccione siempre los puntos de penetración vertical y el recorrido en Z negativo en vista FRONT o LAT antes de mecanizar.</item>
         <item>Asegúrese de palpar y fijar el origen WCS (G54-G59) con instrumento físico antes de confiar en la alineación visual del datum 3D.</item>
     </string-array>
+
+    <!-- Modal G-Code & Modificadores de Ejecución de Programa -->
+    <string name="modal_bar_title">GRUPOS MODALES G-CODE ACTIVOS</string>
+    <string name="exec_mod_single_block">BLOQUE A BLOQUE (PASO)</string>
+    <string name="exec_mod_opt_stop">PARADA OPCIONAL (M1)</string>
+    <string name="exec_mod_block_delete">BORRADO DE BLOQUE (/)</string>
+    <string name="exec_mod_run_from_line">REANUDAR EN LÍNEA…</string>
+    <string name="exec_step_next">SIGUIENTE BLOQUE &gt;</string>
+    <string name="run_from_line_title">REANUDAR CORTE (RUN FROM LINE)</string>
+    <string name="run_from_line_desc">Selecciona un bloque específico para retomar el mecanizado tras una parada o inspección. Se ejecutará aproximación segura en Z y rearranque de husillo automáticamente.</string>
+    <string name="run_from_line_btn">REANUDAR EN ESTA LÍNEA</string>
+    <string name="run_from_line_cancel">CANCELAR</string>
+
+    <!-- Protocolo Real LinuxCNC y Conectividad -->
+    <string name="protocol_linuxcncrsh_name">Servidor LinuxCNC (linuxcncrsh TCP :5007)</string>
+    <string name="protocol_websocket_name">Pasarela WebSocket (:8000)</string>
+    <string name="protocol_sim_name">Simulador Local (Desconectado)</string>
+    <string name="conn_protocol_label">Protocolo de Enlace LinuxCNC</string>
+    <string name="conn_host_label">Dirección IP del Host LinuxCNC</string>
+    <string name="conn_port_label">Puerto TCP</string>
+    <string name="conn_pass_label">Contraseña (linuxcncrsh)</string>
+    <string name="conn_connect_btn">CONECTAR A LINUXCNC</string>
+    <string name="conn_disconnect_btn">DESCONECTAR</string>
+    <string name="conn_status_label">Estado del Servidor</string>
+
+    <!-- Gestor de Tabla de Herramientas (tool.tbl) -->
+    <string name="tool_table_import_btn">IMPORTAR tool.tbl</string>
+    <string name="tool_table_export_btn">EXPORTAR tool.tbl</string>
+    <string name="tool_table_mount_btn">CARGAR (M6 T%1$d G43)</string>
+    <string name="tool_table_import_dialog_title">Importar Archivo tool.tbl de LinuxCNC</string>
+    <string name="tool_table_import_dialog_desc">Pega el contenido de tu archivo tool.tbl de LinuxCNC para actualizar el carrusel de herramientas de la máquina:</string>
+    <string name="tool_table_import_confirm">IMPORTAR Y APLICAR</string>
+    <string name="tool_table_export_copied">Archivo tool.tbl copiado al portapapeles</string>
+
+    <!-- Editor de Configuración INI (machine.ini) -->
+    <string name="ini_editor_title">CONFIGURACIÓN LINUXCNC (machine.ini)</string>
+    <string name="ini_editor_desc">Inspecciona y edita los límites de carrera (Soft Limits), aceleraciones, pasos y cinemática de LinuxCNC.</string>
+    <string name="ini_apply_btn">APLICAR LÍMITES AL CONTROLADOR</string>
+    <string name="ini_reset_default_btn">RESTAURAR INI DE EJEMPLO</string>
+    <string name="ini_copy_btn">COPIAR INI</string>
+    <string name="ini_tab_summary">RESUMEN DE MÁQUINA</string>
+    <string name="ini_tab_raw">EDITOR machine.ini</string>
+
+    <!-- Conexión Remota y Telemetría -->
+    <string name="linuxcnc_conn_title">SERVIDOR REMOTO LINUXCNC (linuxcncrsh / WebSocket)</string>
+    <string name="linuxcnc_password_label">Contraseña RSH (por defecto: pwd)</string>
+    <string name="linuxcnc_connect_btn">CONECTAR A LINUXCNC</string>
+    <string name="linuxcnc_disconnect_btn">DESCONECTAR SERVIDOR</string>
+    <string name="tool_table_import_title">IMPORTAR TABLA DE HERRAMIENTAS (tool.tbl)</string>
+    <string name="tool_table_import_desc">Pega el contenido del archivo tool.tbl de LinuxCNC (formato T... P... D... Z... ; comentario):</string>
+
+    <!-- CAM Conversacional y Ciclos Enlatados -->
+    <string name="cam_dialog_title">CAM CONVERSACIONAL (CICLOS ENLATADOS)</string>
+    <string name="cam_dialog_desc">Generación rápida de código G al pie de máquina para planeado, cajeados y círculos de barrenos sin necesidad de CAD/CAM externo.</string>
+    <string name="cam_tab_facing">PLANEAR CARA</string>
+    <string name="cam_tab_pocket">CAJEADO RECT</string>
+    <string name="cam_tab_bolt_circle">CÍRCULO BARRENOS (G83)</string>
+    <string name="cam_generate_btn">GENERAR CÓDIGO G</string>
+    <string name="cam_load_to_controller">CARGAR EN CONTROLADOR Y SIMULAR</string>
+    <string name="cam_copy_gcode">COPIAR G-CODE</string>
+    <string name="cam_preview_title">VISTA PREVIA G-CODE GENERADO</string>
+
+    <!-- Asistente y Tutorial de Conexión -->
+    <string name="wizard_title">TUTORIAL Y ASISTENTE DE CONEXIÓN LINUXCNC</string>
+    <string name="wizard_subtitle">Guía interactiva paso a paso para vincular tu dispositivo Android con la máquina física</string>
+    <string name="wizard_btn_open">ASISTENTE DE CONEXIÓN</string>
+    <string name="wizard_btn_skip">OMITIR TUTORIAL</string>
+    <string name="wizard_btn_next">SIGUIENTE PASO</string>
+    <string name="wizard_btn_prev">PASO ANTERIOR</string>
+    <string name="wizard_btn_finish">FINALIZAR Y CONECTAR</string>
+    <string name="wizard_dont_show_again">No volver a mostrar automáticamente</string>
+    <string name="wizard_step_1_title">1. Detección de Interfaz y Enlace</string>
+    <string name="wizard_step_2_title">2. Habilitar Servidor en LinuxCNC (machine.ini)</string>
+    <string name="wizard_step_3_title">3. Test de Ping y Firewall en Linux</string>
+    <string name="wizard_step_4_title">4. Autenticación y Handshake RSH</string>
+    <string name="wizard_step_5_title">5. Verificación de Seguridad y E-STOP</string>
+
+    <!-- In-App Manual Section 12 (Spanish) -->
+    <string name="manual_sec12_title">12. Asistente de Conexión y Enlace LinuxCNC (linuxcncrsh)</string>
+    <string name="manual_sec12_summary">Guía de comunicación por socket TCP, configuración de machine.ini, reglas de firewall y handshake de autenticación.</string>
+    <string name="manual_sec12_content">La comunicación remota industrial entre la tablet/móvil Android y el CNC opera a través del servidor linuxcncrsh:\n\n• INTERFAZ DE RED: Soporta Wi-Fi LAN de taller, conexión Ethernet cableada (adaptador USB-C a RJ45) o Hotspot/Tethering directo.\n• CONFIGURACIÓN DE machine.ini:\n  – Debe incluirse en la sección [APPLICATIONS] la directiva:\n    APP = linuxcncrsh -- -w -p 5007 -d\n  – El flag -w habilita permisos de escritura (movimiento de ejes, cambio de modos, control de husillo).\n  – El flag -p 5007 define el puerto TCP estándar.\n• REGLAS DE FIREWALL LINUX:\n  – Abrir puerto en Linux con: sudo ufw allow 5007/tcp\n  – Verificar que el demonio escucha con: ss -tulpn | grep 5007\n• PROTOCOLO DE HANDSHAKE:\n  – Saludo inicial: \'hello EMC LinuxCncDroid 1.0\'\n  – Autenticación de clave: \'set enable password\'\n  – Monitoreo constante de posiciones X/Y/Z/A, estados E-Stop y errores en tiempo real.</string>
+    <string-array name="manual_sec12_sop">
+        <item>1. Pulsa el icono del router en la barra superior o en AJUSTES para iniciar el Asistente de Conexión.</item>
+        <item>2. Comprueba que Android y LinuxCNC se encuentren en la misma subred IP (p.ej. 192.168.1.X).</item>
+        <item>3. Configura la directiva linuxcncrsh en tu archivo .ini y habilita el puerto 5007 en el firewall.</item>
+        <item>4. Introduce la IP y contraseña (por defecto: pwd) y pulsa FINALIZAR Y CONECTAR.</item>
+    </string-array>
+    <string-array name="manual_sec12_safety">
+        <item>Siempre mantén accesible la seta física de parada de emergencia (E-STOP) en la máquina antes de conectar.</item>
+        <item>Usa redes Wi-Fi protegidas con WPA2/WPA3 o enlace Ethernet dedicado para evitar latencias o interferencias electromagnéticas de variadores (VFD).</item>
+    </string-array>
+
+    <!-- In-App Manual Section 13 (Spanish) -->
+    <string name="manual_sec13_title">13. CAM Conversacional y Ciclos Enlatados</string>
+    <string name="manual_sec13_summary">Mecanizado rápido al pie de máquina: Planeado de caras, Cajeados rectangulares y Círculos de barrenos (G83).</string>
+    <string name="manual_sec13_content">El generador CAM Conversacional permite mecanizar operaciones estándar sin necesidad de modelar en CAD ni postprocesar en CAM externo:\n\n• CICLO DE PLANEADO DE CARAS (FACING):\n  – Genera pasadas paralelas en zig-zag con paso lateral (stepover) regulable según el diámetro de la fresa.\n  – Entrada suave a cota de seguridad Z y pasadas de acabado opcionales.\n\n• CICLO DE CAJEADO RECTANGULAR (POCKETING):\n  – Desbaste concéntrico de cajeras rectangulares con control de profundidad por pasada (ap) y avance de bajada helicoidal/rampa.\n\n• CÍRCULO DE BARRENOS / PATRÓN DE AGUJEROS (BOLT CIRCLE):\n  – Calcula las posiciones angulares polares y genera ciclos de taladrado profundo con picoteo y desahogo de viruta (G83).\n\n• TRANSFERENCIA DIRECTA A CONTROLADOR:\n  – Un toque en \'CARGAR EN CONTROLADOR Y SIMULAR\' transfiere el código generado al intérprete y visualizador 3D.</string>
+    <string-array name="manual_sec13_sop">
+        <item>1. Abre el diálogo CAM CONVERSACIONAL desde la pestaña AJUSTES o la barra superior.</item>
+        <item>2. Selecciona la pestaña del ciclo deseado: PLANEAR CARA, CAJEADO RECT o CÍRCULO BARRENOS.</item>
+        <item>3. Introduce las cotas de la pieza, RPM del husillo y avance de corte (Feedrate F).</item>
+        <item>4. Pulsa \'GENERAR CÓDIGO G\', revisa la vista previa y pulsa \'CARGAR EN CONTROLADOR Y SIMULAR\'.</item>
+    </string-array>
+    <string-array name="manual_sec13_safety">
+        <item>Verifica que la herramienta seleccionada en el husillo coincida con el diámetro declarado en los parámetros del ciclo.</item>
+        <item>Comprueba la altura de plano de seguridad (Z Safety) para evitar colisiones con bridas y mordazas.</item>
+    </string-array>
+
+    <!-- In-App Manual Section 14 (Spanish) -->
+    <string name="manual_sec14_title">14. Editor y Diagnóstico de machine.ini</string>
+    <string name="manual_sec14_summary">Inspección de límites de carrera físicos y virtuales (Soft Limits), aceleraciones y cinemática de ejes.</string>
+    <string name="manual_sec14_content">El módulo de configuración INI permite supervisar y sincronizar las variables estructurales del archivo .ini de la máquina:\n\n• LÍMITES SUAVES (MIN_LIMIT / MAX_LIMIT):\n  – Define la envolvente volumétrica segura de trabajo para prevenir impactos mecánicos en los extremos de los husillos.\n\n• DINÁMICA DE EJES (MAX_VELOCITY / MAX_ACCELERATION):\n  – Control de velocidades de posicionamiento y rampas de aceleración/deceleración para evitar pérdidas de pasos en motores paso a paso o sobretorque en servomotores.\n\n• PASOS POR UNIDAD (SCALE / STEP_SCALE):\n  – Relación de pulsos/revolución y paso de husillo de bolas para garantizar la resolución milimétrica exacta.\n\n• EDITOR DIRECTO Y COPIA:\n  – Visualiza el archivo bruto, permite búsquedas y cuenta con opción de copia al portapapeles y aplicación directa.</string>
+    <string-array name="manual_sec14_sop">
+        <item>1. Accede al botón \'CONFIGURACIÓN LINUXCNC (machine.ini)\' en la pestaña AJUSTES.</item>
+        <item>2. Examina la pestaña \'RESUMEN DE MÁQUINA\' para validar los límites volumétricos de X, Y y Z.</item>
+        <item>3. En la pestaña \'EDITOR machine.ini\', revisa las directivas de cinemática y comunicaciones.</item>
+        <item>4. Pulsa \'APLICAR LÍMITES AL CONTROLADOR\' para sincronizar con la interfaz HMI.</item>
+    </string-array>
+    <string-array name="manual_sec14_safety">
+        <item>Nunca incrementes los valores de aceleración o velocidad máxima sin antes realizar pruebas de resonancia mecánica.</item>
+    </string-array>
+
+    <!-- In-App Manual Section 15 (Spanish) -->
+    <string name="manual_sec15_title">15. Monitor de Pines y Señales HAL en Tiempo Real</string>
+    <string name="manual_sec15_summary">Diagnóstico de entradas/salidas de hardware, finales de carrera, setas de seguridad y estado de variadores.</string>
+    <string name="manual_sec15_content">El monitor HAL (Hardware Abstraction Layer) proporciona visibilidad instantánea del estado lógico de la máquina:\n\n• PINES DE SEGURIDAD (SAFETY):\n  – Supervisión de entradas de Parada de Emergencia (iocontrol.0.emc-enable-in) e interbloqueos de puertas protectoras.\n\n• FINALES DE CARRERA Y HOMING:\n  – Estado de sensores inductivos o microinterruptores de inicio y límite (joint.0.home-sw-in, min-hard-limit, max-hard-limit).\n\n• SEÑALES DEL HUSILLO Y REFRIGERACIÓN:\n  – Marcha/paro de husillo (spindle.0.on), sentido de giro (spindle.0.forward), velocidad analógica y relés de refrigerante M7/M8.\n\n• FILTRADO Y BÚSQUEDA DINÁMICA:\n  – Permite aislar señales por categorías operativas para agilizar tareas de mantenimiento y puesta en marcha.</string>
+    <string-array name="manual_sec15_sop">
+        <item>1. Pulsa el icono de chip de terminal (HAL) en la barra superior o en la pestaña AJUSTES.</item>
+        <item>2. Selecciona la categoría de señal deseada (SEGURIDAD, LÍMITES, HUSILLO, MOVIMIENTO, E/S).</item>
+        <item>3. Acciona físicamente un sensor o final de carrera para comprobar el cambio de estado (VERDE = Activo, GRIS = Inactivo).</item>
+    </string-array>
+    <string-array name="manual_sec15_safety">
+        <item>Si un final de carrera aparece permanentemente disparado, revisa el cableado antes de forzar el movimiento en modo manual.</item>
+    </string-array>
+
+    <!-- In-App Manual Section 16 (Spanish) -->
+    <string name="manual_sec16_title">16. Tabla de Coordenadas de Trabajo WCS (G54 - G59.3)</string>
+    <string name="manual_sec16_summary">Gestión de orígenes de pieza múltiples, compensación de mordazas y cerado de coordenadas.</string>
+    <string name="manual_sec16_content">La tabla de orígenes de trabajo WCS administra los 9 sistemas de coordenadas estándar de LinuxCNC:\n\n• SISTEMAS SOPORTADOS:\n  – G54 a G59 (Orígenes estándar de trabajo 1 al 6).\n  – G59.1, G59.2, G59.3 (Orígenes adicionales para sub-mordazas y utillajes múltiples).\n\n• REGISTRO DE DESPLAZAMIENTOS:\n  – Cada origen almacena desplazamientos independientes para X, Y, Z y eje rotativo A relativos al cero máquina absoluto (G53).\n\n• CERADO RÁPIDO CON PALPADOR O CÁMARA:\n  – Los ciclos automáticos de palpado 3D y la visión artificial transfieren sus resultados directamente al sistema WCS activo con solo confirmar la operación.</string>
+    <string-array name="manual_sec16_sop">
+        <item>1. Abre el selector de WCS en la barra superior o pulsa \'TABLA DE ORÍGENES WCS\' en AJUSTES.</item>
+        <item>2. Selecciona el sistema de coordenadas a activar (p.ej. G54 para pieza principal o G55 para segunda mordaza).</item>
+        <item>3. Ajusta o zera los ejes correspondientes con los botones CERO del panel DRO o mediante palpado.</item>
+    </string-array>
+    <string-array name="manual_sec16_safety">
+        <item>Antes de ejecutar un programa G-Code, corrobora en la barra superior que el sistema WCS activo coincide con el programado en la cabecera del archivo.</item>
+    </string-array>
+
+    <!-- In-App Manual Section 17 (Spanish) -->
+    <string name="manual_sec17_title">17. Hoja de Ruta y Sugerencias de Versión Posterior</string>
+    <string name="manual_sec17_summary">Próximas mejoras previstas: Transferencia masiva SCP/FTP/Samba, Pendants OTG/Bluetooth, 5º Eje (B/C) y mitigación de latencia Wi-Fi.</string>
+    <string name="manual_sec17_content">Para maximizar el rendimiento en plantas industriales y centros de mecanizado complejos, se proponen las siguientes integraciones para versiones posteriores:\n\n1. GESTIÓN Y TRANSFERENCIA DE ARCHIVOS G-CODE GRANDES:\n   – Protocolo de transferencia remota SCP / SFTP / FTP / Samba integrado para enviar archivos CAD/CAM pesados (&gt;50.000 líneas) directamente al directorio ~/linuxcnc/nc_files/ del PC sin saturar el ancho de banda del socket de control.\n\n2. CONTROL FÍSICO ALTERNATIVO (PENDANT BLUETOOTH / TECLADO OTG):\n   – Captura nativa de teclas de hardware y compatibilidad con mandos industriales USB/Bluetooth para permitir movimientos jog X/Y/Z y paro de emergencia físico sin necesidad de tocar la pantalla con guantes o taladrina.\n\n3. MANEJO DE EJES ROTATIVOS ADICIONALES (5º EJE B / C):\n   – Expansión del panel DRO, visualizador 3D y generador cinemático para soportar cabezales basculantes y platos divisores de 5 ejes continuos.\n\n4. RESPUESTA Y MITIGACIÓN DE LATENCIAS SEVERAS EN WI-FI:\n   – Algoritmo predictivo de compensación de buffer para redes con interferencia electromagnética de variadores (VFD) y recomendación prioritaria de enlace USB-C a Ethernet cableado (RJ45).</string>
+    <string-array name="manual_sec17_sop">
+        <item>1. Para programas G-Code masivos, utilice actualmente la carga vía archivo local o tarjeta SD.</item>
+        <item>2. Para entornos de alta interferencia electromagnética, conecte un adaptador USB-C a Ethernet cableado.</item>
+        <item>3. Consulte periódicamente esta sección para conocer la disponibilidad de las extensiones de hardware.</item>
+    </string-array>
+    <string-array name="manual_sec17_safety">
+        <item>Nunca utilice mandos inalámbricos no homologados sin una parada de emergencia cableada en serie con el relé del armario eléctrico.</item>
+    </string-array>
 </resources>

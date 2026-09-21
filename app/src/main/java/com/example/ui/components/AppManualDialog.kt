@@ -552,5 +552,71 @@ private fun getManualSections(): List<DocSectionItem> {
             standardStepsRes = R.array.manual_sec11_sop,
             safetyTipsRes = R.array.manual_sec11_safety,
         ),
+
+        DocSectionItem(
+            id = "connection_wizard",
+            titleRes = R.string.manual_sec12_title,
+            category = "COMUNICACIÓN Y ASISTENTE",
+            iconName = "ic_network",
+            summaryRes = R.string.manual_sec12_summary,
+            detailedContentRes = R.string.manual_sec12_content,
+            standardStepsRes = R.array.manual_sec12_sop,
+            safetyTipsRes = R.array.manual_sec12_safety,
+        ),
+
+        DocSectionItem(
+            id = "conversational_cam",
+            titleRes = R.string.manual_sec13_title,
+            category = "CAM CONVERSACIONAL",
+            iconName = "ic_cam",
+            summaryRes = R.string.manual_sec13_summary,
+            detailedContentRes = R.string.manual_sec13_content,
+            standardStepsRes = R.array.manual_sec13_sop,
+            safetyTipsRes = R.array.manual_sec13_safety,
+        ),
+
+        DocSectionItem(
+            id = "machine_ini_config",
+            titleRes = R.string.manual_sec14_title,
+            category = "CONFIGURACIÓN INI",
+            iconName = "ic_config",
+            summaryRes = R.string.manual_sec14_summary,
+            detailedContentRes = R.string.manual_sec14_content,
+            standardStepsRes = R.array.manual_sec14_sop,
+            safetyTipsRes = R.array.manual_sec14_safety,
+        ),
+
+        DocSectionItem(
+            id = "hal_pins_monitor",
+            titleRes = R.string.manual_sec15_title,
+            category = "HAL Y DIAGNÓSTICO",
+            iconName = "ic_hal",
+            summaryRes = R.string.manual_sec15_summary,
+            detailedContentRes = R.string.manual_sec15_content,
+            standardStepsRes = R.array.manual_sec15_sop,
+            safetyTipsRes = R.array.manual_sec15_safety,
+        ),
+
+        DocSectionItem(
+            id = "wcs_table_manager",
+            titleRes = R.string.manual_sec16_title,
+            category = "ORÍGENES WCS",
+            iconName = "ic_wcs",
+            summaryRes = R.string.manual_sec16_summary,
+            detailedContentRes = R.string.manual_sec16_content,
+            standardStepsRes = R.array.manual_sec16_sop,
+            safetyTipsRes = R.array.manual_sec16_safety,
+        ),
+
+        DocSectionItem(
+            id = "future_roadmap",
+            titleRes = R.string.manual_sec17_title,
+            category = "HOJA DE RUTA",
+            iconName = "ic_roadmap",
+            summaryRes = R.string.manual_sec17_summary,
+            detailedContentRes = R.string.manual_sec17_content,
+            standardStepsRes = R.array.manual_sec17_sop,
+            safetyTipsRes = R.array.manual_sec17_safety,
+        ),
     )
 }
