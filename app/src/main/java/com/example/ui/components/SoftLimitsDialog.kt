@@ -35,7 +35,13 @@ fun SoftLimitsDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
-        Card(
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing),
+            contentAlignment = Alignment.Center,
+        ) {
+            Card(
             modifier = Modifier
                 .fillMaxWidth(0.92f)
                 .fillMaxHeight(0.85f)
@@ -290,6 +296,7 @@ fun SoftLimitsDialog(
             }
         }
     }
+}
 }
 
 @Composable

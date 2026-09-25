@@ -52,7 +52,13 @@ fun HalMonitorDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
-        Card(
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing),
+            contentAlignment = Alignment.Center,
+        ) {
+            Card(
             modifier = Modifier
                 .fillMaxWidth(0.95f)
                 .fillMaxHeight(0.90f)
@@ -159,6 +165,7 @@ fun HalMonitorDialog(
             }
         }
     }
+}
 }
 
 @Composable

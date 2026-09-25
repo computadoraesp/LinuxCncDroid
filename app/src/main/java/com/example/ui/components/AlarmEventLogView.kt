@@ -251,7 +251,13 @@ fun IndustrialAuditReportDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
-        Surface(
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing),
+            contentAlignment = Alignment.Center,
+        ) {
+            Surface(
             modifier = Modifier
                 .fillMaxWidth(0.92f)
                 .fillMaxHeight(0.85f),
@@ -340,4 +346,5 @@ fun IndustrialAuditReportDialog(
             }
         }
     }
+}
 }
