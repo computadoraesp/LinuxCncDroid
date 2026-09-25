@@ -17,7 +17,7 @@ android {
   defaultConfig {
     applicationId = "com.aistudio.linuxcncdroid.vjxrkm"
     minSdk = libs.versions.minSdk.get().toInt()
-    targetSdk = libs.versions.targetSdk.get().toInt()
+    this.targetSdk = libs.versions.targetSdk.get().toInt()
     versionCode = libs.versions.versionCode.get().toInt()
     versionName = libs.versions.versionName.get()
 
