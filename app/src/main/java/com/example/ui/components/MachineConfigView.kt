@@ -199,7 +199,7 @@ fun MachineConfigView(
                     ) {
                         Icon(imageVector = Icons.Default.Settings, contentDescription = null, tint = CncWarningAmber, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("CONFIG INI (machine.ini)", fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.config_ini_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold)
                     }
 
                     OutlinedButton(
@@ -212,7 +212,7 @@ fun MachineConfigView(
                     ) {
                         Icon(imageVector = Icons.Default.AutoFixHigh, contentDescription = null, tint = CncActiveGreen, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("CICLOS CAM (GUI)", fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.config_cam_cycles_btn), fontSize = 9.sp, fontWeight = FontWeight.Bold)
                     }
                 }
 
@@ -317,22 +317,43 @@ fun MachineConfigView(
                             text = stringResource(R.string.linuxcnc_conn_title),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Black,
-                            color = CncRunningGreen
+                            color = CncRunningGreen,
+                            maxLines = 1,
+                            modifier = Modifier.weight(1f, fill = false)
                         )
+
+                        Spacer(modifier = Modifier.width(8.dp))
 
                         // Connected indicator
                         Surface(
-                            color = if (serverTelemetry.isConnected) CncRunningGreen.copy(alpha = 0.2f) else CncEstopRed.copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(4.dp),
+                            color = if (serverTelemetry.isConnected) CncRunningGreen.copy(alpha = 0.15f) else CncEstopRed.copy(alpha = 0.15f),
+                            shape = RoundedCornerShape(6.dp),
                             border = BorderStroke(1.dp, if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed)
                         ) {
-                            Text(
-                                text = if (serverTelemetry.isConnected) "CONECTADO (${serverTelemetry.latencyMs} ms)" else "DESCONECTADO",
-                                fontSize = 9.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed,
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(6.dp)
+                                        .clip(CircleShape)
+                                        .background(if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed)
+                                )
+                                Spacer(modifier = Modifier.width(5.dp))
+                                Text(
+                                    text = if (serverTelemetry.isConnected) {
+                                        stringResource(R.string.conn_status_connected, serverTelemetry.latencyMs)
+                                    } else {
+                                        stringResource(R.string.conn_status_disconnected)
+                                    },
+                                    fontSize = 9.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed,
+                                    maxLines = 1,
+                                    softWrap = false
+                                )
+                            }
                         }
                     }
 
@@ -475,7 +496,7 @@ fun MachineConfigView(
                             ),
                             modifier = Modifier.height(48.dp)
                         ) {
-                            Text("TEST PING", fontWeight = FontWeight.Bold, fontSize = 10.sp)
+                            Text(stringResource(R.string.config_test_ping_btn), fontWeight = FontWeight.Bold, fontSize = 10.sp)
                         }
                     }
 
@@ -920,7 +941,7 @@ fun MachineConfigView(
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = if (batterySafetyState.isCharging) "CARGADOR: ON" else "CARGADOR: OFF",
+                                    text = if (batterySafetyState.isCharging) stringResource(R.string.charger_status_on) else stringResource(R.string.charger_status_off),
                                     fontSize = 9.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -1121,7 +1142,7 @@ fun MachineConfigView(
             ) {
                 Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "LINUXCNC PRO SUBSYSTEMS",
+                        text = stringResource(R.string.config_pro_subsystems),
                         fontWeight = FontWeight.Black,
                         fontSize = 10.sp,
                         color = CncCyberCyan,
@@ -1139,7 +1160,7 @@ fun MachineConfigView(
                         ) {
                             Icon(Icons.Default.Tune, contentDescription = null, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(6.dp))
-                            Text("WCS Table", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.config_wcs_table_btn), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         }
 
                         OutlinedButton(
@@ -1149,7 +1170,7 @@ fun MachineConfigView(
                         ) {
                             Icon(Icons.Default.SettingsEthernet, contentDescription = null, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(6.dp))
-                            Text("HAL Pins", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.config_hal_pins_btn), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }

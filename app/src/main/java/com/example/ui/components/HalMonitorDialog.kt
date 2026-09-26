@@ -17,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.R
 import com.example.model.HalPin
 import com.example.model.HalPinCategory
 import com.example.model.HalPinType
@@ -87,12 +89,12 @@ fun HalMonitorDialog(
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text(
-                                text = "HAL Signals & Pin Monitor",
+                                text = stringResource(R.string.hal_dialog_title),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                text = "LinuxCNC Hardware Abstraction Layer Real-time Diagnostics",
+                                text = stringResource(R.string.hal_dialog_subtitle),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.outline
                             )
@@ -112,7 +114,7 @@ fun HalMonitorDialog(
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    placeholder = { Text("Filter by pin name or description (e.g. limit, spindle, air)...") },
+                    placeholder = { Text(stringResource(R.string.hal_search_hint)) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                     trailingIcon = {
                         if (searchQuery.isNotEmpty()) {
@@ -136,7 +138,7 @@ fun HalMonitorDialog(
                         FilterChip(
                             selected = selectedCategory == null,
                             onClick = { selectedCategory = null },
-                            label = { Text("ALL PINS (${pins.size})") }
+                            label = { Text(stringResource(R.string.hal_all_pins, pins.size)) }
                         )
                     }
                     items(HalPinCategory.values()) { category ->
@@ -253,7 +255,7 @@ private fun HalPinCard(
                     ) {
                         Icon(
                             Icons.Default.ToggleOn,
-                            contentDescription = "Toggle Pin",
+                            contentDescription = stringResource(R.string.hal_toggle_pin),
                             tint = MaterialTheme.colorScheme.primary
                         )
                     }

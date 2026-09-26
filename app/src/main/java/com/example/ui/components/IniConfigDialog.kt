@@ -192,11 +192,11 @@ fun IniConfigDialog(
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
                                     Column(modifier = Modifier.padding(12.dp)) {
-                                        Text("HUSILLO (SPINDLE)", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = CncTextPrimary)
+                                        Text(stringResource(R.string.ini_spindle_title), fontWeight = FontWeight.Bold, fontSize = 12.sp, color = CncTextPrimary)
                                         Spacer(modifier = Modifier.height(4.dp))
                                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                            Text("Rango RPM: ${parsedConfig.spindleMinRpm.toInt()} - ${parsedConfig.spindleMaxRpm.toInt()} RPM", fontSize = 11.sp, color = CncTextSecondary)
-                                            Text("Escala PWM/DAC: ${parsedConfig.spindleScale}", fontSize = 11.sp, color = CncCyberCyan)
+                                            Text(stringResource(R.string.ini_rpm_range, parsedConfig.spindleMinRpm.toInt(), parsedConfig.spindleMaxRpm.toInt()), fontSize = 11.sp, color = CncTextSecondary)
+                                            Text(stringResource(R.string.ini_scale, parsedConfig.spindleScale.toString()), fontSize = 11.sp, color = CncCyberCyan)
                                         }
                                     }
                                 }

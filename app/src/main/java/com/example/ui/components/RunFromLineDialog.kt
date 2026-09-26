@@ -135,7 +135,7 @@ fun RunFromLineDialog(
 
                 // G-Code block selector
                 Text(
-                    text = "SELECT RESTART BLOCK:",
+                    text = stringResource(R.string.rfl_select_block),
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
                     color = CncTextSecondary
@@ -151,7 +151,7 @@ fun RunFromLineDialog(
                 ) {
                     if (gcodeList.isEmpty()) {
                         Text(
-                            text = "No G-Code program loaded",
+                            text = stringResource(R.string.rfl_no_program),
                             fontSize = 12.sp,
                             color = CncTextMuted,
                             modifier = Modifier.align(Alignment.Center)
@@ -199,7 +199,7 @@ fun RunFromLineDialog(
                                     )
                                     if (isSelected) {
                                         Text(
-                                            text = "RESUME HERE",
+                                            text = stringResource(R.string.rfl_resume_here),
                                             fontSize = 9.sp,
                                             fontWeight = FontWeight.Black,
                                             color = CncDroDigits

@@ -310,7 +310,7 @@ fun ToolTableDialog(
             tool = CncToolItem(
                 id = nextId,
                 pocket = nextId,
-                description = "New Carbide Cutter",
+                description = stringResource(R.string.tool_new_carbide_cutter),
                 diameter = 6.000,
                 lengthOffset = 40.000,
                 toolType = ToolType.ENDMILL,
@@ -500,7 +500,7 @@ fun ToolCardItem(
                     }
 
                     IconButton(onClick = onEdit, modifier = Modifier.size(28.dp)) {
-                        Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit Tool", tint = CncTextSecondary, modifier = Modifier.size(14.dp))
+                        Icon(imageVector = Icons.Default.Edit, contentDescription = stringResource(R.string.tool_edit), tint = CncTextSecondary, modifier = Modifier.size(14.dp))
                     }
                 }
             }

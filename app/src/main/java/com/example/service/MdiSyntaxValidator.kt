@@ -25,8 +25,9 @@ class MdiSyntaxValidator {
 
     fun validate(rawInput: String): MdiValidationResult {
         val trimmed = rawInput.trim()
+        val isEs = java.util.Locale.getDefault().language == "es"
         if (trimmed.isEmpty()) {
-            return MdiValidationResult(isValid = false, errorMessage = "Command cannot be empty")
+            return MdiValidationResult(isValid = false, errorMessage = if (isEs) "El comando no puede estar vacío" else "Command cannot be empty")
         }
 
         // Remove comments in parentheses (comment) or semicolons ;comment
@@ -47,7 +48,7 @@ class MdiSyntaxValidator {
         if (matches.isEmpty()) {
             return MdiValidationResult(
                 isValid = false,
-                errorMessage = "Unrecognized syntax. Expected valid G-Code / M-Code tokens (e.g. G0 X10 Y20, M3 S12000)"
+                errorMessage = if (isEs) "Sintaxis no reconocida. Se esperaban palabras G-Code / M-Code (ej. G0 X10 Y20, M3 S12000)" else "Unrecognized syntax. Expected valid G-Code / M-Code tokens (e.g. G0 X10 Y20, M3 S12000)"
             )
         }
 

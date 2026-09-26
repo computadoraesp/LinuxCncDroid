@@ -549,7 +549,7 @@ fun CncMainScreen(
                                 )
                                 Column {
                                     Text(
-                                        "AVISO DE APAGADO DE PANTALLA",
+                                        stringResource(R.string.screen_timeout_alert_title),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 11.sp,
                                         color = CncWarningAmber
@@ -565,7 +565,7 @@ fun CncMainScreen(
                                 onClick = { viewModel.setScreenTimeoutPolicy(ScreenTimeoutPolicy.ALWAYS_ON) },
                                 shape = RoundedCornerShape(6.dp)
                             ) {
-                                Text("ACTIVAR WAKE-LOCK", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                Text(stringResource(R.string.wake_lock_activate_btn), fontSize = 10.sp, fontWeight = FontWeight.Bold)
                             }
                         }
                     }
@@ -609,13 +609,17 @@ fun CncMainScreen(
                                         )
                                         Spacer(modifier = Modifier.width(6.dp))
                                         Text(
-                                            text = if (softLimitsCheck.isWithinLimits) "SOFT LIMITS: SAFE ENVELOPE (${softLimitsCheck.activeWcs})" else "SOFT LIMITS: OVERTRAVEL VIOLATION (${softLimitsCheck.activeWcs})",
+                                            text = if (softLimitsCheck.isWithinLimits) {
+                                                stringResource(R.string.soft_limits_safe_banner, softLimitsCheck.activeWcs)
+                                            } else {
+                                                stringResource(R.string.soft_limits_violation_banner, softLimitsCheck.activeWcs)
+                                            },
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = if (softLimitsCheck.isWithinLimits) Color(0xFF81C784) else MaterialTheme.colorScheme.error
                                         )
                                     }
-                                    Text("DIAGNOSTICS >", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
+                                    Text(stringResource(R.string.soft_limits_diagnostics), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncCyberCyan)
                                 }
                             }
                         }

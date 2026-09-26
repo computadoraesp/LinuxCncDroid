@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.res.stringResource
+import com.example.R
 import com.example.model.SoftLimitsCheckResult
 import java.util.Locale
 
@@ -70,12 +72,12 @@ fun SoftLimitsDialog(
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text(
-                                text = "Soft Limits Trajectory Pre-Check",
+                                text = stringResource(R.string.soft_limits_dialog_title),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                text = "Active Coordinate System: ${checkResult.activeWcs}",
+                                text = stringResource(R.string.soft_limits_active_wcs, checkResult.activeWcs),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.outline
                             )
@@ -116,16 +118,16 @@ fun SoftLimitsDialog(
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text(
-                                text = if (checkResult.isWithinLimits) "PROGRAM TRAJECTORY WITHIN SAFE TRAVEL ENVELOPE" else "CRITICAL: OVERTRAVEL LIMIT EXCEEDED",
+                                text = if (checkResult.isWithinLimits) stringResource(R.string.soft_limits_safe_title) else stringResource(R.string.soft_limits_danger_title),
                                 fontWeight = FontWeight.Bold,
                                 color = textColor,
                                 fontSize = 14.sp
                             )
                             Text(
                                 text = if (checkResult.isWithinLimits)
-                                    "The loaded toolpath fits completely within mechanical limits under ${checkResult.activeWcs}."
+                                    stringResource(R.string.soft_limits_safe_desc, checkResult.activeWcs)
                                 else
-                                    "Physical limits will be violated during execution! Cycle Start is safety-locked.",
+                                    stringResource(R.string.soft_limits_danger_desc),
                                 fontSize = 12.sp,
                                 color = textColor.copy(alpha = 0.85f)
                             )
@@ -138,7 +140,7 @@ fun SoftLimitsDialog(
                 // Violations List (if any)
                 if (!checkResult.isWithinLimits) {
                     Text(
-                        text = "DETECTED OVERTRAVEL VIOLATIONS",
+                        text = stringResource(R.string.soft_limits_violations_detected),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.error,
                         fontWeight = FontWeight.Bold
@@ -203,7 +205,7 @@ fun SoftLimitsDialog(
 
                 // Bounding Box Details
                 Text(
-                    text = "PROGRAM BOUNDING BOX (WORK vs MACHINE ENVELOPE)",
+                    text = stringResource(R.string.soft_limits_bounding_box_title),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.outline,
                     fontWeight = FontWeight.SemiBold
@@ -222,9 +224,9 @@ fun SoftLimitsDialog(
                         .padding(12.dp),
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    BoundingBoxRow("X Axis", workBox.x.min, workBox.x.max, machBox.x.min, machBox.x.max)
-                    BoundingBoxRow("Y Axis", workBox.y.min, workBox.y.max, machBox.y.min, machBox.y.max)
-                    BoundingBoxRow("Z Axis", workBox.z.min, workBox.z.max, machBox.z.min, machBox.z.max)
+                    BoundingBoxRow(stringResource(R.string.soft_limits_axis_x), workBox.x.min, workBox.x.max, machBox.x.min, machBox.x.max)
+                    BoundingBoxRow(stringResource(R.string.soft_limits_axis_y), workBox.y.min, workBox.y.max, machBox.y.min, machBox.y.max)
+                    BoundingBoxRow(stringResource(R.string.soft_limits_axis_z), workBox.z.min, workBox.z.max, machBox.z.min, machBox.z.max)
 
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
 
@@ -233,7 +235,7 @@ fun SoftLimitsDialog(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "Estimated Toolpath Trajectory Length:",
+                            text = stringResource(R.string.soft_limits_traj_length),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.outline
                         )
@@ -263,7 +265,7 @@ fun SoftLimitsDialog(
                     ) {
                         Icon(Icons.Default.Tune, contentDescription = null)
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Adjust WCS Offset")
+                        Text(stringResource(R.string.soft_limits_adjust_wcs))
                     }
 
                     if (!checkResult.isWithinLimits) {
@@ -277,7 +279,7 @@ fun SoftLimitsDialog(
                         ) {
                             Icon(Icons.Default.Dangerous, contentDescription = null)
                             Spacer(modifier = Modifier.width(6.dp))
-                            Text("Override & Start")
+                            Text(stringResource(R.string.soft_limits_override_start))
                         }
                     } else {
                         Button(
@@ -289,7 +291,7 @@ fun SoftLimitsDialog(
                         ) {
                             Icon(Icons.Default.PlayArrow, contentDescription = null)
                             Spacer(modifier = Modifier.width(6.dp))
-                            Text("Cycle Start")
+                            Text(stringResource(R.string.soft_limits_cycle_start))
                         }
                     }
                 }

@@ -234,7 +234,7 @@ fun ConnectionWizardDialog(
                                 letterSpacing = 0.5.sp
                             )
                             Text(
-                                text = "Paso ${currentStepIndex + 1} de ${steps.size} • ${currentStep.title}",
+                                text = stringResource(R.string.wizard_step_indicator, currentStepIndex + 1, steps.size, currentStep.title),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = CncTextSecondary

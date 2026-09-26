@@ -1154,9 +1154,11 @@ class LinuxCncEngine {
             webSocket?.close(1000, "User disconnected")
         } catch (_: Exception) {}
         isConnectedToRealServer = false
-        _isSimulatedMode.value = true
+        if (_connectionConfig.value.protocolType == LinuxCncProtocolType.SIMULATION_LOCAL) {
+            _isSimulatedMode.value = true
+        }
         _capabilities.value = _capabilities.value.copy(isConnected = false)
-        logEvent(LogSeverity.INFO, "NETWORK", "Desconectado de LinuxCNC. Modo Simulación activo.")
+        logEvent(LogSeverity.INFO, "NETWORK", "Desconectado de LinuxCNC.")
     }
 
     fun applyIniConfig(config: LinuxCncMachineConfig) {
@@ -1281,7 +1283,9 @@ class LinuxCncEngine {
 
     fun handleDisconnect(reason: String) {
         isConnectedToRealServer = false
-        _isSimulatedMode.value = true
+        if (_connectionConfig.value.protocolType == LinuxCncProtocolType.SIMULATION_LOCAL) {
+            _isSimulatedMode.value = true
+        }
         _capabilities.value = _capabilities.value.copy(isConnected = false)
         reconnectAttemptCounter++
         val waitSeconds = (currentBackoffMs / 1000L).coerceIn(2L, 30L).toInt()
@@ -1352,10 +1356,7 @@ class LinuxCncEngine {
         if (enabled) {
             logEvent(LogSeverity.INFO, "SYSTEM", "Modo Simulación Virtual ACTIVADO (Cinemática y emulación HAL/NML)")
         } else {
-            logEvent(LogSeverity.WARNING, "SYSTEM", "Modo Simulación DESACTIVADO: Operando con máquina física LinuxCNC")
-            if (!isConnectedToRealServer) {
-                internalConnect()
-            }
+            logEvent(LogSeverity.WARNING, "SYSTEM", "Modo Simulación DESACTIVADO: Operando en Modo Hardware Real")
         }
     }
 

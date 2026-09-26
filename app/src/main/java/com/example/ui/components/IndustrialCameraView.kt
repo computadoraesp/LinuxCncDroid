@@ -1161,7 +1161,7 @@ fun IndustrialCameraView(
                     OutlinedTextField(
                         value = tempOffsetX,
                         onValueChange = { tempOffsetX = it },
-                        label = { Text("Offset X (mm)", fontSize = 8.5.sp) },
+                        label = { Text(stringResource(R.string.cam_offset_x_label), fontSize = 8.5.sp) },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = CncCyberCyan,
                             unfocusedBorderColor = CncCardBorder,
@@ -1173,7 +1173,7 @@ fun IndustrialCameraView(
                     OutlinedTextField(
                         value = tempOffsetY,
                         onValueChange = { tempOffsetY = it },
-                        label = { Text("Offset Y (mm)", fontSize = 8.5.sp) },
+                        label = { Text(stringResource(R.string.cam_offset_y_label), fontSize = 8.5.sp) },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = CncCyberCyan,
                             unfocusedBorderColor = CncCardBorder,
@@ -1193,12 +1193,12 @@ fun IndustrialCameraView(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = CncCyberCyan, contentColor = Color.Black)
                 ) {
-                    Text("GUARDAR", fontWeight = FontWeight.Bold, fontSize = 9.5.sp)
+                    Text(stringResource(R.string.common_save), fontWeight = FontWeight.Bold, fontSize = 9.5.sp)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showSpindleOffsetDialog = false }) {
-                    Text("CANCELAR", color = CncTextMuted, fontSize = 9.5.sp)
+                    Text(stringResource(R.string.common_cancel), color = CncTextMuted, fontSize = 9.5.sp)
                 }
             }
         )

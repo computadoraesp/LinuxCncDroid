@@ -93,7 +93,7 @@ fun MdiView(
                             ) {
                                 Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color(0xFF4CAF50), modifier = Modifier.size(12.dp))
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("RS274 VALID", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF81C784))
+                                Text(stringResource(R.string.mdi_valid), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF81C784))
                             }
                         }
                     } else {
@@ -108,7 +108,7 @@ fun MdiView(
                             ) {
                                 Icon(Icons.Default.Warning, contentDescription = null, tint = Color(0xFFE57373), modifier = Modifier.size(12.dp))
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("SYNTAX ERROR", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFEF9A9A))
+                                Text(stringResource(R.string.mdi_syntax_error), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFEF9A9A))
                             }
                         }
                     }
@@ -259,7 +259,7 @@ fun MdiView(
                     FilterChip(
                         selected = selectedHistoryTab == 0,
                         onClick = { selectedHistoryTab = 0 },
-                        label = { Text("Recent History", fontSize = 10.sp) }
+                        label = { Text(stringResource(R.string.mdi_recent_history), fontSize = 10.sp) }
                     )
                     FilterChip(
                         selected = selectedHistoryTab == 1,
@@ -268,7 +268,7 @@ fun MdiView(
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(Icons.Default.Star, contentDescription = null, modifier = Modifier.size(12.dp))
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("Starred", fontSize = 10.sp)
+                                Text(stringResource(R.string.mdi_starred), fontSize = 10.sp)
                             }
                         }
                     )
@@ -292,7 +292,7 @@ fun MdiView(
 
                     if (displayList.isEmpty()) {
                         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                            Text("No commands in this view", fontSize = 11.sp, color = CncTextMuted)
+                            Text(stringResource(R.string.mdi_empty_history), fontSize = 11.sp, color = CncTextMuted)
                         }
                     } else {
                         LazyColumn(modifier = Modifier.padding(6.dp)) {

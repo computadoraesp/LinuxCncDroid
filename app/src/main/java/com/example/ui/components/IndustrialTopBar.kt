@@ -433,7 +433,7 @@ fun IndustrialTopBar(
                             modifier = Modifier.size(15.dp)
                         )
                         Text(
-                            text = if (keepScreenOn) "SCREEN ON" else "TIMEOUT",
+                            text = if (keepScreenOn) stringResource(R.string.status_screen_on_short) else stringResource(R.string.status_screen_timeout_short),
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
                             color = screenColor
@@ -527,8 +527,8 @@ fun IndustrialTopBar(
                         if (isReconnecting) {
                             Text(
                                 text = if (connectionTelemetry.secondsUntilReconnect > 0)
-                                    "RETRY ${connectionTelemetry.secondsUntilReconnect}s"
-                                else "RECONNECT",
+                                    stringResource(R.string.net_retry_format, connectionTelemetry.secondsUntilReconnect)
+                                else stringResource(R.string.net_reconnect),
                                 fontSize = 9.sp,
                                 fontWeight = FontWeight.Black,
                                 color = CncEstopRed
@@ -543,7 +543,7 @@ fun IndustrialTopBar(
                             )
                             if (isWeak) {
                                 Text(
-                                    text = "WEAK",
+                                    text = stringResource(R.string.net_weak),
                                     fontSize = 8.sp,
                                     fontWeight = FontWeight.Black,
                                     color = CncWarningAmber
@@ -666,7 +666,7 @@ fun IndustrialTopBar(
                 ) {
                     Icon(
                         imageVector = Icons.Default.SettingsEthernet,
-                        contentDescription = "HAL Signals Monitor",
+                        contentDescription = stringResource(R.string.hal_dialog_title),
                         tint = CncCyberCyan,
                         modifier = Modifier.size(17.dp)
                     )

@@ -101,7 +101,7 @@ fun SpindleFeedPanel(
                                 )
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Text(
-                                    text = if (isRunning) "RUNNING" else "CYCLE\nSTART",
+                                    text = if (isRunning) stringResource(R.string.status_running_short) else stringResource(R.string.btn_cycle_start_short),
                                     fontWeight = FontWeight.Black,
                                     fontSize = 10.sp,
                                     lineHeight = 11.sp,
@@ -147,7 +147,7 @@ fun SpindleFeedPanel(
                                 )
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Text(
-                                    text = if (isPaused) "PAUSED" else "FEED\nHOLD",
+                                    text = if (isPaused) stringResource(R.string.status_paused_short) else stringResource(R.string.btn_feed_hold_short),
                                     fontWeight = FontWeight.Black,
                                     fontSize = 10.sp,
                                     lineHeight = 11.sp,
@@ -193,7 +193,7 @@ fun SpindleFeedPanel(
                                 )
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Text(
-                                    text = "CYCLE\nSTOP",
+                                    text = stringResource(R.string.btn_cycle_stop_short),
                                     fontWeight = FontWeight.Black,
                                     fontSize = 10.sp,
                                     lineHeight = 11.sp,
@@ -237,7 +237,7 @@ fun SpindleFeedPanel(
                             ) {
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                                     Text(
-                                        "SINGLE (M0)",
+                                        stringResource(R.string.exec_single_block_short),
                                         fontSize = 9.5.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = if (executionModifiers.singleBlockMode) CncCyberCyan else CncTextSecondary,
@@ -256,7 +256,7 @@ fun SpindleFeedPanel(
                             ) {
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                                     Text(
-                                        "OPT STOP",
+                                        stringResource(R.string.exec_optional_stop_short),
                                         fontSize = 9.5.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = if (executionModifiers.optionalStopM1) CncWarningAmber else CncTextSecondary,
@@ -275,7 +275,7 @@ fun SpindleFeedPanel(
                             ) {
                                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                                     Text(
-                                        "BLOCK DEL",
+                                        stringResource(R.string.exec_block_delete_short),
                                         fontSize = 9.5.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = if (executionModifiers.blockDelete) Color(0xFF64B5F6) else CncTextSecondary,
@@ -306,7 +306,7 @@ fun SpindleFeedPanel(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    "RUN FROM LINE… (INICIAR DESDE LÍNEA)",
+                                    stringResource(R.string.exec_run_from_line_btn),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Black,
                                     color = CncCyberCyan,
@@ -327,7 +327,7 @@ fun SpindleFeedPanel(
                         FilterChip(
                             selected = executionModifiers.singleBlockMode,
                             onClick = { onToggleSingleBlock(!executionModifiers.singleBlockMode) },
-                            label = { Text("SINGLE (M0)", fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                            label = { Text(stringResource(R.string.exec_single_block_short), fontSize = 10.sp, fontWeight = FontWeight.Bold) },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = CncCyberCyan.copy(alpha = 0.25f),
                                 selectedLabelColor = CncCyberCyan,
@@ -341,7 +341,7 @@ fun SpindleFeedPanel(
                         FilterChip(
                             selected = executionModifiers.optionalStopM1,
                             onClick = { onToggleOptionalStop(!executionModifiers.optionalStopM1) },
-                            label = { Text("OPT STOP (M1)", fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                            label = { Text(stringResource(R.string.exec_optional_stop), fontSize = 10.sp, fontWeight = FontWeight.Bold) },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = CncWarningAmber.copy(alpha = 0.25f),
                                 selectedLabelColor = CncWarningAmber,
@@ -355,7 +355,7 @@ fun SpindleFeedPanel(
                         FilterChip(
                             selected = executionModifiers.blockDelete,
                             onClick = { onToggleBlockDelete(!executionModifiers.blockDelete) },
-                            label = { Text("BLOCK DEL (/)", fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                            label = { Text(stringResource(R.string.exec_block_delete), fontSize = 10.sp, fontWeight = FontWeight.Bold) },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = Color(0xFF64B5F6).copy(alpha = 0.25f),
                                 selectedLabelColor = Color(0xFF64B5F6),
@@ -381,7 +381,7 @@ fun SpindleFeedPanel(
                         ) {
                             Icon(imageVector = Icons.Default.RestartAlt, contentDescription = null, tint = CncCyberCyan, modifier = Modifier.size(14.dp))
                             Spacer(modifier = Modifier.width(3.dp))
-                            Text("FROM LINE…", fontSize = 10.sp, fontWeight = FontWeight.Black, color = CncCyberCyan)
+                            Text(stringResource(R.string.exec_from_line_short), fontSize = 10.sp, fontWeight = FontWeight.Black, color = CncCyberCyan)
                         }
                     }
                 }
@@ -399,7 +399,7 @@ fun SpindleFeedPanel(
                 ) {
                     Icon(imageVector = Icons.Default.FastForward, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("SINGLE BLOCK: EXECUTE NEXT LINE >", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                    Text(stringResource(R.string.exec_step_next_line), fontSize = 11.sp, fontWeight = FontWeight.Black)
                 }
             }
 

@@ -76,19 +76,19 @@ fun ProbingView(
     modifier: Modifier = Modifier
 ) {
     val routines = listOf(
-        ProbeRoutineItem("bore_center", stringResource(R.string.probe_bore), "Finds (X, Y) center of circle using 4-point probing", Icons.Default.RadioButtonUnchecked, "O100 CALL [BORE_CENTER]"),
-        ProbeRoutineItem("boss_center", stringResource(R.string.probe_boss), "Finds external circular boss center", Icons.Default.Adjust, "O101 CALL [BOSS_CENTER]"),
-        ProbeRoutineItem("corner_out", stringResource(R.string.probe_corner_xy), "Probes X+ and Y+ to locate corner zero", Icons.Default.CropFree, "O102 CALL [CORNER_OUT]"),
-        ProbeRoutineItem("corner_in", "Inside Pocket Corner", "Finds inside pocket origin vertex", Icons.Default.FullscreenExit, "O103 CALL [CORNER_IN]"),
+        ProbeRoutineItem("bore_center", stringResource(R.string.probe_bore), stringResource(R.string.probe_desc_bore), Icons.Default.RadioButtonUnchecked, "O100 CALL [BORE_CENTER]"),
+        ProbeRoutineItem("boss_center", stringResource(R.string.probe_boss), stringResource(R.string.probe_desc_boss), Icons.Default.Adjust, "O101 CALL [BOSS_CENTER]"),
+        ProbeRoutineItem("corner_out", stringResource(R.string.probe_corner_xy), stringResource(R.string.probe_desc_corner_out), Icons.Default.CropFree, "O102 CALL [CORNER_OUT]"),
+        ProbeRoutineItem("corner_in", stringResource(R.string.probe_corner_in_title), stringResource(R.string.probe_desc_corner_in), Icons.Default.FullscreenExit, "O103 CALL [CORNER_IN]"),
         ProbeRoutineItem(
             id = "edge_x",
-            title = "X-Axis Edge Touch",
-            description = "Single touch on X face to set X zero",
+            title = stringResource(R.string.probe_edge_x_title),
+            description = stringResource(R.string.probe_desc_edge_x),
             icon = Icons.AutoMirrored.Filled.CompareArrows,
             gcodeMacro = "O104 CALL [EDGE_X]",
         ),
-        ProbeRoutineItem("edge_y", "Y-Axis Edge Touch", "Single touch on Y face to set Y zero", Icons.Default.SwapVert, "O105 CALL [EDGE_Y]"),
-        ProbeRoutineItem("toolsetter_z", stringResource(R.string.probe_surface_z), "Auto tool length measurement with reference puck", Icons.Default.VerticalAlignBottom, "O106 CALL [TOOLSETTER_Z]")
+        ProbeRoutineItem("edge_y", stringResource(R.string.probe_edge_y_title), stringResource(R.string.probe_desc_edge_y), Icons.Default.SwapVert, "O105 CALL [EDGE_Y]"),
+        ProbeRoutineItem("toolsetter_z", stringResource(R.string.probe_surface_z), stringResource(R.string.probe_desc_toolsetter), Icons.Default.VerticalAlignBottom, "O106 CALL [TOOLSETTER_Z]")
     )
 
     Card(

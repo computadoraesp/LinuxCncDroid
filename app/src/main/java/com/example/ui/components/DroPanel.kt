@@ -56,7 +56,7 @@ fun DroPanel(
         modifier = modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
-            // DRO Header & Mode Switcher
+            // DRO Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -65,7 +65,7 @@ fun DroPanel(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Default.Speed,
-                        contentDescription = "DRO",
+                        contentDescription = stringResource(R.string.dro_title),
                         tint = CncCyberCyan,
                         modifier = Modifier.size(18.dp),
                     )
@@ -74,55 +74,64 @@ fun DroPanel(
                         text = stringResource(R.string.dro_title),
                         fontWeight = FontWeight.Black,
                         fontSize = 12.sp,
-                        letterSpacing = 1.sp,
+                        letterSpacing = 0.5.sp,
                         color = CncTextPrimary,
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Surface(
-                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-                        shape = RoundedCornerShape(4.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.5f)),
-                        modifier = Modifier.clickable(onClick = onOpenWcsTable)
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(currentCoordSystem, fontSize = 10.sp, fontWeight = FontWeight.Black, color = CncCyberCyan)
-                            Spacer(modifier = Modifier.width(2.dp))
-                            Icon(Icons.Default.Tune, contentDescription = "WCS Table", tint = CncCyberCyan, modifier = Modifier.size(12.dp))
-                        }
-                    }
                 }
 
-                // Mode Selector Tabs (WORK / MACHINE / DTG)
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(CncSurfaceVariant)
-                        .padding(2.dp),
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                // WCS Selector / Config Chip
+                Surface(
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f),
+                    shape = RoundedCornerShape(6.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.6f)),
+                    modifier = Modifier.clickable(onClick = onOpenWcsTable)
                 ) {
-                    listOf(
-                        DroDisplayMode.WORK to stringResource(R.string.dro_work_pos, currentCoordSystem),
-                        DroDisplayMode.MACHINE to stringResource(R.string.dro_mach_pos),
-                        DroDisplayMode.DTG to stringResource(R.string.dro_dtg),
-                    ).forEach { (mode, label) ->
-                        val isSelected = displayMode == mode
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(if (isSelected) CncCyberCyan else Color.Transparent)
-                                .clickable { displayMode = mode }
-                                .padding(horizontal = 8.dp, vertical = 4.dp)
-                        ) {
-                            Text(
-                                text = label,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = if (isSelected) Color(0xFF00363D) else CncTextSecondary
-                            )
-                        }
+                    Row(
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(currentCoordSystem, fontSize = 11.sp, fontWeight = FontWeight.Black, color = CncCyberCyan)
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Icon(Icons.Default.Tune, contentDescription = stringResource(R.string.wcs_dialog_title), tint = CncCyberCyan, modifier = Modifier.size(13.dp))
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Coordinate System Mode Selector Tabs (WORK / MACHINE / DTG) - clean horizontal full-width row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(CncSurfaceVariant)
+                    .padding(3.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                listOf(
+                    DroDisplayMode.WORK to stringResource(R.string.dro_work_pos, currentCoordSystem),
+                    DroDisplayMode.MACHINE to stringResource(R.string.dro_mach_pos),
+                    DroDisplayMode.DTG to stringResource(R.string.dro_dtg),
+                ).forEach { (mode, label) ->
+                    val isSelected = displayMode == mode
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(if (isSelected) CncCyberCyan else Color.Transparent)
+                            .clickable { displayMode = mode }
+                            .padding(vertical = 6.dp, horizontal = 2.dp)
+                    ) {
+                        Text(
+                            text = label,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isSelected) Color(0xFF00363D) else CncTextSecondary,
+                            maxLines = 1,
+                            softWrap = false,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
                     }
                 }
             }

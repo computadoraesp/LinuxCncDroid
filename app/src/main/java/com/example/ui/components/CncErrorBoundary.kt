@@ -35,6 +35,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.example.R
 import com.example.ui.theme.CncBackground
 import com.example.ui.theme.CncCardBorder
 import com.example.ui.theme.CncCyberCyan
@@ -130,7 +132,7 @@ fun CncComponentFallbackCard(
             ) {
                 Icon(
                     imageVector = Icons.Default.WarningAmber,
-                    contentDescription = "Component Fault",
+                    contentDescription = stringResource(R.string.error_component_fault),
                     tint = CncEstopRed,
                     modifier = Modifier.size(28.dp),
                 )
@@ -186,7 +188,7 @@ fun CncComponentFallbackCard(
             ) {
                 Icon(imageVector = Icons.Default.Refresh, contentDescription = "Reiniciar", modifier = Modifier.size(16.dp))
                 Spacer(modifier = Modifier.width(6.dp))
-                Text("REINICIAR SUBSISTEMA", fontWeight = FontWeight.Bold, fontSize = 11.sp)
+                Text(stringResource(R.string.error_restart_subsystem), fontWeight = FontWeight.Bold, fontSize = 11.sp)
             }
         }
     }

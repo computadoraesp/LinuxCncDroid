@@ -21,10 +21,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.R
 import com.example.model.WcsOffset
 import java.util.Locale
 
@@ -82,12 +84,12 @@ fun WcsTableDialog(
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text(
-                                text = "WCS Offset Table (G54 - G59.3)",
+                                text = stringResource(R.string.wcs_dialog_title),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                text = "Active Coordinate System: $currentCoordSystem",
+                                text = stringResource(R.string.wcs_active_coord_sys, currentCoordSystem),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -123,7 +125,7 @@ fun WcsTableDialog(
                                             containerColor = MaterialTheme.colorScheme.primary,
                                             contentColor = MaterialTheme.colorScheme.onPrimary
                                         ) {
-                                            Text("ACTIVE", fontSize = 9.sp)
+                                            Text(stringResource(R.string.wcs_active_badge), fontSize = 9.sp)
                                         }
                                     }
                                 }
@@ -151,7 +153,7 @@ fun WcsTableDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "System $selectedTabWcs: ${activeOffsetObj.comment.ifEmpty { "Work Origin" }}",
+                                text = "System $selectedTabWcs: ${activeOffsetObj.comment.ifEmpty { stringResource(R.string.wcs_default_origin_name) }}",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -162,7 +164,7 @@ fun WcsTableDialog(
                                 ) {
                                     Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(6.dp))
-                                    Text("Set as Active WCS", fontSize = 12.sp)
+                                    Text(stringResource(R.string.wcs_set_active), fontSize = 12.sp)
                                 }
                             }
                         }
@@ -171,7 +173,7 @@ fun WcsTableDialog(
 
                         // Touch-Off Panel
                         Text(
-                            text = "WORKSHOP TOUCH-OFF (SET WORK ZERO / TARGET)",
+                            text = stringResource(R.string.wcs_touchoff_header),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.outline,
                             fontWeight = FontWeight.SemiBold
@@ -204,7 +206,7 @@ fun WcsTableDialog(
                             OutlinedTextField(
                                 value = touchOffTargetText,
                                 onValueChange = { touchOffTargetText = it },
-                                label = { Text("Target Work Pos (mm)") },
+                                label = { Text(stringResource(R.string.wcs_target_pos_label)) },
                                 modifier = Modifier.weight(1f),
                                 singleLine = true,
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -219,7 +221,7 @@ fun WcsTableDialog(
                             ) {
                                 Icon(Icons.Default.MyLocation, contentDescription = null)
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("Touch-Off $touchOffAxis")
+                                Text(stringResource(R.string.wcs_touch_off, touchOffAxis))
                             }
 
                             OutlinedButton(
@@ -229,7 +231,7 @@ fun WcsTableDialog(
                                 },
                                 modifier = Modifier.height(56.dp).testTag("zero_touch_off_button")
                             ) {
-                                Text("Zero $touchOffAxis")
+                                Text(stringResource(R.string.wcs_zero_axis, touchOffAxis))
                             }
                         }
                     }
@@ -238,7 +240,7 @@ fun WcsTableDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "ALL WORK COORDINATE SYSTEMS",
+                    text = stringResource(R.string.wcs_all_systems_header),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.outline,
                     fontWeight = FontWeight.SemiBold
@@ -330,11 +332,11 @@ fun WcsTableDialog(
         var editText by remember { mutableStateOf(String.format(Locale.US, "%.3f", currentVal)) }
         AlertDialog(
             onDismissRequest = { showEditOffsetDialog = null },
-            title = { Text("Edit $wcsName Offset: Axis $axis") },
+            title = { Text(stringResource(R.string.wcs_edit_dialog_title, wcsName, axis)) },
             text = {
                 Column {
                     Text(
-                        text = "Specify absolute offset from Machine Zero (G53) in millimeters.",
+                        text = stringResource(R.string.wcs_g53_offset_help),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.outline
                     )
@@ -342,7 +344,7 @@ fun WcsTableDialog(
                     OutlinedTextField(
                         value = editText,
                         onValueChange = { editText = it },
-                        label = { Text("$axis Offset (mm)") },
+                        label = { Text(stringResource(R.string.wcs_offset_axis_label, axis)) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.fillMaxWidth()
@@ -357,12 +359,12 @@ fun WcsTableDialog(
                         showEditOffsetDialog = null
                     }
                 ) {
-                    Text("Save Offset")
+                    Text(stringResource(R.string.wcs_save_offset))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showEditOffsetDialog = null }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.common_cancel))
                 }
             }
         )

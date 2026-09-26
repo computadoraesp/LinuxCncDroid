@@ -82,9 +82,13 @@ fun GCodeSecurityLoaderDialog(
             ) {
                 // Presets Bar
                 Text(stringResource(R.string.sl_presets_header), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncTextSecondary)
+                val presetSafeTitle = stringResource(R.string.security_preset_safe)
+                val presetTrojanTitle = stringResource(R.string.security_preset_trojan)
+                val presetCollisionTitle = stringResource(R.string.security_preset_collision)
+
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     listOf(
-                        "Safe Trochoidal" to """
+                        presetSafeTitle to """
                             (SAFE TROCHOIDAL TEST)
                             G21 G90 G54
                             G0 Z10.000
@@ -98,7 +102,7 @@ fun GCodeSecurityLoaderDialog(
                             G0 Z15 M5
                             M30
                         """.trimIndent(),
-                        "Trojan Shellcode (Blocked)" to """
+                        presetTrojanTitle to """
                             #!/bin/bash
                             (INJECTED MALICIOUS SCRIPT DISGUISED AS G-CODE)
                             G21 G90
@@ -108,7 +112,7 @@ fun GCodeSecurityLoaderDialog(
                             G0 X100 Y100
                             M30
                         """.trimIndent(),
-                        "Collision Plunge (Warning)" to """
+                        presetCollisionTitle to """
                             (DANGEROUS COLLISION BENCHMARK)
                             G21 G90
                             G0 Z10.000
@@ -176,7 +180,7 @@ fun GCodeSecurityLoaderDialog(
                             Spacer(modifier = Modifier.width(8.dp))
                             Column {
                                 Text(stringResource(threatLevel.displayNameRes), fontWeight = FontWeight.Black, fontSize = 12.sp, color = bannerBorder)
-                                val motionText = if (scanResult.hasMotion) "Movement Code Detected" else "No Axis Motion Found"
+                                val motionText = if (scanResult.hasMotion) stringResource(R.string.security_motion_detected) else stringResource(R.string.security_no_motion)
                                 Text(stringResource(R.string.sl_threats_info, scanResult.threats.size, motionText, scanResult.totalLines), fontSize = 10.sp, color = CncTextSecondary)
                             }
                         }
@@ -249,7 +253,7 @@ fun GCodeSecurityLoaderDialog(
                 OutlinedTextField(
                     value = gcodeContent,
                     onValueChange = { gcodeContent = it },
-                    label = { Text("G-Code Code / Script Content", fontSize = 10.sp) },
+                    label = { Text(stringResource(R.string.gcode_script_content_label), fontSize = 10.sp) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(110.dp),
