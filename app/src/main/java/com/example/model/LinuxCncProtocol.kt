@@ -6,22 +6,22 @@ import com.example.R
 enum class LinuxCncProtocolType(
     @get:StringRes val displayNameRes: Int,
     val defaultPort: Int,
-    val description: String
+    @get:StringRes val descriptionRes: Int
 ) {
     LINUXCNCRSH_TCP(
         displayNameRes = R.string.protocol_linuxcncrsh_name,
         defaultPort = 5007,
-        description = "LinuxCNC Remote Shell (linuxcncrsh) TCP stream (puerto estándar 5007)"
+        descriptionRes = R.string.protocol_linuxcncrsh_description
     ),
     WEBSOCKET_JSON(
         displayNameRes = R.string.protocol_websocket_name,
         defaultPort = 8000,
-        description = "WebSocket JSON Gateway / Telemetry Bridge (puerto estándar 8000)"
+        descriptionRes = R.string.protocol_websocket_description
     ),
     SIMULATION_LOCAL(
         displayNameRes = R.string.protocol_sim_name,
         defaultPort = 0,
-        description = "Simulador interno de cinemática y tiempo real (sin máquina física)"
+        descriptionRes = R.string.protocol_simulation_description
     )
 }
 

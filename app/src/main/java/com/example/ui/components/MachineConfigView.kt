@@ -21,18 +21,32 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AutoFixHigh
+import androidx.compose.material.icons.filled.BatteryAlert
+import androidx.compose.material.icons.filled.BatteryChargingFull
+import androidx.compose.material.icons.filled.BatteryFull
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.PlayCircleOutline
+import androidx.compose.material.icons.filled.Power
 import androidx.compose.material.icons.filled.Router
+import androidx.compose.material.icons.filled.Science
+import androidx.compose.material.icons.filled.ScreenLockPortrait
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SettingsEthernet
+import androidx.compose.material.icons.filled.StayCurrentPortrait
 import androidx.compose.material.icons.filled.Straighten
+import androidx.compose.material.icons.filled.Sync
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
@@ -40,6 +54,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -51,6 +67,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -84,15 +101,15 @@ import com.example.model.SimulatedFaultType
 import com.example.model.LinuxCncConnectionConfig
 import com.example.model.LinuxCncProtocolType
 import com.example.model.LinuxCncServerTelemetry
-import androidx.compose.material.icons.filled.AutoFixHigh
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Dns
+import com.example.model.ScreenTimeoutPolicy
+import com.example.model.SimulatedFaultType
 import com.example.ui.theme.CncActiveGreen
 import com.example.ui.theme.CncRunningGreen
 import com.example.ui.theme.CncCardBg
 import com.example.ui.theme.CncCardBorder
 import com.example.ui.theme.CncCyberCyan
 import com.example.ui.theme.CncEstopRed
+import com.example.ui.theme.CncRunningGreen
 import com.example.ui.theme.CncSurface
 import com.example.ui.theme.CncSurfaceVariant
 import com.example.ui.theme.CncTextPrimary
@@ -232,7 +249,7 @@ fun MachineConfigView(
                         Icon(imageVector = Icons.Default.Router, contentDescription = null, tint = CncCyberCyan, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "ASISTENTE Y TUTORIAL DE CONEXIÓN LINUXCNC",
+                            text = stringResource(R.string.config_connection_wizard_banner),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Black,
                             color = CncCyberCyan,
@@ -502,7 +519,7 @@ fun MachineConfigView(
 
                     if (serverTelemetry.errorMessage != null) {
                         Text(
-                            text = "Error servidor: ${serverTelemetry.errorMessage}",
+                            text = stringResource(R.string.server_error_fmt, serverTelemetry.errorMessage ?: ""),
                             fontSize = 10.sp,
                             color = CncEstopRed,
                             fontFamily = FontFamily.Monospace
@@ -1001,7 +1018,11 @@ fun MachineConfigView(
                                 Icon(imageVector = Icons.Default.Sync, contentDescription = null, modifier = Modifier.size(14.dp))
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = if (connectionTelemetry.isWeakSignal) "SEÑAL DÉBIL (380ms)" else "SIMULAR SEÑAL DÉBIL",
+                                    text = if (connectionTelemetry.isWeakSignal) {
+                                        stringResource(R.string.sim_weak_signal_active)
+                                    } else {
+                                        stringResource(R.string.sim_weak_signal_btn)
+                                    },
                                     fontSize = 8.5.sp,
                                     fontWeight = FontWeight.Bold
                                 )

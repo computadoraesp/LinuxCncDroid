@@ -130,8 +130,8 @@
     <string name="topbar_axis_metrology_desc">Axis Metrology Calibration</string>
     <string name="topbar_manual_desc">CNC Manual &amp; SOPs</string>
     <string name="topbar_event_logs_desc">Event Logs</string>
-    <string name="topbar_sim_mode">SIM: %s</string>
-    <string name="topbar_real_mode">REAL: %s</string>
+    <string name="topbar_sim_mode" formatted="false">SIM: %s</string>
+    <string name="topbar_real_mode" formatted="false">REAL: %s</string>
 
     <!-- DRO Panel -->
     <string name="dro_title">DIGITAL READOUT (DRO)</string>
@@ -220,7 +220,7 @@
     <string name="tp_current_tool">ACTIVE</string>
     <string name="tp_arc_cut">ARC G2/G3</string>
     <string name="toolpath_load_scan">LOAD / SCAN</string>
-    <string name="toolpath_run_time">RUN:</string>
+    <string name="toolpath_run_time">RUN: %1$s</string>
     <string name="toolpath_rem_time">REM: %s</string>
     <string name="tp_header">3D REAL-TIME TOOLPATH &amp; TOOLHEAD</string>
     <string name="tp_dim_info">DIM: X%1$d Y%2$d Z%3$d</string>
@@ -315,7 +315,7 @@
     <string name="calib_travel_label">TRAVEL (mm)</string>
     <string name="calib_uncertainty_label">UNCERTAINTY ±(mm)</string>
     <string name="calib_presets_label">Presets:</string>
-    <string name="calib_section2_header">2. STEP-BY-STEP WIZARD (10% STEPS)</string>
+    <string name="calib_section2_header" formatted="false">2. STEP-BY-STEP WIZARD (10% STEPS)</string>
     <string name="calib_point_info">POINT %1$d/%2$d: %3$d%% (%4$.1f mm)</string>
     <string name="calib_drive_axis_btn">GO TO %s mm</string>
     <string name="calib_step1">• Step 1: Position axis at nominal coordinate %s mm.</string>
@@ -329,7 +329,7 @@
     <string name="calib_uncertainty_band">UNCERTAINTY U (k=2)</string>
     <string name="calib_mean_bias">MEAN BIAS</string>
     <string name="calib_export_title">LinuxCNC Screw Comp Table (comp.tbl)</string>
-    <string name="calib_export_text">This compensation table maps the errors for every 10%% of the axis directly into the LinuxCNC HAL (linear_comp module) for real-time compensation:</string>
+    <string name="calib_export_text" formatted="false">This compensation table maps the errors for every 10% of the axis directly into the LinuxCNC HAL (linear_comp module) for real-time compensation:</string>
     <string name="calib_copy_clipboard">COPY TO CLIPBOARD</string>
     <string name="calib_toast_copied">comp.tbl copied to clipboard</string>
 
@@ -383,7 +383,7 @@
 
     <string name="manual_sec1_title">1. Safety and Interlocks</string>
     <string name="manual_sec1_summary">Machine states, permitted controls during machining, and alarm recovery.</string>
-    <string name="manual_sec1_content">The LinuxCNC Droid HMI architecture implements industrial interlocks according to ISO 23125:\n\n• RUNNING STATE (Cycle in progress):\n  – Active: Emergency Stop (E–STOP), Feed Hold (Immediate pause), Abort/Stop, Feed Overrides (0–150%%) and Spindle (50–120%%), Coolant.\n  - Blocked: Manual Jog (buttons and MPG dial), Zeroing (G92), Homing (G28), MDI, and configuration changes.\n\n• ALARM MANAGEMENT &amp; RECOVERY:\n  - When a fault is triggered (servo overload, limit switch, thermal limit), the path planner stops in &lt;1ms and preserves the active G-Code line.\n  - To resume:\n    1. Physically clear the cause.\n    2. In the LOGS tab, press \'CLEAR LOGS / RESET\'.\n    3. Press \'POWER ON\'.\n    4. Press \'CYCLE START\' to continue from the line where the fault occurred.</string>
+    <string name="manual_sec1_content" formatted="false">The LinuxCNC Droid HMI architecture implements industrial interlocks according to ISO 23125:\n\n• RUNNING STATE (Cycle in progress):\n  – Active: Emergency Stop (E–STOP), Feed Hold (Immediate pause), Abort/Stop, Feed Overrides (0–150%) and Spindle (50–120%), Coolant.\n  - Blocked: Manual Jog (buttons and MPG dial), Zeroing (G92), Homing (G28), MDI, and configuration changes.\n\n• ALARM MANAGEMENT &amp; RECOVERY:\n  - When a fault is triggered (servo overload, limit switch, thermal limit), the path planner stops in &lt;1ms and preserves the active G-Code line.\n  - To resume:\n    1. Physically clear the cause.\n    2. In the LOGS tab, press \'CLEAR LOGS / RESET\'.\n    3. Press \'POWER ON\'.\n    4. Press \'CYCLE START\' to continue from the line where the fault occurred.</string>
     <string-array name="manual_sec1_sop">
         <item>In case of imminent collision, press the red E-STOP button in the top bar.</item>
         <item>To correct vibration (chatter), adjust the Spindle Override slider up or Feed Override down without stopping the program.</item>
@@ -395,8 +395,8 @@
     </string-array>
 
     <string name="manual_sec2_title">2. Metrological Calibration (ISO 230–2)</string>
-    <string name="manual_sec2_summary">Calibration standard every 10% of the axis, uncertainty calculation, and leadscrew compensation (comp.tbl).</string>
-    <string name="manual_sec2_content">The metrological assistant allows evaluating and correcting ballscrew pitch error (Pitch Error Mapping) according to ISO 230–2:\n\n• 10%%%% SECTOR METHOD:\n  The total axis travel is divided into 10 intervals (0%%, 10%%, 20%%, …, 100%%).\n  At each point, the operator takes a reading with their master instrument (micrometer, dial indicator, optical scale).\n\n• COMBINED UNCERTAINTY CALCULATION (ISO/IEC 17025):\n  Integrates the operator\'s instrument uncertainty (U_inst) with the axis repeatability.\n  Calculates the Expanded Uncertainty U with a coverage factor k=2 (95%% confidence level).\n\n• DIRECT APPLICATION IN LINUXCNC (comp.tbl):\n  Upon completion, the system generates the \'comp.tbl\' file for the \'linear_comp\' HAL module. LinuxCNC will actively compensate for deviations in real-time during cutting.</string>
+    <string name="manual_sec2_summary" formatted="false">Calibration standard every 10% of the axis, uncertainty calculation, and leadscrew compensation (comp.tbl).</string>
+    <string name="manual_sec2_content" formatted="false">The metrological assistant allows evaluating and correcting ballscrew pitch error (Pitch Error Mapping) according to ISO 230–2:\n\n• 10% SECTOR METHOD:\n  The total axis travel is divided into 10 intervals (0%, 10%, 20%, …, 100%).\n  At each point, the operator takes a reading with their master instrument (micrometer, dial indicator, optical scale).\n\n• COMBINED UNCERTAINTY CALCULATION (ISO/IEC 17025):\n  Integrates the operator\'s instrument uncertainty (U_inst) with the axis repeatability.\n  Calculates the Expanded Uncertainty U with a coverage factor k=2 (95% confidence level).\n\n• DIRECT APPLICATION IN LINUXCNC (comp.tbl):\n  Upon completion, the system generates the \'comp.tbl\' file for the \'linear_comp\' HAL module. LinuxCNC will actively compensate for deviations in real-time during cutting.</string>
     <string-array name="manual_sec2_sop">
         <item>Open the Metrological Calibration dialog from the top bar (ruler/compass icon).</item>
         <item>Select the axis (X, Y, or Z), travel length, and declare your instrument\'s uncertainty (e.g., ±0.003 mm).</item>
@@ -412,7 +412,7 @@
 
     <string name="manual_sec3_title">3. DRO and Coordinate Systems</string>
     <string name="manual_sec3_summary">DRO digital readout, WCS G54-G59 work origin, G53 machine coordinates, and servo torque.</string>
-    <string name="manual_sec3_content">The DRO panel displays real-time positions with 3-decimal resolution (0.001 mm):\n\n• COORDINATE MODES:\n  - WORK POS (G54 to G59): Coordinates relative to the workpiece origin.\n  - MACHINE ABS (G53): Physical absolute coordinates of the frame relative to the Home limit switches.\n  - DISTANCE TO GO (DTG): Remaining distance to the end of the current G-Code block.\n\n• SERVO TELEMETRY:\n  Monitors the percentage load of the servo drive (%% Torque). Sustained values above 85%% indicate guide wear or excessive feed rate.</string>
+    <string name="manual_sec3_content" formatted="false">The DRO panel displays real-time positions with 3-decimal resolution (0.001 mm):\n\n• COORDINATE MODES:\n  - WORK POS (G54 to G59): Coordinates relative to the workpiece origin.\n  - MACHINE ABS (G53): Physical absolute coordinates of the frame relative to the Home limit switches.\n  - DISTANCE TO GO (DTG): Remaining distance to the end of the current G-Code block.\n\n• SERVO TELEMETRY:\n  Monitors the percentage load of the servo drive (% Torque). Sustained values above 85% indicate guide wear or excessive feed rate.</string>
     <string-array name="manual_sec3_sop">
         <item>Select the desired work system from the top bar selector (G54 by default).</item>
         <item>To zero an individual axis, use the axis ZERO button in the DRO panel.</item>
@@ -437,7 +437,7 @@
 
     <string name="manual_sec5_title">5. Tool Table and ATC (tool.tbl)</string>
     <string name="manual_sec5_summary">Management of T1-T99 cutters, H length compensation (G43), fast Touch-Off, and tool life.</string>
-    <string name="manual_sec5_content">The tool manager synchronizes directly with the LinuxCNC \'tool.tbl\' file:\n\n• MOUNT TOOL (M6): Loads the tool into the spindle and activates G43 Hx compensation.\n• TOUCH-OFF Z (G43.1): Allows calibrating the current tool length by taking the spindle Z coordinate with a single touch.\n• WEAR MONITORING: Alerts when accumulated cutting time exceeds 85%% of estimated tool life.</string>
+    <string name="manual_sec5_content" formatted="false">The tool manager synchronizes directly with the LinuxCNC \'tool.tbl\' file:\n\n• MOUNT TOOL (M6): Loads the tool into the spindle and activates G43 Hx compensation.\n• TOUCH-OFF Z (G43.1): Allows calibrating the current tool length by taking the spindle Z coordinate with a single touch.\n• WEAR MONITORING: Alerts when accumulated cutting time exceeds 85% of estimated tool life.</string>
     <string-array name="manual_sec5_sop">
         <item>Open the Tool Table from the wrench icon in the top bar.</item>
         <item>To mount a tool, locate the desired slot and press \'MOUNT (M6)\'.</item>
@@ -500,7 +500,7 @@
     <string name="config_safety_power_header">SAFETY, BATTERY &amp; SCREEN TIMEOUT</string>
     <string name="config_screen_timeout_label">Screen Sleep Management (Wake Lock)</string>
     <string name="config_battery_health_label">Device Battery &amp; Power State</string>
-    <string name="config_battery_sim_btn">SIMULATE LOW BATTERY (15%)</string>
+    <string name="config_battery_sim_btn" formatted="false">SIMULATE LOW BATTERY (15%)</string>
     <string name="config_battery_restore_btn">RESTORE SENSOR</string>
     <string name="config_weak_signal_sim_btn">SIMULATE WEAK SIGNAL (350ms)</string>
     <string name="config_disconnect_sim_btn">SIMULATE DROP &amp; RECONNECT</string>
@@ -529,10 +529,10 @@
     <string name="config_sim_battery_toggle">Override Battery State</string>
     <string name="config_sim_battery_charging_toggle">Simulate USB-C Charger Connected</string>
     <string name="config_sim_battery_restore">RESTORE REAL HARDWARE SENSOR</string>
-    <string name="config_sim_battery_crit">8% (CRITICAL)</string>
-    <string name="config_sim_battery_low">15% (LOW)</string>
-    <string name="config_sim_battery_med">50% (NORMAL)</string>
-    <string name="config_sim_battery_full">100% (FULL)</string>
+    <string name="config_sim_battery_crit" formatted="false">8% (CRITICAL)</string>
+    <string name="config_sim_battery_low" formatted="false">15% (LOW)</string>
+    <string name="config_sim_battery_med" formatted="false">50% (NORMAL)</string>
+    <string name="config_sim_battery_full" formatted="false">100% (FULL)</string>
 
     <string name="config_sim_network_section">Network &amp; Latency Simulation</string>
     <string name="config_sim_network_desc">Simulate link degradation or drops to test fail-safe disconnect and exponential reconnect.</string>
@@ -618,148 +618,148 @@
     <!-- LinuxCNC Real Protocol & Connectivity -->
     <string name="protocol_linuxcncrsh_name">LinuxCNC Server (linuxcncrsh TCP :5007)</string>
     <string name="protocol_websocket_name">WebSocket Gateway (:8000)</string>
-    <string name="protocol_sim_name">Simulador Local (Offline)</string>
-    <string name="conn_protocol_label">Protocolo de Enlace LinuxCNC</string>
-    <string name="conn_host_label">Dirección IP del Host LinuxCNC</string>
-    <string name="conn_port_label">Puerto TCP</string>
-    <string name="conn_pass_label">Contraseña (linuxcncrsh)</string>
-    <string name="conn_connect_btn">CONECTAR A LINUXCNC</string>
-    <string name="conn_disconnect_btn">DESCONECTAR</string>
-    <string name="conn_status_label">Estado del Servidor</string>
+    <string name="protocol_sim_name">Local Simulator (Offline)</string>
+    <string name="conn_protocol_label">LinuxCNC Link Protocol</string>
+    <string name="conn_host_label">LinuxCNC Host IP Address</string>
+    <string name="conn_port_label">TCP Port</string>
+    <string name="conn_pass_label">Password (linuxcncrsh)</string>
+    <string name="conn_connect_btn">CONNECT TO LINUXCNC</string>
+    <string name="conn_disconnect_btn">DISCONNECT</string>
+    <string name="conn_status_label">Server Status</string>
 
     <!-- Tool Table Manager (tool.tbl) -->
-    <string name="tool_table_import_btn">IMPORTAR tool.tbl</string>
-    <string name="tool_table_export_btn">EXPORTAR tool.tbl</string>
-    <string name="tool_table_mount_btn">CARGAR (M6 T%1$d G43)</string>
-    <string name="tool_table_import_dialog_title">Importar Archivo tool.tbl de LinuxCNC</string>
-    <string name="tool_table_import_dialog_desc">Pega el contenido de tu archivo tool.tbl de LinuxCNC para actualizar el carrusel de herramientas de la máquina:</string>
-    <string name="tool_table_import_confirm">IMPORTAR Y APLICAR</string>
-    <string name="tool_table_export_copied">Archivo tool.tbl copiado al portapapeles</string>
+    <string name="tool_table_import_btn">IMPORT tool.tbl</string>
+    <string name="tool_table_export_btn">EXPORT tool.tbl</string>
+    <string name="tool_table_mount_btn">LOAD (M6 T%1$d G43)</string>
+    <string name="tool_table_import_dialog_title">Import LinuxCNC tool.tbl File</string>
+    <string name="tool_table_import_dialog_desc">Paste the contents of your LinuxCNC tool.tbl file to update the machine’s tool carousel:</string>
+    <string name="tool_table_import_confirm">IMPORT AND APPLY</string>
+    <string name="tool_table_export_copied">tool.tbl file copied to clipboard</string>
 
     <!-- Machine INI Editor & Visualizer (machine.ini) -->
-    <string name="ini_editor_title">CONFIGURACIÓN LINUXCNC (machine.ini)</string>
-    <string name="ini_editor_desc">Inspecciona y edita los límites de carrera (Soft Limits), aceleraciones, pasos y cinemática de LinuxCNC.</string>
-    <string name="ini_apply_btn">APLICAR LÍMITES AL CONTROLADOR</string>
-    <string name="ini_reset_default_btn">RESTAURAR INI DE EJEMPLO</string>
-    <string name="ini_copy_btn">COPIAR INI</string>
-    <string name="ini_tab_summary">RESUMEN DE MÁQUINA</string>
-    <string name="ini_tab_raw">EDITOR machine.ini</string>
+    <string name="ini_editor_title">LINUXCNC CONFIGURATION (machine.ini)</string>
+    <string name="ini_editor_desc">Inspect and edit soft limits, accelerations, steps, and LinuxCNC kinematics.</string>
+    <string name="ini_apply_btn">APPLY LIMITS TO CONTROLLER</string>
+    <string name="ini_reset_default_btn">RESTORE SAMPLE INI</string>
+    <string name="ini_copy_btn">COPY INI</string>
+    <string name="ini_tab_summary">MACHINE SUMMARY</string>
+    <string name="ini_tab_raw">machine.ini EDITOR</string>
 
     <!-- LinuxCNC Real Server Connection & Telemetry -->
     <string name="linuxcnc_conn_title">LINUXCNC REMOTE SERVER</string>
-    <string name="linuxcnc_password_label">Contraseña RSH (por defecto: pwd)</string>
-    <string name="linuxcnc_connect_btn">CONECTAR A LINUXCNC</string>
-    <string name="linuxcnc_disconnect_btn">DESCONECTAR SERVIDOR</string>
-    <string name="tool_table_import_title">IMPORTAR TABLA DE HERRAMIENTAS (tool.tbl)</string>
-    <string name="tool_table_import_desc">Pega el contenido del archivo tool.tbl de LinuxCNC (formato T... P... D... Z... ; comentario):</string>
+    <string name="linuxcnc_password_label">RSH Password (default: pwd)</string>
+    <string name="linuxcnc_connect_btn">CONNECT TO LINUXCNC</string>
+    <string name="linuxcnc_disconnect_btn">DISCONNECT SERVER</string>
+    <string name="tool_table_import_title">IMPORT TOOL TABLE (tool.tbl)</string>
+    <string name="tool_table_import_desc">Paste the contents of the LinuxCNC tool.tbl file (format T… P… D… Z… ; comment):</string>
 
     <!-- Conversational CAM & Canned Cycles -->
-    <string name="cam_dialog_title">CAM CONVERSACIONAL (CICLOS ENLATADOS)</string>
-    <string name="cam_dialog_desc">Generación rápida de código G al pie de máquina para planeado, cajeados y círculos de barrenos sin necesidad de CAD/CAM externo.</string>
-    <string name="cam_tab_facing">PLANEAR CARA</string>
-    <string name="cam_tab_pocket">CAJEADO RECT</string>
-    <string name="cam_tab_bolt_circle">CÍRCULO BARRENOS (G83)</string>
-    <string name="cam_generate_btn">GENERAR CÓDIGO G</string>
-    <string name="cam_load_to_controller">CARGAR EN CONTROLADOR Y SIMULAR</string>
-    <string name="cam_copy_gcode">COPIAR G-CODE</string>
-    <string name="cam_preview_title">VISTA PREVIA G-CODE GENERADO</string>
+    <string name="cam_dialog_title">CONVERSATIONAL CAM (CANNED CYCLES)</string>
+    <string name="cam_dialog_desc">Quick G-code generation at the machine for facing, pockets, and hole circles without external CAD/CAM.</string>
+    <string name="cam_tab_facing">FACE MILLING</string>
+    <string name="cam_tab_pocket">RECTANGULAR POCKET</string>
+    <string name="cam_tab_bolt_circle">BOLT CIRCLE (G83)</string>
+    <string name="cam_generate_btn">GENERATE G-CODE</string>
+    <string name="cam_load_to_controller">LOAD TO CONTROLLER AND SIMULATE</string>
+    <string name="cam_copy_gcode">COPY G-CODE</string>
+    <string name="cam_preview_title">GENERATED G-CODE PREVIEW</string>
 
     <!-- Connection Wizard & Interactive Tutorial -->
-    <string name="wizard_title">TUTORIAL Y ASISTENTE DE CONEXIÓN LINUXCNC</string>
-    <string name="wizard_subtitle">Guía interactiva paso a paso para vincular tu dispositivo Android con la máquina física</string>
-    <string name="wizard_btn_open">ASISTENTE DE CONEXIÓN</string>
-    <string name="wizard_btn_skip">OMITIR TUTORIAL</string>
-    <string name="wizard_btn_next">SIGUIENTE PASO</string>
-    <string name="wizard_btn_prev">PASO ANTERIOR</string>
-    <string name="wizard_btn_finish">FINALIZAR Y CONECTAR</string>
-    <string name="wizard_dont_show_again">No volver a mostrar automáticamente</string>
-    <string name="wizard_step_1_title">1. Detección de Interfaz y Enlace</string>
-    <string name="wizard_step_2_title">2. Habilitar Servidor en LinuxCNC (machine.ini)</string>
-    <string name="wizard_step_3_title">3. Test de Ping y Firewall en Linux</string>
-    <string name="wizard_step_4_title">4. Autenticación y Handshake RSH</string>
-    <string name="wizard_step_5_title">5. Verificación de Seguridad y E-STOP</string>
+    <string name="wizard_title">LINUXCNC CONNECTION WIZARD</string>
+    <string name="wizard_subtitle">Step-by-step interactive guide to link your Android device with the physical machine</string>
+    <string name="wizard_btn_open">OPEN CONNECTION WIZARD</string>
+    <string name="wizard_btn_skip">SKIP TUTORIAL</string>
+    <string name="wizard_btn_next">NEXT STEP</string>
+    <string name="wizard_btn_prev">PREVIOUS STEP</string>
+    <string name="wizard_btn_finish">FINISH AND CONNECT</string>
+    <string name="wizard_dont_show_again">Do not show automatically again</string>
+    <string name="wizard_step_1_title">1. Interface Detection and Link</string>
+    <string name="wizard_step_2_title">2. Enable Server in LinuxCNC (machine.ini)</string>
+    <string name="wizard_step_3_title">3. Ping Test and Linux Firewall</string>
+    <string name="wizard_step_4_title">4. RSH Authentication and Handshake</string>
+    <string name="wizard_step_5_title">5. Safety Verification and E-STOP</string>
 
     <!-- In-App Manual Section 12: Connection Wizard & Remote Architecture -->
-    <string name="manual_sec12_title">12. Asistente de Conexión y Enlace LinuxCNC (linuxcncrsh)</string>
-    <string name="manual_sec12_summary">Guía de comunicación por socket TCP, configuración de machine.ini, reglas de firewall y handshake de autenticación.</string>
-    <string name="manual_sec12_content">La comunicación remota industrial entre la tablet/móvil Android y el CNC opera a través del servidor linuxcncrsh:\n\n• INTERFAZ DE RED: Soporta Wi-Fi LAN de taller, conexión Ethernet cableada (adaptador USB-C a RJ45) o Hotspot/Tethering directo.\n• CONFIGURACIÓN DE machine.ini:\n  – Debe incluirse en la sección [APPLICATIONS] la directiva:\n    APP = linuxcncrsh -- -w -p 5007 -d\n  – El flag -w habilita permisos de escritura (movimiento de ejes, cambio de modos, control de husillo).\n  – El flag -p 5007 define el puerto TCP estándar.\n• REGLAS DE FIREWALL LINUX:\n  – Abrir puerto en Linux con: sudo ufw allow 5007/tcp\n  – Verificar que el demonio escucha con: ss -tulpn | grep 5007\n• PROTOCOLO DE HANDSHAKE:\n  – Saludo inicial: \'hello EMC LinuxCncDroid 1.0\'\n  – Autenticación de clave: \'set enable password\'\n  – Monitoreo constante de posiciones X/Y/Z/A, estados E-Stop y errores en tiempo real.</string>
+    <string name="manual_sec12_title">12. LinuxCNC Connection Wizard &amp; Link (linuxcncrsh)</string>
+    <string name="manual_sec12_summary">TCP socket communication guide: machine.ini configuration, firewall rules, and authentication handshake.</string>
+    <string name="manual_sec12_content">Industrial remote communication between the Android tablet/phone and the CNC runs through the linuxcncrsh server:\n\n• NETWORK INTERFACE: Supports workshop Wi-Fi LAN, wired Ethernet (USB-C to RJ45 adapter) or direct Hotspot/Tethering.\n• machine.ini CONFIGURATION:\n  – The [APPLICATIONS] section must include the directive:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – The -w flag enables write permissions (axis motion, mode changes, spindle control).\n  – The -p 5007 flag defines the standard TCP port.\n• LINUX FIREWALL RULES:\n  – Open the port on Linux with: sudo ufw allow 5007/tcp\n  – Verify that the daemon is listening with: ss -tulpn | grep 5007\n• HANDSHAKE PROTOCOL:\n  – Initial greeting: \'hello EMC LinuxCncDroid 1.0\'\n  – Password authentication: \'set enable password\'\n  – Continuous real-time monitoring of X/Y/Z/A positions, E-Stop states and faults.</string>
     <string-array name="manual_sec12_sop">
-        <item>1. Pulsa el icono del router en la barra superior o en CONFIG para iniciar el Asistente de Conexión.</item>
-        <item>2. Comprueba que Android y LinuxCNC se encuentren en la misma subred IP (p.ej. 192.168.1.X).</item>
-        <item>3. Configura la directiva linuxcncrsh en tu archivo .ini y habilita el puerto 5007 en el firewall.</item>
-        <item>4. Introduce la IP y contraseña (por defecto: pwd) y pulsa FINALIZAR Y CONECTAR.</item>
+        <item>1. Tap the router icon in the top bar or in CONFIG to start the Connection Wizard.</item>
+        <item>2. Verify that Android and LinuxCNC are on the same IP subnet (e.g. 192.168.1.X).</item>
+        <item>3. Configure the linuxcncrsh directive in your .ini file and open port 5007 in the firewall.</item>
+        <item>4. Enter the IP and password (default: pwd) and tap FINISH AND CONNECT.</item>
     </string-array>
     <string-array name="manual_sec12_safety">
-        <item>Siempre mantén accesible la seta física de parada de emergencia (E-STOP) en la máquina antes de conectar.</item>
-        <item>Usa redes Wi-Fi protegidas con WPA2/WPA3 o enlace Ethernet dedicado para evitar latencias o interferencias electromagnéticas de variadores (VFD).</item>
+        <item>Always keep the machine\'s physical emergency stop (E-STOP) button accessible before connecting.</item>
+        <item>Use WPA2/WPA3 protected Wi-Fi networks or a dedicated Ethernet link to avoid latency or electromagnetic interference from VFD drives.</item>
     </string-array>
 
     <!-- In-App Manual Section 13: Conversational CAM & Canned Cycles -->
-    <string name="manual_sec13_title">13. CAM Conversacional y Ciclos Enlatados</string>
-    <string name="manual_sec13_summary">Mecanizado rápido al pie de máquina: Planeado de caras, Cajeados rectangulares y Círculos de barrenos (G83).</string>
-    <string name="manual_sec13_content">El generador CAM Conversacional permite mecanizar operaciones estándar sin necesidad de modelar en CAD ni postprocesar en CAM externo:\n\n• CICLO DE PLANEADO DE CARAS (FACING):\n  – Genera pasadas paralelas en zig-zag con paso lateral (stepover) regulable según el diámetro de la fresa.\n  – Entrada suave a cota de seguridad Z y pasadas de acabado opcionales.\n\n• CICLO DE CAJEADO RECTANGULAR (POCKETING):\n  – Desbaste concéntrico de cajeras rectangulares con control de profundidad por pasada (ap) y avance de bajada helicoidal/rampa.\n\n• CÍRCULO DE BARRENOS / PATRÓN DE AGUJEROS (BOLT CIRCLE):\n  – Calcula las posiciones angulares polares y genera ciclos de taladrado profundo con picoteo y desahogo de viruta (G83).\n\n• TRANSFERENCIA DIRECTA A CONTROLADOR:\n  – Un toque en \'CARGAR EN CONTROLADOR Y SIMULAR\' transfiere el código generado al intérprete y visualizador 3D.</string>
+    <string name="manual_sec13_title">13. Conversational CAM &amp; Canned Cycles</string>
+    <string name="manual_sec13_summary">Fast on-machine machining: face milling, rectangular pocketing and bolt circles (G83).</string>
+    <string name="manual_sec13_content">The Conversational CAM generator machines standard operations without CAD modelling or external CAM post-processing:\n\n• FACING CYCLE:\n  – Generates parallel zig-zag passes with a stepover adjustable to the cutter diameter.\n  – Smooth entry at safe Z height and optional finishing passes.\n\n• RECTANGULAR POCKETING CYCLE:\n  – Concentric roughing of rectangular pockets with depth-per-pass (ap) control and helical/ramp plunge feed.\n\n• BOLT CIRCLE / HOLE PATTERN:\n  – Computes polar angular positions and generates deep drilling cycles with pecking and chip clearance (G83).\n\n• DIRECT TRANSFER TO THE CONTROLLER:\n  – A single tap on \'LOAD INTO CONTROLLER AND SIMULATE\' transfers the generated code to the interpreter and 3D visualizer.</string>
     <string-array name="manual_sec13_sop">
-        <item>1. Abre el diálogo CAM CONVERSACIONAL desde la pestaña CONFIGURACIÓN o la barra superior.</item>
-        <item>2. Selecciona la pestaña del ciclo deseado: PLANEAR CARA, CAJEADO RECT o CÍRCULO BARRENOS.</item>
-        <item>3. Introduce las cotas de la pieza, RPM del husillo y avance de corte (Feedrate F).</item>
-        <item>4. Pulsa \'GENERAR CÓDIGO G\', revisa la vista previa y pulsa \'CARGAR EN CONTROLADOR Y SIMULAR\'.</item>
+        <item>1. Open the CONVERSATIONAL CAM dialog from the CONFIGURATION tab or the top bar.</item>
+        <item>2. Select the tab of the desired cycle: FACE MILLING, RECT POCKET or BOLT CIRCLE.</item>
+        <item>3. Enter the part dimensions, spindle RPM and cutting feed rate (Feedrate F).</item>
+        <item>4. Tap \'GENERATE G-CODE\', review the preview and tap \'LOAD INTO CONTROLLER AND SIMULATE\'.</item>
     </string-array>
     <string-array name="manual_sec13_safety">
-        <item>Verifica que la herramienta seleccionada en el husillo coincida con el diámetro declarado en los parámetros del ciclo.</item>
-        <item>Comprueba la altura de plano de seguridad (Z Safety) para evitar colisiones con bridas y mordazas.</item>
+        <item>Verify that the tool loaded in the spindle matches the diameter declared in the cycle parameters.</item>
+        <item>Check the safe plane height (Z Safety) to avoid collisions with clamps and vises.</item>
     </string-array>
 
     <!-- In-App Manual Section 14: Machine INI Configuration & Kinematics -->
-    <string name="manual_sec14_title">14. Editor y Diagnóstico de machine.ini</string>
-    <string name="manual_sec14_summary">Inspección de límites de carrera físicos y virtuales (Soft Limits), aceleraciones y cinemática de ejes.</string>
-    <string name="manual_sec14_content">El módulo de configuración INI permite supervisar y sincronizar las variables estructurales del archivo .ini de la máquina:\n\n• LÍMITES SUAVES (MIN_LIMIT / MAX_LIMIT):\n  – Define la envolvente volumétrica segura de trabajo para prevenir impactos mecánicos en los extremos de los husillos.\n\n• DINÁMICA DE EJES (MAX_VELOCITY / MAX_ACCELERATION):\n  – Control de velocidades de posicionamiento y rampas de aceleración/deceleración para evitar pérdidas de pasos en motores paso a paso o sobretorque en servomotores.\n\n• PASOS POR UNIDAD (SCALE / STEP_SCALE):\n  – Relación de pulsos/revolución y paso de husillo de bolas para garantizar la resolución milimétrica exacta.\n\n• EDITOR DIRECTO Y COPIA:\n  – Visualiza el archivo bruto, permite búsquedas y cuenta con opción de copia al portapapeles y aplicación directa.</string>
+    <string name="manual_sec14_title">14. machine.ini Editor &amp; Diagnostics</string>
+    <string name="manual_sec14_summary">Inspection of physical and virtual travel limits (Soft Limits), accelerations and axis kinematics.</string>
+    <string name="manual_sec14_content">The INI configuration module monitors and synchronises the structural variables of the machine .ini file:\n\n• SOFT LIMITS (MIN_LIMIT / MAX_LIMIT):\n  – Defines the safe volumetric working envelope to prevent mechanical impacts at the ends of the ballscrews.\n\n• AXIS DYNAMICS (MAX_VELOCITY / MAX_ACCELERATION):\n  – Controls positioning speeds and acceleration/deceleration ramps to avoid lost steps on stepper motors or over-torque on servo drives.\n\n• STEPS PER UNIT (SCALE / STEP_SCALE):\n  – Pulse-per-revolution ratio versus ballscrew pitch to guarantee exact millimetre resolution.\n\n• DIRECT EDITOR AND COPY:\n  – Displays the raw file, supports searches and offers copy-to-clipboard plus direct apply options.</string>
     <string-array name="manual_sec14_sop">
-        <item>1. Accede al botón \'CONFIGURACIÓN LINUXCNC (machine.ini)\' en la pestaña CONFIG.</item>
-        <item>2. Examina la pestaña \'RESUMEN DE MÁQUINA\' para validar los límites volumétricos de X, Y y Z.</item>
-        <item>3. En la pestaña \'EDITOR machine.ini\', revisa las directivas de cinemática y comunicaciones.</item>
-        <item>4. Pulsa \'APLICAR LÍMITES AL CONTROLADOR\' para sincronizar con la interfaz HMI.</item>
+        <item>1. Tap \'LINUXCNC CONFIGURATION (machine.ini)\' in the CONFIG tab.</item>
+        <item>2. Review the \'MACHINE SUMMARY\' tab to validate the X, Y and Z volumetric limits.</item>
+        <item>3. In the \'machine.ini EDITOR\' tab, inspect the kinematics and communication directives.</item>
+        <item>4. Tap \'APPLY LIMITS TO CONTROLLER\' to synchronise the HMI interface.</item>
     </string-array>
     <string-array name="manual_sec14_safety">
-        <item>Nunca incrementes los valores de aceleración o velocidad máxima sin antes realizar pruebas de resonancia mecánica.</item>
+        <item>Never increase acceleration or maximum velocity values without first performing mechanical resonance tests.</item>
     </string-array>
 
     <!-- In-App Manual Section 15: HAL Real-Time Pins & Signals Monitor -->
-    <string name="manual_sec15_title">15. Monitor de Pines y Señales HAL en Tiempo Real</string>
-    <string name="manual_sec15_summary">Diagnóstico de entradas/salidas de hardware, finales de carrera, setas de seguridad y estado de variadores.</string>
-    <string name="manual_sec15_content">El monitor HAL (Hardware Abstraction Layer) proporciona visibilidad instantánea del estado lógico de la máquina:\n\n• PINES DE SEGURIDAD (SAFETY):\n  – Supervisión de entradas de Parada de Emergencia (iocontrol.0.emc-enable-in) e interbloqueos de puertas protectoras.\n\n• FINALES DE CARRERA Y HOMING:\n  – Estado de sensores inductivos o microinterruptores de inicio y límite (joint.0.home-sw-in, min-hard-limit, max-hard-limit).\n\n• SEÑALES DEL HUSILLO Y REFRIGERACIÓN:\n  – Marcha/paro de husillo (spindle.0.on), sentido de giro (spindle.0.forward), velocidad analógica y relés de refrigerante M7/M8.\n\n• FILTRADO Y BÚSQUEDA DINÁMICA:\n  – Permite aislar señales por categorías operativas para agilizar tareas de mantenimiento y puesta en marcha.</string>
+    <string name="manual_sec15_title">15. Real-Time HAL Pin &amp; Signal Monitor</string>
+    <string name="manual_sec15_summary">Diagnostics of hardware inputs/outputs, limit switches, safety circuits and drive status.</string>
+    <string name="manual_sec15_content">The HAL (Hardware Abstraction Layer) monitor gives instant visibility of the machine logic state:\n\n• SAFETY PINS:\n  – Monitors Emergency Stop inputs (iocontrol.0.emc-enable-in) and guard door interlocks.\n\n• LIMIT SWITCHES AND HOMING:\n  – Status of the inductive sensors or start/limit microswitches (joint.0.home-sw-in, min-hard-limit, max-hard-limit).\n\n• SPINDLE AND COOLANT SIGNALS:\n  – Spindle start/stop (spindle.0.on), rotation direction (spindle.0.forward), analogue speed and M7/M8 coolant relays.\n\n• LIVE FILTERING AND SEARCH:\n  – Isolates signals by operating category to speed up maintenance and commissioning tasks.</string>
     <string-array name="manual_sec15_sop">
-        <item>1. Pulsa el icono de chip de terminal (HAL) en la barra superior o en la pestaña CONFIG.</item>
-        <item>2. Selecciona la categoría de señal deseada (SEGURIDAD, LÍMITES, HUSILLO, MOVIMIENTO, E/S).</item>
-        <item>3. Acciona físicamente un sensor o final de carrera para comprobar el cambio de estado (VERDE = Activo, GRIS = Inactivo).</item>
+        <item>1. Tap the terminal chip (HAL) icon in the top bar or in the CONFIG tab.</item>
+        <item>2. Select the desired signal category (SAFETY, LIMITS, SPINDLE, MOTION, I/O).</item>
+        <item>3. Physically trigger a sensor or limit switch to verify the state change (GREEN = Active, GREY = Inactive).</item>
     </string-array>
     <string-array name="manual_sec15_safety">
-        <item>Si un final de carrera aparece permanentemente disparado, revisa el cableado antes de forzar el movimiento en modo manual.</item>
+        <item>If a limit switch appears permanently triggered, inspect the wiring before forcing movement in manual mode.</item>
     </string-array>
 
     <!-- In-App Manual Section 16: Work Coordinate Systems (G54 - G59.3) -->
-    <string name="manual_sec16_title">16. Tabla de Coordenadas de Trabajo WCS (G54 - G59.3)</string>
-    <string name="manual_sec16_summary">Gestión de orígenes de pieza múltiples, compensación de mordazas y cerado de coordenadas.</string>
-    <string name="manual_sec16_content">La tabla de orígenes de trabajo WCS administra los 9 sistemas de coordenadas estándar de LinuxCNC:\n\n• SISTEMAS SOPORTADOS:\n  – G54 a G59 (Orígenes estándar de trabajo 1 al 6).\n  – G59.1, G59.2, G59.3 (Orígenes adicionales para sub-mordazas y utillajes múltiples).\n\n• REGISTRO DE DESPLAZAMIENTOS:\n  – Cada origen almacena desplazamientos independientes para X, Y, Z y eje rotativo A relativos al cero máquina absoluto (G53).\n\n• CERADO RÁPIDO CON PALPADOR O CÁMARA:\n  – Los ciclos automáticos de palpado 3D y la visión artificial transfieren sus resultados directamente al sistema WCS activo con solo confirmar la operación.</string>
+    <string name="manual_sec16_title">16. Work Coordinate Systems (WCS) Table (G54 - G59.3)</string>
+    <string name="manual_sec16_summary">Management of multiple workpiece origins, vise compensation and coordinate zeroing.</string>
+    <string name="manual_sec16_content">The work origin (WCS) table manages the nine standard LinuxCNC coordinate systems:\n\n• SUPPORTED SYSTEMS:\n  – G54 to G59 (standard work origins 1 to 6).\n  – G59.1, G59.2, G59.3 (additional origins for sub-vises and multiple fixtures).\n\n• OFFSET STORAGE:\n  – Each origin stores independent X, Y, Z and rotary A axis offsets relative to absolute machine zero (G53).\n\n• FAST ZEROING WITH PROBE OR CAMERA:\n  – Automatic 3D probing cycles and machine vision transfer their results directly to the active WCS as soon as the operation is confirmed.</string>
     <string-array name="manual_sec16_sop">
-        <item>1. Abre el selector de WCS en la barra superior o pulsa \'TABLA DE ORÍGENES WCS\' en CONFIG.</item>
-        <item>2. Selecciona el sistema de coordenadas a activar (p.ej. G54 para pieza principal o G55 para segunda mordaza).</item>
-        <item>3. Ajusta o zera los ejes correspondientes con los botones ZERO del panel DRO o mediante palpado.</item>
+        <item>1. Open the WCS selector in the top bar or tap \'WCS ORIGIN TABLE\' in CONFIG.</item>
+        <item>2. Select the coordinate system to activate (e.g. G54 for the main part or G55 for a second vise).</item>
+        <item>3. Adjust or zero the relevant axes with the ZERO buttons on the DRO panel or by probing.</item>
     </string-array>
     <string-array name="manual_sec16_safety">
-        <item>Antes de ejecutar un programa G-Code, corrobora en la barra superior que el sistema WCS activo coincide con el programado en la cabecera del archivo.</item>
+        <item>Before running a G-Code program, confirm in the top bar that the active WCS matches the one programmed in the file header.</item>
     </string-array>
 
     <!-- In-App Manual Section 17: Roadmap and Next Version Enhancements -->
-    <string name="manual_sec17_title">17. Hoja de Ruta y Sugerencias de Versión Posterior</string>
-    <string name="manual_sec17_summary">Próximas mejoras previstas: Transferencia masiva SCP/FTP/Samba, Pendants OTG/Bluetooth, 5º Eje (B/C) y mitigación de latencia Wi-Fi.</string>
-    <string name="manual_sec17_content">Para maximizar el rendimiento en plantas industriales y centros de mecanizado complejos, se proponen las siguientes integraciones para versiones posteriores:\n\n1. GESTIÓN Y TRANSFERENCIA DE ARCHIVOS G-CODE GRANDES:\n   – Protocolo de transferencia remota SCP / SFTP / FTP / Samba integrado para enviar archivos CAD/CAM pesados (&gt;50.000 líneas) directamente al directorio ~/linuxcnc/nc_files/ del PC sin saturar el ancho de banda del socket de control.\n\n2. CONTROL FÍSICO ALTERNATIVO (PENDANT BLUETOOTH / TECLADO OTG):\n   – Captura nativa de teclas de hardware y compatibilidad con mandos industriales USB/Bluetooth para permitir movimientos jog X/Y/Z y paro de emergencia físico sin necesidad de tocar la pantalla con guantes o taladrina.\n\n3. MANEJO DE EJES ROTATIVOS ADICIONALES (5º EJE B / C):\n   – Expansión del panel DRO, visualizador 3D y generador cinemático para soportar cabezales basculantes y platos divisores de 5 ejes continuos.\n\n4. RESPUESTA Y MITIGACIÓN DE LATENCIAS SEVERAS EN WI-FI:\n   – Algoritmo predictivo de compensación de buffer para redes con interferencia electromagnética de variadores (VFD) y recomendación prioritaria de enlace USB-C a Ethernet cableado (RJ45).</string>
+    <string name="manual_sec17_title">17. Roadmap and Future Version Suggestions</string>
+    <string name="manual_sec17_summary">Planned enhancements: bulk SCP/FTP/Samba transfer, OTG/Bluetooth pendants, 5th axis (B/C) and Wi-Fi latency mitigation.</string>
+    <string name="manual_sec17_content">To maximise performance in industrial plants and complex machining centres, the following integrations are proposed for later versions:\n\n1. MANAGEMENT AND TRANSFER OF LARGE G-CODE FILES:\n   – Integrated SCP / SFTP / FTP / Samba remote transfer protocol to send heavy CAD/CAM files (&gt;50,000 lines) straight to the PC \'~/linuxcnc/nc_files/\' directory without saturating the control socket bandwidth.\n\n2. ALTERNATIVE PHYSICAL CONTROL (BLUETOOTH PENDANT / OTG KEYBOARD):\n   – Native hardware key capture and support for industrial USB/Bluetooth pendants to allow X/Y/Z jog motion and physical emergency stop without touching the screen with gloves or cutting fluid.\n\n3. ADDITIONAL ROTARY AXES (5TH AXIS B / C):\n   – Expansion of the DRO panel, 3D visualizer and kinematic generator to support tilting heads and 5-axis continuous rotary tables.\n\n4. RESPONSE AND MITIGATION OF SEVERE WI-FI LATENCY:\n   – Predictive buffer compensation algorithm for networks with electromagnetic interference from VFD drives, with priority recommendation of a wired USB-C to Ethernet (RJ45) link.</string>
     <string-array name="manual_sec17_sop">
-        <item>1. Para programas G-Code masivos, utilice actualmente la carga vía archivo local o tarjeta SD.</item>
-        <item>2. Para entornos de alta interferencia electromagnética, conecte un adaptador USB-C a Ethernet cableado.</item>
-        <item>3. Consulte periódicamente esta sección para conocer la disponibilidad de las extensiones de hardware.</item>
+        <item>1. For very large G-Code programs, use local file or SD-card loading for now.</item>
+        <item>2. In high electromagnetic interference environments, connect a USB-C to wired Ethernet adapter.</item>
+        <item>3. Check this section periodically for the availability of hardware extensions.</item>
     </string-array>
     <string-array name="manual_sec17_safety">
-        <item>Nunca utilice mandos inalámbricos no homologados sin una parada de emergencia cableada en serie con el relé del armario eléctrico.</item>
+        <item>Never use non-certified wireless pendants without a wired emergency stop in series with the electrical cabinet relay.</item>
     </string-array>
 
     <!-- Additional UI Strings for Localization -->
@@ -829,7 +829,7 @@
     <string name="rfl_resume_here">RESUME HERE</string>
     <string name="hal_dialog_title">HAL Signals &amp; Pin Monitor</string>
     <string name="hal_dialog_subtitle">LinuxCNC Hardware Abstraction Layer Real-time Diagnostics</string>
-    <string name="hal_search_hint">Filter by pin name or description (e.g. limit, spindle, air)...</string>
+    <string name="hal_search_hint">Filter by pin name or description (e.g. limit, spindle, air)…</string>
     <string name="hal_all_pins">ALL PINS (%d)</string>
     <string name="hal_toggle_pin">Toggle Pin</string>
     <string name="wcs_dialog_title">WCS Offset Table (G54 - G59.3)</string>
@@ -869,4 +869,171 @@
     <string name="security_preset_collision">Collision Plunge (Warning)</string>
     <string name="security_motion_detected">Movement Code Detected</string>
     <string name="security_no_motion">No Axis Motion Found</string>
+
+    <!-- Conversational CAM Input Labels -->
+    <string name="cam_label_length_x">Length X (mm)</string>
+    <string name="cam_label_width_y">Width Y (mm)</string>
+    <string name="cam_label_tool_diam">Cutter Diameter D (mm)</string>
+    <string name="cam_label_stepover" formatted="false">Stepover (%)</string>
+    <string name="cam_label_total_depth">Total Depth Z (mm)</string>
+    <string name="cam_label_depth_per_pass">Depth per Pass (mm)</string>
+    <string name="cam_label_feed">Feed Rate F (mm/min)</string>
+    <string name="cam_label_rpm">Spindle Speed S (RPM)</string>
+    <string name="cam_label_tool_num">Tool Number # (T)</string>
+    <string name="cam_label_pocket_length_x">Pocket Length X (mm)</string>
+    <string name="cam_label_pocket_width_y">Pocket Width Y (mm)</string>
+    <string name="cam_label_step_z">Stepdown Z (mm)</string>
+    <string name="cam_label_feed_xy">Feed Rate XY (mm/min)</string>
+    <string name="cam_label_feed_z">Plunge Feed Z (mm/min)</string>
+    <string name="cam_label_center_x">Center X (mm)</string>
+    <string name="cam_label_center_y">Center Y (mm)</string>
+    <string name="cam_label_pcd_diameter">PCD Circle Diameter (mm)</string>
+    <string name="cam_label_hole_count">Number of Holes</string>
+    <string name="cam_label_start_angle">Start Angle (°)</string>
+    <string name="cam_label_hole_depth">Hole Depth Z (mm)</string>
+    <string name="cam_label_peck_q">Peck Q (mm)</string>
+    <string name="cam_label_retract_r">Retract Plane R (mm)</string>
+
+    <!-- Connection Wizard Detailed Content -->
+    <string name="wizard_step_1_title_full">STEP 1: PHYSICAL LINK DETECTION</string>
+    <string name="wizard_step_1_subtitle">Verification of network interface between Android and CNC</string>
+    <string name="wizard_step_1_inst_1">The Android device must be on the same subnet as the LinuxCNC machine.</string>
+    <string name="wizard_step_1_inst_2">Wi-Fi LAN: Connect the phone/tablet to the same workshop wireless network as the LinuxCNC PC.</string>
+    <string name="wizard_step_1_inst_3">Ethernet / USB Adapter: If using a USB-C to RJ45 adapter, verify Android displays the Ethernet icon.</string>
+    <string name="wizard_step_1_inst_4">Hotspot / USB Tethering: You can share the network from Android to the PC if there is no router in the workshop.</string>
+    <string name="wizard_step_2_title_full">STEP 2: ENABLE linuxcncrsh IN machine.ini</string>
+    <string name="wizard_step_2_subtitle">Configure LinuxCNC to listen for remote commands over the network</string>
+    <string name="wizard_step_2_inst_1">For industrial security, LinuxCNC by default rejects incoming network connections.</string>
+    <string name="wizard_step_2_inst_2">Open your machine\'s .ini file (example: ~/linuxcnc/configs/my_machine/my_machine.ini).</string>
+    <string name="wizard_step_2_inst_3">Add the [APPLICATIONS] section with the parameter APP = linuxcncrsh.</string>
+    <string name="wizard_step_2_inst_4">The \'-w\' flag is required to enable motion commands (jog, mdi, cycle start).</string>
+    <string name="wizard_step_2_inst_5">The \'-p 5007\' flag defines the standard TCP port.</string>
+    <string name="wizard_step_3_title_full">STEP 3: FIREWALL RULES AND PING</string>
+    <string name="wizard_step_3_subtitle">Allow port 5007 through the Linux firewall</string>
+    <string name="wizard_step_3_inst_1">If Debian / Ubuntu has the firewall (ufw) enabled, it will reject incoming packets.</string>
+    <string name="wizard_step_3_inst_2">Open a console in Linux and allow TCP port 5007.</string>
+    <string name="wizard_step_3_inst_3">You can verify that the port is open with \'ss -tulpn | grep 5007\'.</string>
+    <string name="wizard_step_4_title_full">STEP 4: HANDSHAKE AND RSH AUTHENTICATION</string>
+    <string name="wizard_step_4_subtitle">Negotiation of native protocol and access password</string>
+    <string name="wizard_step_4_inst_1">Upon tapping \'Connect\', the app sends: \'hello EMC LinuxCncDroid 1.0\'.</string>
+    <string name="wizard_step_4_inst_2">LinuxCNC responds with \'HELLO ACK EMC 1.0\'.</string>
+    <string name="wizard_step_4_inst_3">Next, the app sends \'set enable pwd\' (or your custom password).</string>
+    <string name="wizard_step_4_inst_4">Once authenticated, the app monitors position (X, Y, Z), E-Stop, and spindle state in real time.</string>
+    <string name="wizard_step_5_title_full">STEP 5: SAFETY AND FIRST MOVEMENT</string>
+    <string name="wizard_step_5_subtitle">Operational verification protocol before machining</string>
+    <string name="wizard_step_5_inst_1">ATTENTION! Always keep the machine\'s physical E-STOP button accessible.</string>
+    <string name="wizard_step_5_inst_2">1. Tap RESET E-STOP in the top bar.</string>
+    <string name="wizard_step_5_inst_3">2. Tap POWER ON MACHINE (green icon).</string>
+    <string name="wizard_step_5_inst_4">3. Perform Home / Axis Referencing if kinematics require it.</string>
+    <string name="wizard_step_5_inst_5">4. Test a fine movement in STEP mode (Step Jog 0.1 mm) on Z-Axis away from the bed.</string>
+    <string name="wizard_interface_selected_label">SELECTED NETWORK INTERFACE IN ANDROID</string>
+    <string name="wizard_status_online">ONLINE (%1$d ms)</string>
+    <string name="wizard_status_offline">OFFLINE</string>
+    <string name="wizard_linux_cmd_title">LINUX COMMAND / CONFIGURATION</string>
+    <string name="wizard_copied_to_clipboard">Copied to clipboard!</string>
+
+    <!-- Error Boundary & Component Names -->
+    <string name="error_subsystem_internal_fault">Internal subsystem fault</string>
+    <string name="error_fault_isolation">FAULT ISOLATION: %1$s</string>
+    <string name="error_subsystem_halted_safety">The subsystem was stopped preventatively to protect the HMI and machine axes.</string>
+    <string name="error_comp_3d_visualizer">3D G-Code Visualizer</string>
+    <string name="error_comp_camera_vision">Camera &amp; Computer Vision</string>
+    <string name="error_comp_probing">Probing Cycles</string>
+    <string name="error_comp_ethercat">EtherCAT Fieldbus</string>
+
+    <!-- Machine Config & Misc -->
+    <string name="config_connection_wizard_banner">LINUXCNC CONNECTION WIZARD AND TUTORIAL</string>
+    <string name="battery_charging_suffix">(CHARGING)</string>
+    <string name="simulated_badge">SIMULATED</string>
+    <string name="sim_weak_signal_active">WEAK SIGNAL (380ms)</string>
+    <string name="sim_weak_signal_btn">SIMULATE WEAK SIGNAL</string>
+    <string name="server_error_fmt">Server error: %1$s</string>
+
+    <!-- Additional strings for connection, configuration, alarms, and reports -->
+    <string name="wizard_step_1_code_snippet"># Check your IP in the LinuxCNC terminal (PC/Raspberry Pi):\nhostname -I\n# Example IP address: 192.168.1.120</string>
+    <string name="wizard_step_2_code_snippet">[APPLICATIONS]\n# Start the remote-control daemon when LinuxCNC starts:\nAPP = linuxcncrsh — -w -p 5007 -d</string>
+    <string name="wizard_step_3_code_snippet"># Run in a Linux terminal:\nsudo ufw allow 5007/tcp\n# Check that linuxcncrsh is listening:\nss -tulpn | grep 5007</string>
+    <string name="wizard_step_4_code_snippet">Host IP: %1$s\nPort: %2$s\nPassword: %3$s</string>
+
+    <string name="ini_machine_name_fmt">MACHINE: %1$s</string>
+    <string name="ini_kinematics_fmt">Kinematics: %1$s</string>
+    <string name="ini_max_velocity_fmt">Max Speed: %1$s mm/s</string>
+    <string name="ini_acceleration_fmt">Acceleration: %1$s mm/s²</string>
+    <string name="ini_soft_limits_title">TRAVEL LIMITS (SOFT LIMITS) AND SCALES</string>
+    <string name="ini_limits_applied">LIMITS APPLIED!</string>
+    <string name="ini_axis_limit_fmt">Limit: [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
+
+    <string name="manual_category_calibration">CALIBRATION</string>
+    <string name="manual_category_operation">OPERATION</string>
+    <string name="manual_category_probing">PROBING</string>
+    <string name="manual_category_diagnostics">DIAGNOSTICS</string>
+    <string name="manual_category_vision_metrology">VISION &amp; METROLOGY</string>
+    <string name="manual_category_simulation_testing">SIMULATION &amp; TESTING</string>
+    <string name="manual_category_3d_toolpath_simulation">3D TOOLPATH &amp; SIMULATION</string>
+    <string name="manual_category_communication_assistant">COMMUNICATION &amp; ASSISTANT</string>
+    <string name="manual_category_ini_configuration">INI CONFIGURATION</string>
+    <string name="manual_category_hal_diagnostics">HAL &amp; DIAGNOSTICS</string>
+    <string name="manual_category_wcs_origins">WCS ORIGINS</string>
+
+    <string name="log_battery_critical_during_cycle">CRITICAL DANGER! Battery at %1$d%% during machining cycle. Imminent shutdown: pause the cycle or connect the charger.</string>
+    <string name="log_battery_critical">CRITICAL BATTERY ALARM! Level at %1$d%%. Connect the charger immediately.</string>
+    <string name="log_battery_low">Low battery alarm: %1$d%%. Connect the device charger.</string>
+    <string name="log_battery_sensor_restored">Battery sensor restored to live system readings.</string>
+    <string name="log_screen_timeout_enabled">Safety notice: System screen timeout enabled. Always-on screen is recommended.</string>
+    <string name="log_servo_overtorque_alarm">ALARM AL.006: Over-torque protection tripped on EtherCAT Servo Axis Z.</string>
+    <string name="log_vfd_thermal_alarm">VFD THERMAL FAILURE: Spindle winding temperature exceeded 85°C.</string>
+    <string name="log_low_coolant_alarm">LOW COOLANT LEVEL: Insufficient pump pressure on the I/O bus.</string>
+
+    <string name="engine_local_simulation_mode">Switched to Local Simulation Mode (Offline).</string>
+    <string name="engine_disconnected_from_linuxcnc">Disconnected from LinuxCNC. Simulation mode is active.</string>
+    <string name="engine_tool_table_imported">Tool table imported successfully: %1$d tools loaded.</string>
+
+    <string name="audit_report_title">LINUXCNC DROID - INDUSTRIAL AUDIT REPORT</string>
+    <string name="audit_machine_label">Machine:             %1$s</string>
+    <string name="audit_generation_date_label">Generation Date: %1$s (%2$s)</string>
+    <string name="audit_machine_state_label">Machine State:   %1$s</string>
+    <string name="audit_axis_telemetry_section">1. KINEMATIC AXES TELEMETRY</string>
+    <string name="audit_ethercat_section">3. ETHERCAT MASTER &amp; SLAVE DIAGNOSTICS</string>
+    <string name="audit_alarm_history_section">4. ALARM HISTORY AND EVENT LOG (LAST %1$d)</string>
+
+    <!-- Additional strings found in source literals -->
+    <string name="protocol_linuxcncrsh_description">LinuxCNC Remote Shell (linuxcncrsh) TCP stream (standard port 5007)</string>
+    <string name="protocol_websocket_description">WebSocket JSON Gateway / Telemetry Bridge (standard port 8000)</string>
+    <string name="protocol_simulation_description">Internal kinematics and real-time simulator (no physical machine)</string>
+    <string name="tool_table_copied_message">tool.tbl copied to clipboard!</string>
+    <string name="tool_table_import_count_message">%1$d tools imported successfully!</string>
+    <string name="log_wifi_weak_signal">Network alarm: Weak or degraded Wi-Fi signal. Telemetry may be lost.</string>
+    <string name="log_connection_reconnecting">Network connection lost. Automatic reconnection protocol starting…</string>
+    <string name="log_network_device_disconnected">Device network connectivity lost</string>
+    <string name="engine_ini_applied_fmt">INI configuration applied: %1$s (Limits: X[%2$s..%3$s], Y[%4$s..%5$s], Z[%6$s..%7$s])</string>
+    <string name="engine_tool_mounted_fmt">Tool mounted: T%1$d (%2$s), compensation G43 H%3$d (Z Offset: %4$s mm)</string>
+    <string name="engine_reconnect_scheduled_fmt">%1$s. Automatic reconnection in %2$d s (Attempt #%3$d)…</string>
+    <string name="engine_manual_reconnect_started">Manual reconnection started by operator…</string>
+    <string name="engine_weak_signal_fmt">Network alarm: Weak signal detected. High latency (%1$d ms). Risk of synchronization loss.</string>
+    <string name="engine_network_normalized_fmt">Network signal normalized (Latency: %1$d ms).</string>
+    <string name="engine_simulated_disconnect">Network signal loss simulated by operator</string>
+    <string name="engine_virtual_simulation_on">Virtual Simulation Mode ENABLED (Kinematics and HAL/NML emulation)</string>
+    <string name="engine_virtual_simulation_off">Virtual Simulation Mode DISABLED: Operating in Real Hardware Mode</string>
+    <string name="engine_network_restored">Network link restored successfully.</string>
+    <string name="rsh_handshake_unexpected_fmt">Unexpected handshake response: %1$s. Continuing with authentication…</string>
+    <string name="rsh_authenticated_fmt">Successfully authenticated with LinuxCNC (%1$s:%2$d)</string>
+    <string name="rsh_auth_response_fmt">Authentication response: %1$s</string>
+    <string name="rsh_polling_disconnect_fmt">Disconnection detected during polling: %1$s</string>
+
+    <!-- Added by localisation pass -->
+    <string name="common_copy">Copy</string>
+    <string name="ini_units_fmt">Units: %1$s</string>
+    <string name="ini_steps_scale_fmt">Scale: %1$s steps/mm</string>
+    <string name="ini_axis_label_fmt">AXIS %1$s</string>
+    <string name="manual_category_security">SECURITY</string>
+    <string name="manual_category_jog">JOG</string>
+    <string name="manual_category_tools">TOOLS</string>
+    <string name="manual_category_fail_safe">FAIL-SAFE</string>
+    <string name="manual_category_conversational_cam">CONVERSATIONAL CAM</string>
+    <string name="manual_category_roadmap">ROADMAP</string>
+    <string name="camera_flip_camera">Flip Camera</string>
+    <string name="camera_telemetry_toggle">Telemetry</string>
+    <string name="camera_take_snapshot">Take Snapshot</string>
+    <string name="camera_snapshot_saved_fmt">Snapshot saved: %1$s</string>
+    <string name="camera_snapshot_error_fmt">Capture error: %1$s</string>
 </resources>

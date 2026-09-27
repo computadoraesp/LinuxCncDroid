@@ -11,6 +11,7 @@ import java.io.PrintWriter
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.util.Locale
+import kotlin.time.Duration.Companion.milliseconds
 
 class LinuxCncRshClient(
     private val onLog: (LogSeverity, String, String) -> Unit,
@@ -40,7 +41,7 @@ class LinuxCncRshClient(
                 status = ConnectionStatus.CONNECTING,
                 errorMessage = null
             )
-            onLog(LogSeverity.INFO, "LINUXCNCRSH", "Conectando al servidor linuxcncrsh en $host:$port...")
+            onLog(LogSeverity.INFO, "LINUXCNCRSH", "Connecting to linuxcncrsh server at $host:$port...")
 
             try {
                 val sock = Socket()
@@ -55,7 +56,7 @@ class LinuxCncRshClient(
                 writer?.println(helloCmd)
                 val helloResp = reader?.readLine() ?: ""
                 if (!helloResp.contains("HELLO ACK", ignoreCase = true) && !helloResp.contains("ACK", ignoreCase = true)) {
-                    onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Respuesta de handshake inesperada: $helloResp. Continuando con autenticación...")
+                    onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Unexpected handshake response: $helloResp. Continuing with authentication…")
                 }
 
                 // Authentication: set enable <password>
@@ -67,9 +68,9 @@ class LinuxCncRshClient(
                         errorMessage = null,
                         lastPingTimestamp = System.currentTimeMillis()
                     )
-                    onLog(LogSeverity.INFO, "LINUXCNCRSH", "Autenticado con éxito en LinuxCNC ($host:$port)")
+                    onLog(LogSeverity.INFO, "LINUXCNCRSH", "Successfully authenticated with LinuxCNC ($host:$port)")
                 } else {
-                    onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Respuesta de autenticación: $enableResp")
+                    onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Authentication response: $enableResp")
                     _serverTelemetry.value = _serverTelemetry.value.copy(
                         status = ConnectionStatus.CONNECTED,
                         errorMessage = null
@@ -84,7 +85,7 @@ class LinuxCncRshClient(
                     status = ConnectionStatus.ERROR,
                     errorMessage = e.message
                 )
-                onLog(LogSeverity.ERROR, "LINUXCNCRSH", "Error al conectar con linuxcncrsh: ${e.message}")
+                onLog(LogSeverity.ERROR, "LINUXCNCRSH", "Error connecting to linuxcncrsh: ${e.message}")
                 disconnect()
             }
         }
@@ -103,10 +104,10 @@ class LinuxCncRshClient(
                         latencyMs = latency,
                         lastPingTimestamp = System.currentTimeMillis()
                     )
-                    delay(120)
+                    delay(120.milliseconds)
                 } catch (e: Exception) {
                     if (isRunning) {
-                        onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Desconexión detectada en polling: ${e.message}")
+                        onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Disconnection detected during polling: ${e.message}")
                         disconnect()
                     }
                     break
@@ -223,7 +224,7 @@ class LinuxCncRshClient(
     fun sendMdi(gcode: String) {
         scope.launch {
             setTaskMode(TaskMode.MDI)
-            delay(30)
+            delay(30.milliseconds)
             val resp = sendCommand("set mdi $gcode")
             onLog(LogSeverity.INFO, "LINUXCNC_MDI", "MDI '$gcode' -> $resp")
         }
@@ -232,7 +233,7 @@ class LinuxCncRshClient(
     fun startJog(axisIndex: Int, velocityMmPerSec: Double) {
         scope.launch {
             setTaskMode(TaskMode.MANUAL)
-            delay(20)
+            delay(20.milliseconds)
             sendCommand(String.format(Locale.US, "set jog %d %.3f", axisIndex, velocityMmPerSec))
         }
     }
@@ -246,7 +247,7 @@ class LinuxCncRshClient(
     fun jogIncremental(axisIndex: Int, speedMmPerSec: Double, stepMm: Double) {
         scope.launch {
             setTaskMode(TaskMode.MANUAL)
-            delay(20)
+            delay(20.milliseconds)
             sendCommand(String.format(Locale.US, "set jog_incr %d %.3f %.4f", axisIndex, speedMmPerSec, stepMm))
         }
     }
@@ -291,7 +292,7 @@ class LinuxCncRshClient(
     fun cycleStart() {
         scope.launch {
             setTaskMode(TaskMode.AUTO)
-            delay(20)
+            delay(20.milliseconds)
             sendCommand("set run")
         }
     }

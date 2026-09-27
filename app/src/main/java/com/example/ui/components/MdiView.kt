@@ -48,7 +48,7 @@ fun MdiView(
             machineState != MachineStateEnum.ESTOP &&
             machineState != MachineStateEnum.ERROR
 
-    var selectedHistoryTab by remember { mutableStateOf(0) } // 0: Recent, 1: Favorites
+    var selectedHistoryTab by remember { mutableIntStateOf(0) } // 0: Recent, 1: Favorites
 
     Card(
         colors = CardDefaults.cardColors(containerColor = CncCardBg),
@@ -123,7 +123,7 @@ fun MdiView(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = validationResult.errorMessage ?: "Syntax Error",
+                        text = validationResult.errorMessage ?: stringResource(R.string.mdi_syntax_error),
                         color = MaterialTheme.colorScheme.error,
                         fontSize = 11.sp,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -318,7 +318,7 @@ fun MdiView(
                                     ) {
                                         Icon(
                                             imageVector = if (item.isFavorite) Icons.Default.Star else Icons.Default.StarBorder,
-                                            contentDescription = "Favorite",
+                                            contentDescription = stringResource(R.string.mdi_starred),
                                             tint = if (item.isFavorite) CncWarningAmber else CncTextMuted,
                                             modifier = Modifier.size(14.dp)
                                         )

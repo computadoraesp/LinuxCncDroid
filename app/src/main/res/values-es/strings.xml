@@ -130,8 +130,8 @@
     <string name="topbar_axis_metrology_desc">Calibración Metrológica de Ejes</string>
     <string name="topbar_manual_desc">Manual CNC &amp; SOPs</string>
     <string name="topbar_event_logs_desc">Registros de Eventos</string>
-    <string name="topbar_sim_mode">SIM: %s</string>
-    <string name="topbar_real_mode">REAL: %s</string>
+    <string name="topbar_sim_mode" formatted="false">SIM: %s</string>
+    <string name="topbar_real_mode" formatted="false">REAL: %s</string>
 
     <!-- DRO Panel -->
     <string name="dro_title">VISUALIZADOR DIGITAL (DRO)</string>
@@ -220,7 +220,7 @@
     <string name="tp_current_tool">ACTIVO</string>
     <string name="tp_arc_cut">ARCO G2/G3</string>
     <string name="toolpath_load_scan">CARGAR / ESCANEAR</string>
-    <string name="toolpath_run_time">TRANS: %s</string>
+    <string name="toolpath_run_time">TRANS: %1$s</string>
     <string name="toolpath_rem_time">REST: %s</string>
     <string name="tp_header">TRAYECTORIA Y CABEZAL 3D EN TIEMPO REAL</string>
     <string name="tp_dim_info">DIM: X%1$d Y%2$d Z%3$d</string>
@@ -309,7 +309,7 @@
     <string name="calib_travel_label">CARRERA (mm)</string>
     <string name="calib_uncertainty_label">INCERTIDUMBRE ±(mm)</string>
     <string name="calib_presets_label">Patrones:</string>
-    <string name="calib_section2_header">2. ASISTENTE PASO A PASO (10%)</string>
+    <string name="calib_section2_header" formatted="false">2. ASISTENTE PASO A PASO (10%)</string>
     <string name="calib_point_info">PUNTO %1$d/%2$d: %3$d%% (%4$.1f mm)</string>
     <string name="calib_drive_axis_btn">IR A %s mm</string>
     <string name="calib_step1">• Paso 1: Posicione el eje en la cota nominal %s mm.</string>
@@ -379,7 +379,7 @@
 
     <string name="manual_sec1_title">1. Seguridad e Interbloqueos</string>
     <string name="manual_sec1_summary">Estados de la máquina, controles permitidos durante el mecanizado y recuperación de alarmas.</string>
-    <string name="manual_sec1_content">La arquitectura HMI de LinuxCNC Droid implementa interbloqueos industriales según la norma ISO 23125:\n\n• ESTADO EN EJECUCIÓN (Ciclo en curso):\n  – Activos: Parada de Emergencia (E–STOP), Feed Hold (pausa inmediata), Abortar/Parar, Anulaciones de Avance (0–150%%) y Husillo (50–120%%), Refrigerante.\n  - Bloqueados: Jog Manual (botones y dial MPG), Puesta a cero (G92), Referenciado (G28), MDI y cambios de configuración.\n\n• GESTIÓN Y RECUPERACIÓN DE ALARMAS:\n  - Cuando se activa un fallo (sobrecarga del servo, interruptor de límite, límite térmico), el planificador de trayectoria se detiene en &lt;1ms y preserva la línea de G-Code activa.\n  - Para reanudar:\n    1. Despeje físicamente la causa.\n    2. En la pestaña LOGS, pulse \'LIMPIAR REGISTROS / RESET\'.\n    3. Pulse \'ENCENDER\'.\n    4. Pulse \'INICIAR CICLO\' para continuar desde la línea donde ocurrió el fallo.</string>
+    <string name="manual_sec1_content" formatted="false">La arquitectura HMI de LinuxCNC Droid implementa interbloqueos industriales según la norma ISO 23125:\n\n• ESTADO EN EJECUCIÓN (Ciclo en curso):\n  – Activos: Parada de Emergencia (E–STOP), Feed Hold (pausa inmediata), Abortar/Parar, Anulaciones de Avance (0–150%) y Husillo (50–120%), Refrigerante.\n  - Bloqueados: Jog Manual (botones y dial MPG), Puesta a cero (G92), Referenciado (G28), MDI y cambios de configuración.\n\n• GESTIÓN Y RECUPERACIÓN DE ALARMAS:\n  - Cuando se activa un fallo (sobrecarga del servo, interruptor de límite, límite térmico), el planificador de trayectoria se detiene en &lt;1ms y preserva la línea de G-Code activa.\n  - Para reanudar:\n    1. Despeje físicamente la causa.\n    2. En la pestaña LOGS, pulse \'LIMPIAR REGISTROS / RESET\'.\n    3. Pulse \'ENCENDER\'.\n    4. Pulse \'INICIAR CICLO\' para continuar desde la línea donde ocurrió el fallo.</string>
     <string-array name="manual_sec1_sop">
         <item>En caso de colisión inminente, pulse el botón rojo E-STOP en la barra superior.</item>
         <item>Para corregir vibraciones (chatter), ajuste el control deslizante de Anulación del Husillo hacia arriba o el de Avance hacia abajo sin detener el programa.</item>
@@ -391,8 +391,8 @@
     </string-array>
 
     <string name="manual_sec2_title">2. Calibración Metrológica (ISO 230–2)</string>
-    <string name="manual_sec2_summary">Estándar de calibración cada 10% del eje, cálculo de incertidumbre y compensación de husillo (comp.tbl).</string>
-    <string name="manual_sec2_content">El asistente metrológico permite evaluar y corregir el error de paso del husillo de bolas (Pitch Error Mapping) según la norma ISO 230–2:\n\n• MÉTODO DE SECTOR DEL 10%%%%:\n  El recorrido total del eje se divide en 10 intervalos (0%%, 10%%, 20%%, …, 100%%).\n  En cada punto, el operador realiza una lectura con su instrumento patrón (micrómetro, reloj comparador, escala óptica).\n\n• CÁLCULO DE INCERTIDUMBRE COMBINADA (ISO/IEC 17025):\n  Integra la incertidumbre del instrumento del operador (U_inst) con la repetibilidad del eje.\n  Calcula la Incertidumbre Expandida U con un factor de cobertura k=2 (nivel de confianza del 95%%).\n\n• APLICACIÓN DIRECTA EN LINUXCNC (comp.tbl):\n  Al finalizar, el sistema genera el archivo \'comp.tbl\' para el módulo HAL \'linear_comp\'. LinuxCNC compensará activamente las desviaciones en tiempo real durante el corte.</string>
+    <string name="manual_sec2_summary" formatted="false">Estándar de calibración cada 10% del eje, cálculo de incertidumbre y compensación de husillo (comp.tbl).</string>
+    <string name="manual_sec2_content" formatted="false">El asistente metrológico permite evaluar y corregir el error de paso del husillo de bolas (Pitch Error Mapping) según la norma ISO 230–2:\n\n• MÉTODO DE SECTOR DEL 10%:\n  El recorrido total del eje se divide en 10 intervalos (0%, 10%, 20%, …, 100%).\n  En cada punto, el operador realiza una lectura con su instrumento patrón (micrómetro, reloj comparador, escala óptica).\n\n• CÁLCULO DE INCERTIDUMBRE COMBINADA (ISO/IEC 17025):\n  Integra la incertidumbre del instrumento del operador (U_inst) con la repetibilidad del eje.\n  Calcula la Incertidumbre Expandida U con un factor de cobertura k=2 (nivel de confianza del 95%).\n\n• APLICACIÓN DIRECTA EN LINUXCNC (comp.tbl):\n  Al finalizar, el sistema genera el archivo \'comp.tbl\' para el módulo HAL \'linear_comp\'. LinuxCNC compensará activamente las desviaciones en tiempo real durante el corte.</string>
     <string-array name="manual_sec2_sop">
         <item>Abra el diálogo de Calibración Metrológica desde la barra superior (icono de regla/compás).</item>
         <item>Seleccione el eje (X, Y o Z), la longitud del recorrido y declare la incertidumbre de su instrumento (ej. ±0.003 mm).</item>
@@ -408,7 +408,7 @@
 
     <string name="manual_sec3_title">3. DRO y Sistemas de Coordenadas</string>
     <string name="manual_sec3_summary">Lectura digital DRO, origen de pieza WCS G54-G59 work origin, G53 machine coordinates, y par del servo.</string>
-    <string name="manual_sec3_content">El panel DRO muestra las posiciones en tiempo real con una resolución de 3 decimales (0.001 mm):\n\n• MODOS DE COORDENADAS:\n  - WORK POS (G54 a G59): Coordenadas relativas al origen de la pieza.\n  - MACHINE ABS (G53): Coordenadas absolutas físicas del bastidor relativas a los interruptores de límite Home.\n  - DISTANCE TO GO (DTG): Distancia restante hasta el final del bloque de G-Code actual.\n\n• TELEMETRÍA DEL SERVO:\n  Monitoriza el porcentaje de carga del servo drive (%% Torque). Valores sostenidos por encima del 85%% indican desgaste de las guías o una velocidad de avance excesiva.</string>
+    <string name="manual_sec3_content" formatted="false">El panel DRO muestra las posiciones en tiempo real con una resolución de 3 decimales (0.001 mm):\n\n• MODOS DE COORDENADAS:\n  - WORK POS (G54 a G59): Coordenadas relativas al origen de la pieza.\n  - MACHINE ABS (G53): Coordenadas absolutas físicas del bastidor relativas a los interruptores de límite Home.\n  - DISTANCE TO GO (DTG): Distancia restante hasta el final del bloque de G-Code actual.\n\n• TELEMETRÍA DEL SERVO:\n  Monitoriza el porcentaje de carga del servo drive (% Torque). Valores sostenidos por encima del 85% indican desgaste de las guías o una velocidad de avance excesiva.</string>
     <string-array name="manual_sec3_sop">
         <item>Seleccione el sistema de trabajo deseado en el selector de la barra superior (G54 por defecto).</item>
         <item>Para poner a cero un eje individual, utilice el botón CERO del eje en el panel DRO.</item>
@@ -433,7 +433,7 @@
 
     <string name="manual_sec5_title">5. Tabla de Herramientas y ATC (tool.tbl)</string>
     <string name="manual_sec5_summary">Gestión de fresas T1-T99, compensación de longitud H (G43), calibración rápida y vida útil de la herramienta.</string>
-    <string name="manual_sec5_content">El gestor de herramientas se sincroniza directamente con el archivo \'tool.tbl\' de LinuxCNC:\n\n• MONTAR HERRAMIENTA (M6): Carga la herramienta en el husillo y activa la compensación G43 Hx.\n• CALIBRAR Z (G43.1): Permite calibrar la longitud de la herramienta actual tomando la coordenada Z del husillo con un solo toque.\n• MONITORIZACIÓN DE DESGASTE: Alerta cuando el tiempo de corte acumulado supera el 85%% de la vida estimada de la herramienta.</string>
+    <string name="manual_sec5_content" formatted="false">El gestor de herramientas se sincroniza directamente con el archivo \'tool.tbl\' de LinuxCNC:\n\n• MONTAR HERRAMIENTA (M6): Carga la herramienta en el husillo y activa la compensación G43 Hx.\n• CALIBRAR Z (G43.1): Permite calibrar la longitud de la herramienta actual tomando la coordenada Z del husillo con un solo toque.\n• MONITORIZACIÓN DE DESGASTE: Alerta cuando el tiempo de corte acumulado supera el 85% de la vida estimada de la herramienta.</string>
     <string-array name="manual_sec5_sop">
         <item>Abra la Tabla de Herramientas des del icono de la llave inglesa en la barra superior.</item>
         <item>Para montar una herramienta, localice la ranura deseada y pulse \'MONTAR (M6)\'.</item>
@@ -484,7 +484,7 @@
     <string name="alarm_weak_signal_title">SEÑAL DE RED DÉBIL</string>
     <string name="alarm_weak_signal_msg">Latencia elevada (%1$d ms) o señal inestable detectada. Riesgo de pérdida de telemetría o paquetes de control.</string>
     <string name="alarm_reconnecting_title">DESCONECTADO DE LINUXCNC</string>
-    <string name="alarm_reconnecting_msg">Reconectando automáticamente en %1$d s (Intento #%2$d)...</string>
+    <string name="alarm_reconnecting_msg">Reconectando automáticamente en %1$d s (Intento #%2$d)…</string>
     <string name="alarm_reconnect_now_btn">RECONECTAR AHORA</string>
     <string name="alarm_dismiss_btn">DESCARTAR</string>
     <string name="alarm_pause_cycle_btn">PAUSAR (FEED HOLD)</string>
@@ -496,7 +496,7 @@
     <string name="config_safety_power_header">SEGURIDAD DE PANTALLA, BATERÍA Y RED</string>
     <string name="config_screen_timeout_label">Gestión de Apagado de Pantalla (Wake Lock)</string>
     <string name="config_battery_health_label">Estado de Batería y Alimentación</string>
-    <string name="config_battery_sim_btn">SIMULAR BATERÍA BAJA (15%)</string>
+    <string name="config_battery_sim_btn" formatted="false">SIMULAR BATERÍA BAJA (15%)</string>
     <string name="config_battery_restore_btn">RESTAURAR SENSOR REAL</string>
     <string name="config_weak_signal_sim_btn">SIMULAR SEÑAL DÉBIL (350ms)</string>
     <string name="config_disconnect_sim_btn">SIMULAR CORTE Y RECONEXIÓN</string>
@@ -525,10 +525,10 @@
     <string name="config_sim_battery_toggle">Forzar Simulación de Batería</string>
     <string name="config_sim_battery_charging_toggle">Simular Cargador USB-C Conectado</string>
     <string name="config_sim_battery_restore">RESTAURAR SENSOR REAL DEL TABLET</string>
-    <string name="config_sim_battery_crit">8% (CRÍTICA)</string>
-    <string name="config_sim_battery_low">15% (BAJA)</string>
-    <string name="config_sim_battery_med">50% (MEDIA)</string>
-    <string name="config_sim_battery_full">100% (PLENA)</string>
+    <string name="config_sim_battery_crit" formatted="false">8% (CRÍTICA)</string>
+    <string name="config_sim_battery_low" formatted="false">15% (BAJA)</string>
+    <string name="config_sim_battery_med" formatted="false">50% (MEDIA)</string>
+    <string name="config_sim_battery_full" formatted="false">100% (PLENA)</string>
 
     <string name="config_sim_network_section">Simulación de Red y Latencia</string>
     <string name="config_sim_network_desc">Inyecte degradación o cortes para verificar la reconexión con backoff exponencial.</string>
@@ -647,7 +647,7 @@
     <string name="linuxcnc_connect_btn">CONECTAR A LINUXCNC</string>
     <string name="linuxcnc_disconnect_btn">DESCONECTAR SERVIDOR</string>
     <string name="tool_table_import_title">IMPORTAR TABLA DE HERRAMIENTAS (tool.tbl)</string>
-    <string name="tool_table_import_desc">Pega el contenido del archivo tool.tbl de LinuxCNC (formato T... P... D... Z... ; comentario):</string>
+    <string name="tool_table_import_desc">Pega el contenido del archivo tool.tbl de LinuxCNC (formato T… P… D… Z… ; comentario):</string>
 
     <!-- CAM Conversacional y Ciclos Enlatados -->
     <string name="cam_dialog_title">CAM CONVERSACIONAL (CICLOS ENLATADOS)</string>
@@ -678,7 +678,7 @@
     <!-- In-App Manual Section 12 (Spanish) -->
     <string name="manual_sec12_title">12. Asistente de Conexión y Enlace LinuxCNC (linuxcncrsh)</string>
     <string name="manual_sec12_summary">Guía de comunicación por socket TCP, configuración de machine.ini, reglas de firewall y handshake de autenticación.</string>
-    <string name="manual_sec12_content">La comunicación remota industrial entre la tablet/móvil Android y el CNC opera a través del servidor linuxcncrsh:\n\n• INTERFAZ DE RED: Soporta Wi-Fi LAN de taller, conexión Ethernet cableada (adaptador USB-C a RJ45) o Hotspot/Tethering directo.\n• CONFIGURACIÓN DE machine.ini:\n  – Debe incluirse en la sección [APPLICATIONS] la directiva:\n    APP = linuxcncrsh -- -w -p 5007 -d\n  – El flag -w habilita permisos de escritura (movimiento de ejes, cambio de modos, control de husillo).\n  – El flag -p 5007 define el puerto TCP estándar.\n• REGLAS DE FIREWALL LINUX:\n  – Abrir puerto en Linux con: sudo ufw allow 5007/tcp\n  – Verificar que el demonio escucha con: ss -tulpn | grep 5007\n• PROTOCOLO DE HANDSHAKE:\n  – Saludo inicial: \'hello EMC LinuxCncDroid 1.0\'\n  – Autenticación de clave: \'set enable password\'\n  – Monitoreo constante de posiciones X/Y/Z/A, estados E-Stop y errores en tiempo real.</string>
+    <string name="manual_sec12_content">La comunicación remota industrial entre la tablet/móvil Android y el CNC opera a través del servidor linuxcncrsh:\n\n• INTERFAZ DE RED: Soporta Wi-Fi LAN de taller, conexión Ethernet cableada (adaptador USB-C a RJ45) o Hotspot/Tethering directo.\n• CONFIGURACIÓN DE machine.ini:\n  – Debe incluirse en la sección [APPLICATIONS] la directiva:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – El flag -w habilita permisos de escritura (movimiento de ejes, cambio de modos, control de husillo).\n  – El flag -p 5007 define el puerto TCP estándar.\n• REGLAS DE FIREWALL LINUX:\n  – Abrir puerto en Linux con: sudo ufw allow 5007/tcp\n  – Verificar que el demonio escucha con: ss -tulpn | grep 5007\n• PROTOCOLO DE HANDSHAKE:\n  – Saludo inicial: \'hello EMC LinuxCncDroid 1.0\'\n  – Autenticación de clave: \'set enable password\'\n  – Monitoreo constante de posiciones X/Y/Z/A, estados E-Stop y errores en tiempo real.</string>
     <string-array name="manual_sec12_sop">
         <item>1. Pulsa el icono del router en la barra superior o en AJUSTES para iniciar el Asistente de Conexión.</item>
         <item>2. Comprueba que Android y LinuxCNC se encuentren en la misma subred IP (p.ej. 192.168.1.X).</item>
@@ -825,7 +825,7 @@
     <string name="rfl_resume_here">REANUDAR AQUÍ</string>
     <string name="hal_dialog_title">Señales HAL y Monitor de Pines</string>
     <string name="hal_dialog_subtitle">Diagnóstico en tiempo real de HAL LinuxCNC</string>
-    <string name="hal_search_hint">Filtrar por nombre o descripción de pin (ej. limit, spindle, air)...</string>
+    <string name="hal_search_hint">Filtrar por nombre o descripción de pin (ej. limit, spindle, air)…</string>
     <string name="hal_all_pins">TODOS LOS PINES (%d)</string>
     <string name="hal_toggle_pin">Conmutar Pin</string>
     <string name="wcs_dialog_title">Tabla de Orígenes WCS (G54 - G59.3)</string>
@@ -865,4 +865,179 @@
     <string name="security_preset_collision">Colisión Peligrosa (Aviso)</string>
     <string name="security_motion_detected">Movimiento de Ejes Detectado</string>
     <string name="security_no_motion">Sin Movimiento de Ejes</string>
+
+    <!-- Conversational CAM Input Labels -->
+    <string name="cam_label_length_x">Largo X (mm)</string>
+    <string name="cam_label_width_y">Ancho Y (mm)</string>
+    <string name="cam_label_tool_diam">Diámetro Fresa D (mm)</string>
+    <string name="cam_label_stepover" formatted="false">Paso Lateral (%)</string>
+    <string name="cam_label_total_depth">Profundidad Total Z (mm)</string>
+    <string name="cam_label_depth_per_pass">Pasada por Corte (mm)</string>
+    <string name="cam_label_feed">Avance F (mm/min)</string>
+    <string name="cam_label_rpm">Velocidad S (RPM)</string>
+    <string name="cam_label_tool_num">Herramienta # (T)</string>
+    <string name="cam_label_pocket_length_x">Largo Cajeado X (mm)</string>
+    <string name="cam_label_pocket_width_y">Ancho Cajeado Y (mm)</string>
+    <string name="cam_label_step_z">Paso en Z (mm)</string>
+    <string name="cam_label_feed_xy">Avance XY (mm/min)</string>
+    <string name="cam_label_feed_z">Bajada Z (mm/min)</string>
+    <string name="cam_label_center_x">Centro X (mm)</string>
+    <string name="cam_label_center_y">Centro Y (mm)</string>
+    <string name="cam_label_pcd_diameter">Diámetro Círculo PCD (mm)</string>
+    <string name="cam_label_hole_count">Número de Barrenos</string>
+    <string name="cam_label_start_angle">Ángulo Inicial (°)</string>
+    <string name="cam_label_hole_depth">Profundidad Barreno Z (mm)</string>
+    <string name="cam_label_peck_q">Picoteo Q (mm)</string>
+    <string name="cam_label_retract_r">Plano Retracción R (mm)</string>
+
+    <!-- Connection Wizard Detailed Content -->
+    <string name="wizard_step_1_title_full">PASO 1: DETECCIÓN DE ENLACE FÍSICO</string>
+    <string name="wizard_step_1_subtitle">Verificación de la interfaz de red entre Android y el CNC</string>
+    <string name="wizard_step_1_inst_1">El dispositivo Android debe estar en la misma subred que la máquina LinuxCNC.</string>
+    <string name="wizard_step_1_inst_2">Wi-Fi LAN: Conecta el móvil/tablet a la misma red inalámbrica del taller que el PC LinuxCNC.</string>
+    <string name="wizard_step_1_inst_3">Ethernet / Adaptador USB: Si usas adaptador USB-C a RJ45, comprueba que Android muestre el icono de Ethernet.</string>
+    <string name="wizard_step_1_inst_4">Hotspot / USB Tethering: Puedes compartir red desde Android al PC si no hay router en el taller.</string>
+    <string name="wizard_step_2_title_full">PASO 2: HABILITAR linuxcncrsh EN machine.ini</string>
+    <string name="wizard_step_2_subtitle">Configurar LinuxCNC para que escuche comandos remotos por red</string>
+    <string name="wizard_step_2_inst_1">Por seguridad industrial, LinuxCNC viene por defecto sin aceptar conexiones de red.</string>
+    <string name="wizard_step_2_inst_2">Abre el archivo .ini de tu máquina (ejemplo: ~/linuxcnc/configs/my_machine/my_machine.ini).</string>
+    <string name="wizard_step_2_inst_3">Añade la sección [APPLICATIONS] con el parámetro APP = linuxcncrsh.</string>
+    <string name="wizard_step_2_inst_4">El flag \'-w\' es obligatorio para permitir comandos de movimiento (jog, mdi, cycle start).</string>
+    <string name="wizard_step_2_inst_5">El flag \'-p 5007\' define el puerto TCP estándar.</string>
+    <string name="wizard_step_3_title_full">PASO 3: REGLAS DE FIREWALL Y PING</string>
+    <string name="wizard_step_3_subtitle">Permitir el puerto 5007 a través del cortafuegos de Linux</string>
+    <string name="wizard_step_3_inst_1">Si Debian / Ubuntu tiene activado el firewall (ufw), rechazará los paquetes entrantes.</string>
+    <string name="wizard_step_3_inst_2">Abre una consola en Linux y permite el puerto TCP 5007.</string>
+    <string name="wizard_step_3_inst_3">Puedes verificar la apertura del puerto con \'ss -tulpn | grep 5007\'.</string>
+    <string name="wizard_step_4_title_full">PASO 4: HANDSHAKE Y AUTENTICACIÓN RSH</string>
+    <string name="wizard_step_4_subtitle">Negociación del protocolo nativo y clave de acceso</string>
+    <string name="wizard_step_4_inst_1">Al pulsar \'Conectar\', la app envía: \'hello EMC LinuxCncDroid 1.0\'.</string>
+    <string name="wizard_step_4_inst_2">LinuxCNC responde con \'HELLO ACK EMC 1.0\'.</string>
+    <string name="wizard_step_4_inst_3">Luego la app envía \'set enable pwd\' (o tu contraseña personalizada).</string>
+    <string name="wizard_step_4_inst_4">Una vez autenticada, la app pasa a monitorear posición (X, Y, Z), E-Stop y cabezal en tiempo real.</string>
+    <string name="wizard_step_5_title_full">PASO 5: SEGURIDAD Y PRIMER MOVIMIENTO</string>
+    <string name="wizard_step_5_subtitle">Protocolo de verificación operacional antes de mecanizar</string>
+    <string name="wizard_step_5_inst_1">¡ATENCIÓN! Mantén siempre accesible la seta física de E-STOP de la máquina.</string>
+    <string name="wizard_step_5_inst_2">1. Pulsa RESET E-STOP en la barra superior.</string>
+    <string name="wizard_step_5_inst_3">2. Pulsa ENCENDER MÁQUINA (icono verde).</string>
+    <string name="wizard_step_5_inst_4">3. Haz Home / Referenciado de ejes si la cinemática lo requiere.</string>
+    <string name="wizard_step_5_inst_5">4. Prueba un movimiento fino en modo PASO (Step Jog 0.1 mm) en el Eje Z alejándote de la mesa.</string>
+    <string name="wizard_interface_selected_label">INTERFAZ DE RED SELECCIONADA EN ANDROID</string>
+    <string name="wizard_status_online">EN LÍNEA (%1$d ms)</string>
+    <string name="wizard_status_offline">SIN CONEXIÓN</string>
+    <string name="wizard_linux_cmd_title">COMANDO / CONFIGURACIÓN LINUX</string>
+    <string name="wizard_copied_to_clipboard">¡Copiado al portapapeles!</string>
+
+    <!-- Error Boundary & Component Names -->
+    <string name="error_subsystem_internal_fault">Fallo interno en el subsistema</string>
+    <string name="error_fault_isolation">AISLAMIENTO DE FALLO: %1$s</string>
+    <string name="error_subsystem_halted_safety">El subsistema se detuvo de forma preventiva para proteger la HMI y los ejes de la máquina.</string>
+    <string name="error_comp_3d_visualizer">Visualizador 3D G-Code</string>
+    <string name="error_comp_camera_vision">Cámara &amp; Visión Artificial</string>
+    <string name="error_comp_probing">Ciclos de Palpado</string>
+    <string name="error_comp_ethercat">Bus de Campo EtherCAT</string>
+
+    <!-- Machine Config & Misc -->
+    <string name="config_connection_wizard_banner">ASISTENTE Y TUTORIAL DE CONEXIÓN LINUXCNC</string>
+    <string name="battery_charging_suffix">(CARGANDO)</string>
+    <string name="simulated_badge">SIMULADO</string>
+    <string name="sim_weak_signal_active">SEÑAL DÉBIL (380ms)</string>
+    <string name="sim_weak_signal_btn">SIMULAR SEÑAL DÉBIL</string>
+    <string name="server_error_fmt">Error servidor: %1$s</string>
+
+    <!-- Cadenas adicionales de conexión, configuración, alarmas e informes -->
+    <string name="wizard_step_1_code_snippet"># Comprueba la IP en la terminal de LinuxCNC (PC/Raspberry Pi):\nhostname -I\n# Ejemplo de IP obtenida: 192.168.1.120</string>
+    <string name="wizard_step_2_code_snippet">[APPLICATIONS]\n# Inicia el demonio de control remoto al arrancar LinuxCNC:\nAPP = linuxcncrsh — -w -p 5007 -d</string>
+    <string name="wizard_step_3_code_snippet"># Ejecuta en una terminal de Linux:\nsudo ufw allow 5007/tcp\n# Comprueba que linuxcncrsh está escuchando:\nss -tulpn | grep 5007</string>
+    <string name="wizard_step_4_code_snippet">IP del host: %1$s\nPuerto: %2$s\nContraseña: %3$s</string>
+
+    <string name="ini_machine_name_fmt">MÁQUINA: %1$s</string>
+    <string name="ini_kinematics_fmt">Cinemática: %1$s</string>
+    <string name="ini_max_velocity_fmt">Velocidad Máx: %1$s mm/s</string>
+    <string name="ini_acceleration_fmt">Aceleración: %1$s mm/s²</string>
+    <string name="ini_soft_limits_title">LÍMITES DE CARRERA (SOFT LIMITS) Y ESCALAS</string>
+    <string name="ini_limits_applied">¡LÍMITES APLICADOS!</string>
+    <string name="ini_axis_limit_fmt">Límite: [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
+
+    <string name="manual_category_calibration">CALIBRACIÓN</string>
+    <string name="manual_category_operation">OPERACIÓN</string>
+    <string name="manual_category_probing">PALPADO</string>
+    <string name="manual_category_diagnostics">DIAGNÓSTICO</string>
+    <string name="manual_category_vision_metrology">VISIÓN Y METROLOGÍA</string>
+    <string name="manual_category_simulation_testing">SIMULACIÓN Y PRUEBAS</string>
+    <string name="manual_category_3d_toolpath_simulation">TRAYECTORIA 3D Y SIMULACIÓN</string>
+    <string name="manual_category_communication_assistant">COMUNICACIÓN Y ASISTENTE</string>
+    <string name="manual_category_ini_configuration">CONFIGURACIÓN INI</string>
+    <string name="manual_category_hal_diagnostics">HAL Y DIAGNÓSTICO</string>
+    <string name="manual_category_wcs_origins">ORÍGENES WCS</string>
+
+    <string name="log_battery_critical_during_cycle">¡PELIGRO CRÍTICO! Batería al %1$d%% durante ciclo de mecanizado. Apagado inminente: pause el ciclo o conecte el cargador.</string>
+    <string name="log_battery_critical">¡ALARMA CRÍTICA DE BATERÍA! Nivel al %1$d%%. Conecte el cargador de inmediato.</string>
+    <string name="log_battery_low">Alarma de batería baja: %1$d%%. Conecte el cargador al dispositivo.</string>
+    <string name="log_battery_sensor_restored">Sensor de batería restaurado a lecturas reales del sistema.</string>
+    <string name="log_screen_timeout_enabled">Aviso de seguridad: Se activó el apagado de pantalla del sistema. Se recomienda mantenerla siempre encendida.</string>
+    <string name="log_servo_overtorque_alarm">ALARMA AL.006: Sobrepar de protección disparado en Servo EtherCAT del eje Z.</string>
+    <string name="log_vfd_thermal_alarm">FALLO TÉRMICO VFD: La temperatura del devanado del husillo superó 85°C.</string>
+    <string name="log_low_coolant_alarm">NIVEL DE REFRIGERANTE BAJO: Presión de bomba insuficiente en el bus I/O.</string>
+
+    <string name="engine_local_simulation_mode">Cambiado a Modo Simulación Local (Offline).</string>
+    <string name="engine_disconnected_from_linuxcnc">Desconectado de LinuxCNC. Modo Simulación activo.</string>
+    <string name="engine_tool_table_imported">Tabla de herramientas importada con éxito: %1$d herramientas cargadas.</string>
+
+    <string name="audit_report_title">LINUXCNC DROID - INFORME DE AUDITORÍA INDUSTRIAL</string>
+    <string name="audit_machine_label">Máquina:             %1$s</string>
+    <string name="audit_generation_date_label">Fecha de Generación: %1$s (%2$s)</string>
+    <string name="audit_machine_state_label">Estado de Máquina:   %1$s</string>
+    <string name="audit_axis_telemetry_section">1. TELEMETRÍA DE EJES CINEMÁTICOS</string>
+    <string name="audit_ethercat_section">3. DIAGNÓSTICO BUS ETHERCAT MAESTRO &amp; ESCLAVOS</string>
+    <string name="audit_alarm_history_section">4. HISTORIAL DE ALARMAS Y REGISTRO DE EVENTOS (ÚLTIMOS %1$d)</string>
+
+    <!-- Cadenas adicionales detectadas en literales del código -->
+    <string name="protocol_linuxcncrsh_description">Flujo TCP de LinuxCNC Remote Shell (linuxcncrsh) (puerto estándar 5007)</string>
+    <string name="protocol_websocket_description">Pasarela WebSocket JSON / puente de telemetría (puerto estándar 8000)</string>
+    <string name="protocol_simulation_description">Simulador interno de cinemática y tiempo real (sin máquina física)</string>
+    <string name="tool_table_copied_message">¡tool.tbl copiado al portapapeles!</string>
+    <string name="tool_table_import_count_message">¡Se importaron correctamente %1$d herramientas!</string>
+    <string name="log_wifi_weak_signal">Alarma de red: señal Wi-Fi débil o degradada. Riesgo de pérdida de telemetría.</string>
+    <string name="log_connection_reconnecting">Conexión de red perdida. Iniciando protocolo de reconexión automática…</string>
+    <string name="log_network_device_disconnected">Pérdida de conectividad de red del dispositivo</string>
+    <string name="engine_ini_applied_fmt">Configuración INI aplicada: %1$s (Límites: X[%2$s..%3$s], Y[%4$s..%5$s], Z[%6$s..%7$s])</string>
+    <string name="engine_tool_mounted_fmt">Herramienta montada: T%1$d (%2$s), compensación G43 H%3$d (Offset Z: %4$s mm)</string>
+    <string name="engine_reconnect_scheduled_fmt">%1$s. Reconexión automática en %2$d s (Intento #%3$d)…</string>
+    <string name="engine_manual_reconnect_started">Reconexión manual iniciada por el operador…</string>
+    <string name="engine_weak_signal_fmt">Alarma de red: Señal débil detectada. Latencia elevada (%1$d ms). Riesgo de pérdida de sincronismo.</string>
+    <string name="engine_network_normalized_fmt">Señal de red normalizada (Latencia: %1$d ms).</string>
+    <string name="engine_simulated_disconnect">Pérdida de señal de red simulada por el operador</string>
+    <string name="engine_virtual_simulation_on">Modo Simulación Virtual ACTIVADO (cinemática y emulación HAL/NML)</string>
+    <string name="engine_virtual_simulation_off">Modo Simulación DESACTIVADO: Operando en Modo Hardware Real</string>
+    <string name="engine_network_restored">Enlace de red restaurado con éxito.</string>
+    <string name="rsh_handshake_unexpected_fmt">Respuesta de handshake inesperada: %1$s. Continuando con la autenticación…</string>
+    <string name="rsh_authenticated_fmt">Autenticado con éxito en LinuxCNC (%1$s:%2$d)</string>
+    <string name="rsh_auth_response_fmt">Respuesta de autenticación: %1$s</string>
+    <string name="rsh_polling_disconnect_fmt">Desconexión detectada durante el polling: %1$s</string>
+
+    <!-- Audit Report & Log Export -->
+    <string name="logs_audit_modal_title">INFORME DE AUDITORÍA</string>
+    <string name="logs_close">CERRAR</string>
+    <string name="logs_copy_report">COPIAR INFORME</string>
+    <string name="logs_export_audit">EXPORTAR AUDITORÍA</string>
+    <string name="logs_share_report">COMPARTIR INFORME</string>
+    <string name="logs_copied_to_clipboard">Informe copiado al portapapeles</string>
+
+    <!-- Added by localisation pass -->
+    <string name="common_copy">Copiar</string>
+    <string name="ini_units_fmt">Unidades: %1$s</string>
+    <string name="ini_steps_scale_fmt">Escala: %1$s pasos/mm</string>
+    <string name="ini_axis_label_fmt">EJE %1$s</string>
+    <string name="manual_category_security">SEGURIDAD</string>
+    <string name="manual_category_jog">JOG</string>
+    <string name="manual_category_tools">HERRAMIENTAS</string>
+    <string name="manual_category_fail_safe">A PRUEBA DE FALLOS</string>
+    <string name="manual_category_conversational_cam">CAM CONVERSACIONAL</string>
+    <string name="manual_category_roadmap">HOJA DE RUTA</string>
+    <string name="camera_flip_camera">Invertir cámara</string>
+    <string name="camera_telemetry_toggle">Telemetría</string>
+    <string name="camera_take_snapshot">Capturar instantánea</string>
+    <string name="camera_snapshot_saved_fmt">Captura guardada: %1$s</string>
+    <string name="camera_snapshot_error_fmt">Error en captura: %1$s</string>
 </resources>

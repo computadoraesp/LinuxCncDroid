@@ -148,7 +148,7 @@ fun AppManualDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.MenuBook,
-                                    contentDescription = "Manual",
+                                    contentDescription = stringResource(R.string.manual_title),
                                     tint = CncCyberCyan,
                                     modifier = Modifier.size(if (isCompact) 16.dp else 20.dp)
                                 )
@@ -435,7 +435,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "safety_interlocks",
             titleRes = R.string.manual_sec1_title,
-            category = "SECURITY",
+            categoryRes = R.string.manual_category_security,
             iconName = "ic_security",
             summaryRes = R.string.manual_sec1_summary,
             detailedContentRes = R.string.manual_sec1_content,
@@ -446,7 +446,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "metrology_calib",
             titleRes = R.string.manual_sec2_title,
-            category = "CALIBRACIÓN",
+            categoryRes = R.string.manual_category_calibration,
             iconName = "ic_calib",
             summaryRes = R.string.manual_sec2_summary,
             detailedContentRes = R.string.manual_sec2_content,
@@ -457,7 +457,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "dro_wcs",
             titleRes = R.string.manual_sec3_title,
-            category = "OPERACIÓN",
+            categoryRes = R.string.manual_category_operation,
             iconName = "ic_dro",
             summaryRes = R.string.manual_sec3_summary,
             detailedContentRes = R.string.manual_sec3_content,
@@ -468,7 +468,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "virtual_mpg",
             titleRes = R.string.manual_sec4_title,
-            category = "JOG",
+            categoryRes = R.string.manual_category_jog,
             iconName = "ic_mpg",
             summaryRes = R.string.manual_sec4_summary,
             detailedContentRes = R.string.manual_sec4_content,
@@ -479,7 +479,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "tool_table",
             titleRes = R.string.manual_sec5_title,
-            category = "TOOLS",
+            categoryRes = R.string.manual_category_tools,
             iconName = "ic_tools",
             summaryRes = R.string.manual_sec5_summary,
             detailedContentRes = R.string.manual_sec5_content,
@@ -490,7 +490,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "probing_cycles",
             titleRes = R.string.manual_sec6_title,
-            category = "PALPADO",
+            categoryRes = R.string.manual_category_probing,
             iconName = "ic_probe",
             summaryRes = R.string.manual_sec6_summary,
             detailedContentRes = R.string.manual_sec6_content,
@@ -501,7 +501,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "ethercat_bus",
             titleRes = R.string.manual_sec7_title,
-            category = "DIAGNÓSTICO",
+            categoryRes = R.string.manual_category_diagnostics,
             iconName = "ic_ethercat",
             summaryRes = R.string.manual_sec7_summary,
             detailedContentRes = R.string.manual_sec7_content,
@@ -512,7 +512,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "power_screen_network",
             titleRes = R.string.manual_sec8_title,
-            category = "FAIL-SAFE",
+            categoryRes = R.string.manual_category_fail_safe,
             iconName = "ic_security",
             summaryRes = R.string.manual_sec8_summary,
             detailedContentRes = R.string.manual_sec8_content,
@@ -523,7 +523,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "camera_metrology",
             titleRes = R.string.manual_sec9_title,
-            category = "VISIÓN Y METROLOGÍA",
+            categoryRes = R.string.manual_category_vision_metrology,
             iconName = "ic_camera",
             summaryRes = R.string.manual_sec9_summary,
             detailedContentRes = R.string.manual_sec9_content,
@@ -534,7 +534,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "simulation_center",
             titleRes = R.string.manual_sec10_title,
-            category = "SIMULACIÓN Y PRUEBAS",
+            categoryRes = R.string.manual_category_simulation_testing,
             iconName = "ic_simulation",
             summaryRes = R.string.manual_sec10_summary,
             detailedContentRes = R.string.manual_sec10_content,
@@ -545,7 +545,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "toolpath_visualizer",
             titleRes = R.string.manual_sec11_title,
-            category = "TRAYECTORIA 3D Y SIMULACIÓN",
+            categoryRes = R.string.manual_category_3d_toolpath_simulation,
             iconName = "ic_toolpath",
             summaryRes = R.string.manual_sec11_summary,
             detailedContentRes = R.string.manual_sec11_content,
@@ -556,7 +556,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "connection_wizard",
             titleRes = R.string.manual_sec12_title,
-            category = "COMUNICACIÓN Y ASISTENTE",
+            categoryRes = R.string.manual_category_communication_assistant,
             iconName = "ic_network",
             summaryRes = R.string.manual_sec12_summary,
             detailedContentRes = R.string.manual_sec12_content,
@@ -567,7 +567,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "conversational_cam",
             titleRes = R.string.manual_sec13_title,
-            category = "CAM CONVERSACIONAL",
+            categoryRes = R.string.manual_category_conversational_cam,
             iconName = "ic_cam",
             summaryRes = R.string.manual_sec13_summary,
             detailedContentRes = R.string.manual_sec13_content,
@@ -578,7 +578,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "machine_ini_config",
             titleRes = R.string.manual_sec14_title,
-            category = "CONFIGURACIÓN INI",
+            categoryRes = R.string.manual_category_ini_configuration,
             iconName = "ic_config",
             summaryRes = R.string.manual_sec14_summary,
             detailedContentRes = R.string.manual_sec14_content,
@@ -589,7 +589,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "hal_pins_monitor",
             titleRes = R.string.manual_sec15_title,
-            category = "HAL Y DIAGNÓSTICO",
+            categoryRes = R.string.manual_category_hal_diagnostics,
             iconName = "ic_hal",
             summaryRes = R.string.manual_sec15_summary,
             detailedContentRes = R.string.manual_sec15_content,
@@ -600,7 +600,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "wcs_table_manager",
             titleRes = R.string.manual_sec16_title,
-            category = "ORÍGENES WCS",
+            categoryRes = R.string.manual_category_wcs_origins,
             iconName = "ic_wcs",
             summaryRes = R.string.manual_sec16_summary,
             detailedContentRes = R.string.manual_sec16_content,
@@ -611,7 +611,7 @@ private fun getManualSections(): List<DocSectionItem> {
         DocSectionItem(
             id = "future_roadmap",
             titleRes = R.string.manual_sec17_title,
-            category = "HOJA DE RUTA",
+            categoryRes = R.string.manual_category_roadmap,
             iconName = "ic_roadmap",
             summaryRes = R.string.manual_sec17_summary,
             detailedContentRes = R.string.manual_sec17_content,

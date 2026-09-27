@@ -396,17 +396,19 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
             SimulatedFaultType.SPINDLE_THERMAL -> {
                 feedbackManager.triggerWarningHaptic()
                 feedbackManager.playErrorAlarm()
-                engine.logEvent(LogSeverity.ERROR, "SPINDLE", "FALLO TÉRMICO VFD: Temperatura de devanado de husillo > 85°C. Parada preventiva.")
+                val msg = getApplication<Application>().getString(R.string.log_vfd_thermal_alarm)
+                engine.logEvent(LogSeverity.ERROR, "SPINDLE", msg)
             }
             SimulatedFaultType.DOOR_INTERLOCK -> {
                 feedbackManager.triggerWarningHaptic()
                 feedbackManager.playErrorAlarm()
-                engine.logEvent(LogSeverity.WARNING, "SAFETY", "ENCLAVAMIENTO DE SEGURIDAD: Puerta de cabina abierta durante ciclo activo.")
+                engine.logEvent(LogSeverity.WARNING, "SAFETY", "SAFETY INTERLOCK: Enclosure door opened during active cycle.")
             }
             SimulatedFaultType.LOW_COOLANT -> {
                 feedbackManager.triggerWarningHaptic()
                 feedbackManager.playWarningBeep()
-                engine.logEvent(LogSeverity.WARNING, "COOLANT", "NIVEL DE REFRIGERANTE BAJO: Presión de bomba insuficiente (0.4 bar).")
+                val msg = getApplication<Application>().getString(R.string.log_low_coolant_alarm)
+                engine.logEvent(LogSeverity.WARNING, "COOLANT", msg)
             }
         }
     }
@@ -414,9 +416,10 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     private fun observeConnectivity() {
         connectivityObserver.observe()
             .onEach { status ->
+                val app = getApplication<Application>()
                 when (status) {
                     ConnectivityObserver.Status.Available -> {
-                        engine.logEvent(LogSeverity.INFO, "NETWORK", "Enlace de red disponible")
+                        engine.logEvent(LogSeverity.INFO, "NETWORK", "Network link available")
                         if (!engine.connectionTelemetry.value.isConnected) {
                             engine.reconnectNow()
                         }
@@ -425,7 +428,7 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
                         engine.logEvent(
                             LogSeverity.WARNING,
                             "NETWORK",
-                            "Alarma de red: Señal Wi-Fi débil o degradada. Riesgo de caída de telemetría.",
+                            app.getString(R.string.log_wifi_weak_signal),
                         )
                         feedbackManager.playWarningBeep()
                         feedbackManager.triggerWarningHaptic()
@@ -435,7 +438,7 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
                         engine.logEvent(
                             LogSeverity.WARNING,
                             "NETWORK",
-                            "Enlace de red inestable (Losing). Reintentando paquetes...",
+                            "Network link unstable (Losing). Retrying packets...",
                         )
                         feedbackManager.playWarningBeep()
                     }
@@ -443,11 +446,11 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
                         engine.logEvent(
                             LogSeverity.ERROR,
                             "NETWORK",
-                            "Conexión de red perdida. Activando protocolo de reconexión automática...",
+                            app.getString(R.string.log_connection_reconnecting),
                         )
                         feedbackManager.playErrorAlarm()
                         feedbackManager.triggerEstopHaptic()
-                        engine.handleDisconnect("Pérdida de conectividad de red del dispositivo")
+                        engine.handleDisconnect(app.getString(R.string.log_network_device_disconnected))
                     }
                 }
             }

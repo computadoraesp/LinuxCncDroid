@@ -1,12 +1,12 @@
 package com.example.ui.components
 
 import android.Manifest
-import androidx.annotation.StringRes
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.camera.core.CameraControl
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -315,7 +315,7 @@ fun IndustrialCameraView(
                     ) {
                         Icon(
                             imageVector = Icons.Default.FlipCameraAndroid,
-                            contentDescription = "Flip Camera",
+                            contentDescription = stringResource(R.string.camera_flip_camera),
                             tint = CncTextSecondary,
                             modifier = Modifier.size(16.dp)
                         )
@@ -328,7 +328,7 @@ fun IndustrialCameraView(
                     ) {
                         Icon(
                             imageVector = if (showTelemetryOverlay) Icons.Default.Layers else Icons.Default.LayersClear,
-                            contentDescription = "Telemetry",
+                            contentDescription = stringResource(R.string.camera_telemetry_toggle),
                             tint = if (showTelemetryOverlay) CncCyberCyan else CncTextSecondary,
                             modifier = Modifier.size(16.dp),
                         )
@@ -348,12 +348,18 @@ fun IndustrialCameraView(
                                     cameraExecutor,
                                     object : ImageCapture.OnImageSavedCallback {
                                         override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                                            lastCapturedSnapshotMessage = "Captura guardada: CNC_ALIGN_$timeStamp.jpg"
+                                            lastCapturedSnapshotMessage = attributionContext.getString(
+                                                R.string.camera_snapshot_saved_fmt,
+                                                "CNC_ALIGN_$timeStamp.jpg"
+                                            )
                                         }
 
                                         override fun onError(exc: ImageCaptureException) {
                                             Log.e("CncCamera", "Snapshot error: ${exc.message}", exc)
-                                            lastCapturedSnapshotMessage = "Error en captura: ${exc.message}"
+                                            lastCapturedSnapshotMessage = attributionContext.getString(
+                                                R.string.camera_snapshot_error_fmt,
+                                                exc.message ?: ""
+                                            )
                                         }
                                     }
                                 )
@@ -364,7 +370,7 @@ fun IndustrialCameraView(
                     ) {
                         Icon(
                             imageVector = Icons.Default.PhotoCamera,
-                            contentDescription = "Take Snapshot",
+                            contentDescription = stringResource(R.string.camera_take_snapshot),
                             tint = if (machineState != MachineStateEnum.RUNNING) CncActiveGreen else CncTextMuted,
                             modifier = Modifier.size(16.dp)
                         )

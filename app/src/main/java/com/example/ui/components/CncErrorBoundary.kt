@@ -141,7 +141,7 @@ fun CncComponentFallbackCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "AISLAMIENTO DE FALLO: $componentName",
+                text = stringResource(R.string.error_fault_isolation, componentName),
                 fontWeight = FontWeight.Black,
                 fontSize = 13.sp,
                 color = CncEstopRed,
@@ -151,7 +151,7 @@ fun CncComponentFallbackCard(
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "El subsistema se detuvo de forma preventiva para proteger la HMI y los ejes de la máquina.",
+                text = stringResource(R.string.error_subsystem_halted_safety),
                 fontSize = 11.sp,
                 color = CncTextPrimary,
                 lineHeight = 15.sp,
@@ -186,7 +186,7 @@ fun CncComponentFallbackCard(
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier.testTag("error_boundary_retry_button"),
             ) {
-                Icon(imageVector = Icons.Default.Refresh, contentDescription = "Reiniciar", modifier = Modifier.size(16.dp))
+                Icon(imageVector = Icons.Default.Refresh, contentDescription = stringResource(R.string.error_restart_subsystem), modifier = Modifier.size(16.dp))
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(stringResource(R.string.error_restart_subsystem), fontWeight = FontWeight.Bold, fontSize = 11.sp)
             }

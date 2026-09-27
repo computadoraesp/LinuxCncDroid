@@ -379,7 +379,7 @@ data class AxisCalibrationSession(
 data class DocSectionItem(
     val id: String,
     @get:StringRes val titleRes: Int,
-    val category: String,
+    @get:StringRes val categoryRes: Int = 0,
     val iconName: String,
     @get:StringRes val summaryRes: Int,
     @get:StringRes val detailedContentRes: Int,

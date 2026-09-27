@@ -64,7 +64,7 @@ class LinuxCncEngine {
         HalPin("iocontrol.0.tool-change-ok", HalPinCategory.IO_EXPANSION, HalPinType.BIT, booleanValue = true, description = "ATC Arm Cycle Complete & Tool Clamped")
     )
 
-    private val _halPins = MutableStateFlow<List<HalPin>>(initialHalPins)
+    private val _halPins = MutableStateFlow(initialHalPins)
     val halPins: StateFlow<List<HalPin>> = _halPins.asStateFlow()
 
     val mdiValidator = MdiSyntaxValidator()
@@ -1213,7 +1213,7 @@ class LinuxCncEngine {
         logEvent(
             LogSeverity.INFO,
             "TOOL",
-            "Herramienta montada: T${found.id} (${found.description}), compensación G43 H${found.id} (Offset Z: ${found.lengthOffset} mm)"
+            "Tool mounted: T${found.id} (${found.description}), compensation G43 H${found.id} (Z Offset: ${found.lengthOffset} mm)"
         )
         executeMdiCommand("M6 T${found.id} G43 H${found.id}")
     }

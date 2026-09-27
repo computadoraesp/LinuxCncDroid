@@ -96,6 +96,7 @@ fun ConnectionWizardDialog(
     modifier: Modifier = Modifier
 ) {
     val clipboardManager = LocalClipboardManager.current
+    val copiedToClipboardMessage = stringResource(R.string.wizard_copied_to_clipboard)
     var currentStepIndex by remember { mutableIntStateOf(0) }
     var dontShowAgainChecked by remember { mutableStateOf(false) }
     var detectedInterface by remember { mutableStateOf(InterfaceType.WIFI_LAN) }
@@ -105,66 +106,71 @@ fun ConnectionWizardDialog(
         listOf(
             ConnectionStepInfo(
                 stepId = ConnectionStepId.INTERFACE_DETECTION,
-                title = "PASO 1: DETECCIÓN DE ENLACE FÍSICO",
-                subtitle = "Verificación de la interfaz de red entre Android y el CNC",
+                title = stringResource(R.string.wizard_step_1_title_full),
+                subtitle = stringResource(R.string.wizard_step_1_subtitle),
                 instructions = listOf(
-                    "El dispositivo Android debe estar en la misma subred que la máquina LinuxCNC.",
-                    "Wi-Fi LAN: Conecta el móvil/tablet a la misma red inalámbrica del taller que el PC LinuxCNC.",
-                    "Ethernet / Adaptador USB: Si usas adaptador USB-C a RJ45, comprueba que Android muestre el icono de Ethernet.",
-                    "Hotspot / USB Tethering: Puedes compartir red desde Android al PC si no hay router en el taller."
+                    stringResource(R.string.wizard_step_1_inst_1),
+                    stringResource(R.string.wizard_step_1_inst_2),
+                    stringResource(R.string.wizard_step_1_inst_3),
+                    stringResource(R.string.wizard_step_1_inst_4)
                 ),
-                codeSnippet = "# En la terminal de LinuxCNC (PC/Raspberry Pi) comprueba tu IP:\nhostname -I\n# Ejemplo de IP obtenida: 192.168.1.120",
+                codeSnippet = stringResource(R.string.wizard_step_1_code_snippet),
                 isCrucial = true
             ),
             ConnectionStepInfo(
                 stepId = ConnectionStepId.LINUX_INI_CONFIG,
-                title = "PASO 2: HABILITAR linuxcncrsh EN machine.ini",
-                subtitle = "Configurar LinuxCNC para que escuche comandos remotos por red",
+                title = stringResource(R.string.wizard_step_2_title_full),
+                subtitle = stringResource(R.string.wizard_step_2_subtitle),
                 instructions = listOf(
-                    "Por seguridad industrial, LinuxCNC viene por defecto sin aceptar conexiones de red.",
-                    "Abre el archivo .ini de tu máquina (ejemplo: ~/linuxcnc/configs/my_machine/my_machine.ini).",
-                    "Añade la sección [APPLICATIONS] con el parámetro APP = linuxcncrsh.",
-                    "El flag '-w' es obligatorio para permitir comandos de movimiento (jog, mdi, cycle start).",
-                    "El flag '-p 5007' define el puerto TCP estándar."
+                    stringResource(R.string.wizard_step_2_inst_1),
+                    stringResource(R.string.wizard_step_2_inst_2),
+                    stringResource(R.string.wizard_step_2_inst_3),
+                    stringResource(R.string.wizard_step_2_inst_4),
+                    stringResource(R.string.wizard_step_2_inst_5)
                 ),
-                codeSnippet = "[APPLICATIONS]\n# Inicia el demonio de control remoto al arrancar LinuxCNC:\nAPP = linuxcncrsh -- -w -p 5007 -d",
+                codeSnippet = stringResource(R.string.wizard_step_2_code_snippet),
                 isCrucial = true
             ),
             ConnectionStepInfo(
                 stepId = ConnectionStepId.NETWORK_PING_TEST,
-                title = "PASO 3: REGLAS DE FIREWALL Y PING",
-                subtitle = "Permitir el puerto 5007 a través del cortafuegos de Linux",
+                title = stringResource(R.string.wizard_step_3_title_full),
+                subtitle = stringResource(R.string.wizard_step_3_subtitle),
                 instructions = listOf(
-                    "Si Debian / Ubuntu tiene activado el firewall (ufw), rechazará los paquetes entrantes.",
-                    "Abre una consola en Linux y permite el puerto TCP 5007.",
-                    "Puedes verificar la apertura del puerto con 'ss -tulpn | grep 5007'."
+                    stringResource(R.string.wizard_step_3_inst_1),
+                    stringResource(R.string.wizard_step_3_inst_2),
+                    stringResource(R.string.wizard_step_3_inst_3)
                 ),
-                codeSnippet = "# En la terminal de Linux ejecuta:\nsudo ufw allow 5007/tcp\n# Comprobar que linuxcncrsh está escuchando:\nss -tulpn | grep 5007",
+                codeSnippet = stringResource(R.string.wizard_step_3_code_snippet),
                 isCrucial = true
             ),
             ConnectionStepInfo(
                 stepId = ConnectionStepId.AUTHENTICATION_HANDSHAKE,
-                title = "PASO 4: HANDSHAKE Y AUTENTICACIÓN RSH",
-                subtitle = "Negociación del protocolo nativo y clave de acceso",
+                title = stringResource(R.string.wizard_step_4_title_full),
+                subtitle = stringResource(R.string.wizard_step_4_subtitle),
                 instructions = listOf(
-                    "Al pulsar 'Conectar', la app envía: 'hello EMC LinuxCncDroid 1.0'.",
-                    "LinuxCNC responde con 'HELLO ACK EMC 1.0'.",
-                    "Luego la app envía 'set enable pwd' (o tu contraseña personalizada).",
-                    "Una vez autenticada, la app pasa a monitorear posición (X, Y, Z), E-Stop y cabezal en tiempo real."
+                    stringResource(R.string.wizard_step_4_inst_1),
+                    stringResource(R.string.wizard_step_4_inst_2),
+                    stringResource(R.string.wizard_step_4_inst_3),
+                    stringResource(R.string.wizard_step_4_inst_4)
                 ),
-                codeSnippet = "Host IP: ${connectionConfig.hostIp}\nPuerto: ${connectionConfig.port}\nContraseña: ${connectionConfig.password}",
+                codeSnippet = stringResource(
+                    R.string.wizard_step_4_code_snippet,
+                    connectionConfig.hostIp,
+                    connectionConfig.port.toString(),
+                    connectionConfig.password
+                ),
                 isCrucial = true
             ),
             ConnectionStepInfo(
                 stepId = ConnectionStepId.SECURITY_ESTOP_CHECK,
-                title = "PASO 5: SEGURIDAD Y PRIMER MOVIMIENTO",
-                subtitle = "Protocolo de verificación operacional antes de mecanizar",
+                title = stringResource(R.string.wizard_step_5_title_full),
+                subtitle = stringResource(R.string.wizard_step_5_subtitle),
                 instructions = listOf(
-                    "¡ATENCIÓN! Mantén siempre accesible la seta física de E-STOP de la máquina.",
-                    "1. Pulsa RESET E-STOP en la barra superior.",
-                    "2. Pulsa ENCENDER MÁQUINA (icono verde).",
-                    "3. Haz Home / Referenciado de ejes si la cinemática lo requiere.",
-                    "4. Prueba un movimiento fino en modo PASO (Step Jog 0.1 mm) en el Eje Z alejándote de la mesa."
+                    stringResource(R.string.wizard_step_5_inst_1),
+                    stringResource(R.string.wizard_step_5_inst_2),
+                    stringResource(R.string.wizard_step_5_inst_3),
+                    stringResource(R.string.wizard_step_5_inst_4),
+                    stringResource(R.string.wizard_step_5_inst_5)
                 ),
                 codeSnippet = null,
                 isCrucial = true
@@ -274,7 +280,7 @@ fun ConnectionWizardDialog(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "Cerrar",
+                                contentDescription = stringResource(R.string.common_close),
                                 tint = CncTextPrimary,
                                 modifier = Modifier.size(16.dp)
                             )
@@ -311,7 +317,7 @@ fun ConnectionWizardDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "INTERFAZ DE RED SELECCIONADA EN ANDROID",
+                                text = stringResource(R.string.wizard_interface_selected_label),
                                 fontSize = 9.5.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = CncTextSecondary
@@ -324,7 +330,11 @@ fun ConnectionWizardDialog(
                                 border = BorderStroke(1.dp, if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed)
                             ) {
                                 Text(
-                                    text = if (serverTelemetry.isConnected) "EN LÍNEA (${serverTelemetry.latencyMs} ms)" else "SIN CONEXIÓN",
+                                    text = if (serverTelemetry.isConnected) {
+                                        stringResource(R.string.wizard_status_online, serverTelemetry.latencyMs)
+                                    } else {
+                                        stringResource(R.string.wizard_status_offline)
+                                    },
                                     fontSize = 8.5.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = if (serverTelemetry.isConnected) CncRunningGreen else CncEstopRed,
@@ -453,7 +463,7 @@ fun ConnectionWizardDialog(
                                                 ) {
                                                     Icon(
                                                         imageVector = Icons.Default.ContentCopy,
-                                                        contentDescription = "Copiar",
+                                                        contentDescription = stringResource(R.string.common_copy),
                                                         tint = CncCyberCyan,
                                                         modifier = Modifier.size(14.dp)
                                                     )

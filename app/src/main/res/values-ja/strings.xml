@@ -32,14 +32,14 @@
     <string name="mode_mdi_disp">MDIコンソール</string>
     <string name="mode_auto_disp">自動実行</string>
 
-    <string name="arch_ethercat_name">EtherCAT + Delta B3/A3 Servos</string>
-    <string name="arch_ethercat_desc">High-speed 100Mbps bus, real-time torque/temperature telemetry, CiA 402 drives</string>
+    <string name="arch_ethercat_name">EtherCAT + Delta B3/A3 サーボ</string>
+    <string name="arch_ethercat_desc">高速100Mbpsバス、リアルタイムのトルク／温度テレメトリー、CiA 402ドライブ</string>
     <string name="arch_mesa_name">Mesa 7i96S / 7i76E FPGA</string>
-    <string name="arch_mesa_desc">Hardware Step/Dir generation, high-speed differential encoders, isolated I/O</string>
-    <string name="arch_parport_name">Parallel Port (Legacy Step/Dir)</string>
-    <string name="arch_parport_desc">Software step generation, standard LinuxCNC HAL motion kernel</string>
-    <string name="arch_closed_loop_name">Closed-Loop Stepper Hybrid</string>
-    <string name="arch_closed_loop_desc">Encoder step loss detection, fast positioning with step/dir abstraction</string>
+    <string name="arch_mesa_desc">ハードウェアによるStep/Dir生成、高速差動エンコーダー、絶縁I/O</string>
+    <string name="arch_parport_name">パラレルポート（旧式Step/Dir）</string>
+    <string name="arch_parport_desc">ソフトウェアステップ生成、標準LinuxCNC HALモーションカーネル</string>
+    <string name="arch_closed_loop_name">クローズドループ・ステッパーハイブリッド</string>
+    <string name="arch_closed_loop_desc">エンコーダーによるステップ抜け検出、Step/Dir方式による高速位置決め</string>
 
     <string name="role_operator_disp">オペレーター (制御・手動送り)</string>
     <string name="role_viewer_disp">ビューワー (DROのみ)</string>
@@ -54,8 +54,8 @@
     <string name="tool_type_probe_disp">3Dプローブ</string>
     <string name="tool_type_flycutter_disp">フライカッター</string>
 
-    <string name="jog_style_pad_disp">KEYPAD</string>
-    <string name="jog_style_mpg_disp">MPG WHEEL</string>
+    <string name="jog_style_pad_disp">キーパッド</string>
+    <string name="jog_style_mpg_disp">MPGハンドル</string>
 
     <string name="log_info_disp">情報</string>
     <string name="log_warn_disp">警告</string>
@@ -89,9 +89,9 @@
     <string name="macro_probe_z_label">工具長測定</string>
     <string name="macro_probe_z_desc">工具長センサーでの測定を実行</string>
 
-    <string name="profile_workshop_vmc">Workshop VMC-850 (EtherCAT + Delta)</string>
-    <string name="profile_prototype_router">Prototype Router (Mesa 7i96S FPGA)</string>
-    <string name="profile_mini_mill">Mini Mill (Parallel Port Legacy)</string>
+    <string name="profile_workshop_vmc">ワークショップ VMC-850（EtherCAT + Delta）</string>
+    <string name="profile_prototype_router">試作ルーター（Mesa 7i96S FPGA）</string>
+    <string name="profile_mini_mill">小型フライス盤（旧式パラレルポート）</string>
 
     <string name="reticle_crosshair">十字線 (0.01mm)</string>
     <string name="reticle_concentric">同心円</string>
@@ -110,8 +110,8 @@
     <string name="topbar_axis_metrology_desc">軸キャリブレーション</string>
     <string name="topbar_manual_desc">マニュアル &amp; SOPs</string>
     <string name="topbar_event_logs_desc">イベントログ</string>
-    <string name="topbar_sim_mode">SIM: %s</string>
-    <string name="topbar_real_mode">実機: %s</string>
+    <string name="topbar_sim_mode" formatted="false">SIM: %s</string>
+    <string name="topbar_real_mode" formatted="false">実機: %s</string>
 
     <!-- DRO Panel -->
     <string name="dro_title">デジタル表示 (DRO)</string>
@@ -184,7 +184,7 @@
     <string name="view_iso">ISO 3D</string>
     <string name="view_front">正面</string>
     <string name="toolpath_load_scan">読込 / スキャン</string>
-    <string name="toolpath_run_time">実行: %s</string>
+    <string name="toolpath_run_time">実行: %1$s</string>
     <string name="toolpath_rem_time">残り: %s</string>
     <string name="tp_header">3D リアルタイムツールパス</string>
     <string name="tp_dim_info">サイズ: X%1$d Y%2$d Z%3$d</string>
@@ -335,28 +335,28 @@
     <string name="cnc_attribution_label">LinuxCNC Droid HMI Service</string>
 
     <!-- Manual Content -->
-    <string name="manual_title">CNC OPERATION &amp; TECHNICAL REFERENCE MANUAL</string>
-    <string name="manual_subtitle">Complete Guide to Safety, DRO, MPG, Probing, EtherCAT, and Metrological Calibration</string>
-    <string name="manual_search_placeholder">Search manual (e.g., calibration, alarm, MPG, WCS, E-STOP)…</string>
-    <string name="manual_sop_title">STANDARD OPERATING PROCEDURE (SOP)</string>
-    <string name="manual_safety_title">SAFETY STANDARDS &amp; INTERLOCKS</string>
+    <string name="manual_title">CNC操作・技術リファレンスマニュアル</string>
+    <string name="manual_subtitle">安全、DRO、MPG、プロービング、EtherCAT、計測校正の総合ガイド</string>
+    <string name="manual_search_placeholder">マニュアルを検索（例: 校正、アラーム、MPG、WCS、E-STOP）…</string>
+    <string name="manual_sop_title">標準作業手順書（SOP）</string>
+    <string name="manual_safety_title">安全基準とインターロック</string>
 
-    <string name="manual_sec1_title">1. Safety and Interlocks</string>
-    <string name="manual_sec1_summary">Machine states, permitted controls during machining, and alarm recovery.</string>
-    <string name="manual_sec1_content">The LinuxCNC Droid HMI architecture implements industrial interlocks according to ISO 23125:\n\n• RUNNING STATE (Cycle in progress):\n  – Active: Emergency Stop (E–STOP), Feed Hold (Immediate pause), Abort/Stop, Feed Overrides (0–150%%) and Spindle (50–120%%), Coolant.\n  - Blocked: Manual Jog (buttons and MPG dial), Zeroing (G92), Homing (G28), MDI, and configuration changes.\n\n• ALARM MANAGEMENT &amp; RECOVERY:\n  - When a fault is triggered (servo overload, limit switch, thermal limit), the path planner stops in &lt;1ms and preserves the active G-Code line.\n  - To resume:\n    1. Physically clear the cause.\n    2. In the LOGS tab, press \'CLEAR LOGS / RESET\'.\n    3. Press \'POWER ON\'.\n    4. Press \'CYCLE START\' to continue from the line where the fault occurred.</string>
+    <string name="manual_sec1_title">1. 安全とインターロック</string>
+    <string name="manual_sec1_summary">機械の状態、加工中に許可される操作、アラームからの復旧。</string>
+    <string name="manual_sec1_content" formatted="false">LinuxCNC Droid HMIの構成は、ISO 23125に準拠した産業用インターロックを実装しています:\n\n• 運転中（サイクル実行中）:\n  – 操作可能: 非常停止（E–STOP）、送り一時停止（即時停止）、中断／停止、送りオーバーライド（0–150%）、主軸オーバーライド（50–120%）、クーラント。\n  – 操作不可: 手動ジョグ（ボタンとMPGハンドル）、ゼロ設定（G92）、原点復帰（G28）、MDI、設定変更。\n\n• アラーム管理と復旧:\n  – サーボ過負荷、リミットスイッチ、温度上限などの異常が発生すると、軌道プランナーは&lt;1msで停止し、実行中のGコード行を保持します。\n  – 再開手順:\n    1. 異常の原因を物理的に取り除きます。\n    2. LOGSタブで「ログ消去／リセット」を押します。\n    3. 「電源ON」を押します。\n    4. 「サイクル開始」を押すと、異常が発生した行から続行します。</string>
     <string-array name="manual_sec1_sop">
-        <item>In case of imminent collision, press the red E-STOP button in the top bar.</item>
-        <item>To correct vibration (chatter), adjust the Spindle Override slider up or Feed Override down without stopping the program.</item>
-        <item>After an alarm stop, check the error code in the LOGS tab before re-energizing.</item>
+        <item>衝突のおそれがある場合は、上部バーの赤いE-STOPボタンを押してください。</item>
+        <item>びびり振動を抑えるには、プログラムを停止せずに主軸オーバーライドを上げるか、送りオーバーライドを下げてください。</item>
+        <item>アラーム停止後、再通電する前にLOGSタブでエラーコードを確認してください。</item>
     </string-array>
     <string-array name="manual_sec1_safety">
-        <item>Never attempt to move axes manually while the cycle is running.</item>
-        <item>Verify that the external physical emergency stop is in series with the safety relay in the electrical cabinet.</item>
+        <item>サイクル実行中は、軸を手動で動かさないでください。</item>
+        <item>外部の物理非常停止スイッチが、電装盤内の安全リレーに直列接続されていることを確認してください。</item>
     </string-array>
 
-    <string name="manual_sec2_title">2. Metrological Calibration (ISO 230–2)</string>
-    <string name="manual_sec2_summary">Calibration standard every 10% of the axis, uncertainty calculation, and leadscrew compensation (comp.tbl).</string>
-    <string name="manual_sec2_content">The metrological assistant allows evaluating and correcting ballscrew pitch error (Pitch Error Mapping) according to ISO 230–2:\n\n• 10%%%% SECTOR METHOD:\n  The total axis travel is divided into 10 intervals (0%%, 10%%, 20%%, …, 100%%).\n  At each point, the operator takes a reading with their master instrument (micrometer, dial indicator, optical scale).\n\n• COMBINED UNCERTAINTY CALCULATION (ISO/IEC 17025):\n  Integrates the operator\'s instrument uncertainty (U_inst) with the axis repeatability.\n  Calculates the Expanded Uncertainty U with a coverage factor k=2 (95%% confidence level).\n\n• DIRECT APPLICATION IN LINUXCNC (comp.tbl):\n  Upon completion, the system generates the \'comp.tbl\' file for the \'linear_comp\' HAL module. LinuxCNC will actively compensate for deviations in real-time during cutting.</string>
+    <string name="manual_sec2_title">2. 計測校正（ISO 230–2）</string>
+    <string name="manual_sec2_summary" formatted="false">軸移動量の10%間隔での校正、不確かさの計算、送りねじ補正（comp.tbl）。</string>
+    <string name="manual_sec2_content" formatted="false">計測アシスタントでは、ISO 230–2に準拠してボールねじのリード誤差（ピッチ誤差マッピング）を評価・補正できます:\n\n• 10%区間法:\n  軸の全移動量を10区間（0%、10%、20%、…、100%）に分割します。\n  各点で、作業者が基準測定器（マイクロメーター、ダイヤルゲージ、光学スケール）を使って測定します。\n\n• 合成不確かさの計算（ISO/IEC 17025）:\n  測定器の不確かさ（U_inst）と軸の繰り返し精度を統合します。\n  包含係数k=2（信頼水準95%）で拡張不確かさUを計算します。\n\n• LinuxCNCへの直接適用（comp.tbl）:\n  完了すると、linear_comp HALモジュール用の「comp.tbl」ファイルを生成します。LinuxCNCは加工中に偏差をリアルタイムで補正します。</string>
     <string-array name="manual_sec2_sop">
         <item>Open the Metrological Calibration dialog from the top bar (ruler/compass icon).</item>
         <item>Select the axis (X, Y, or Z), travel length, and declare your instrument\'s uncertainty (e.g., ±0.003 mm).</item>
@@ -366,70 +366,70 @@
         <item>At 100% completion, review the error curve and press \'EXPORT comp.tbl\' to copy the compensation table to your LinuxCNC configuration.</item>
     </string-array>
     <string-array name="manual_sec2_safety">
-        <item>Ensure the spindle is at normal operating temperature (15 minutes of prior rotation) to avoid thermal drift during measurement.</item>
-        <item>Fix the dial indicator firmly to the bed with a rigid magnetic base.</item>
+        <item>測定中の熱ドリフトを避けるため、主軸を15分間回転させ、通常の運転温度にしてください。</item>
+        <item>剛性のあるマグネットベースでダイヤルゲージをベッドにしっかり固定してください。</item>
     </string-array>
 
-    <string name="manual_sec3_title">3. DRO and Coordinate Systems</string>
-    <string name="manual_sec3_summary">DRO digital readout, WCS G54-G59 work origin, G53 machine coordinates, and servo torque.</string>
-    <string name="manual_sec3_content">The DRO panel displays real-time positions with 3-decimal resolution (0.001 mm):\n\n• COORDINATE MODES:\n  - WORK POS (G54 to G59): Coordinates relative to the workpiece origin.\n  - MACHINE ABS (G53): Physical absolute coordinates of the frame relative to the Home limit switches.\n  - DISTANCE TO GO (DTG): Remaining distance to the end of the current G-Code block.\n\n• SERVO TELEMETRY:\n  Monitors the percentage load of the servo drive (%% Torque). Sustained values above 85%% indicate guide wear or excessive feed rate.</string>
+    <string name="manual_sec3_title">3. DROと座標系</string>
+    <string name="manual_sec3_summary">DROのデジタル表示、WCS G54～G59のワーク原点、G53機械座標、サーボトルク。</string>
+    <string name="manual_sec3_content" formatted="false">DROパネルには、分解能0.001mm（小数点以下3桁）で現在位置が表示されます:\n\n• 座標モード:\n - ワーク座標（G54～G59）: ワーク原点を基準とする座標。\n - 機械絶対座標（G53）: 原点復帰リミットスイッチを基準とした機械フレームの絶対座標。\n - 残り移動距離（DTG）: 実行中のGコードブロック終点までの残距離。\n\n• サーボテレメトリー:\n サーボドライブの負荷率（%トルク）を監視します。85%を超える状態が続く場合、ガイドの摩耗または送り速度過大が考えられます。</string>
     <string-array name="manual_sec3_sop">
-        <item>Select the desired work system from the top bar selector (G54 by default).</item>
-        <item>To zero an individual axis, use the axis ZERO button in the DRO panel.</item>
-        <item>To reference all axes to the physical limit switches, press \'HOME ALL (G28)\'.</item>
+        <item>上部バーのセレクターから使用するワーク座標系を選択します（初期設定はG54）。</item>
+        <item>個別の軸をゼロにするには、DROパネルの該当軸のZEROボタンを押します。</item>
+        <item>全軸を物理リミットスイッチ基準にするには、「全軸原点復帰（G28）」を押します。</item>
     </string-array>
     <string-array name="manual_sec3_safety">
-        <item>Never zero G92 coordinates with the cutter inside the material without verifying safety heights.</item>
+        <item>安全高さを確認せずに、工具が材料内にある状態でG92座標をゼロにしないでください。</item>
     </string-array>
 
-    <string name="manual_sec4_title">4. Virtual MPG Electronic Handwheel</string>
-    <string name="manual_sec4_summary">Industrial 100-division touch handwheel with x1, x10, x100, x1000 resolution multipliers.</string>
+    <string name="manual_sec4_title">4. 仮想MPG電子ハンドル</string>
+    <string name="manual_sec4_summary">x1、x10、x100、x1000の分解能倍率を備えた100クリック式産業用タッチハンドル。</string>
     <string name="manual_sec4_content">The virtual MPG handwheel faithfully emulates a physical electronic handwheel (Handwheel MPG):\n\n• 100 DIVISIONS PER REVOLUCIÓN (3.6° per tactile detent).\n• MULTIPLIERS:\n  - x1: 0.001 mm / step (Final micrometric alignment).\n  - x10: 0.010 mm / step (Precision approach).\n  - x100: 0.100 mm / step (Fast workpiece positioning).\n  - x1000: 1.000 mm / step (Long table travel).\n• HAPTIC FEEDBACK: Emits a vibration and acoustic click at each 3.6° notch.</string>
     <string-array name="manual_sec4_sop">
-        <item>In the Jog panel, select the \'VIRTUAL MPG WHEEL\' tab.</item>
-        <item>Choose the axis to move (X, Y, Z, or A) in the axis selector.</item>
-        <item>Select the appropriate multiplier (start with x10 for safety).</item>
-        <item>Turn the handle with your finger clockwise (+) or counter-clockwise (-) while observing the DRO response.</item>
+        <item>ジョグパネルで「仮想MPGハンドル」タブを選択します。</item>
+        <item>軸セレクターで移動する軸（X、Y、Z、A）を選択します。</item>
+        <item>適切な倍率を選択します（安全のため、まずx10から始めてください）。</item>
+        <item>DROの変化を確認しながら、指でハンドルを時計回り（+）または反時計回り（-）に回します。</item>
     </string-array>
     <string-array name="manual_sec4_safety">
         <item>On the Z-axis near the vise or workpiece, use exclusively x1 or x10 multipliers to avoid spindle collisions.</item>
     </string-array>
 
-    <string name="manual_sec5_title">5. Tool Table and ATC (tool.tbl)</string>
-    <string name="manual_sec5_summary">Management of T1-T99 cutters, H length compensation (G43), fast Touch-Off, and tool life.</string>
-    <string name="manual_sec5_content">The tool manager synchronizes directly with the LinuxCNC \'tool.tbl\' file:\n\n• MOUNT TOOL (M6): Loads the tool into the spindle and activates G43 Hx compensation.\n• TOUCH-OFF Z (G43.1): Allows calibrating the current tool length by taking the spindle Z coordinate with a single touch.\n• WEAR MONITORING: Alerts when accumulated cutting time exceeds 85%% of estimated tool life.</string>
+    <string name="manual_sec5_title">5. 工具テーブルとATC（tool.tbl）</string>
+    <string name="manual_sec5_summary">T1～T99工具の管理、H長さ補正（G43）、タッチオフ、工具寿命。</string>
+    <string name="manual_sec5_content" formatted="false">工具マネージャーはLinuxCNCの「tool.tbl」ファイルと直接同期します:\n\n• 工具装着（M6）: 工具を主軸に装着し、G43 Hx補正を有効にします。\n• Zタッチオフ（G43.1）: 1回の接触で主軸Z座標を取得し、現在の工具長を校正します。\n• 摩耗監視: 累積切削時間が推定工具寿命の85%を超えると警告します。</string>
     <string-array name="manual_sec5_sop">
-        <item>Open the Tool Table from the wrench icon in the top bar.</item>
-        <item>To mount a tool, locate the desired slot and press \'MOUNT (M6)\'.</item>
-        <item>To calibrate its Z length, lower the tip until it touches the table sensor and press \'TOUCH-OFF (G43.1)\'.</item>
+        <item>上部バーのレンチアイコンから工具テーブルを開きます。</item>
+        <item>工具を装着するには、使用するスロットを選択して「装着（M6）」を押します。</item>
+        <item>Z長さを校正するには、工具先端をテーブルセンサーに接触させ、「タッチオフ（G43.1）」を押します。</item>
     </string-array>
     <string-array name="manual_sec5_safety">
-        <item>Verify that the maximum RPM assigned to the tool does not exceed the capacity of the collet or toolholder.</item>
+        <item>工具に設定された最大RPMが、コレットまたは工具ホルダーの許容値を超えていないことを確認してください。</item>
     </string-array>
 
-    <string name="manual_sec6_title">6. 3D Probe Cycles (WCS Probing)</string>
-    <string name="manual_sec6_summary">Automated routines for centering holes, cylinders, corners, and Z-height sensing.</string>
-    <string name="manual_sec6_content">The PROBING tab includes kinematic routines with electrical contact stop (G38.2):\n\n• BORE CENTER: Probes in 4 quadrants (-X, +X, -Y, +Y) and calculates the exact hole center.\n• BOSS CENTER: Probes the 4 external faces of a cylinder to find the center axis.\n• CORNER FINDER: Locates the XY vertex of a corner to set the workpiece origin.\n• SURFACE HEIGHT Z: Descends until contact to set the Z=0 plane.</string>
+    <string name="manual_sec6_title">6. 3Dプローブサイクル（WCSプロービング）</string>
+    <string name="manual_sec6_summary">穴、円柱、コーナーの芯出しとZ高さ測定を行う自動ルーチン。</string>
+    <string name="manual_sec6_content">PROBINGタブには、電気接触停止（G38.2）を使う運動学ルーチンがあります:\n\n• 穴の中心: 4方向（-X、+X、-Y、+Y）から測定し、穴の正確な中心を計算します。\n• ボスの中心: 円柱の外周4面を測定し、中心軸を求めます。\n• コーナー検出: コーナーのXY頂点を特定し、ワーク原点を設定します。\n• 表面高さZ: 接触するまで下降し、Z=0面を設定します。</string>
     <string-array name="manual_sec6_sop">
-        <item>Mount the 3D probe and connect the signal cable to the PROBE port.</item>
-        <item>Position the probe manually inside the hole or over the surface.</item>
-        <item>In the PROBING tab, press the desired routine (e.g., BORE CENTER).</item>
-        <item>The system will execute the contacts and automatically update WCS G54.</item>
+        <item>3Dプローブを取り付け、信号ケーブルをPROBEポートに接続します。</item>
+        <item>穴の中または表面上にプローブを手動で位置決めします。</item>
+        <item>PROBINGタブで目的のルーチン（例: 穴の中心）を押します。</item>
+        <item>システムが接触測定を実行し、WCS G54を自動更新します。</item>
     </string-array>
     <string-array name="manual_sec6_safety">
-        <item>Test the probe indicator LED by gently touching it with your hand before starting an automatic cycle.</item>
+        <item>自動サイクルを開始する前に、手で軽く触れてプローブのインジケーターLEDが点灯することを確認してください。</item>
     </string-array>
 
-    <string name="manual_sec7_title">7. EtherCAT Bus Telemetry</string>
-    <string name="manual_sec7_summary">Real-time monitoring of CiA402 slaves, cycle jitter, and lost frames.</string>
-    <string name="manual_sec7_content">The EtherCAT monitor reports the health of the industrial automation network:\n\n• MASTER STATE: Must remain in OP (Operational).\n• CYCLE JITTER: Real-time clock time variation. Values &lt; 5 µs are optimal.\n• LOST FRAMES: If this counter rises above 0, check shielded cabling and grounding.</string>
+    <string name="manual_sec7_title">7. EtherCATバスのテレメトリー</string>
+    <string name="manual_sec7_summary">CiA 402スレーブ、サイクルジッター、フレーム損失をリアルタイム監視。</string>
+    <string name="manual_sec7_content">EtherCATモニターは産業用オートメーションネットワークの状態を表示します:\n\n• マスター状態: OP（Operational）を維持する必要があります。\n• サイクルジッター: リアルタイムクロックの時間変動です。5µs未満が理想です。\n• フレーム損失: カウンターが0を超えた場合は、シールドケーブルと接地を確認してください。</string>
     <string-array name="manual_sec7_sop">
-        <item>Access the ETHERCAT tab.</item>
-        <item>Verify that all servo drives for X, Y, Z axes appear in \'OP\' state.</item>
-        <item>Monitor drive temperatures during heavy machining work.</item>
+        <item>ETHERCATタブを開きます。</item>
+        <item>X、Y、Z軸のすべてのサーボドライブが「OP」状態であることを確認します。</item>
+        <item>高負荷の加工中はドライブ温度を監視してください。</item>
     </string-array>
     <string-array name="manual_sec7_safety">
-        <item>If the master enters INIT or PRE-OP state during machining, the machine will execute an instantaneous safety stop.</item>
+        <item>加工中にマスターがINITまたはPRE-OP状態になると、機械は即時に安全停止します。</item>
     </string-array>
 
     <!-- In-App Manual Sections 8, 9, 10, 11 (Japanese) -->
@@ -482,4 +482,514 @@
         <item>加工開始前に、正面または側面ビューでZ軸マイナス切り込み点を確認してください。</item>
         <item>3D座標原点を過信せず、必ずタッチプローブ等で実測してWCS（G54）を設定してください。</item>
     </string-array>
+
+    <!-- Conversational CAM Input Labels -->
+    <string name="cam_label_length_x">長さ X (mm)</string>
+    <string name="cam_label_width_y">幅 Y (mm)</string>
+    <string name="cam_label_tool_diam">エンドミル径 D (mm)</string>
+    <string name="cam_label_stepover" formatted="false">オーバーラップ率 (%)</string>
+    <string name="cam_label_total_depth">全深さ Z (mm)</string>
+    <string name="cam_label_depth_per_pass">1パスの切り込み量 (mm)</string>
+    <string name="cam_label_feed">送り速度 F (mm/min)</string>
+    <string name="cam_label_rpm">回転数 S (RPM)</string>
+    <string name="cam_label_tool_num">工具番号 # (T)</string>
+    <string name="cam_label_pocket_length_x">ポケット長さ X (mm)</string>
+    <string name="cam_label_pocket_width_y">ポケット幅 Y (mm)</string>
+    <string name="cam_label_step_z">Z軸切り込み量 (mm)</string>
+    <string name="cam_label_feed_xy">XY送り速度 (mm/min)</string>
+    <string name="cam_label_feed_z">Zプランジ送り速度 (mm/min)</string>
+    <string name="cam_label_center_x">中心 X (mm)</string>
+    <string name="cam_label_center_y">中心 Y (mm)</string>
+    <string name="cam_label_pcd_diameter">PCD円の直径 (mm)</string>
+    <string name="cam_label_hole_count">穴の数</string>
+    <string name="cam_label_start_angle">開始角度 (°)</string>
+    <string name="cam_label_hole_depth">穴深さ Z (mm)</string>
+    <string name="cam_label_peck_q">ペック量 Q (mm)</string>
+    <string name="cam_label_retract_r">逃げ面 R (mm)</string>
+
+    <!-- Connection Wizard Detailed Content -->
+    <string name="wizard_step_1_title_full">ステップ 1: 物理リンクの検出</string>
+    <string name="wizard_step_1_subtitle">AndroidとCNC間のネットワークインターフェースの確認</string>
+    <string name="wizard_step_1_inst_1">AndroidデバイスはLinuxCNCマシンと同じサブネット上にある必要があります。</string>
+    <string name="wizard_step_1_inst_2">Wi-Fi LAN: スマホ/タブレットをLinuxCNC PCと同じ作業場の無線ネットワークに接続します。</string>
+    <string name="wizard_step_1_inst_3">Ethernet / USBアダプター: USB-C - RJ45アダプターを使用する場合、AndroidにEthernetアイコンが表示されているか確認します。</string>
+    <string name="wizard_step_1_inst_4">ホットスポット / USBテザリング: 作業場にルーターがない場合、AndroidからPCへネットワークを共有できます。</string>
+    <string name="wizard_step_2_title_full">ステップ 2: machine.iniでlinuxcncrshを有効化</string>
+    <string name="wizard_step_2_subtitle">LinuxCNCがネットワーク経由でリモートコマンドを受信するように設定します</string>
+    <string name="wizard_step_2_inst_1">産業上のセキュリティのため、LinuxCNCはデフォルトでネットワーク接続を受け入れません。</string>
+    <string name="wizard_step_2_inst_2">マシンの .ini ファイルを開きます (例: ~/linuxcnc/configs/my_machine/my_machine.ini)。</string>
+    <string name="wizard_step_2_inst_3">[APPLICATIONS] セクションにパラメータ APP = linuxcncrsh を追加します。</string>
+    <string name="wizard_step_2_inst_4">モーションコマンド（ジョグ、MDI、サイクルスタート）を有効にするには \'-w\' フラグが必要です。</string>
+    <string name="wizard_step_2_inst_5">\'-p 5007\' フラグは標準のTCPポートを定義します。</string>
+    <string name="wizard_step_3_title_full">ステップ 3: ファイアウォールルールとPING</string>
+    <string name="wizard_step_3_subtitle">Linuxファイアウォールでポート5007を許可します</string>
+    <string name="wizard_step_3_inst_1">Debian / Ubuntuでファイアウォール (ufw) が有効な場合、受信パケットが拒否されます。</string>
+    <string name="wizard_step_3_inst_2">Linuxでコンソールを開き、TCPポート5007を許可します。</string>
+    <string name="wizard_step_3_inst_3">\'ss -tulpn | grep 5007\' でポートが開いていることを確認できます。</string>
+    <string name="wizard_step_4_title_full">ステップ 4: ハンドシェイクとRSH認証</string>
+    <string name="wizard_step_4_subtitle">ネイティブプロトコルとアクセスパスワードのネゴシエーション</string>
+    <string name="wizard_step_4_inst_1">「接続」をタップすると、アプリは \'hello EMC LinuxCncDroid 1.0\' を送信します。</string>
+    <string name="wizard_step_4_inst_2">LinuxCNCは \'HELLO ACK EMC 1.0\' と応答します。</string>
+    <string name="wizard_step_4_inst_3">次に、アプリは \'set enable pwd\' (またはカスタムパスワード) を送信します。</string>
+    <string name="wizard_step_4_inst_4">認証されると、アプリは位置 (X, Y, Z)、非常停止、主軸の状態をリアルタイムで監視します。</string>
+    <string name="wizard_step_5_title_full">ステップ 5: 安全確認と最初の動作</string>
+    <string name="wizard_step_5_subtitle">加工前の操作検証プロトコル</string>
+    <string name="wizard_step_5_inst_1">注意！マシンの物理的な非常停止 (E-STOP) ボタンに常に手が届くようにしてください。</string>
+    <string name="wizard_step_5_inst_2">1. トップバーの E-STOP リセット をタップします。</string>
+    <string name="wizard_step_5_inst_3">2. マシン電源ON（緑色のアイコン）をタップします。</string>
+    <string name="wizard_step_5_inst_4">3. 運動学で必要な場合は、原点復帰 / 軸の参照を実行します。</string>
+    <string name="wizard_step_5_inst_5">4. テーブルから離れる方向に、Z軸でステップモード（0.1 mmステップジョグ）の微動をテストします。</string>
+    <string name="wizard_interface_selected_label">Androidで選択されたネットワークインターフェース</string>
+    <string name="wizard_status_online">オンライン (%1$d ms)</string>
+    <string name="wizard_status_offline">オフライン</string>
+    <string name="wizard_linux_cmd_title">Linux コマンド / 設定</string>
+    <string name="wizard_copied_to_clipboard">クリップボードにコピーされました！</string>
+
+    <!-- Error Boundary & Component Names -->
+    <string name="error_subsystem_internal_fault">サブシステムの内部エラー</string>
+    <string name="error_fault_isolation">障害分離: %1$s</string>
+    <string name="error_subsystem_halted_safety">HMIとマシン軸を保護するため、サブシステムが予防的に停止されました。</string>
+    <string name="error_comp_3d_visualizer">3D Gコードビジュアライザ</string>
+    <string name="error_comp_camera_vision">カメラ＆画像認識</string>
+    <string name="error_comp_probing">プロービングサイクル</string>
+    <string name="error_comp_ethercat">EtherCAT フィールドバス</string>
+
+    <!-- Machine Config & Misc -->
+    <string name="config_connection_wizard_banner">LINUXCNC接続ウィザード＆チュートリアル</string>
+    <string name="battery_charging_suffix">(充電中)</string>
+    <string name="simulated_badge">シミュレーション</string>
+    <string name="sim_weak_signal_active">弱信号 (380ms)</string>
+    <string name="sim_weak_signal_btn">弱信号をシミュレート</string>
+    <string name="server_error_fmt">サーバーエラー: %1$s</string>
+
+    <!-- 接続、設定、アラーム、レポート用の追加文字列 -->
+    <string name="wizard_step_1_code_snippet"># LinuxCNC端末（PC/Raspberry Pi）でIPを確認:\nhostname -I\n# IPアドレスの例: 192.168.1.120</string>
+    <string name="wizard_step_2_code_snippet">[APPLICATIONS]\n# LinuxCNCの起動時にリモート制御デーモンを起動:\nAPP = linuxcncrsh — -w -p 5007 -d</string>
+    <string name="wizard_step_3_code_snippet"># Linux端末で実行:\nsudo ufw allow 5007/tcp\n# linuxcncrshの待ち受けを確認:\nss -tulpn | grep 5007</string>
+    <string name="wizard_step_4_code_snippet">ホストIP: %1$s\nポート: %2$s\nパスワード: %3$s</string>
+
+    <string name="ini_machine_name_fmt">マシン: %1$s</string>
+    <string name="ini_kinematics_fmt">キネマティクス: %1$s</string>
+    <string name="ini_max_velocity_fmt">最大速度: %1$s mm/s</string>
+    <string name="ini_acceleration_fmt">加速度: %1$s mm/s²</string>
+    <string name="ini_soft_limits_title">移動範囲制限（ソフトリミット）とスケール</string>
+    <string name="ini_limits_applied">リミットを適用しました！</string>
+    <string name="ini_axis_limit_fmt">リミット: [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
+
+    <string name="manual_category_calibration">校正</string>
+    <string name="manual_category_operation">操作</string>
+    <string name="manual_category_probing">プロービング</string>
+    <string name="manual_category_diagnostics">診断</string>
+    <string name="manual_category_vision_metrology">ビジョンと計測</string>
+    <string name="manual_category_simulation_testing">シミュレーションとテスト</string>
+    <string name="manual_category_3d_toolpath_simulation">3Dツールパスとシミュレーション</string>
+    <string name="manual_category_communication_assistant">通信とアシスタント</string>
+    <string name="manual_category_ini_configuration">INI設定</string>
+    <string name="manual_category_hal_diagnostics">HALと診断</string>
+    <string name="manual_category_wcs_origins">WCS原点</string>
+
+    <string name="log_battery_critical_during_cycle">重大な危険！加工サイクル中にバッテリー残量が%1$d%%になりました。まもなく電源が切れます。サイクルを一時停止するか充電器を接続してください。</string>
+    <string name="log_battery_critical">重大なバッテリー警告！残量は%1$d%%です。すぐに充電器を接続してください。</string>
+    <string name="log_battery_low">バッテリー残量低下の警告: %1$d%%。端末の充電器を接続してください。</string>
+    <string name="log_battery_sensor_restored">バッテリーセンサーをシステムの実測値に戻しました。</string>
+    <string name="log_screen_timeout_enabled">安全通知: システムによる画面消灯が有効です。画面を常時点灯にすることを推奨します。</string>
+    <string name="log_servo_overtorque_alarm">AL.006アラーム: EtherCAT Z軸サーボの過トルク保護が作動しました。</string>
+    <string name="log_vfd_thermal_alarm">VFD温度異常: 主軸巻線温度が85°Cを超えました。</string>
+    <string name="log_low_coolant_alarm">クーラント残量低下: I/Oバスのポンプ圧力が不足しています。</string>
+
+    <string name="engine_local_simulation_mode">ローカルシミュレーションモード（オフライン）に切り替えました。</string>
+    <string name="engine_disconnected_from_linuxcnc">LinuxCNCから切断しました。シミュレーションモードが有効です。</string>
+    <string name="engine_tool_table_imported">工具テーブルを正常にインポートしました: %1$d個の工具を読み込みました。</string>
+
+    <string name="audit_report_title">LINUXCNC DROID - 産業用監査レポート</string>
+    <string name="audit_machine_label">マシン:             %1$s</string>
+    <string name="audit_generation_date_label">生成日時: %1$s (%2$s)</string>
+    <string name="audit_machine_state_label">マシン状態:   %1$s</string>
+    <string name="audit_axis_telemetry_section">1. キネマティック軸テレメトリ</string>
+    <string name="audit_ethercat_section">3. ETHERCATマスターおよびスレーブ診断</string>
+    <string name="audit_alarm_history_section">4. アラーム履歴とイベントログ（直近%1$d件）</string>
+
+    <string name="protocol_linuxcncrsh_description">LinuxCNC Remote Shell (linuxcncrsh) TCPストリーム（標準ポート5007）</string>
+    <string name="protocol_websocket_description">WebSocket JSONゲートウェイ / テレメトリブリッジ（標準ポート8000）</string>
+    <string name="protocol_simulation_description">内部キネマティクスおよびリアルタイムシミュレーター（実機なし）</string>
+    <string name="tool_table_copied_message">tool.tblをクリップボードにコピーしました！</string>
+    <string name="tool_table_import_count_message">%1$d個の工具を正常にインポートしました！</string>
+    <string name="log_wifi_weak_signal">ネットワーク警告: Wi-Fi信号が弱いか不安定です。テレメトリが失われる可能性があります。</string>
+    <string name="log_connection_reconnecting">ネットワーク接続が失われました。自動再接続を開始します…</string>
+    <string name="log_network_device_disconnected">デバイスのネットワーク接続が失われました</string>
+    <string name="engine_ini_applied_fmt">INI設定を適用しました: %1$s（制限: X[%2$s..%3$s]、Y[%4$s..%5$s]、Z[%6$s..%7$s]）</string>
+    <string name="engine_tool_mounted_fmt">工具を装着しました: T%1$d（%2$s）、補正 G43 H%3$d（Zオフセット: %4$s mm）</string>
+    <string name="engine_reconnect_scheduled_fmt">%1$s。%2$d秒後に自動再接続します（試行 #%3$d）…</string>
+    <string name="engine_manual_reconnect_started">オペレーターが手動再接続を開始しました…</string>
+    <string name="engine_weak_signal_fmt">ネットワーク警告: 弱い信号を検出しました。遅延が大きくなっています（%1$d ms）。同期が失われるおそれがあります。</string>
+    <string name="engine_network_normalized_fmt">ネットワーク信号が正常に戻りました（遅延: %1$d ms）。</string>
+    <string name="engine_simulated_disconnect">オペレーターによってネットワーク信号の損失がシミュレートされました</string>
+    <string name="engine_virtual_simulation_on">仮想シミュレーションモードを有効化しました（キネマティクスとHAL/NMLエミュレーション）</string>
+    <string name="engine_virtual_simulation_off">仮想シミュレーションモードを無効化しました: 実機ハードウェアで動作中</string>
+    <string name="engine_network_restored">ネットワークリンクが正常に復旧しました。</string>
+    <string name="rsh_handshake_unexpected_fmt">予期しないハンドシェイク応答: %1$s。認証を続行します…</string>
+    <string name="rsh_authenticated_fmt">LinuxCNCの認証に成功しました（%1$s:%2$d）</string>
+    <string name="rsh_auth_response_fmt">認証応答: %1$s</string>
+    <string name="rsh_polling_disconnect_fmt">ポーリング中に切断を検出しました: %1$s</string>
+
+    <!-- Additional Japanese translations for the current default resource set -->
+    <string name="reticle_protractor">分度器（角度）</string>
+    <string name="reticle_bullseye">ブルズアイ（照準）</string>
+    <string name="camera_optical_filters">光学フィルター</string>
+    <string name="camera_filter_normal">カラー</string>
+    <string name="camera_filter_contrast">高コントラスト</string>
+    <string name="camera_filter_invert">ネガ反転</string>
+    <string name="camera_filter_edge">輪郭</string>
+    <string name="camera_spindle_offset">カメラ－主軸オフセット</string>
+    <string name="camera_spindle_offset_title">カメラと主軸のオフセット補正</string>
+    <string name="camera_spindle_offset_desc">主軸中心に対する光軸の物理的なオフセット（mm）。</string>
+    <string name="camera_zero_with_offset">オフセット付きでG54ゼロ点を設定</string>
+    <string name="camera_zero_offset_applied">オフセット付きでゼロ設定: X=%1$.2f、Y=%2$.2f</string>
+    <string name="camera_angle_label">角度: %1$.1f°</string>
+    <string name="camera_reset_angle">0°</string>
+    <string name="camera_zoom_preset_1x">1X</string>
+    <string name="camera_zoom_preset_2x">2X</string>
+    <string name="camera_zoom_preset_4x">4X</string>
+    <string name="camera_zoom_preset_8x">8X</string>
+    <string name="camera_qc_report_title">光学品質検査</string>
+    <string name="view_side">側面</string>
+    <string name="tp_autofit">全体表示</string>
+    <string name="tp_toggle_rapids">G0早送り</string>
+    <string name="tp_toggle_stock">3D素材</string>
+    <string name="tp_toggle_grid">グリッド</string>
+    <string name="tp_toggle_follow">工具を追従</string>
+    <string name="tp_toggle_code">Gコード</string>
+    <string name="tp_dry_run">ドライランシミュレーション</string>
+    <string name="tp_sim_play">再生</string>
+    <string name="tp_sim_pause">一時停止</string>
+    <string name="tp_sim_speed">%1$d倍速</string>
+    <string name="tp_scrub_label">ブロック %1$d / %2$d</string>
+    <string name="tp_wcs_origin">WCS (0,0,0)</string>
+    <string name="tp_past_cuts">切削済み</string>
+    <string name="tp_current_tool">実行中</string>
+    <string name="tp_arc_cut">円弧 G2/G3</string>
+    <string name="logs_export_audit">監査レポート</string>
+    <string name="logs_copied_to_clipboard">レポートをクリップボードにコピーしました</string>
+    <string name="logs_share_report">保守担当者と共有</string>
+    <string name="logs_copy_report">レポートをコピー</string>
+    <string name="logs_close">閉じる</string>
+    <string name="logs_audit_modal_title">産業用監査・テレメトリーレポート</string>
+    <string name="screen_policy_always_on">常時オン（安全HMI）</string>
+    <string name="screen_policy_always_on_desc">アプリが前面にある間、画面のスリープを常に防止します（CNCの安全のため推奨）。</string>
+    <string name="screen_policy_machine_active">機械動作中に点灯</string>
+    <string name="screen_policy_machine_active_desc">機械がON、運転中、原点復帰中、または一時停止中は画面を点灯したままにします。</string>
+    <string name="screen_policy_system_timeout">システムの画面タイムアウト</string>
+    <string name="screen_policy_system_timeout_desc">Androidのディスプレイ消灯設定に従います。</string>
+    <string name="alarm_low_battery_title">バッテリー残量低下アラーム</string>
+    <string name="alarm_low_battery_msg">バッテリー残量が%1$d%%で、充電されていません。LinuxCNCとの通信が切れる前に、すぐ充電器を接続してください。</string>
+    <string name="alarm_critical_battery_title">バッテリー残量重大アラーム</string>
+    <string name="alarm_critical_battery_msg">緊急: バッテリー残量が%1$d%%です！加工サイクル中にタブレットの電源がまもなく切れるおそれがあります。サイクルを一時停止するか、すぐに電源を接続してください！</string>
+    <string name="alarm_weak_signal_title">ネットワーク信号が弱い</string>
+    <string name="alarm_weak_signal_msg">高遅延（%1$d ms）または弱い信号を検出しました。テレメトリーのジッターやフレーム損失のおそれがあります。</string>
+    <string name="alarm_reconnecting_title">LinuxCNCから切断</string>
+    <string name="alarm_reconnecting_msg">%1$d秒後に自動再接続します（試行 #%2$d）…</string>
+    <string name="alarm_reconnect_now_btn">今すぐ再接続</string>
+    <string name="alarm_dismiss_btn">閉じる</string>
+    <string name="alarm_pause_cycle_btn">送り一時停止</string>
+    <string name="status_screen_always_on">画面ウェイクロック有効</string>
+    <string name="status_screen_system_timeout">画面タイムアウト有効</string>
+    <string name="status_screen_timeout_warning">警告: 機械の運転中に画面が消灯するおそれがあります！</string>
+    <string name="config_safety_power_header">安全、バッテリー、画面タイムアウト</string>
+    <string name="config_screen_timeout_label">画面スリープ管理（ウェイクロック）</string>
+    <string name="config_battery_health_label">端末のバッテリーと電源状態</string>
+    <string name="config_battery_sim_btn" formatted="false">バッテリー低下をシミュレート（15%）</string>
+    <string name="config_battery_restore_btn">センサー値に戻す</string>
+    <string name="config_weak_signal_sim_btn">弱い信号をシミュレート（350ms）</string>
+    <string name="config_disconnect_sim_btn">切断と再接続をシミュレート</string>
+    <string name="config_simulations_hub_header">シミュレーション・テスト制御センター</string>
+    <string name="config_simulations_hub_desc">機械エミュレーション、テレメトリー、バッテリー、タッチプローブ、異常注入の一元操作。</string>
+    <string name="config_sim_master_label">LinuxCNCコントローラーシミュレーション</string>
+    <string name="config_sim_master_desc">有効にすると、実機を使わず端末上で運動学、DRO、動作を計算します。</string>
+    <string name="config_sim_badge_active">シミュレーションモード有効</string>
+    <string name="config_sim_badge_real">実機モード</string>
+    <string name="config_sim_battery_section">操作用タブレットのバッテリーシミュレーション</string>
+    <string name="config_sim_battery_desc">タブレットのバッテリーを消耗させずに、残量しきい値とアラームをテストします。</string>
+    <string name="config_sim_battery_toggle">バッテリー状態を上書き</string>
+    <string name="config_sim_battery_charging_toggle">USB-C充電器の接続をシミュレート</string>
+    <string name="config_sim_battery_restore">実機センサー値に戻す</string>
+    <string name="config_sim_battery_crit" formatted="false">8%（重大）</string>
+    <string name="config_sim_battery_low" formatted="false">15%（低）</string>
+    <string name="config_sim_battery_med" formatted="false">50%（正常）</string>
+    <string name="config_sim_battery_full" formatted="false">100%（満充電）</string>
+    <string name="config_sim_network_section">ネットワーク・遅延シミュレーション</string>
+    <string name="config_sim_network_desc">リンクの劣化や切断をシミュレートし、安全な切断処理と指数バックオフ再接続をテストします。</string>
+    <string name="config_sim_weak_signal_toggle">弱い信号をシミュレート（380ms）</string>
+    <string name="config_sim_drop_network_btn">切断と再接続をシミュレート</string>
+    <string name="config_sim_restore_network_btn">最適なリンクに戻す（2ms）</string>
+    <string name="config_sim_faults_section">産業用異常・アラーム注入</string>
+    <string name="config_sim_faults_desc">イベントログに模擬アラームを注入し、作業者の安全手順を確認します。</string>
+    <string name="fault_servo_name">サーボ過トルク AL.006</string>
+    <string name="fault_servo_desc">EtherCAT Z軸サーボドライバーのアラームを発生させます。</string>
+    <string name="fault_limit_name">ハードウェアリミットスイッチ X+</string>
+    <string name="fault_limit_desc">軸の物理的なオーバートラベルスイッチ作動をシミュレートします。</string>
+    <string name="fault_thermal_name">VFD主軸温度異常</string>
+    <string name="fault_thermal_desc">主軸ステーターの温度が85°Cを超える状態をシミュレートします。</string>
+    <string name="fault_interlock_name">筐体ドアインターロック</string>
+    <string name="fault_interlock_desc">サイクル実行中に安全ドアが開いた状態をシミュレートします。</string>
+    <string name="fault_coolant_name">クーラント圧力低下</string>
+    <string name="fault_coolant_desc">フラッドポンプの圧力低下（0.4 bar）をシミュレートします。</string>
+    <string name="config_sim_probe_section">計測・3Dタッチプローブのシミュレーション</string>
+    <string name="config_sim_probe_desc">プローブスタイラスを損傷させずにワークのエッジや表面への接触をシミュレートします。</string>
+    <string name="config_sim_probe_btn">3Dプローブ接触を実行（G38.2）</string>
+    <string name="modal_bar_title">有効なGコード・モーダルグループ</string>
+    <string name="exec_mod_single_block">シングルブロック（ステップ）</string>
+    <string name="exec_mod_opt_stop">オプショナルストップ（M1）</string>
+    <string name="exec_mod_block_delete">ブロックスキップ（/）</string>
+    <string name="exec_mod_run_from_line">指定行から実行…</string>
+    <string name="exec_step_next">次のブロック &gt;</string>
+    <string name="run_from_line_title">指定行から実行（加工再開）</string>
+    <string name="run_from_line_desc">工具交換や確認の後に加工を再開するブロックを選択します。安全なZ退避と主軸の再起動は自動で行われます。</string>
+    <string name="run_from_line_btn">指定行から再開</string>
+    <string name="run_from_line_cancel">キャンセル</string>
+    <string name="protocol_linuxcncrsh_name">LinuxCNCサーバー（linuxcncrsh TCP :5007）</string>
+    <string name="protocol_websocket_name">WebSocketゲートウェイ（:8000）</string>
+    <string name="protocol_sim_name">ローカルシミュレーター（オフライン）</string>
+    <string name="conn_protocol_label">LinuxCNCリンクプロトコル</string>
+    <string name="conn_host_label">LinuxCNCホストIPアドレス</string>
+    <string name="conn_port_label">TCPポート</string>
+    <string name="conn_pass_label">パスワード（linuxcncrsh）</string>
+    <string name="conn_connect_btn">LinuxCNCに接続</string>
+    <string name="conn_disconnect_btn">切断</string>
+    <string name="conn_status_label">サーバー状態</string>
+    <string name="tool_table_import_btn">tool.tblをインポート</string>
+    <string name="tool_table_export_btn">tool.tblをエクスポート</string>
+    <string name="tool_table_mount_btn">装着（M6 T%1$d G43）</string>
+    <string name="tool_table_import_dialog_title">LinuxCNC tool.tblファイルをインポート</string>
+    <string name="tool_table_import_dialog_desc">機械の工具カルーセルを更新するには、LinuxCNCのtool.tblファイルの内容を貼り付けてください:</string>
+    <string name="tool_table_import_confirm">インポートして適用</string>
+    <string name="tool_table_export_copied">tool.tblファイルをクリップボードにコピーしました</string>
+    <string name="ini_editor_title">LinuxCNC設定（machine.ini）</string>
+    <string name="ini_editor_desc">ソフトリミット、加速度、ステップ、LinuxCNCの運動学を確認・編集します。</string>
+    <string name="ini_apply_btn">コントローラーにリミットを適用</string>
+    <string name="ini_reset_default_btn">サンプルINIに戻す</string>
+    <string name="ini_copy_btn">INIをコピー</string>
+    <string name="ini_tab_summary">機械の概要</string>
+    <string name="ini_tab_raw">machine.iniエディター</string>
+    <string name="linuxcnc_conn_title">LinuxCNCリモートサーバー</string>
+    <string name="linuxcnc_password_label">RSHパスワード（初期値: pwd）</string>
+    <string name="linuxcnc_connect_btn">LinuxCNCに接続</string>
+    <string name="linuxcnc_disconnect_btn">サーバーを切断</string>
+    <string name="tool_table_import_title">工具テーブルをインポート（tool.tbl）</string>
+    <string name="tool_table_import_desc">LinuxCNCのtool.tblファイルの内容を貼り付けてください（形式: T… P… D… Z… ; コメント）:</string>
+    <string name="cam_dialog_title">対話式CAM（固定サイクル）</string>
+    <string name="cam_dialog_desc">外部CAD/CAMを使わずに、正面削り、ポケット加工、ボルトサークルのGコードを機械上で簡単に生成します。</string>
+    <string name="cam_tab_facing">正面削り</string>
+    <string name="cam_tab_pocket">矩形ポケット</string>
+    <string name="cam_tab_bolt_circle">ボルトサークル（G83）</string>
+    <string name="cam_generate_btn">Gコードを生成</string>
+    <string name="cam_load_to_controller">コントローラーに読み込んでシミュレート</string>
+    <string name="cam_copy_gcode">Gコードをコピー</string>
+    <string name="cam_preview_title">生成したGコードのプレビュー</string>
+    <string name="wizard_title">LinuxCNC接続ウィザード</string>
+    <string name="wizard_subtitle">Android端末を実機に接続するための対話式ステップガイド</string>
+    <string name="wizard_btn_open">接続ウィザードを開く</string>
+    <string name="wizard_btn_skip">チュートリアルをスキップ</string>
+    <string name="wizard_btn_next">次のステップ</string>
+    <string name="wizard_btn_prev">前のステップ</string>
+    <string name="wizard_btn_finish">完了して接続</string>
+    <string name="wizard_dont_show_again">次回から自動表示しない</string>
+    <string name="wizard_step_1_title">1. ネットワークインターフェースと接続</string>
+    <string name="wizard_step_2_title">2. LinuxCNCでサーバーを有効化（machine.ini）</string>
+    <string name="wizard_step_3_title">3. PingテストとLinuxファイアウォール</string>
+    <string name="wizard_step_4_title">4. RSH認証とハンドシェイク</string>
+    <string name="wizard_step_5_title">5. 安全確認とE-STOP</string>
+    <string name="manual_sec12_title">12. LinuxCNC接続・リンクアシスタント（linuxcncrsh）</string>
+    <string name="manual_sec12_summary">TCPソケット通信、machine.iniの設定、ファイアウォール規則、認証ハンドシェイクのガイド。</string>
+    <string name="manual_sec12_content">Androidタブレット／スマートフォンとCNC間の産業用リモート通信は、linuxcncrshサーバーを介して行われます:\n\n• ネットワーク接続: 工場内Wi-Fi LAN、有線Ethernet（USB-C - RJ45アダプター）、または直接接続のホットスポット／テザリングに対応します。\n• machine.iniの設定:\n  – [APPLICATIONS]セクションに次のディレクティブを追加します:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -wフラグは書き込み権限（軸移動、モード切り替え、主軸制御）を有効にします。\n  – -p 5007フラグは標準TCPポートを指定します。\n• Linuxファイアウォール規則:\n  – Linuxで次を実行してポートを開きます: sudo ufw allow 5007/tcp\n  – デーモンの待ち受けを確認します: ss -tulpn | grep 5007\n• ハンドシェイクプロトコル:\n  – 初期メッセージ: \'hello EMC LinuxCncDroid 1.0\'\n  – パスワード認証: \'set enable password\'\n  – X/Y/Z/A位置、E-Stop状態、エラーを継続的に監視します。</string>
+    <string-array name="manual_sec12_sop">
+        <item>1. 上部バーのルーターアイコン、またはCONFIGをタップして接続ウィザードを開きます。</item>
+        <item>2. Android端末とLinuxCNCが同じIPサブネット（例: 192.168.1.X）にあることを確認します。</item>
+        <item>3. .iniファイルにlinuxcncrshディレクティブを設定し、ファイアウォールでポート5007を許可します。</item>
+        <item>4. IPアドレスとパスワード（初期値: pwd）を入力し、「完了して接続」をタップします。</item>
+    </string-array>
+    <string-array name="manual_sec12_safety">
+        <item>接続する前に、機械の物理非常停止ボタンにいつでも手が届くことを確認してください。</item>
+        <item>遅延やVFDによる電磁干渉を避けるため、WPA2/WPA3で保護されたWi-Fi、または専用Ethernetリンクを使用してください。</item>
+    </string-array>
+    <string name="manual_sec13_title">13. 対話式CAMと固定サイクル</string>
+    <string name="manual_sec13_summary">機械上での簡易加工: 正面削り、矩形ポケット、ボルトサークル（G83）。</string>
+    <string name="manual_sec13_content">対話式CAMジェネレーターでは、CADモデリングや外部CAMでのポスト処理を行わずに、標準的な加工を実行できます:\n\n• 正面削りサイクル:\n  – フライス径に応じた横方向の切込み（ステップオーバー）を設定できる、ジグザグ平行パスを生成します。\n  – 安全なZ高さから滑らかに進入し、仕上げパスも指定できます。\n\n• 矩形ポケットサイクル:\n  – 矩形ポケットを同心状に荒加工します。1回の切込み深さ（ap）を制御でき、らせん状／ランプ状の進入が可能です。\n\n• ボルトサークル／穴パターン:\n  – 極座標の角度位置を計算し、ペックと切りくず排出を行う深穴ドリルサイクル（G83）を生成します。\n\n• コントローラーへ直接転送:\n  – 「コントローラーに読み込んでシミュレート」をタップすると、生成コードをインタープリターと3Dビジュアライザーに転送します。</string>
+    <string-array name="manual_sec13_sop">
+        <item>1. CONFIGタブまたは上部バーから「対話式CAM」ダイアログを開きます。</item>
+        <item>2. 使用するサイクルのタブ（正面削り、矩形ポケット、ボルトサークル）を選択します。</item>
+        <item>3. ワーク寸法、主軸RPM、切削送り速度（F）を入力します。</item>
+        <item>4. 「Gコードを生成」を押してプレビューを確認し、「コントローラーに読み込んでシミュレート」を押します。</item>
+    </string-array>
+    <string-array name="manual_sec13_safety">
+        <item>主軸に装着された工具が、サイクルパラメーターで指定した径と一致することを確認してください。</item>
+        <item>フランジやバイスとの衝突を避けるため、安全Z高さを確認してください。</item>
+    </string-array>
+    <string name="manual_sec14_title">14. machine.iniエディターと診断</string>
+    <string name="manual_sec14_summary">物理・仮想ストローク制限（ソフトリミット）、加速度、軸運動学の確認。</string>
+    <string name="manual_sec14_content">INI設定モジュールでは、機械の.iniファイルにある構造パラメーターを確認し、同期できます:\n\n• ソフトリミット（MIN_LIMIT / MAX_LIMIT）:\n  – ボールねじ端部での機械的衝突を防ぐため、安全な作業範囲を定義します。\n\n• 軸の動特性（MAX_VELOCITY / MAX_ACCELERATION）:\n  – 位置決め速度と加減速ランプを制御し、ステッパーモーターの脱調やサーボモーターの過トルクを防ぎます。\n\n• 単位あたりのステップ数（SCALE / STEP_SCALE）:\n  – 回転あたりのパルス数とボールねじリードの関係を設定し、正確なミリメートル分解能を確保します。\n\n• 直接編集とコピー:\n  – 生ファイルの表示と検索ができ、クリップボードへのコピーや設定の直接適用も行えます。</string>
+    <string-array name="manual_sec14_sop">
+        <item>1. CONFIGタブの「LinuxCNC設定（machine.ini）」ボタンを押します。</item>
+        <item>2. 「機械の概要」タブでX、Y、Zの移動範囲を確認します。</item>
+        <item>3. 「machine.iniエディター」タブで運動学と通信のディレクティブを確認します。</item>
+        <item>4. 「コントローラーにリミットを適用」を押してHMIに設定を同期します。</item>
+    </string-array>
+    <string-array name="manual_sec14_safety">
+        <item>機械共振試験を行わずに、最大加速度や速度の値を上げないでください。</item>
+    </string-array>
+    <string name="manual_sec15_title">15. HALピン・信号のリアルタイムモニター</string>
+    <string name="manual_sec15_summary">ハードウェアI/O、リミットスイッチ、安全非常停止、ドライブ状態の診断。</string>
+    <string name="manual_sec15_content">HAL（Hardware Abstraction Layer）モニターで機械の論理状態をすぐに確認できます:\n\n• 安全ピン（SAFETY）:\n  – 非常停止入力（iocontrol.0.emc-enable-in）と保護ドアのインターロックを監視します。\n\n• リミットスイッチと原点復帰:\n  – 原点・リミット用の誘導センサーやマイクロスイッチの状態（joint.0.home-sw-in、min-hard-limit、max-hard-limit）を表示します。\n\n• 主軸・クーラント信号:\n  – 主軸の運転／停止（spindle.0.on）、回転方向（spindle.0.forward）、アナログ速度、クーラントリレーM7/M8を監視します。\n\n• 絞り込みと検索:\n  – 動作カテゴリで信号を絞り込み、保守や立ち上げを効率化できます。</string>
+    <string-array name="manual_sec15_sop">
+        <item>1. 上部バーまたはCONFIGタブの端子チップ（HAL）アイコンを押します。</item>
+        <item>2. 調べる信号カテゴリ（安全、リミット、主軸、動作、I/O）を選択します。</item>
+        <item>3. センサーまたはリミットスイッチを実際に作動させ、状態変化を確認します（緑 = 有効、灰色 = 無効）。</item>
+    </string-array>
+    <string-array name="manual_sec15_safety">
+        <item>リミットスイッチが常に作動状態の場合は、手動で軸を動かす前に配線を確認してください。</item>
+    </string-array>
+    <string name="manual_sec16_title">16. ワーク座標系テーブル WCS（G54～G59.3）</string>
+    <string name="manual_sec16_summary">複数のワーク原点、バイス補正、座標ゼロ設定を管理します。</string>
+    <string name="manual_sec16_content">WCSワーク原点テーブルでは、LinuxCNCの標準座標系9種類を管理します:\n\n• 対応座標系:\n  – G54～G59（標準ワーク原点1～6）。\n  – G59.1、G59.2、G59.3（サブバイスや複数治具用の追加原点）。\n\n• オフセットの記録:\n  – 各原点は、機械絶対ゼロ（G53）に対するX、Y、Z、回転軸Aの個別オフセットを保持します。\n\n• プローブまたはカメラによる簡易ゼロ設定:\n  – 自動3Dプロービングサイクルとマシンビジョンの結果は、確定操作だけでアクティブなWCSに直接反映されます。</string>
+    <string-array name="manual_sec16_sop">
+        <item>1. 上部バーのWCSセレクターを開くか、CONFIGの「WCS原点テーブル」を押します。</item>
+        <item>2. 有効にする座標系を選択します（例: 主なワークはG54、2つ目のバイスはG55）。</item>
+        <item>3. DROパネルのZEROボタンまたはプロービングで各軸を調整／ゼロ設定します。</item>
+    </string-array>
+    <string-array name="manual_sec16_safety">
+        <item>Gコードプログラムを実行する前に、上部バーのアクティブなWCSがファイルヘッダーで指定された座標系と一致することを確認してください。</item>
+    </string-array>
+    <string name="manual_sec17_title">17. 今後のロードマップと提案機能</string>
+    <string name="manual_sec17_summary">今後の改善案: SCP/FTP/Samba一括転送、OTG/Bluetoothペンダント、5軸（B/C）、Wi-Fi遅延の低減。</string>
+    <string name="manual_sec17_content">工場や複雑なマシニングセンターでの性能を高めるため、今後のバージョンでは次の連携機能を検討しています:\n\n1. 大容量Gコードファイルの管理・転送:\n   – SCP / SFTP / FTP / Sambaによるリモート転送を統合し、制御ソケットの帯域を圧迫せずに、50,000行を超える大容量CAD/CAMファイルをPCの~/linuxcnc/nc_files/へ直接転送します。\n\n2. 代替の物理操作（Bluetoothペンダント／OTGキーボード）:\n   – ハードウェアキーをネイティブに読み取り、産業用USB/Bluetooth操作器に対応します。手袋や切削液で画面に触れにくい場合でも、X/Y/Zのジョグ操作や物理非常停止を可能にします。\n\n3. 追加回転軸（第5軸B/C）の操作:\n   – DROパネル、3Dビジュアライザー、運動学ジェネレーターを拡張し、傾斜ヘッドや連続5軸の割り出しテーブルに対応します。\n\n4. Wi-Fiの深刻な遅延への対応・低減:\n   – VFDによる電磁干渉があるネットワーク向けにバッファ補正の予測アルゴリズムを導入し、USB-C - Ethernet（RJ45）の有線接続を優先的に推奨します。</string>
+    <string-array name="manual_sec17_sop">
+        <item>1. 大容量Gコードプログラムには、当面ローカルファイルまたはSDカードから読み込んでください。</item>
+        <item>2. 電磁干渉の強い環境では、USB-C - Ethernetアダプターを接続してください。</item>
+        <item>3. ハードウェア拡張機能の提供状況は、このセクションで定期的に確認してください。</item>
+    </string-array>
+    <string-array name="manual_sec17_safety">
+        <item>電装盤内のリレーに直列接続された有線非常停止がない状態で、未認証のワイヤレス操作器を使用しないでください。</item>
+    </string-array>
+    <string name="wcs_active_badge">有効</string>
+    <string name="wcs_set_active">アクティブなWCSに設定</string>
+    <string name="wcs_target_pos_label">目標ワーク位置（mm）</string>
+    <string name="wcs_touch_off">タッチオフ %1$s</string>
+    <string name="wcs_zero_axis">%1$sをゼロに設定</string>
+    <string name="wcs_edit_dialog_title">%1$sオフセットを編集: 軸%2$s</string>
+    <string name="wcs_offset_axis_label">%1$sオフセット（mm）</string>
+    <string name="wcs_save_offset">オフセットを保存</string>
+    <string name="mdi_valid">RS274有効</string>
+    <string name="mdi_syntax_error">構文エラー</string>
+    <string name="mdi_recent_history">最近の履歴</string>
+    <string name="mdi_starred">お気に入り</string>
+    <string name="mdi_empty_history">この表示にコマンドはありません</string>
+    <string name="cam_offset_x_label">Xオフセット（mm）</string>
+    <string name="cam_offset_y_label">Yオフセット（mm）</string>
+    <string name="config_ini_btn">INI設定（machine.ini）</string>
+    <string name="config_cam_cycles_btn">CAMサイクル（GUI）</string>
+    <string name="config_wcs_table_btn">WCSテーブル</string>
+    <string name="config_hal_pins_btn">HALピン</string>
+    <string name="config_test_ping_btn">Pingテスト</string>
+    <string name="wake_lock_activate_btn">ウェイクロックを有効化</string>
+    <string name="soft_limits_diagnostics">診断 &gt;</string>
+    <string name="soft_limits_safe_banner">ソフトリミット: 安全範囲内（%1$s）</string>
+    <string name="soft_limits_violation_banner">ソフトリミット: オーバートラベル違反（%1$s）</string>
+    <string name="ini_spindle_title">主軸</string>
+    <string name="ini_rpm_range">RPM範囲: %1$d～%2$d RPM</string>
+    <string name="ini_scale">PWM/DACスケール: %1$s</string>
+    <string name="gcode_script_content_label">Gコード／スクリプトの内容</string>
+    <string name="status_running_short">運転中</string>
+    <string name="btn_cycle_start_short">サイクル\n開始</string>
+    <string name="status_paused_short">一時停止中</string>
+    <string name="btn_feed_hold_short">送り\n一時停止</string>
+    <string name="btn_cycle_stop_short">サイクル\n停止</string>
+    <string name="exec_single_block">シングルブロック（M0）</string>
+    <string name="exec_single_block_short">シングル（M0）</string>
+    <string name="exec_optional_stop">オプショナルストップ（M1）</string>
+    <string name="exec_optional_stop_short">オプショナル停止</string>
+    <string name="exec_block_delete">ブロックスキップ（/）</string>
+    <string name="exec_block_delete_short">ブロックスキップ</string>
+    <string name="exec_run_from_line_btn">指定行から実行（加工再開）…</string>
+    <string name="exec_from_line_short">指定行から…</string>
+    <string name="exec_step_next_line">シングルブロック: 次の行を実行 &gt;</string>
+    <string name="jog_pad_tab">ボタンパッド</string>
+    <string name="jog_mpg_tab">仮想MPGハンドル</string>
+    <string name="jog_pad_tab_short">パッド</string>
+    <string name="jog_mpg_tab_short">MPGハンドル</string>
+    <string name="soft_limits_dialog_title">ソフトリミット軌道事前チェック</string>
+    <string name="soft_limits_active_wcs">アクティブな座標系: %s</string>
+    <string name="soft_limits_safe_title">プログラム軌道は安全な移動範囲内です</string>
+    <string name="soft_limits_safe_desc">読み込まれたツールパスは、%sの機械リミット内に完全に収まっています。</string>
+    <string name="soft_limits_danger_title">重大: オーバートラベルリミット超過</string>
+    <string name="soft_limits_danger_desc">実行中に物理リミットを超過します！安全のためサイクル開始をロックしました。</string>
+    <string name="soft_limits_violations_detected">オーバートラベル違反を検出</string>
+    <string name="soft_limits_bounding_box_title">プログラム外接範囲（ワーク範囲と機械範囲）</string>
+    <string name="soft_limits_axis_x">X軸</string>
+    <string name="soft_limits_axis_y">Y軸</string>
+    <string name="soft_limits_axis_z">Z軸</string>
+    <string name="soft_limits_traj_length">推定ツールパス軌道長:</string>
+    <string name="soft_limits_adjust_wcs">WCSオフセットを調整</string>
+    <string name="soft_limits_override_start">上書きして開始</string>
+    <string name="soft_limits_cycle_start">サイクル開始</string>
+    <string name="rfl_select_block">再開するブロックを選択:</string>
+    <string name="rfl_no_program">Gコードプログラムが読み込まれていません</string>
+    <string name="rfl_resume_here">ここから再開</string>
+    <string name="hal_dialog_title">HAL信号・ピンモニター</string>
+    <string name="hal_dialog_subtitle">LinuxCNC Hardware Abstraction Layerのリアルタイム診断</string>
+    <string name="hal_search_hint">ピン名または説明で絞り込み（例: リミット、主軸、エア）…</string>
+    <string name="hal_all_pins">すべてのピン（%d）</string>
+    <string name="hal_toggle_pin">ピンを切り替え</string>
+    <string name="wcs_dialog_title">WCSオフセットテーブル（G54～G59.3）</string>
+    <string name="wcs_active_coord_sys">アクティブな座標系: %s</string>
+    <string name="wcs_default_origin_name">ワーク原点</string>
+    <string name="wcs_touchoff_header">ワークのタッチオフ（ワークゼロ／目標を設定）</string>
+    <string name="wcs_all_systems_header">すべてのワーク座標系</string>
+    <string name="wcs_g53_offset_help">機械原点（G53）からの絶対オフセットをmm単位で指定します。</string>
+    <string name="status_screen_on_short">画面オン</string>
+    <string name="status_screen_timeout_short">タイムアウト</string>
+    <string name="net_retry_format">再試行 %ds</string>
+    <string name="net_reconnect">再接続</string>
+    <string name="net_weak">弱い</string>
+    <string name="conn_status_connected">接続済み（%d ms）</string>
+    <string name="conn_status_disconnected">切断</string>
+    <string name="config_pro_subsystems">LinuxCNC Proサブシステム</string>
+    <string name="charger_status_on">充電器: オン</string>
+    <string name="charger_status_off">充電器: オフ</string>
+    <string name="probe_desc_bore">4点プロービングで円の中心（X、Y）を検出します</string>
+    <string name="probe_desc_boss">円形ボスの外周中心を検出します</string>
+    <string name="probe_desc_corner_out">X+とY+を測定し、コーナーのゼロ点を特定します</string>
+    <string name="probe_corner_in_title">ポケット内側のコーナー</string>
+    <string name="probe_desc_corner_in">ポケット内側の原点頂点を検出します</string>
+    <string name="probe_edge_x_title">X軸エッジタッチ</string>
+    <string name="probe_desc_edge_x">X面に1回接触し、Xゼロを設定します</string>
+    <string name="probe_edge_y_title">Y軸エッジタッチ</string>
+    <string name="probe_desc_edge_y">Y面に1回接触し、Yゼロを設定します</string>
+    <string name="probe_desc_toolsetter">基準パックを使って工具長を自動測定します</string>
+    <string name="tool_new_carbide_cutter">新しい超硬カッター</string>
+    <string name="tool_edit">工具を編集</string>
+    <string name="screen_timeout_alert_title">画面スリープ警告</string>
+    <string name="wizard_step_indicator">ステップ %1$d / %2$d • %3$s</string>
+    <string name="error_component_fault">コンポーネント障害</string>
+    <string name="error_restart_subsystem">サブシステムを再起動</string>
+    <string name="security_preset_safe">安全なトロコイド加工（アルミニウム）</string>
+    <string name="security_preset_trojan">トロイの木馬型シェルコード（ブロック）</string>
+    <string name="security_preset_collision">衝突を招く突っ込み（警告）</string>
+    <string name="security_motion_detected">移動コードを検出しました</string>
+    <string name="security_no_motion">軸移動が見つかりません</string>
+
+    <!-- Added by localization pass -->
+    <string name="common_copy">コピー</string>
+    <string name="ini_units_fmt">単位: %1$s</string>
+    <string name="ini_steps_scale_fmt">スケール: %1$s ステップ/mm</string>
+    <string name="ini_axis_label_fmt">軸 %1$s</string>
+    <string name="manual_category_security">安全</string>
+    <string name="manual_category_jog">ジョグ</string>
+    <string name="manual_category_tools">工具</string>
+    <string name="manual_category_fail_safe">フェイルセーフ</string>
+    <string name="manual_category_conversational_cam">対話式CAM</string>
+    <string name="manual_category_roadmap">ロードマップ</string>
+    <string name="camera_flip_camera">カメラ切替</string>
+    <string name="camera_telemetry_toggle">テレメトリ</string>
+    <string name="camera_take_snapshot">スナップショット</string>
+    <string name="camera_snapshot_saved_fmt">スナップショットを保存しました: %1$s</string>
+    <string name="camera_snapshot_error_fmt">キャプチャエラー: %1$s</string>
 </resources>
