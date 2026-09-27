@@ -280,18 +280,20 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
 
         // Critical alarm threshold (<= 10%)
         if (!prevCritical && isCritical) {
+            val app = getApplication<Application>()
             val isRunning = engine.machineState.value == MachineStateEnum.RUNNING
             val message = if (isRunning) {
-                "¡PELIGRO CRÍTICO! Batería al $pct% durante ciclo de mecanizado. Apagado inminente: Pause ciclo o conecte cargador."
+                app.getString(R.string.log_battery_critical_during_cycle, pct)
             } else {
-                "¡ALARMA CRÍTICA DE BATERÍA! Nivel al $pct%. Conecte el cargador de inmediato."
+                app.getString(R.string.log_battery_critical, pct)
             }
             engine.logEvent(LogSeverity.CRITICAL, "BATERÍA", message)
             feedbackManager.playErrorAlarm()
             feedbackManager.triggerEstopHaptic()
         } else if (!prevLow && isLow) {
             // Low battery warning threshold (<= 20%)
-            engine.logEvent(LogSeverity.WARNING, "BATERÍA", "Alarma de batería baja: $pct%. Conecte cargador al dispositivo.")
+            val app = getApplication<Application>()
+            engine.logEvent(LogSeverity.WARNING, "BATERÍA", app.getString(R.string.log_battery_low, pct))
             feedbackManager.playLowBatteryAlert()
         }
     }
@@ -332,23 +334,25 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
         _batterySafety.value = _batterySafety.value.copy(isSimulated = false)
         readBatteryStatus()
         feedbackManager.triggerActionClick()
-        engine.logEvent(LogSeverity.INFO, "BATERÍA", "Sensor de batería restaurado a lecturas reales del sistema.")
+        val app = getApplication<Application>()
+        engine.logEvent(LogSeverity.INFO, "BATERÍA", app.getString(R.string.log_battery_sensor_restored))
     }
 
     fun setScreenTimeoutPolicy(policy: ScreenTimeoutPolicy) {
         screenTimeoutPolicy.value = policy
         feedbackManager.triggerActionClick()
+        val app = getApplication<Application>()
         if (policy == ScreenTimeoutPolicy.SYSTEM_TIMEOUT) {
             engine.logEvent(
                 LogSeverity.WARNING,
                 "PANTALLA",
-                "Aviso de seguridad: Apagado de pantalla según sistema activado. Se recomienda 'Pantalla Siempre Encendida'.",
+                app.getString(R.string.log_screen_timeout_enabled),
             )
         } else {
             engine.logEvent(
                 LogSeverity.INFO,
                 "PANTALLA",
-                "Política de pantalla actualizada a: ${policy.name} (Wake Lock activo).",
+                "Screen policy updated: ${policy.name} (Wake Lock active)",
             )
         }
     }

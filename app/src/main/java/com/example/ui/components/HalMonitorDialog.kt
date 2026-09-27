@@ -141,7 +141,7 @@ fun HalMonitorDialog(
                             label = { Text(stringResource(R.string.hal_all_pins, pins.size)) }
                         )
                     }
-                    items(HalPinCategory.values()) { category ->
+                    items(HalPinCategory.entries.toTypedArray()) { category ->
                         val count = pins.count { it.category == category }
                         FilterChip(
                             selected = selectedCategory == category,

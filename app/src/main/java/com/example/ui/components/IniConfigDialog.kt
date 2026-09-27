@@ -2,7 +2,6 @@ package com.example.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -59,7 +58,7 @@ fun IniConfigDialog(
                 .padding(horizontal = 10.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {
-            val isCompact = maxWidth < 600.dp
+            val isCompact = this.maxWidth < 600.dp
 
             Card(
                 colors = CardDefaults.cardColors(containerColor = CncSurfaceBg),
@@ -155,7 +154,7 @@ fun IniConfigDialog(
                                 ) {
                                     Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Text(
-                                            text = "MÁQUINA: ${parsedConfig.machineName}",
+                                            text = stringResource(R.string.ini_machine_name_fmt, parsedConfig.machineName),
                                             fontWeight = FontWeight.Bold,
                                             fontSize = 13.sp,
                                             color = CncActiveGreen
@@ -164,26 +163,26 @@ fun IniConfigDialog(
                                             modifier = Modifier.fillMaxWidth(),
                                             horizontalArrangement = Arrangement.SpaceBetween
                                         ) {
-                                            Text("Cinemática: ${parsedConfig.kinematicsType}", fontSize = 11.sp, color = CncTextSecondary)
-                                            Text("Unidades: ${parsedConfig.linearUnits}", fontSize = 11.sp, color = CncCyberCyan)
+                                            Text(stringResource(R.string.ini_kinematics_fmt, parsedConfig.kinematicsType), fontSize = 11.sp, color = CncTextSecondary)
+                                            Text(stringResource(R.string.ini_units_fmt, parsedConfig.linearUnits), fontSize = 11.sp, color = CncCyberCyan)
                                         }
                                         Row(
                                             modifier = Modifier.fillMaxWidth(),
                                             horizontalArrangement = Arrangement.SpaceBetween
                                         ) {
-                                            Text("Velocidad Máx: ${parsedConfig.maxLinearVelocity} mm/s", fontSize = 11.sp, color = CncTextSecondary)
-                                            Text("Aceleración: ${parsedConfig.maxLinearAcceleration} mm/s²", fontSize = 11.sp, color = CncTextSecondary)
+                                            Text(stringResource(R.string.ini_max_velocity_fmt, parsedConfig.maxLinearVelocity.toString()), fontSize = 11.sp, color = CncTextSecondary)
+                                            Text(stringResource(R.string.ini_acceleration_fmt, parsedConfig.maxLinearAcceleration.toString()), fontSize = 11.sp, color = CncTextSecondary)
                                         }
                                     }
                                 }
 
                                 // Soft Limits Travel Table
-                                Text("LÍMITES DE CARRERA (SOFT LIMITS) Y ESCALAS", fontWeight = FontWeight.Bold, fontSize = 11.sp, color = CncTextPrimary)
+                                Text(stringResource(R.string.ini_soft_limits_title), fontWeight = FontWeight.Bold, fontSize = 11.sp, color = CncTextPrimary)
 
-                                AxisLimitCard("EJE X", parsedConfig.xMinLimit, parsedConfig.xMaxLimit, parsedConfig.xStepScale, CncActiveGreen)
-                                AxisLimitCard("EJE Y", parsedConfig.yMinLimit, parsedConfig.yMaxLimit, parsedConfig.yStepScale, CncCyberCyan)
-                                AxisLimitCard("EJE Z", parsedConfig.zMinLimit, parsedConfig.zMaxLimit, parsedConfig.zStepScale, CncWarningAmber)
-                                AxisLimitCard("EJE A", parsedConfig.aMinLimit, parsedConfig.aMaxLimit, parsedConfig.aStepScale, Color(0xFFCE93D8))
+                                AxisLimitCard(stringResource(R.string.ini_axis_label_fmt, "X"), parsedConfig.xMinLimit, parsedConfig.xMaxLimit, parsedConfig.xStepScale, CncActiveGreen)
+                                AxisLimitCard(stringResource(R.string.ini_axis_label_fmt, "Y"), parsedConfig.yMinLimit, parsedConfig.yMaxLimit, parsedConfig.yStepScale, CncCyberCyan)
+                                AxisLimitCard(stringResource(R.string.ini_axis_label_fmt, "Z"), parsedConfig.zMinLimit, parsedConfig.zMaxLimit, parsedConfig.zStepScale, CncWarningAmber)
+                                AxisLimitCard(stringResource(R.string.ini_axis_label_fmt, "A"), parsedConfig.aMinLimit, parsedConfig.aMaxLimit, parsedConfig.aStepScale, Color(0xFFCE93D8))
 
                                 // Spindle Config
                                 Card(
@@ -286,7 +285,7 @@ fun IniConfigDialog(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = if (appliedSuccess) "¡LÍMITES APLICADOS!" else stringResource(R.string.ini_apply_btn),
+                                text = if (appliedSuccess) stringResource(R.string.ini_limits_applied) else stringResource(R.string.ini_apply_btn),
                                 color = Color.Black,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 11.sp
@@ -331,13 +330,18 @@ private fun AxisLimitCard(
             }
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = "Límite: [${minLimit.toInt()} mm .. ${maxLimit.toInt()} mm] (Δ ${(maxLimit - minLimit).toInt()} mm)",
+                    text = stringResource(
+                        R.string.ini_axis_limit_fmt,
+                        minLimit.toInt(),
+                        maxLimit.toInt(),
+                        (maxLimit - minLimit).toInt()
+                    ),
                     fontFamily = FontFamily.Monospace,
                     fontSize = 11.sp,
                     color = CncTextPrimary
                 )
                 Text(
-                    text = "Escala: $stepScale pasos/mm",
+                    text = stringResource(R.string.ini_steps_scale_fmt, stepScale.toString()),
                     fontFamily = FontFamily.Monospace,
                     fontSize = 10.sp,
                     color = CncTextSecondary

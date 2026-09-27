@@ -1,9 +1,23 @@
 package com.example.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -12,9 +26,28 @@ import androidx.compose.material.icons.filled.AutoFixHigh
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,10 +65,16 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.R
 import com.example.service.BoltHoleCircleParams
+import com.example.service.ConversationalCamEngine
 import com.example.service.FacingCycleParams
 import com.example.service.RectangularPocketParams
-import com.example.service.ConversationalCamEngine
-import com.example.ui.theme.*
+import com.example.ui.theme.CncActiveGreen
+import com.example.ui.theme.CncCardBorder
+import com.example.ui.theme.CncCyberCyan
+import com.example.ui.theme.CncSurfaceBg
+import com.example.ui.theme.CncSurfaceVariant
+import com.example.ui.theme.CncTextPrimary
+import com.example.ui.theme.CncTextSecondary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -156,7 +195,7 @@ fun ConversationalCamDialog(
                 .padding(horizontal = 8.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {
-            val isCompact = maxWidth < 600.dp
+            val isCompact = this.maxWidth < 600.dp
 
             Card(
                 colors = CardDefaults.cardColors(containerColor = CncSurfaceBg),
@@ -256,40 +295,40 @@ fun ConversationalCamDialog(
                         ) {
                             when (selectedCycleTab) {
                                 0 -> {
-                                    CamInputField("Largo X (mm)", facingLengthX) { facingLengthX = it; recomputeGCode() }
-                                    CamInputField("Ancho Y (mm)", facingWidthY) { facingWidthY = it; recomputeGCode() }
-                                    CamInputField("Diámetro Fresa D (mm)", facingToolDiam) { facingToolDiam = it; recomputeGCode() }
-                                    CamInputField("Paso Lateral (%)", facingStepover) { facingStepover = it; recomputeGCode() }
-                                    CamInputField("Profundidad Total Z (mm)", facingTotalDepth) { facingTotalDepth = it; recomputeGCode() }
-                                    CamInputField("Pasada por Corte (mm)", facingDepthPerPass) { facingDepthPerPass = it; recomputeGCode() }
-                                    CamInputField("Avance F (mm/min)", facingFeed) { facingFeed = it; recomputeGCode() }
-                                    CamInputField("Velocidad S (RPM)", facingRpm) { facingRpm = it; recomputeGCode() }
-                                    CamInputField("Herramienta # (T)", facingToolNum) { facingToolNum = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_length_x), facingLengthX) { facingLengthX = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_width_y), facingWidthY) { facingWidthY = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_tool_diam), facingToolDiam) { facingToolDiam = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_stepover), facingStepover) { facingStepover = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_total_depth), facingTotalDepth) { facingTotalDepth = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_depth_per_pass), facingDepthPerPass) { facingDepthPerPass = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_feed), facingFeed) { facingFeed = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_rpm), facingRpm) { facingRpm = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_tool_num), facingToolNum) { facingToolNum = it; recomputeGCode() }
                                 }
                                 1 -> {
-                                    CamInputField("Largo Cajeado X (mm)", pocketLengthX) { pocketLengthX = it; recomputeGCode() }
-                                    CamInputField("Ancho Cajeado Y (mm)", pocketWidthY) { pocketWidthY = it; recomputeGCode() }
-                                    CamInputField("Profundidad Total Z (mm)", pocketTotalDepth) { pocketTotalDepth = it; recomputeGCode() }
-                                    CamInputField("Paso en Z (mm)", pocketDepthPerPass) { pocketDepthPerPass = it; recomputeGCode() }
-                                    CamInputField("Diámetro Fresa D (mm)", pocketToolDiam) { pocketToolDiam = it; recomputeGCode() }
-                                    CamInputField("Paso Lateral (%)", pocketStepover) { pocketStepover = it; recomputeGCode() }
-                                    CamInputField("Avance XY (mm/min)", pocketFeedXY) { pocketFeedXY = it; recomputeGCode() }
-                                    CamInputField("Bajada Z (mm/min)", pocketFeedZ) { pocketFeedZ = it; recomputeGCode() }
-                                    CamInputField("Velocidad S (RPM)", pocketRpm) { pocketRpm = it; recomputeGCode() }
-                                    CamInputField("Herramienta # (T)", pocketToolNum) { pocketToolNum = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_pocket_length_x), pocketLengthX) { pocketLengthX = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_pocket_width_y), pocketWidthY) { pocketWidthY = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_total_depth), pocketTotalDepth) { pocketTotalDepth = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_step_z), pocketDepthPerPass) { pocketDepthPerPass = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_tool_diam), pocketToolDiam) { pocketToolDiam = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_stepover), pocketStepover) { pocketStepover = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_feed_xy), pocketFeedXY) { pocketFeedXY = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_feed_z), pocketFeedZ) { pocketFeedZ = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_rpm), pocketRpm) { pocketRpm = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_tool_num), pocketToolNum) { pocketToolNum = it; recomputeGCode() }
                                 }
                                 2 -> {
-                                    CamInputField("Centro X (mm)", boltCenterX) { boltCenterX = it; recomputeGCode() }
-                                    CamInputField("Centro Y (mm)", boltCenterY) { boltCenterY = it; recomputeGCode() }
-                                    CamInputField("Diámetro Círculo PCD (mm)", boltDiameter) { boltDiameter = it; recomputeGCode() }
-                                    CamInputField("Número de Barrenos", boltHoleCount) { boltHoleCount = it; recomputeGCode() }
-                                    CamInputField("Ángulo Inicial (°)", boltStartAngle) { boltStartAngle = it; recomputeGCode() }
-                                    CamInputField("Profundidad Barreno Z (mm)", boltDepthZ) { boltDepthZ = it; recomputeGCode() }
-                                    CamInputField("Picoteo Q (mm)", boltPeckQ) { boltPeckQ = it; recomputeGCode() }
-                                    CamInputField("Plano Retracción R (mm)", boltRetractR) { boltRetractR = it; recomputeGCode() }
-                                    CamInputField("Avance F (mm/min)", boltFeed) { boltFeed = it; recomputeGCode() }
-                                    CamInputField("Velocidad S (RPM)", boltRpm) { boltRpm = it; recomputeGCode() }
-                                    CamInputField("Herramienta # (T)", boltToolNum) { boltToolNum = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_center_x), boltCenterX) { boltCenterX = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_center_y), boltCenterY) { boltCenterY = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_pcd_diameter), boltDiameter) { boltDiameter = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_hole_count), boltHoleCount) { boltHoleCount = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_start_angle), boltStartAngle) { boltStartAngle = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_hole_depth), boltDepthZ) { boltDepthZ = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_peck_q), boltPeckQ) { boltPeckQ = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_retract_r), boltRetractR) { boltRetractR = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_feed), boltFeed) { boltFeed = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_rpm), boltRpm) { boltRpm = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_tool_num), boltToolNum) { boltToolNum = it; recomputeGCode() }
                                 }
                             }
                         }

@@ -7,14 +7,12 @@ import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -27,17 +25,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import com.example.ui.components.CarouselNavButton
-import com.example.ui.components.CncErrorBoundary
-import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BatteryAlert
-import androidx.compose.material.icons.filled.BatteryChargingFull
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.Hub
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.ScreenLockPortrait
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.StayCurrentPortrait
 import androidx.compose.material.icons.filled.Sync
@@ -46,7 +39,6 @@ import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.material.icons.filled.ViewInAr
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
@@ -80,6 +72,8 @@ import com.example.service.CncAuditExporter
 import com.example.ui.components.AlarmEventLogView
 import com.example.ui.components.AppManualDialog
 import com.example.ui.components.AxisCalibrationDialog
+import com.example.ui.components.CarouselNavButton
+import com.example.ui.components.CncErrorBoundary
 import com.example.ui.components.ConnectionWizardDialog
 import com.example.ui.components.ConversationalCamDialog
 import com.example.ui.components.DroPanel
@@ -102,7 +96,6 @@ import com.example.ui.components.SpindleFeedPanel
 import com.example.ui.components.ToolTableDialog
 import com.example.ui.components.ToolpathVisualizer3D
 import com.example.ui.components.WcsTableDialog
-import com.example.ui.theme.CncActiveGreen
 import com.example.ui.theme.CncBackground
 import com.example.ui.theme.CncCardBorder
 import com.example.ui.theme.CncCyberCyan
@@ -113,6 +106,7 @@ import com.example.ui.theme.CncTextPrimary
 import com.example.ui.theme.CncTextSecondary
 import com.example.ui.theme.CncWarningAmber
 import com.example.viewmodel.CncViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun CncNavigationTab.getIcon(): ImageVector = when (this) {
@@ -592,7 +586,7 @@ fun CncMainScreen(
                             Surface(
                                 color = if (softLimitsCheck.isWithinLimits) Color(0xFF1B5E20).copy(alpha = 0.25f) else MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.35f),
                                 shape = RoundedCornerShape(6.dp),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, if (softLimitsCheck.isWithinLimits) Color(0xFF4CAF50) else MaterialTheme.colorScheme.error),
+                                border = BorderStroke(1.dp, if (softLimitsCheck.isWithinLimits) Color(0xFF4CAF50) else MaterialTheme.colorScheme.error),
                                 modifier = Modifier.fillMaxWidth().clickable { viewModel.showSoftLimitsDialog.value = true }
                             ) {
                                 Row(
@@ -717,7 +711,7 @@ fun CncMainScreen(
                     }
 
                     CncNavigationTab.CAMERA -> {
-                        CncErrorBoundary(componentName = "Cámara & Visión Artificial") {
+                        CncErrorBoundary(componentName = stringResource(R.string.error_comp_camera_vision)) {
                             IndustrialCameraView(
                                 machineState = machineState,
                                 axes = axes,

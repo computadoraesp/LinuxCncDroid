@@ -141,7 +141,7 @@
     <string name="dro_mach_pos">MÁQUINA (G53)</string>
     <string name="dro_dtg">DTG</string>
     <string name="dro_torque">PAR: %s%%</string>
-    <string name="dro_drive_temp">DRV: %s°C</string>
+    <string name="dro_drive_temp">SERVO: %s°C</string>
 
     <!-- Jog & MPG Controls -->
     <string name="jog_title">CONTROL DE JOG MANUAL</string>
@@ -165,14 +165,14 @@
     <string name="btn_cycle_start">INICIAR CICLO</string>
     <string name="btn_feed_hold">PAUSAR AVANCE</string>
     <string name="btn_cycle_stop">ABORTAR</string>
-    <string name="coolant_mist">MIST ON (M7)</string>
-    <string name="coolant_mist_off">MIST OFF</string>
-    <string name="coolant_flood">FLOOD ON (M8)</string>
-    <string name="coolant_flood_off">FLOOD OFF</string>
+    <string name="coolant_mist">NIEBLA (M7)</string>
+    <string name="coolant_mist_off">NIEBLA OFF</string>
+    <string name="coolant_flood">INUNDACIÓN (M8)</string>
+    <string name="coolant_flood_off">INUNDACIÓN OFF</string>
     <string name="spindle_motor_header">MOTOR DE HUSILLO</string>
     <string name="spindle_on">HUSILLO ON</string>
     <string name="spindle_off">HUSILLO OFF</string>
-    <string name="spindle_set_rpm">SET: %d RPM</string>
+    <string name="spindle_set_rpm">AJUSTE: %d RPM</string>
     <string name="spindle_override_label">ANULACIÓN: %d%%</string>
     <string name="spindle_feed_info">%1$d%% (%2$s)</string>
 
@@ -191,7 +191,7 @@
     <string name="tt_edit_title">EDITAR HERRAMIENTA T%d</string>
     <string name="tt_new_title">AÑADIR NUEVA HERRAMIENTA (tool.tbl)</string>
     <string name="tt_tool_num_label">Herramienta (T#)</string>
-    <string name="tt_pocket_num_label">Pocket (P#)</string>
+    <string name="tt_pocket_num_label">Nicho (P#)</string>
     <string name="tt_description_label">Descripción</string>
     <string name="tt_diameter_label">Diámetro (mm)</string>
     <string name="tt_length_h_label">Offset de Longitud H</string>
@@ -202,7 +202,7 @@
     <!-- Toolpath 3D View -->
     <string name="view_top">SUP</string>
     <string name="view_iso">ISO 3D</string>
-    <string name="view_front">FRONT</string>
+    <string name="view_front">FRONTAL</string>
     <string name="view_side">LAT</string>
     <string name="tp_autofit">AUTO-AJUSTE</string>
     <string name="tp_toggle_rapids">RÁPIDOS G0</string>
@@ -211,7 +211,7 @@
     <string name="tp_toggle_follow">SEGUIR FRESA</string>
     <string name="tp_toggle_code">G-CODE</string>
     <string name="tp_dry_run">SIMULACIÓN DRY-RUN</string>
-    <string name="tp_sim_play">PLAY</string>
+    <string name="tp_sim_play">EJECUTAR</string>
     <string name="tp_sim_pause">PAUSA</string>
     <string name="tp_sim_speed">%1$dX</string>
     <string name="tp_scrub_label">BLOQUE %1$d / %2$d</string>
@@ -262,7 +262,7 @@
 
     <!-- MDI & Macros -->
     <string name="mdi_title">TERMINAL DE ENTRADA MANUAL DE DATOS (MDI)</string>
-    <string name="mdi_execute">RUN</string>
+    <string name="mdi_execute">EJECUTAR</string>
     <string name="mdi_placeholder">Ingrese G-Code (ej., G0 X50 Y20 Z5, M3 S12000)</string>
     <string name="mdi_macros_header">MACROS PROGRAMABLES</string>
     <string name="mdi_history_header">HISTORIAL RECIENTE</string>
@@ -778,7 +778,7 @@
     <string name="config_cam_cycles_btn">CICLOS CAM (GUI)</string>
     <string name="config_wcs_table_btn">Tabla WCS</string>
     <string name="config_hal_pins_btn">Pines HAL</string>
-    <string name="config_test_ping_btn">TEST PING</string>
+    <string name="config_test_ping_btn">PROBAR PING</string>
     <string name="wake_lock_activate_btn">ACTIVAR WAKE-LOCK</string>
     <string name="soft_limits_diagnostics">DIAGNÓSTICO &gt;</string>
     <string name="soft_limits_safe_banner">LÍMITES SOFTWARE: EN RANGO SEGURO (%1$s)</string>

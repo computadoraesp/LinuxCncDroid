@@ -46,7 +46,7 @@ object LinuxCncToolTableParser {
                     CncToolItem(
                         id = toolId,
                         pocket = if (pocket > 0) pocket else toolId,
-                        description = if (commentPart.isNotBlank()) commentPart else "Tool T$toolId",
+                        description = commentPart.ifBlank { "Tool T$toolId" },
                         diameter = diameter,
                         lengthOffset = lengthZ,
                         toolType = inferredType,
@@ -58,7 +58,7 @@ object LinuxCncToolTableParser {
             }
         }
 
-        return if (tools.isNotEmpty()) tools else emptyList()
+        return tools.ifEmpty { emptyList() }
     }
 
     /**

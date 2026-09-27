@@ -26,14 +26,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Lan
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Router
-import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material.icons.filled.Usb
 import androidx.compose.material.icons.filled.Wifi
@@ -84,7 +81,6 @@ import com.example.ui.theme.CncSurfaceVariant
 import com.example.ui.theme.CncTextMuted
 import com.example.ui.theme.CncTextPrimary
 import com.example.ui.theme.CncTextSecondary
-import com.example.ui.theme.CncWarningAmber
 
 @Composable
 fun ConnectionWizardDialog(
@@ -102,8 +98,7 @@ fun ConnectionWizardDialog(
     var detectedInterface by remember { mutableStateOf(InterfaceType.WIFI_LAN) }
     var copiedSnippetMessage by remember { mutableStateOf<String?>(null) }
 
-    val steps = remember {
-        listOf(
+    val steps = listOf(
             ConnectionStepInfo(
                 stepId = ConnectionStepId.INTERFACE_DETECTION,
                 title = stringResource(R.string.wizard_step_1_title_full),
@@ -175,8 +170,7 @@ fun ConnectionWizardDialog(
                 codeSnippet = null,
                 isCrucial = true
             )
-        )
-    }
+    )
 
     val currentStep = steps[currentStepIndex]
     val isLastStep = currentStepIndex == steps.size - 1
@@ -444,7 +438,7 @@ fun ConnectionWizardDialog(
                                                         modifier = Modifier.size(14.dp)
                                                     )
                                                     Text(
-                                                        text = "COMANDO / CONFIGURACIÓN LINUX",
+                                                        text = stringResource(R.string.wizard_linux_cmd_title),
                                                         fontSize = 9.sp,
                                                         fontWeight = FontWeight.Bold,
                                                         fontFamily = FontFamily.Monospace,
@@ -456,7 +450,7 @@ fun ConnectionWizardDialog(
                                                     onClick = {
                                                         currentStep.codeSnippet?.let {
                                                             clipboardManager.setText(AnnotatedString(it))
-                                                            copiedSnippetMessage = "¡Copiado al portapapeles!"
+                                                            copiedSnippetMessage = copiedToClipboardMessage
                                                         }
                                                     },
                                                     modifier = Modifier.size(24.dp)

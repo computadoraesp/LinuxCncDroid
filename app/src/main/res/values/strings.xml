@@ -308,7 +308,7 @@
 
     <!-- Calibration Dialog -->
     <string name="calib_header">AXIS CALIBRATION (ISO 230–2)</string>
-    <string name="calib_subtitle">Pitch Error Mapping &amp; Uncertainty (ISO 230-2)</string>
+    <string name="calib_subtitle">Pitch Error Mapping &amp; Uncertainty (ISO 230–2)</string>
     <string name="calib_section1_header">1. PARAMETERS &amp; UNCERTAINTY</string>
     <string name="calib_init_btn">INIT</string>
     <string name="calib_axis_label">AXIS</string>
@@ -488,7 +488,7 @@
     <string name="alarm_weak_signal_title">WEAK NETWORK SIGNAL</string>
     <string name="alarm_weak_signal_msg">High latency (%1$d ms) or poor signal detected. Risk of telemetry jitter or lost frames.</string>
     <string name="alarm_reconnecting_title">DISCONNECTED FROM LINUXCNC</string>
-    <string name="alarm_reconnecting_msg">Auto-reconnecting in %1$d s (Attempt #%2$d)...</string>
+    <string name="alarm_reconnecting_msg">Auto-reconnecting in %1$d s (Attempt #%2$d)…</string>
     <string name="alarm_reconnect_now_btn">RECONNECT NOW</string>
     <string name="alarm_dismiss_btn">DISMISS</string>
     <string name="alarm_pause_cycle_btn">FEED HOLD (PAUSE)</string>

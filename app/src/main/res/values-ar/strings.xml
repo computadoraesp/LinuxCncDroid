@@ -93,11 +93,11 @@
     <string name="profile_prototype_router">Prototype Router (Mesa 7i96S FPGA)</string>
     <string name="profile_mini_mill">Mini Mill (Parallel Port Legacy)</string>
 
-    <string name="reticle_crosshair">CROSSHAIR (0.01mm)</string>
-    <string name="reticle_concentric">CONCENTRIC CIRCLES</string>
-    <string name="reticle_grid">METROLOGICAL GRID</string>
-    <string name="reticle_corner">CORNER FINDER (EDGE)</string>
-    <string name="reticle_none">NO RETICLE</string>
+    <string name="reticle_crosshair">تقاطع (0.01mm)</string>
+    <string name="reticle_concentric">دوائر متحدّة المركز</string>
+    <string name="reticle_grid">شبكة قياس</string>
+    <string name="reticle_corner">كاشف الزاوية (حافة)</string>
+    <string name="reticle_none">بدون تقاطع</string>
 
     <!-- Header & Top Bar -->
     <string name="topbar_estop">E-STOP</string>
@@ -1056,7 +1056,7 @@
     <string name="conn_status_label">حالة الخادم</string>
     <string name="tool_table_import_btn">استيراد tool.tbl</string>
     <string name="tool_table_export_btn">تصدير tool.tbl</string>
-    <string name="tool_table_mount_btn">LOAD (M6 T%1$d G43)</string>
+    <string name="tool_table_mount_btn">تحميل (M6 T%1$d G43)</string>
     <string name="tool_table_import_dialog_title">استيراد ملف LinuxCNC tool.tbl</string>
     <string name="tool_table_import_dialog_desc">الصق محتويات ملف LinuxCNC tool.tbl لتحديث مخزن أدوات الآلة:</string>
     <string name="tool_table_import_confirm">استيراد وتطبيق</string>
@@ -1083,7 +1083,7 @@
     <string name="cam_load_to_controller">تحميل إلى وحدة التحكم ومحاكاة</string>
     <string name="cam_copy_gcode">نسخ G-CODE</string>
     <string name="cam_preview_title">معاينة G-CODE المُولّد</string>
-    <string name="wizard_title">LINUXCNC CONNECTION WIZARD</string>
+    <string name="wizard_title">معالج الاتصال بـ LINUXCNC</string>
     <string name="wizard_subtitle">دليل تفاعلي خطوة بخطوة لربط جهاز Android بالآلة الفعلية</string>
     <string name="wizard_btn_open">فتح معالج الاتصال</string>
     <string name="wizard_btn_skip">تخطي البرنامج التعليمي</string>

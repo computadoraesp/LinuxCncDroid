@@ -121,7 +121,7 @@
     <string name="dro_mach_pos">MACHINE (G53)</string>
     <string name="dro_dtg">RESTE À PARCOURIR</string>
     <string name="dro_torque">COUPLE: %s%%</string>
-    <string name="dro_drive_temp">DRV: %s°C</string>
+    <string name="dro_drive_temp">SERVO: %s°C</string>
 
     <!-- Jog & MPG Controls -->
     <string name="jog_title">CONTRÔLE MANUEL JOG</string>

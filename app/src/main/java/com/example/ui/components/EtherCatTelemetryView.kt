@@ -57,7 +57,7 @@ fun EtherCatTelemetryView(
     modifier: Modifier = Modifier,
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val isCompact = maxWidth < 600.dp
+        val isCompact = this.maxWidth < 600.dp
 
         Card(
             colors = CardDefaults.cardColors(containerColor = CncCardBg),

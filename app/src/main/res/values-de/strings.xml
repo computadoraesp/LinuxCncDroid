@@ -33,13 +33,13 @@
     <string name="mode_auto_disp">AUTO PROGRAMM</string>
 
     <string name="arch_ethercat_name">EtherCAT + Delta B3/A3 Servos</string>
-    <string name="arch_ethercat_desc">High-speed 100Mbps bus, real-time torque/temperature telemetry, CiA 402 drives</string>
+    <string name="arch_ethercat_desc">Highspeed-Bus mit 100 Mbps, Echtzeit-Telemetrie für Drehmoment/Temperatur, CiA-402-Antriebe</string>
     <string name="arch_mesa_name">Mesa 7i96S / 7i76E FPGA</string>
-    <string name="arch_mesa_desc">Hardware Step/Dir generation, high-speed differential encoders, isolated I/O</string>
-    <string name="arch_parport_name">Parallel Port (Legacy Step/Dir)</string>
-    <string name="arch_parport_desc">Software step generation, standard LinuxCNC HAL motion kernel</string>
-    <string name="arch_closed_loop_name">Closed-Loop Stepper Hybrid</string>
-    <string name="arch_closed_loop_desc">Encoder step loss detection, fast positioning with step/dir abstraction</string>
+    <string name="arch_mesa_desc">Step/Dir-Erzeugung per Hardware, schnelle differentiale Encoder, galvanisch getrennte E/A</string>
+    <string name="arch_parport_name">Parallelport (Legacy Step/Dir)</string>
+    <string name="arch_parport_desc">Step-Erzeugung per Software, Standard-Bewegungskernel von LinuxCNC HAL</string>
+    <string name="arch_closed_loop_name">Hybrider Schrittmotor mit Regelkreis</string>
+    <string name="arch_closed_loop_desc">Schrittverlust-Erkennung per Encoder, schnelle Positionierung mit Step/Dir-Abstraktion</string>
 
     <string name="role_operator_disp">Bediener (Steuerung &amp; Jog)</string>
     <string name="role_viewer_disp">Beobachter (Nur DRO)</string>
@@ -54,8 +54,8 @@
     <string name="tool_type_probe_disp">3D-Taster</string>
     <string name="tool_type_flycutter_disp">Schlagzahnfräser</string>
 
-    <string name="jog_style_pad_disp">KEYPAD</string>
-    <string name="jog_style_mpg_disp">MPG WHEEL</string>
+    <string name="jog_style_pad_disp">TASTENFELD</string>
+    <string name="jog_style_mpg_disp">MPG-HANDRAD</string>
 
     <string name="log_info_disp">INFO</string>
     <string name="log_warn_disp">WARNUNG</string>
@@ -123,7 +123,7 @@
     <string name="topbar_power_on">EIN</string>
     <string name="topbar_power_off">AUS</string>
     <string name="topbar_wcs_label">%s Koordinatensystem</string>
-    <string name="topbar_cyber_scanner_desc">Cybersecurity Scanner</string>
+    <string name="topbar_cyber_scanner_desc">Cybersicherheits-Scanner</string>
     <string name="topbar_speeds_feeds_desc">Schnittdatenrechner</string>
     <string name="topbar_tool_table_desc">Werkzeugtabelle</string>
     <string name="topbar_axis_metrology_desc">Achskalibrierung</string>
@@ -205,7 +205,7 @@
     <!-- Toolpath 3D View -->
     <string name="view_top">DRAUFSICHT</string>
     <string name="view_iso">ISO 3D</string>
-    <string name="view_front">FRONT</string>
+    <string name="view_front">VORNE</string>
     <string name="toolpath_load_scan">LADEN / SCAN</string>
     <string name="toolpath_run_time">LAUF: %1$s</string>
     <string name="toolpath_rem_time">REST: %s</string>
@@ -296,7 +296,7 @@
     <string name="config_app_subtitle">Industrielle Steuerung • Level 1–3</string>
     <string name="config_app_tech_stack">LinuxCNC NML / HAL • EtherCAT • Delta ASDA-B3</string>
     <string name="config_middleware_header">LINUXCNC MIDDLEWARE SERVER</string>
-    <string name="config_host_ip_label">Host IP / Hostname</string>
+    <string name="config_host_ip_label">Host-IP / Hostname</string>
     <string name="config_port_label">Port</string>
     <string name="config_saved_profiles_header">GESPEICHERTE PROFILE</string>
     <string name="config_wipe_data_btn">WERKSEINSTELLUNGEN</string>

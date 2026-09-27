@@ -40,7 +40,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CenterFocusStrong
 import androidx.compose.material.icons.filled.CropRotate
-import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.FlashOff
 import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.FlipCameraAndroid
@@ -48,15 +47,10 @@ import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.LayersClear
 import androidx.compose.material.icons.filled.PhotoCamera
-import androidx.compose.material.icons.filled.RotateRight
 import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.material.icons.filled.VideocamOff
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material.icons.filled.ZoomIn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -89,6 +83,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -96,7 +91,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.compose.ui.res.stringResource
 import com.example.R
 import com.example.model.AxisCoord
 import com.example.model.MachineStateEnum
@@ -118,7 +112,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.Executors
-import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
@@ -701,11 +694,10 @@ fun IndustrialCameraView(
 
                                 // Perpendicular crosshair
                                 val perpX = -dirY
-                                val perpY = dirX
                                 drawLine(
                                     color = CncWarningAmber.copy(alpha = 0.65f),
-                                    start = Offset(centerX - radius * 1.2f * perpX, centerY - radius * 1.2f * perpY),
-                                    end = Offset(centerX + radius * 1.2f * perpX, centerY + radius * 1.2f * perpY),
+                                    start = Offset(centerX - radius * 1.2f * perpX, centerY - radius * 1.2f * dirX),
+                                    end = Offset(centerX + radius * 1.2f * perpX, centerY + radius * 1.2f * dirX),
                                     strokeWidth = 1.0f,
                                     pathEffect = PathEffect.dashPathEffect(floatArrayOf(8f, 6f), 0f)
                                 )

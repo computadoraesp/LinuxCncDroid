@@ -32,9 +32,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CenterFocusStrong
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.FitScreen
-import androidx.compose.material.icons.filled.GpsFixed
-import androidx.compose.material.icons.filled.GridOn
-import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Remove
@@ -103,6 +100,7 @@ import kotlin.math.PI
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
+import kotlin.time.Duration.Companion.milliseconds
 
 enum class ViewPerspective {
     TOP_XY,
@@ -181,7 +179,7 @@ fun ToolpathVisualizer3D(
         if (isDryRunning && gcodeList.isNotEmpty()) {
             while (isDryRunning) {
                 val delayMs = max(15L, (120L / simSpeed))
-                delay(delayMs)
+                delay(delayMs.milliseconds)
                 if (scrubIndex < gcodeList.size - 1) {
                     scrubIndex++
                 } else {
@@ -376,7 +374,7 @@ fun ToolpathVisualizer3D(
         modifier = modifier.fillMaxWidth(),
     ) {
         BoxWithConstraints(modifier = Modifier.padding(10.dp)) {
-            val isCompactWidth = maxWidth < 680.dp
+            val isCompactWidth = this.maxWidth < 680.dp
 
             Column {
                 if (isCompactWidth) {

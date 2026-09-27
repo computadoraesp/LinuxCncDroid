@@ -1,6 +1,7 @@
 package com.example.service
 
 import java.util.Locale
+import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -41,8 +42,8 @@ object ConversationalCamEngine {
         sb.append(String.format(Locale.US, "G0 Z%.3f (Altura de seguridad)\n", safeZ))
 
         var currentZ = 0.0
-        val targetZ = -Math.abs(totalDepthZ)
-        val zStep = Math.abs(stepdownZ)
+        val targetZ = -abs(totalDepthZ)
+        val zStep = abs(stepdownZ)
 
         // Bounding box with tool radius lead-in/lead-out
         val startX = xOrigin - toolRadius - 2.0
@@ -134,8 +135,8 @@ object ConversationalCamEngine {
         sb.append(String.format(Locale.US, "G0 Z%.3f\n", safeZ))
 
         var currentZ = 0.0
-        val targetZ = -Math.abs(totalDepthZ)
-        val zStep = Math.abs(stepdownZ)
+        val targetZ = -abs(totalDepthZ)
+        val zStep = abs(stepdownZ)
 
         // Internal bounds for tool center
         val minX = xCenter - (lengthX / 2.0) + toolRad

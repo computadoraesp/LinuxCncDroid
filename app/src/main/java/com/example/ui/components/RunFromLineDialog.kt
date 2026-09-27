@@ -53,7 +53,6 @@ import com.example.ui.theme.CncDroDigits
 import com.example.ui.theme.CncTextMuted
 import com.example.ui.theme.CncTextPrimary
 import com.example.ui.theme.CncTextSecondary
-import com.example.ui.theme.CncWarningAmber
 
 @Composable
 fun RunFromLineDialog(

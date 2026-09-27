@@ -33,13 +33,13 @@
     <string name="mode_auto_disp">자동 프로그램</string>
 
     <string name="arch_ethercat_name">EtherCAT + Delta B3/A3 Servos</string>
-    <string name="arch_ethercat_desc">High-speed 100Mbps bus, real-time torque/temperature telemetry, CiA 402 drives</string>
+    <string name="arch_ethercat_desc">100Mbps 고속 버스, 실시간 토크/온도 텔레메트리, CiA 402 드라이브</string>
     <string name="arch_mesa_name">Mesa 7i96S / 7i76E FPGA</string>
-    <string name="arch_mesa_desc">Hardware Step/Dir generation, high-speed differential encoders, isolated I/O</string>
-    <string name="arch_parport_name">Parallel Port (Legacy Step/Dir)</string>
-    <string name="arch_parport_desc">Software step generation, standard LinuxCNC HAL motion kernel</string>
-    <string name="arch_closed_loop_name">Closed-Loop Stepper Hybrid</string>
-    <string name="arch_closed_loop_desc">Encoder step loss detection, fast positioning with step/dir abstraction</string>
+    <string name="arch_mesa_desc">하드웨어 Step/Dir 생성, 고속 차동 엔코더, 절연 I/O</string>
+    <string name="arch_parport_name">병렬 포트(레거시 Step/Dir)</string>
+    <string name="arch_parport_desc">소프트웨어 스텝 생성, 표준 LinuxCNC HAL 모션 커널</string>
+    <string name="arch_closed_loop_name">클로즈드루프 하이브리드 스테퍼</string>
+    <string name="arch_closed_loop_desc">엔코더 스텝 손실 감지, Step/Dir 추상을 통한 고속 위치 결정</string>
 
     <string name="role_operator_disp">운전자 (제어 및 조그)</string>
     <string name="role_viewer_disp">뷰어 (DRO 읽기 전용)</string>
@@ -54,8 +54,8 @@
     <string name="tool_type_probe_disp">3D 터치 프로브</string>
     <string name="tool_type_flycutter_disp">플라이 커터</string>
 
-    <string name="jog_style_pad_disp">KEYPAD</string>
-    <string name="jog_style_mpg_disp">MPG WHEEL</string>
+    <string name="jog_style_pad_disp">키패드</string>
+    <string name="jog_style_mpg_disp">MPG 핸드휠</string>
 
     <string name="log_info_disp">정보</string>
     <string name="log_warn_disp">경고</string>
@@ -371,8 +371,8 @@
         <item>견고한 자석 베이스로 다이얼 인디케이터를 베드에 단단히 고정하십시오.</item>
     </string-array>
 
-    <string name="manual_sec3_title">3. DRO and Coordinate Systems</string>
-    <string name="manual_sec3_summary">DRO digital readout, WCS G54-G59 work origin, G53 machine coordinates, and servo torque.</string>
+    <string name="manual_sec3_title">3. DRO 및 좌표계</string>
+    <string name="manual_sec3_summary">DRO 디지털 읽기, G54-G59 작업 원점(WCS), G53 기계 좌표, 서보 토크.</string>
     <string name="manual_sec3_content" formatted="false">The DRO panel displays real-time positions with 3-decimal resolution (0.001 mm):\n\n• COORDINATE MODES:\n  - WORK POS (G54 to G59): Coordinates relative to the workpiece origin.\n  - MACHINE ABS (G53): Physical absolute coordinates of the frame relative to the Home limit switches.\n  - DISTANCE TO GO (DTG): Remaining distance to the end of the current G-Code block.\n\n• SERVO TELEMETRY:\n  Monitors the percentage load of the servo drive (% Torque). Sustained values above 85% indicate guide wear or excessive feed rate.</string>
     <string-array name="manual_sec3_sop">
         <item>Select the desired work system from the top bar selector (G54 by default).</item>
@@ -383,8 +383,8 @@
         <item>Never zero G92 coordinates with the cutter inside the material without verifying safety heights.</item>
     </string-array>
 
-    <string name="manual_sec4_title">4. Virtual MPG Electronic Handwheel</string>
-    <string name="manual_sec4_summary">Industrial 100-division touch handwheel with x1, x10, x100, x1000 resolution multipliers.</string>
+    <string name="manual_sec4_title">4. 가상 MPG 전자 핸드휠</string>
+    <string name="manual_sec4_summary">x1, x10, x100, x1000 배율의 공업용 100눈금 터치 핸드휠.</string>
     <string name="manual_sec4_content">The virtual MPG handwheel faithfully emulates a physical electronic handwheel (Handwheel MPG):\n\n• 100 DIVISIONS PER REVOLUCIÓN (3.6° per tactile detent).\n• MULTIPLIERS:\n  - x1: 0.001 mm / step (Final micrometric alignment).\n  - x10: 0.010 mm / step (Precision approach).\n  - x100: 0.100 mm / step (Fast workpiece positioning).\n  - x1000: 1.000 mm / step (Long table travel).\n• HAPTIC FEEDBACK: Emits a vibration and acoustic click at each 3.6° notch.</string>
     <string-array name="manual_sec4_sop">
         <item>In the Jog panel, select the \'VIRTUAL MPG WHEEL\' tab.</item>
@@ -396,8 +396,8 @@
         <item>On the Z-axis near the vise or workpiece, use exclusively x1 or x10 multipliers to avoid spindle collisions.</item>
     </string-array>
 
-    <string name="manual_sec5_title">5. Tool Table and ATC (tool.tbl)</string>
-    <string name="manual_sec5_summary">Management of T1-T99 cutters, H length compensation (G43), fast Touch-Off, and tool life.</string>
+    <string name="manual_sec5_title">5. 공구 테이블과 ATC (tool.tbl)</string>
+    <string name="manual_sec5_summary">T1-T99 공구 관리, H 길이 보정(G43), 빠른 터치오프, 공구 수명 관리.</string>
     <string name="manual_sec5_content" formatted="false">The tool manager synchronizes directly with the LinuxCNC \'tool.tbl\' file:\n\n• MOUNT TOOL (M6): Loads the tool into the spindle and activates G43 Hx compensation.\n• TOUCH-OFF Z (G43.1): Allows calibrating the current tool length by taking the spindle Z coordinate with a single touch.\n• WEAR MONITORING: Alerts when accumulated cutting time exceeds 85% of estimated tool life.</string>
     <string-array name="manual_sec5_sop">
         <item>Open the Tool Table from the wrench icon in the top bar.</item>
@@ -408,8 +408,8 @@
         <item>Verify that the maximum RPM assigned to the tool does not exceed the capacity of the collet or toolholder.</item>
     </string-array>
 
-    <string name="manual_sec6_title">6. 3D Probe Cycles (WCS Probing)</string>
-    <string name="manual_sec6_summary">Automated routines for centering holes, cylinders, corners, and Z-height sensing.</string>
+    <string name="manual_sec6_title">6. 3D 프로브 사이클 (WCS 프로빙)</string>
+    <string name="manual_sec6_summary">구멍·실린더·모서리 중심 찾기와 Z 높이 감지 자동화 루틴.</string>
     <string name="manual_sec6_content">The PROBING tab includes kinematic routines with electrical contact stop (G38.2):\n\n• BORE CENTER: Probes in 4 quadrants (-X, +X, -Y, +Y) and calculates the exact hole center.\n• BOSS CENTER: Probes the 4 external faces of a cylinder to find the center axis.\n• CORNER FINDER: Locates the XY vertex of a corner to set the workpiece origin.\n• SURFACE HEIGHT Z: Descends until contact to set the Z=0 plane.</string>
     <string-array name="manual_sec6_sop">
         <item>Mount the 3D probe and connect the signal cable to the PROBE port.</item>
@@ -421,8 +421,8 @@
         <item>Test the probe indicator LED by gently touching it with your hand before starting an automatic cycle.</item>
     </string-array>
 
-    <string name="manual_sec7_title">7. EtherCAT Bus Telemetry</string>
-    <string name="manual_sec7_summary">Real-time monitoring of CiA402 slaves, cycle jitter, and lost frames.</string>
+    <string name="manual_sec7_title">7. EtherCAT 버스 텔레메트리</string>
+    <string name="manual_sec7_summary">CiA402 슬레이브, 사이클 지터, 손실 프레임 실시간 모니터링.</string>
     <string name="manual_sec7_content">The EtherCAT monitor reports the health of the industrial automation network:\n\n• MASTER STATE: Must remain in OP (Operational).\n• CYCLE JITTER: Real-time clock time variation. Values &lt; 5 µs are optimal.\n• LOST FRAMES: If this counter rises above 0, check shielded cabling and grounding.</string>
     <string-array name="manual_sec7_sop">
         <item>Access the ETHERCAT tab.</item>

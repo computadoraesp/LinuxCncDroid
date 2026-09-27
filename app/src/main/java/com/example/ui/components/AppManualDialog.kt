@@ -113,7 +113,7 @@ fun AppManualDialog(
                 .padding(horizontal = 10.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {
-            val isCompact = maxWidth < 600.dp
+            val isCompact = this.maxWidth < 600.dp
             Card(
                 modifier = modifier
                     .fillMaxWidth(if (isCompact) 1f else 0.94f)

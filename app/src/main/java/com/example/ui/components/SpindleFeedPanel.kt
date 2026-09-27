@@ -63,7 +63,7 @@ fun SpindleFeedPanel(
         modifier = modifier.fillMaxWidth(),
     ) {
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-            val isNarrow = maxWidth < 480.dp
+            val isNarrow = this.maxWidth < 480.dp
 
             Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
