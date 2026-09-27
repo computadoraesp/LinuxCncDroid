@@ -122,10 +122,11 @@ object ConversationalCamEngine {
         val sb = StringBuilder()
         val toolRad = toolDiameter / 2.0
         val stepover = toolDiameter * (stepoverPct / 100.0)
+        val effCornerRad = (cornerRad - toolRad).coerceAtLeast(0.0)
 
         sb.append("; ==========================================================\n")
         sb.append("; LINUXCNC CONVERSATIONAL: CAJEADO RECTANGULAR (POCKET)\n")
-        sb.append(String.format(Locale.US, "; Centro: (%.1f, %.1f) | Tam: %.1f x %.1f mm\n", xCenter, yCenter, lengthX, widthY))
+        sb.append(String.format(Locale.US, "; Centro: (%.1f, %.1f) | Tam: %.1f x %.1f mm | Radio Esquina: %.1f mm\n", xCenter, yCenter, lengthX, widthY, cornerRad))
         sb.append(String.format(Locale.US, "; Profundidad Z: -%.2f mm | Fresa T%d (D=%.1f mm)\n", totalDepthZ, toolNumber, toolDiameter))
         sb.append("; ==========================================================\n")
         sb.append("G21 G90 G17 G40 G49\n")
@@ -165,11 +166,25 @@ object ConversationalCamEngine {
                 val curMinY = (yCenter - currentSpanY / 2.0).coerceAtLeast(minY)
                 val curMaxY = (yCenter + currentSpanY / 2.0).coerceAtMost(maxY)
 
-                sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f F%.0f\n", curMinX, curMinY, feedrate))
-                sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMaxX, curMinY))
-                sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMaxX, curMaxY))
-                sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMinX, curMaxY))
-                sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMinX, curMinY))
+                val isPerimeterPass = (currentSpanX >= maxSpanX && currentSpanY >= maxSpanY)
+                if (isPerimeterPass && effCornerRad > 0.0) {
+                    // True corner radius circular interpolation (G3 CCW)
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f F%.0f\n", curMinX + effCornerRad, curMinY, feedrate))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMaxX - effCornerRad, curMinY))
+                    sb.append(String.format(Locale.US, "G3 X%.3f Y%.3f R%.3f\n", curMaxX, curMinY + effCornerRad, effCornerRad))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMaxX, curMaxY - effCornerRad))
+                    sb.append(String.format(Locale.US, "G3 X%.3f Y%.3f R%.3f\n", curMaxX - effCornerRad, curMaxY, effCornerRad))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMinX + effCornerRad, curMaxY))
+                    sb.append(String.format(Locale.US, "G3 X%.3f Y%.3f R%.3f\n", curMinX, curMaxY - effCornerRad, effCornerRad))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMinX, curMinY + effCornerRad))
+                    sb.append(String.format(Locale.US, "G3 X%.3f Y%.3f R%.3f\n", curMinX + effCornerRad, curMinY, effCornerRad))
+                } else {
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f F%.0f\n", curMinX, curMinY, feedrate))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMaxX, curMinY))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMaxX, curMaxY))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMinX, curMaxY))
+                    sb.append(String.format(Locale.US, "G1 X%.3f Y%.3f\n", curMinX, curMinY))
+                }
 
                 if (currentSpanX >= maxSpanX && currentSpanY >= maxSpanY) break
                 currentSpanX = (currentSpanX + stepover).coerceAtMost(maxSpanX)
@@ -290,6 +305,7 @@ object ConversationalCamEngine {
         return generateRectangularPocket(
             lengthX = params.pocketLengthX,
             widthY = params.pocketWidthY,
+            cornerRad = params.cornerRad,
             totalDepthZ = params.totalDepthZ,
             stepdownZ = params.depthPerPass,
             toolDiameter = params.toolDiameter,
@@ -333,6 +349,7 @@ data class FacingCycleParams(
 data class RectangularPocketParams(
     val pocketLengthX: Double = 60.0,
     val pocketWidthY: Double = 40.0,
+    val cornerRad: Double = 5.0,
     val totalDepthZ: Double = 5.0,
     val depthPerPass: Double = 1.0,
     val toolDiameter: Double = 6.0,

@@ -314,6 +314,38 @@ fun IndustrialTopBar(
                     )
                 }
 
+                // Architecture Hardware Badge
+                Surface(
+                    shape = RoundedCornerShape(6.dp),
+                    color = CncSurfaceVariant,
+                    border = BorderStroke(1.dp, CncCardBorder),
+                    modifier = Modifier.height(34.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.SettingsEthernet,
+                            contentDescription = architecture.name,
+                            tint = CncCyberCyan,
+                            modifier = Modifier.size(13.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = when (architecture) {
+                                HardwareArchitecture.ETHERCAT_DELTA -> "EtherCAT"
+                                HardwareArchitecture.MESA_FPGA -> "Mesa FPGA"
+                                HardwareArchitecture.PARPORT_LEGACY -> "Parport"
+                                HardwareArchitecture.STEP_DIR_CLOSED_LOOP -> "Step/Dir CL"
+                            },
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = CncTextPrimary
+                        )
+                    }
+                }
+
                 // 2. Coordinate System Dropdown (G54 - G59.3)
                 Box {
                     OutlinedButton(

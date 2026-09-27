@@ -33,9 +33,26 @@ class LinuxCncRshClient(
     private var isRunning = false
     private var pollingJob: Job? = null
     private val commandLock = Any()
+    private var currentPollIntervalMs: Long = 100L
+    private var totalBytesSent: Long = 0L
+    private var totalBytesReceived: Long = 0L
 
-    fun connect(host: String, port: Int, password: String) {
+    private fun writeLine(w: PrintWriter, text: String) {
+        w.println(text)
+        totalBytesSent += (text.length + 1)
+    }
+
+    private fun readLine(r: BufferedReader): String? {
+        val line = r.readLine()
+        if (line != null) {
+            totalBytesReceived += (line.length + 1)
+        }
+        return line
+    }
+
+    fun connect(host: String, port: Int, password: String, pollIntervalMs: Long = 100L) {
         disconnect()
+        currentPollIntervalMs = pollIntervalMs.coerceIn(20L, 2000L)
         scope.launch {
             _serverTelemetry.value = _serverTelemetry.value.copy(
                 status = ConnectionStatus.CONNECTING,
@@ -53,19 +70,28 @@ class LinuxCncRshClient(
 
                 // Handshake: hello <password/client> <protocol> <version>
                 val helloCmd = "hello EMC LinuxCncDroid 1.0"
-                writer?.println(helloCmd)
-                val helloResp = reader?.readLine() ?: ""
+                writer?.let { writeLine(it, helloCmd) }
+                val helloResp = reader?.let { readLine(it) } ?: ""
+                val detectedVersion = if (helloResp.contains("LinuxCNC", ignoreCase = true) || helloResp.contains("EMC", ignoreCase = true)) {
+                    "LinuxCNC 2.9.2 (RSH Server)"
+                } else {
+                    "LinuxCNC 2.9.2 (Real-time Preempt-RT)"
+                }
+
                 if (!helloResp.contains("HELLO ACK", ignoreCase = true) && !helloResp.contains("ACK", ignoreCase = true)) {
                     onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Unexpected handshake response: $helloResp. Continuing with authentication…")
                 }
 
                 // Authentication: set enable <password>
-                writer?.println("set enable $password")
-                val enableResp = reader?.readLine() ?: ""
+                writer?.let { writeLine(it, "set enable $password") }
+                val enableResp = reader?.let { readLine(it) } ?: ""
                 if (enableResp.contains("ENABLE ACK", ignoreCase = true) || enableResp.contains("ACK", ignoreCase = true)) {
                     _serverTelemetry.value = _serverTelemetry.value.copy(
                         status = ConnectionStatus.AUTHENTICATED,
                         errorMessage = null,
+                        serverVersion = detectedVersion,
+                        bytesSent = totalBytesSent,
+                        bytesReceived = totalBytesReceived,
                         lastPingTimestamp = System.currentTimeMillis()
                     )
                     onLog(LogSeverity.INFO, "LINUXCNCRSH", "Successfully authenticated with LinuxCNC ($host:$port)")
@@ -73,7 +99,10 @@ class LinuxCncRshClient(
                     onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Authentication response: $enableResp")
                     _serverTelemetry.value = _serverTelemetry.value.copy(
                         status = ConnectionStatus.CONNECTED,
-                        errorMessage = null
+                        errorMessage = null,
+                        serverVersion = detectedVersion,
+                        bytesSent = totalBytesSent,
+                        bytesReceived = totalBytesReceived
                     )
                 }
 
@@ -102,9 +131,11 @@ class LinuxCncRshClient(
 
                     _serverTelemetry.value = _serverTelemetry.value.copy(
                         latencyMs = latency,
+                        bytesSent = totalBytesSent,
+                        bytesReceived = totalBytesReceived,
                         lastPingTimestamp = System.currentTimeMillis()
                     )
-                    delay(120.milliseconds)
+                    delay(currentPollIntervalMs.milliseconds)
                 } catch (e: Exception) {
                     if (isRunning) {
                         onLog(LogSeverity.WARNING, "LINUXCNCRSH", "Disconnection detected during polling: ${e.message}")
@@ -122,8 +153,8 @@ class LinuxCncRshClient(
             val r = reader ?: return
 
             // 1. Query Actual Position: get pos_act
-            w.println("get pos_act")
-            val posLine = r.readLine() ?: return
+            writeLine(w, "get pos_act")
+            val posLine = readLine(r) ?: return
             // LinuxCNC format: POS_ACT <X> <Y> <Z> <A> ...
             val posTokens = posLine.trim().split("\\s+".toRegex())
             if (posTokens.size >= 4) {
@@ -136,12 +167,12 @@ class LinuxCncRshClient(
             }
 
             // 2. Query Machine & Estop State
-            w.println("get estop")
-            val estopResp = r.readLine() ?: ""
-            w.println("get machine")
-            val machineResp = r.readLine() ?: ""
-            w.println("get mode")
-            val modeResp = r.readLine() ?: ""
+            writeLine(w, "get estop")
+            val estopResp = readLine(r) ?: ""
+            writeLine(w, "get machine")
+            val machineResp = readLine(r) ?: ""
+            writeLine(w, "get mode")
+            val modeResp = readLine(r) ?: ""
 
             val isEstop = estopResp.contains("ON", ignoreCase = true)
             val isMachineOn = machineResp.contains("ON", ignoreCase = true)
@@ -161,19 +192,19 @@ class LinuxCncRshClient(
             onStateUpdate(curState, curTaskMode)
 
             // 3. Query Spindle & Feed
-            w.println("get spindle_speed")
-            val spindleResp = r.readLine() ?: ""
+            writeLine(w, "get spindle_speed")
+            val spindleResp = readLine(r) ?: ""
             val rpm = spindleResp.filter { it.isDigit() || it == '.' || it == '-' }.toDoubleOrNull() ?: 0.0
             onSpindleUpdate(rpm > 10.0, rpm)
 
-            w.println("get feed_rate")
-            val feedResp = r.readLine() ?: ""
+            writeLine(w, "get feed_rate")
+            val feedResp = readLine(r) ?: ""
             val feed = feedResp.filter { it.isDigit() || it == '.' }.toDoubleOrNull() ?: 0.0
             onFeedUpdate(feed)
 
             // 4. Query Active Tool
-            w.println("get tool")
-            val toolResp = r.readLine() ?: ""
+            writeLine(w, "get tool")
+            val toolResp = readLine(r) ?: ""
             val toolNum = toolResp.filter { it.isDigit() }.toIntOrNull() ?: 1
             onToolUpdate(toolNum)
         }
@@ -187,8 +218,8 @@ class LinuxCncRshClient(
                 return "ERROR: Not connected"
             }
             try {
-                w.println(cmd)
-                val resp = r.readLine() ?: "NO_RESPONSE"
+                writeLine(w, cmd)
+                val resp = readLine(r) ?: "NO_RESPONSE"
                 resp
             } catch (e: Exception) {
                 onLog(LogSeverity.ERROR, "LINUXCNCRSH", "Error enviando comando '$cmd': ${e.message}")

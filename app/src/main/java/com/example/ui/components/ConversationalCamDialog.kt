@@ -99,6 +99,7 @@ fun ConversationalCamDialog(
     // Pocket Parameters
     var pocketLengthX by remember { mutableStateOf("60.0") }
     var pocketWidthY by remember { mutableStateOf("40.0") }
+    var pocketCornerRad by remember { mutableStateOf("5.0") }
     var pocketTotalDepth by remember { mutableStateOf("5.0") }
     var pocketDepthPerPass by remember { mutableStateOf("1.0") }
     var pocketToolDiam by remember { mutableStateOf("6.0") }
@@ -148,6 +149,7 @@ fun ConversationalCamDialog(
                 val params = RectangularPocketParams(
                     pocketLengthX = pocketLengthX.toDoubleOrNull() ?: 60.0,
                     pocketWidthY = pocketWidthY.toDoubleOrNull() ?: 40.0,
+                    cornerRad = pocketCornerRad.toDoubleOrNull() ?: 5.0,
                     totalDepthZ = pocketTotalDepth.toDoubleOrNull() ?: 5.0,
                     depthPerPass = pocketDepthPerPass.toDoubleOrNull() ?: 1.0,
                     toolDiameter = pocketToolDiam.toDoubleOrNull() ?: 6.0,
@@ -308,6 +310,7 @@ fun ConversationalCamDialog(
                                 1 -> {
                                     CamInputField(stringResource(R.string.cam_label_pocket_length_x), pocketLengthX) { pocketLengthX = it; recomputeGCode() }
                                     CamInputField(stringResource(R.string.cam_label_pocket_width_y), pocketWidthY) { pocketWidthY = it; recomputeGCode() }
+                                    CamInputField(stringResource(R.string.cam_label_corner_radius), pocketCornerRad) { pocketCornerRad = it; recomputeGCode() }
                                     CamInputField(stringResource(R.string.cam_label_total_depth), pocketTotalDepth) { pocketTotalDepth = it; recomputeGCode() }
                                     CamInputField(stringResource(R.string.cam_label_step_z), pocketDepthPerPass) { pocketDepthPerPass = it; recomputeGCode() }
                                     CamInputField(stringResource(R.string.cam_label_tool_diam), pocketToolDiam) { pocketToolDiam = it; recomputeGCode() }

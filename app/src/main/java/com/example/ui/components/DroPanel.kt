@@ -355,6 +355,14 @@ fun DroAxisRow(
                                 fontFamily = FontFamily.Monospace,
                                 color = CncTextSecondary
                             )
+                            val counts = if (axis.encoderCounts != 0L) axis.encoderCounts else (axis.machinePos * 10000.0).toLong()
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(
+                                text = "ENC: $counts",
+                                fontSize = 9.sp,
+                                fontFamily = FontFamily.Monospace,
+                                color = CncTextSecondary
+                            )
                         }
 
                         // Mini Load Bar

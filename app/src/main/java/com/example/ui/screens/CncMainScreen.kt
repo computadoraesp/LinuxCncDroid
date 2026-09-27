@@ -194,6 +194,7 @@ fun CncMainScreen(
     val softLimitsCheck by viewModel.softLimitsCheck.collectAsStateWithLifecycle()
     val mdiValidationLive by viewModel.mdiValidationLive.collectAsStateWithLifecycle()
     val mdiHistoryEntities by viewModel.mdiHistoryEntities.collectAsStateWithLifecycle()
+    val mdiFavorites by viewModel.mdiFavorites.collectAsStateWithLifecycle()
 
     val errorCount = remember(eventLogs) {
         eventLogs.count { (it.severity == LogSeverity.ERROR) || (it.severity == LogSeverity.CRITICAL) }
@@ -760,11 +761,13 @@ fun CncMainScreen(
                             commandText = mdiText,
                             history = mdiHistory,
                             historyEntities = mdiHistoryEntities,
+                            favorites = mdiFavorites,
                             macros = macros,
                             validationResult = mdiValidationLive,
                             onCommandTextChange = { viewModel.setMdiText(it) },
                             onExecuteCommand = { viewModel.executeMdiCommand(it) },
                             onToggleFavorite = { id, fav -> viewModel.toggleMdiFavorite(id, fav) },
+                            onClearNonFavorites = { viewModel.clearNonFavoriteHistory() },
                         )
                     }
 
@@ -772,6 +775,7 @@ fun CncMainScreen(
                         AlarmEventLogView(
                             logs = eventLogs,
                             onClearLogs = { viewModel.clearLogs() },
+                            onSimulateDiagnosticAlarm = { viewModel.simulateDiagnosticAlarm() },
                             onGenerateReport = {
                                 CncAuditExporter.generateTextReport(
                                     machineState = machineState,

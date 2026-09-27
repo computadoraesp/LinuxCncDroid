@@ -878,6 +878,7 @@
     <string name="cam_label_tool_num">Herramienta # (T)</string>
     <string name="cam_label_pocket_length_x">Largo Cajeado X (mm)</string>
     <string name="cam_label_pocket_width_y">Ancho Cajeado Y (mm)</string>
+    <string name="cam_label_corner_radius">Radio de Esquina R (mm)</string>
     <string name="cam_label_step_z">Paso en Z (mm)</string>
     <string name="cam_label_feed_xy">Avance XY (mm/min)</string>
     <string name="cam_label_feed_z">Bajada Z (mm/min)</string>

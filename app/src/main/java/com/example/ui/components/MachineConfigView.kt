@@ -91,6 +91,7 @@ import com.example.ui.theme.CncEstopRed
 import com.example.ui.theme.CncRunningGreen
 import com.example.ui.theme.CncSurface
 import com.example.ui.theme.CncSurfaceVariant
+import com.example.ui.theme.CncTextMuted
 import com.example.ui.theme.CncTextPrimary
 import com.example.ui.theme.CncTextSecondary
 import com.example.ui.theme.CncWarningAmber
@@ -504,6 +505,60 @@ fun MachineConfigView(
                             fontFamily = FontFamily.Monospace
                         )
                     }
+
+                    // Server Telemetry Metrics: Version, Traffic, Polling
+                    Surface(
+                        color = CncSurfaceVariant,
+                        shape = RoundedCornerShape(8.dp),
+                        border = BorderStroke(1.dp, CncCardBorder),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "VER: ${serverTelemetry.serverVersion}",
+                                    fontSize = 9.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    fontWeight = FontWeight.Bold,
+                                    color = CncCyberCyan
+                                )
+                                Text(
+                                    text = "POLL: ${connectionConfig.pollIntervalMs}ms",
+                                    fontSize = 9.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = CncTextSecondary
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "TX: ${serverTelemetry.bytesSent} B",
+                                    fontSize = 9.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = CncTextSecondary
+                                )
+                                Text(
+                                    text = "RX: ${serverTelemetry.bytesReceived} B",
+                                    fontSize = 9.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = CncTextSecondary
+                                )
+                                Text(
+                                    text = "${serverTelemetry.latencyMs} ms",
+                                    fontSize = 9.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = if (serverTelemetry.latencyMs < 20) CncRunningGreen else CncWarningAmber
+                                )
+                            }
+                        }
+                    }
                 }
             }
 
@@ -551,6 +606,94 @@ fun MachineConfigView(
                             if (isSelected) {
                                 Icon(imageVector = Icons.Default.CheckCircle, contentDescription = "Active", tint = CncActiveGreen, modifier = Modifier.size(20.dp))
                             }
+                        }
+                    }
+                }
+            }
+
+            // Hardware Capabilities Manifest Badges
+            Surface(
+                color = CncSurface,
+                shape = RoundedCornerShape(8.dp),
+                border = BorderStroke(1.dp, CncCardBorder),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text(
+                        text = "CAPACIDADES DE HARDWARE (MANIFEST)",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Black,
+                        color = CncCyberCyan,
+                        letterSpacing = 0.5.sp
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        val atcActive = capabilities.hasToolChanger
+                        val encActive = capabilities.hasSpindleEncoder
+                        val tempActive = capabilities.hasDriveTemp
+                        val torqueActive = capabilities.hasServoTorque
+
+                        Surface(
+                            color = if (atcActive) CncRunningGreen.copy(alpha = 0.15f) else CncSurfaceVariant,
+                            shape = RoundedCornerShape(4.dp),
+                            border = BorderStroke(0.5.dp, if (atcActive) CncRunningGreen else CncCardBorder),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = "ATC (M6)",
+                                fontSize = 8.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (atcActive) CncRunningGreen else CncTextMuted,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.padding(horizontal = 2.dp, vertical = 4.dp)
+                            )
+                        }
+                        Surface(
+                            color = if (encActive) CncRunningGreen.copy(alpha = 0.15f) else CncSurfaceVariant,
+                            shape = RoundedCornerShape(4.dp),
+                            border = BorderStroke(0.5.dp, if (encActive) CncRunningGreen else CncCardBorder),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = "ENC HUSILLO",
+                                fontSize = 8.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (encActive) CncRunningGreen else CncTextMuted,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.padding(horizontal = 2.dp, vertical = 4.dp)
+                            )
+                        }
+                        Surface(
+                            color = if (tempActive) CncRunningGreen.copy(alpha = 0.15f) else CncSurfaceVariant,
+                            shape = RoundedCornerShape(4.dp),
+                            border = BorderStroke(0.5.dp, if (tempActive) CncRunningGreen else CncCardBorder),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = "TEMP DRIVES",
+                                fontSize = 8.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (tempActive) CncRunningGreen else CncTextMuted,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.padding(horizontal = 2.dp, vertical = 4.dp)
+                            )
+                        }
+                        Surface(
+                            color = if (torqueActive) CncRunningGreen.copy(alpha = 0.15f) else CncSurfaceVariant,
+                            shape = RoundedCornerShape(4.dp),
+                            border = BorderStroke(0.5.dp, if (torqueActive) CncRunningGreen else CncCardBorder),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = "PAR SERVO",
+                                fontSize = 8.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (torqueActive) CncRunningGreen else CncTextMuted,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.padding(horizontal = 2.dp, vertical = 4.dp)
+                            )
                         }
                     }
                 }

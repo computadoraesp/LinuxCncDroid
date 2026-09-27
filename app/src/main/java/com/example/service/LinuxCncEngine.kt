@@ -925,6 +925,10 @@ class LinuxCncEngine {
             }
         }
         sendRemoteCommand("HOME_AXIS", mapOf("axis" to axis))
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            val axisIdx = when(axis.uppercase(Locale.ROOT)) { "X" -> 0; "Y" -> 1; "Z" -> 2; "A" -> 3; "B" -> 4; "C" -> 5; else -> 0 }
+            rshClient?.homeAxis(axisIdx)
+        }
     }
 
     fun homeAllAxes() {
@@ -951,11 +955,17 @@ class LinuxCncEngine {
         val newState = !cur.isEnabled
         _spindle.value = cur.copy(isEnabled = newState)
         logEvent(LogSeverity.INFO, "SPINDLE", if (newState) "Spindle ON at ${cur.commandedRpm.toInt()} RPM" else "Spindle STOP")
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setSpindle(if (newState) (if (cur.isClockwise) "CW" else "CCW") else "OFF", cur.commandedRpm)
+        }
         sendRemoteCommand("SPINDLE_TOGGLE", mapOf("enabled" to _spindle.value.isEnabled, "rpm" to _spindle.value.commandedRpm))
     }
 
     fun setSpindleRpm(rpm: Double) {
         _spindle.value = _spindle.value.copy(commandedRpm = rpm)
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP && _spindle.value.isEnabled) {
+            rshClient?.setSpindle(if (_spindle.value.isClockwise) "CW" else "CCW", rpm)
+        }
         sendRemoteCommand("SET_SPINDLE_RPM", mapOf("rpm" to rpm))
     }
 
@@ -978,12 +988,18 @@ class LinuxCncEngine {
     fun toggleMistCoolant() {
         val cur = _coolant.value
         _coolant.value = cur.copy(mist = !cur.mist)
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setCoolant(_coolant.value.mist, _coolant.value.flood)
+        }
         sendRemoteCommand("COOLANT_MIST", mapOf("mist" to _coolant.value.mist))
     }
 
     fun toggleFloodCoolant() {
         val cur = _coolant.value
         _coolant.value = cur.copy(flood = !cur.flood)
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setCoolant(_coolant.value.mist, _coolant.value.flood)
+        }
         sendRemoteCommand("COOLANT_FLOOD", mapOf("flood" to _coolant.value.flood))
     }
 
@@ -1139,7 +1155,7 @@ class LinuxCncEngine {
                 webSocket?.close(1000, "Switching to linuxcncrsh")
             } catch (_: Exception) {}
             val client = getOrCreateRshClient()
-            client.connect(config.hostIp, config.port, config.password)
+            client.connect(config.hostIp, config.port, config.password, config.pollIntervalMs)
             isConnectedToRealServer = true
             _capabilities.value = _capabilities.value.copy(hostIp = config.hostIp, port = config.port, isConnected = true)
         } else if (config.protocolType == LinuxCncProtocolType.WEBSOCKET_JSON) {

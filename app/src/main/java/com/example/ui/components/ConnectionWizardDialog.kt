@@ -56,6 +56,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -382,15 +383,57 @@ fun ConnectionWizardDialog(
                             color = CncCardBg,
                             shape = RoundedCornerShape(10.dp),
                             border = BorderStroke(1.dp, CncCyberCyan.copy(alpha = 0.3f)),
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .testTag("wizard_step_${currentStep.stepId.name.lowercase()}")
                         ) {
                             Column(modifier = Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Text(
-                                    text = currentStep.subtitle,
-                                    fontSize = 11.5.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = CncCyberCyan
-                                )
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = currentStep.subtitle,
+                                        fontSize = 11.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = CncCyberCyan,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    Row(
+                                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Surface(
+                                            color = CncSurfaceVariant,
+                                            shape = RoundedCornerShape(4.dp),
+                                            border = BorderStroke(0.5.dp, CncCardBorder)
+                                        ) {
+                                            Text(
+                                                text = currentStep.stepId.name,
+                                                fontSize = 8.sp,
+                                                fontFamily = FontFamily.Monospace,
+                                                color = CncTextSecondary,
+                                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                        if (currentStep.isCrucial) {
+                                            Surface(
+                                                color = CncEstopRed.copy(alpha = 0.2f),
+                                                shape = RoundedCornerShape(4.dp),
+                                                border = BorderStroke(0.5.dp, CncEstopRed)
+                                            ) {
+                                                Text(
+                                                    text = "CRÍTICO",
+                                                    fontSize = 8.sp,
+                                                    fontWeight = FontWeight.Black,
+                                                    color = CncEstopRed,
+                                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
 
                                 currentStep.instructions.forEachIndexed { idx, instruction ->
                                     Row(

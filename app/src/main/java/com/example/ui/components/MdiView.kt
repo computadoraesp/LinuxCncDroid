@@ -37,11 +37,13 @@ fun MdiView(
     commandText: String,
     history: List<String> = emptyList(),
     historyEntities: List<MdiHistoryEntity> = emptyList(),
+    favorites: List<MdiHistoryEntity> = emptyList(),
     macros: List<MdiMacroEntity> = emptyList(),
     validationResult: MdiValidationResult? = null,
     onCommandTextChange: (String) -> Unit,
     onExecuteCommand: (String) -> Unit,
     onToggleFavorite: (id: Long, isFavorite: Boolean) -> Unit = { _, _ -> },
+    onClearNonFavorites: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val isEnabled = machineState != MachineStateEnum.RUNNING &&
@@ -273,6 +275,20 @@ fun MdiView(
                         }
                     )
                 }
+
+                if (onClearNonFavorites != null && historyEntities.any { !it.isFavorite }) {
+                    IconButton(
+                        onClick = onClearNonFavorites,
+                        modifier = Modifier.size(28.dp).testTag("mdi_clear_non_fav_button")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.DeleteSweep,
+                            contentDescription = "Clear History",
+                            tint = CncTextSecondary,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                }
             }
 
             Surface(
@@ -285,7 +301,7 @@ fun MdiView(
             ) {
                 if (historyEntities.isNotEmpty()) {
                     val displayList = if (selectedHistoryTab == 1) {
-                        historyEntities.filter { it.isFavorite }
+                        if (favorites.isNotEmpty()) favorites else historyEntities.filter { it.isFavorite }
                     } else {
                         historyEntities
                     }

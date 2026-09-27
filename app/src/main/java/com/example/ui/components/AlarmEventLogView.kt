@@ -43,6 +43,7 @@ fun AlarmEventLogView(
     logs: List<CncEventLog>,
     onClearLogs: () -> Unit,
     onGenerateReport: (() -> String)? = null,
+    onSimulateDiagnosticAlarm: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -126,6 +127,23 @@ fun AlarmEventLogView(
                             Icon(imageVector = Icons.AutoMirrored.Filled.Assignment, contentDescription = null, modifier = Modifier.size(14.dp))
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(stringResource(R.string.logs_export_audit), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+
+                    if (onSimulateDiagnosticAlarm != null) {
+                        FilledTonalButton(
+                            onClick = onSimulateDiagnosticAlarm,
+                            shape = RoundedCornerShape(6.dp),
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                            colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = CncWarningAmber.copy(alpha = 0.15f),
+                                contentColor = CncWarningAmber
+                            ),
+                            modifier = Modifier.height(28.dp).testTag("logs_simulate_alarm_button")
+                        ) {
+                            Icon(imageVector = Icons.Default.WarningAmber, contentDescription = null, modifier = Modifier.size(13.dp))
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(if (Locale.getDefault().language == "es") "Test Alarma" else "Test Alarm", fontSize = 10.sp, fontWeight = FontWeight.Bold)
                         }
                     }
 

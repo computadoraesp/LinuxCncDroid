@@ -459,7 +459,7 @@ fun ToolCardItem(
                         }
 
                         Text(
-                            text = "Pocket #${tool.pocket} • ${stringResource(tool.toolType.displayNameRes)} • ${tool.flutes} Flutes • Max ${tool.maxRpm.toInt()} RPM",
+                            text = "Pocket #${tool.pocket} • ${tool.holderType} • ${stringResource(tool.toolType.displayNameRes)} • ${tool.flutes} Flutes • Max ${tool.maxRpm.toInt()} RPM",
                             fontSize = 9.5.sp,
                             color = CncTextSecondary,
                         )
@@ -536,12 +536,24 @@ fun ToolCardItem(
                     }
                 }
 
+                // Wear Offsets (L & D)
+                Surface(
+                    color = CncSurfaceBg,
+                    shape = RoundedCornerShape(6.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Column(modifier = Modifier.padding(6.dp)) {
+                        Text("DESGASTE (ΔL/ΔD)", fontSize = 8.sp, color = CncTextSecondary)
+                        Text("ΔL:${String.format(java.util.Locale.US, "%.2f", tool.wearLength)} ΔD:${String.format(java.util.Locale.US, "%.2f", tool.wearDiameter)}", fontSize = 9.5.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace, color = CncTextPrimary)
+                    }
+                }
+
                 // Touch-Off Tool Z Button
                 Surface(
                     color = CncSurfaceBg,
                     shape = RoundedCornerShape(6.dp),
                     modifier = Modifier
-                        .weight(1.2f)
+                        .weight(1.1f)
                         .clickable { onTouchOff() }
                 ) {
                     Row(
@@ -600,6 +612,9 @@ fun EditToolDetailsDialog(
     var lengthOffsetStr by remember { mutableStateOf(tool.lengthOffset.toString()) }
     var flutesStr by remember { mutableStateOf(tool.flutes.toString()) }
     var maxRpmStr by remember { mutableStateOf(tool.maxRpm.toInt().toString()) }
+    var holderTypeStr by remember { mutableStateOf(tool.holderType) }
+    var wearLengthStr by remember { mutableStateOf(tool.wearLength.toString()) }
+    var wearDiameterStr by remember { mutableStateOf(tool.wearDiameter.toString()) }
     var selectedType by remember { mutableStateOf(tool.toolType) }
 
     Dialog(
@@ -710,6 +725,38 @@ fun EditToolDetailsDialog(
                     )
                 }
 
+                Spacer(modifier = Modifier.height(6.dp))
+
+                OutlinedTextField(
+                    value = holderTypeStr,
+                    onValueChange = { holderTypeStr = it },
+                    label = { Text("Portaherramientas (Holder)", fontSize = 10.sp) },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
+                )
+
+                Spacer(modifier = Modifier.height(6.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    OutlinedTextField(
+                        value = wearLengthStr,
+                        onValueChange = { wearLengthStr = it },
+                        label = { Text("Desgaste Longitud (ΔL mm)", fontSize = 10.sp) },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
+                    )
+                    OutlinedTextField(
+                        value = wearDiameterStr,
+                        onValueChange = { wearDiameterStr = it },
+                        label = { Text("Desgaste Diámetro (ΔD mm)", fontSize = 10.sp) },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(14.dp))
 
                 Row(
@@ -729,6 +776,8 @@ fun EditToolDetailsDialog(
                             val len = lengthOffsetStr.toDoubleOrNull() ?: tool.lengthOffset
                             val flutes = flutesStr.toIntOrNull() ?: tool.flutes
                             val rpm = maxRpmStr.toDoubleOrNull() ?: tool.maxRpm
+                            val wearLen = wearLengthStr.toDoubleOrNull() ?: tool.wearLength
+                            val wearDiam = wearDiameterStr.toDoubleOrNull() ?: tool.wearDiameter
 
                             onSave(
                                 tool.copy(
@@ -739,7 +788,10 @@ fun EditToolDetailsDialog(
                                     lengthOffset = len,
                                     toolType = selectedType,
                                     flutes = flutes,
-                                    maxRpm = rpm
+                                    maxRpm = rpm,
+                                    holderType = holderTypeStr,
+                                    wearLength = wearLen,
+                                    wearDiameter = wearDiam
                                 )
                             )
                         },

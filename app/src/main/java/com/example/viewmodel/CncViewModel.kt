@@ -884,6 +884,8 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
                         y = offset.y,
                         z = offset.z,
                         a = offset.a,
+                        b = offset.b,
+                        c = offset.c,
                         comment = offset.comment
                     )
                 )
@@ -895,20 +897,43 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
         feedbackManager.triggerActionClick()
         engine.setWcsOffset(name, axis, offsetValue)
         viewModelScope.launch(exceptionHandler) {
-            val offset = engine.wcsOffsets.value[name]
-            if (offset != null) {
-                db.wcsOffsetDao().insertOrUpdate(
-                    WcsOffsetEntity(
-                        name = offset.name,
-                        pIndex = offset.pIndex,
-                        x = offset.x,
-                        y = offset.y,
-                        z = offset.z,
-                        a = offset.a,
-                        comment = offset.comment
+            val existing = db.wcsOffsetDao().getOffsetByName(name)
+            val now = System.currentTimeMillis()
+            if (existing != null) {
+                when (axis.uppercase(Locale.ROOT)) {
+                    "X" -> db.wcsOffsetDao().updateX(name, offsetValue, now)
+                    "Y" -> db.wcsOffsetDao().updateY(name, offsetValue, now)
+                    "Z" -> db.wcsOffsetDao().updateZ(name, offsetValue, now)
+                    "A" -> db.wcsOffsetDao().updateA(name, offsetValue, now)
+                    "B" -> db.wcsOffsetDao().insertOrUpdate(existing.copy(b = offsetValue, updatedAt = now))
+                    "C" -> db.wcsOffsetDao().insertOrUpdate(existing.copy(c = offsetValue, updatedAt = now))
+                    else -> db.wcsOffsetDao().insertOrUpdate(existing.copy(updatedAt = now))
+                }
+            } else {
+                val offset = engine.wcsOffsets.value[name]
+                if (offset != null) {
+                    db.wcsOffsetDao().insertOrUpdate(
+                        WcsOffsetEntity(
+                            name = offset.name,
+                            pIndex = offset.pIndex,
+                            x = if (axis.equals("X", true)) offsetValue else offset.x,
+                            y = if (axis.equals("Y", true)) offsetValue else offset.y,
+                            z = if (axis.equals("Z", true)) offsetValue else offset.z,
+                            a = if (axis.equals("A", true)) offsetValue else offset.a,
+                            b = if (axis.equals("B", true)) offsetValue else offset.b,
+                            c = if (axis.equals("C", true)) offsetValue else offset.c,
+                            comment = offset.comment
+                        )
                     )
-                )
+                }
             }
+        }
+    }
+
+    fun clearNonFavoriteHistory() {
+        viewModelScope.launch(exceptionHandler) {
+            db.mdiHistoryDao().clearNonFavorites()
+            feedbackManager.triggerActionClick()
         }
     }
 
@@ -928,6 +953,13 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
                     architecture = arch,
                 ),
             )
+            feedbackManager.triggerSuccessHaptic()
+        }
+    }
+
+    fun updateMachineProfile(profile: MachineProfileEntity) {
+        viewModelScope.launch(exceptionHandler) {
+            db.profileDao().updateProfile(profile)
             feedbackManager.triggerSuccessHaptic()
         }
     }

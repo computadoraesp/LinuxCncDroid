@@ -882,6 +882,7 @@
     <string name="cam_label_tool_num">Tool Number # (T)</string>
     <string name="cam_label_pocket_length_x">Pocket Length X (mm)</string>
     <string name="cam_label_pocket_width_y">Pocket Width Y (mm)</string>
+    <string name="cam_label_corner_radius">Corner Radius R (mm)</string>
     <string name="cam_label_step_z">Stepdown Z (mm)</string>
     <string name="cam_label_feed_xy">Feed Rate XY (mm/min)</string>
     <string name="cam_label_feed_z">Plunge Feed Z (mm/min)</string>

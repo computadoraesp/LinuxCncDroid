@@ -219,14 +219,14 @@ fun WcsTableDialog(
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            listOf("X", "Y", "Z", "A").forEach { axis ->
+                            listOf("X", "Y", "Z", "A", "B", "C").forEach { axis ->
                                 FilterChip(
                                     selected = touchOffAxis == axis,
                                     onClick = { touchOffAxis = axis },
-                                    label = { Text(axis, fontWeight = FontWeight.Bold) },
+                                    label = { Text(axis, fontWeight = FontWeight.Bold, fontSize = 11.sp) },
                                     modifier = Modifier.weight(1f)
                                 )
                             }
@@ -338,7 +338,7 @@ fun WcsTableDialog(
                                 }
 
                                 Row(
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     WcsAxisValChip("X", offset.x) {
@@ -352,6 +352,12 @@ fun WcsTableDialog(
                                     }
                                     WcsAxisValChip("A", offset.a) {
                                         showEditOffsetDialog = Triple(offset.name, "A", offset.a)
+                                    }
+                                    WcsAxisValChip("B", offset.b) {
+                                        showEditOffsetDialog = Triple(offset.name, "B", offset.b)
+                                    }
+                                    WcsAxisValChip("C", offset.c) {
+                                        showEditOffsetDialog = Triple(offset.name, "C", offset.c)
                                     }
                                 }
                             }
