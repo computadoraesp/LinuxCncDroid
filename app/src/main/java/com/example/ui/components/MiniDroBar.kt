@@ -45,7 +45,7 @@ fun MiniDroBar(
     onZeroAxis: (String) -> Unit = {},
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val isCompact = maxWidth < 480.dp
+        val isCompact = this.maxWidth < 480.dp
 
         Surface(
             color = CncCardBg,

@@ -676,7 +676,7 @@ class LinuxCncEngine {
     }
 
     /**
-     * Direct update of a coordinate offset for any WCS (G54..G59.3)
+     * Direct update of a coordinate offset for any WCS (G54.G59.3)
      */
     fun setWcsOffset(name: String, axis: String, offsetValue: Double) {
         val existingOffset = _wcsOffsets.value[name] ?: return

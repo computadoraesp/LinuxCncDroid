@@ -134,7 +134,7 @@ fun JogControlPad(
         Column(modifier = Modifier.padding(12.dp)) {
             // Header & Style Switch + Continuous vs Step
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-                val isNarrow = maxWidth < 480.dp
+                val isNarrow = this.maxWidth < 480.dp
 
                 if (isNarrow) {
                     // Two-line layout for portrait: Title on top, controls on row below
@@ -576,7 +576,7 @@ fun JogStyleHeader(
         modifier = Modifier.fillMaxWidth(),
     ) {
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-            val isNarrow = maxWidth < 480.dp
+            val isNarrow = this.maxWidth < 480.dp
 
             if (isNarrow) {
                 Column(

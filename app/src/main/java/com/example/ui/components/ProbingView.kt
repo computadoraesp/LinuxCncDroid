@@ -94,7 +94,7 @@ fun ProbingView(
     )
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val isCompact = maxWidth < 500.dp
+        val isCompact = this.maxWidth < 500.dp
 
         Card(
             colors = CardDefaults.cardColors(containerColor = CncCardBg),

@@ -206,7 +206,7 @@ object ConversationalCamEngine {
     }
 
     /**
-     * Generates standard G-Code for Bolt Hole Circle (Barrenado de Círculo de Agujeros - G81/G83).
+     * Generates standard G-Code for Bolthole Circle (Barrenado de Círculo de Agujeros - G81/G83).
      */
     fun generateBoltHoleCircle(
         centerX: Double = 0.0,

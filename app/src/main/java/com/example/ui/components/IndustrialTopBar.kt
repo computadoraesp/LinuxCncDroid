@@ -146,7 +146,7 @@ fun IndustrialTopBar(
             .border(width = 1.dp, color = CncCardBorder),
     ) {
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-            val isCompact = maxWidth < 480.dp
+            val isCompact = this.maxWidth < 480.dp
 
             Row(
                 modifier = Modifier

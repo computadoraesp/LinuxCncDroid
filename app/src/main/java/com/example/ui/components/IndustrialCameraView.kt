@@ -223,7 +223,7 @@ fun IndustrialCameraView(
                     .fillMaxWidth()
                     .padding(bottom = 6.dp)
             ) {
-                val isCompact = maxWidth < 550.dp
+                val isCompact = this.maxWidth < 550.dp
 
                 val controlsContent: @Composable () -> Unit = {
                     Row(
@@ -937,10 +937,10 @@ fun IndustrialCameraView(
                             listOf(-10f, -1f, -0.1f, 0f, 0.1f, 1f, 10f).forEach { delta ->
                                 Button(
                                     onClick = {
-                                        if (delta == 0f) {
-                                            protractorAngleDeg = 0f
+                                        protractorAngleDeg = if (delta == 0f) {
+                                            0f
                                         } else {
-                                            protractorAngleDeg = ((protractorAngleDeg + delta) % 360f + 360f) % 360f
+                                            ((protractorAngleDeg + delta) % 360f + 360f) % 360f
                                         }
                                     },
                                     colors = ButtonDefaults.buttonColors(containerColor = CncSurface, contentColor = CncDroDigits),

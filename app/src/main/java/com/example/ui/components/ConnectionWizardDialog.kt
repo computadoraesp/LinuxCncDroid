@@ -491,7 +491,7 @@ fun ConnectionWizardDialog(
 
                                                 IconButton(
                                                     onClick = {
-                                                        currentStep.codeSnippet?.let {
+                                                        currentStep.codeSnippet.let {
                                                             clipboardManager.setText(AnnotatedString(it))
                                                             copiedSnippetMessage = copiedToClipboardMessage
                                                         }

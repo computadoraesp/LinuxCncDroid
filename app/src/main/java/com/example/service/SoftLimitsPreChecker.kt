@@ -8,7 +8,7 @@ import kotlin.math.sqrt
 /**
  * Industrial Soft Limits Pre-Checker.
  * Evaluates the entire toolpath trajectory against machine soft limits (travel envelopes)
- * projecting Work Coordinates through the active WCS offset (G54..G59.3).
+ * projecting Work Coordinates through the active WCS offset (G54.G59.3).
  *
  * Prevents catastrophic joint overtravel crashes before Cycle Start is allowed.
  */

@@ -25,7 +25,7 @@ class MdiSyntaxValidator {
 
     fun validate(rawInput: String): MdiValidationResult {
         val trimmed = rawInput.trim()
-        val isEs = java.util.Locale.getDefault().language == "es"
+        val isEs = Locale.getDefault().language == "es"
         if (trimmed.isEmpty()) {
             val emptyMsg = if (isEs) "El comando MDI no puede estar vacío" else "Command cannot be empty"
             return MdiValidationResult(isValid = false, errorMessage = emptyMsg)

@@ -499,7 +499,9 @@ fun MachineConfigView(
 
                     if (serverTelemetry.errorMessage != null) {
                         Text(
-                            text = stringResource(R.string.server_error_fmt, serverTelemetry.errorMessage ?: ""),
+                            text = stringResource(R.string.server_error_fmt,
+                                serverTelemetry.errorMessage
+                            ),
                             fontSize = 10.sp,
                             color = CncEstopRed,
                             fontFamily = FontFamily.Monospace

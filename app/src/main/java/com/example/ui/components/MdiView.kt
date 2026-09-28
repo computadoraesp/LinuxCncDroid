@@ -54,7 +54,7 @@ fun MdiView(
     var selectedHistoryTab by remember { mutableIntStateOf(0) } // 0: Recent, 1: Favorites
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
-        val isCompact = maxWidth < 500.dp
+        val isCompact = this.maxWidth < 500.dp
 
         Card(
             colors = CardDefaults.cardColors(containerColor = CncCardBg),
@@ -345,7 +345,7 @@ fun MdiView(
             ) {
                 if (historyEntities.isNotEmpty()) {
                     val displayList = if (selectedHistoryTab == 1) {
-                        if (favorites.isNotEmpty()) favorites else historyEntities.filter { it.isFavorite }
+                        favorites.ifEmpty { historyEntities.filter { it.isFavorite } }
                     } else {
                         historyEntities
                     }
