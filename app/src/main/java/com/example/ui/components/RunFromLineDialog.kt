@@ -125,7 +125,7 @@ fun RunFromLineDialog(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "SAFETY AUTOMATION: Z retracts to +10.0mm clearance -> Spindle restarts at commanded RPM -> Trajectory arms.",
+                        text = stringResource(R.string.rfl_safety_automation),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = CncActiveGreen

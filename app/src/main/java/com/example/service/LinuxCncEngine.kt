@@ -1145,7 +1145,7 @@ class LinuxCncEngine {
         if (config.protocolType == LinuxCncProtocolType.SIMULATION_LOCAL) {
             disconnectLinuxCnc()
             _isSimulatedMode.value = true
-            logEvent(LogSeverity.INFO, "NETWORK", "Cambiado a Modo Simulación Local (Offline)")
+            logEvent(LogSeverity.INFO, "NETWORK", "Switched to Local Simulation Mode (Offline)")
             return
         }
 
@@ -1174,7 +1174,7 @@ class LinuxCncEngine {
             _isSimulatedMode.value = true
         }
         _capabilities.value = _capabilities.value.copy(isConnected = false)
-        logEvent(LogSeverity.INFO, "NETWORK", "Desconectado de LinuxCNC.")
+        logEvent(LogSeverity.INFO, "NETWORK", "Disconnected from LinuxCNC.")
     }
 
     fun applyIniConfig(config: LinuxCncMachineConfig) {
@@ -1188,7 +1188,7 @@ class LinuxCncEngine {
         logEvent(
             LogSeverity.INFO,
             "CONFIG",
-            "Configuración INI aplicada: ${config.machineName} (Límites: X[${config.xMinLimit}..${config.xMaxLimit}], Y[${config.yMinLimit}..${config.yMaxLimit}], Z[${config.zMinLimit}..${config.zMaxLimit}])"
+            "INI configuration applied: ${config.machineName} (Limits: X[${config.xMinLimit}..${config.xMaxLimit}], Y[${config.yMinLimit}..${config.yMaxLimit}], Z[${config.zMinLimit}..${config.zMaxLimit}])"
         )
     }
 
@@ -1204,7 +1204,7 @@ class LinuxCncEngine {
                 diameterOffset = _activeTool.value.diameter,
                 atcSlot = _activeTool.value.pocket
             )
-            logEvent(LogSeverity.INFO, "TOOL", "Tabla de herramientas importada con éxito: ${tools.size} herramientas cargadas.")
+            logEvent(LogSeverity.INFO, "TOOL", "Tool table imported successfully: ${tools.size} tools loaded.")
             return tools.size
         }
         return 0
@@ -1314,7 +1314,7 @@ class LinuxCncEngine {
             lastDisconnectReason = reason,
         )
 
-        logEvent(LogSeverity.WARNING, "NETWORK", "$reason. Reconexión automática en ${waitSeconds}s (Intento #$reconnectAttemptCounter)...")
+        logEvent(LogSeverity.WARNING, "NETWORK", "$reason. Auto-reconnecting in ${waitSeconds}s (Attempt #$reconnectAttemptCounter)...")
 
         reconnectJob?.cancel()
         reconnectJob = scope.launch {
@@ -1336,7 +1336,7 @@ class LinuxCncEngine {
             secondsUntilReconnect = 0,
             isReconnecting = true,
         )
-        logEvent(LogSeverity.INFO, "NETWORK", "Reconexión manual iniciada por el operador...")
+        logEvent(LogSeverity.INFO, "NETWORK", "Manual reconnection initiated by operator...")
         currentBackoffMs = 2000L
         internalConnect()
     }
@@ -1352,27 +1352,27 @@ class LinuxCncEngine {
             logEvent(
                 LogSeverity.WARNING,
                 "NETWORK",
-                "Alarma de red: Señal débil detectada. Latencia elevada ($latency ms). Riesgo de pérdida de sincronismo.",
+                "Network alarm: Weak signal detected. High latency ($latency ms). Risk of losing sync.",
             )
         } else {
             logEvent(
                 LogSeverity.INFO,
                 "NETWORK",
-                "Señal de red normalizada (Latencia: $latency ms).",
+                "Network signal restored (Latency: $latency ms).",
             )
         }
     }
 
     fun simulateConnectionLoss() {
-        handleDisconnect("Pérdida de señal de red simulada por el operador")
+        handleDisconnect("Network signal loss simulated by operator")
     }
 
     fun setSimulatedMode(enabled: Boolean) {
         _isSimulatedMode.value = enabled
         if (enabled) {
-            logEvent(LogSeverity.INFO, "SYSTEM", "Modo Simulación Virtual ACTIVADO (Cinemática y emulación HAL/NML)")
+            logEvent(LogSeverity.INFO, "SYSTEM", "Virtual Simulation Mode ENABLED (Kinematics and HAL/NML emulation)")
         } else {
-            logEvent(LogSeverity.WARNING, "SYSTEM", "Modo Simulación DESACTIVADO: Operando en Modo Hardware Real")
+            logEvent(LogSeverity.WARNING, "SYSTEM", "Simulation Mode DISABLED: Operating in Real Hardware Mode")
         }
     }
 
@@ -1390,7 +1390,7 @@ class LinuxCncEngine {
             logEvent(
                 LogSeverity.INFO,
                 "PROBE",
-                "Disparo de palpador 3D simulado en X:${String.format(Locale.US, "%.3f", curX)} Y:${String.format(Locale.US, "%.3f", curY)} Z:${String.format(Locale.US, "%.3f", curZ)}"
+                "3D Probe trigger simulated at X:${String.format(Locale.US, "%.3f", curX)} Y:${String.format(Locale.US, "%.3f", curY)} Z:${String.format(Locale.US, "%.3f", curZ)}"
             )
             delay(1200.milliseconds)
             _probe.value = _probe.value.copy(isTripped = false)
@@ -1412,7 +1412,7 @@ class LinuxCncEngine {
             latencyMs = 2,
             lastDisconnectReason = null,
         )
-        logEvent(LogSeverity.INFO, "NETWORK", "Enlace de red restaurado con éxito.")
+        logEvent(LogSeverity.INFO, "NETWORK", "Network link restored successfully.")
     }
 
     private fun parseIncomingTelemetry(jsonText: String) {

@@ -287,13 +287,13 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
             } else {
                 app.getString(R.string.log_battery_critical, pct)
             }
-            engine.logEvent(LogSeverity.CRITICAL, "BATERÍA", message)
+            engine.logEvent(LogSeverity.CRITICAL, "BATTERY", message)
             feedbackManager.playErrorAlarm()
             feedbackManager.triggerEstopHaptic()
         } else if (!prevLow && isLow) {
             // Low battery warning threshold (<= 20%)
             val app = getApplication<Application>()
-            engine.logEvent(LogSeverity.WARNING, "BATERÍA", app.getString(R.string.log_battery_low, pct))
+            engine.logEvent(LogSeverity.WARNING, "BATTERY", app.getString(R.string.log_battery_low, pct))
             feedbackManager.playLowBatteryAlert()
         }
     }
@@ -335,7 +335,7 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
         readBatteryStatus()
         feedbackManager.triggerActionClick()
         val app = getApplication<Application>()
-        engine.logEvent(LogSeverity.INFO, "BATERÍA", app.getString(R.string.log_battery_sensor_restored))
+        engine.logEvent(LogSeverity.INFO, "BATTERY", app.getString(R.string.log_battery_sensor_restored))
     }
 
     fun setScreenTimeoutPolicy(policy: ScreenTimeoutPolicy) {
@@ -345,13 +345,13 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
         if (policy == ScreenTimeoutPolicy.SYSTEM_TIMEOUT) {
             engine.logEvent(
                 LogSeverity.WARNING,
-                "PANTALLA",
+                "SCREEN",
                 app.getString(R.string.log_screen_timeout_enabled),
             )
         } else {
             engine.logEvent(
                 LogSeverity.INFO,
-                "PANTALLA",
+                "SCREEN",
                 "Screen policy updated: ${policy.name} (Wake Lock active)",
             )
         }
@@ -390,12 +390,12 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
             SimulatedFaultType.SERVO_OVERTORQUE -> {
                 feedbackManager.triggerWarningHaptic()
                 feedbackManager.playErrorAlarm()
-                engine.logEvent(LogSeverity.ERROR, "ETHERCAT", "ALARMA AL.006: Sobrepar de protección disparado en Servo Eje Z")
+                engine.logEvent(LogSeverity.ERROR, "ETHERCAT", "ALARM AL.006: Over-torque protection trip on Z-Axis Servo")
             }
             SimulatedFaultType.LIMIT_SWITCH_X -> {
                 feedbackManager.triggerEstopHaptic()
                 feedbackManager.playErrorAlarm()
-                engine.logEvent(LogSeverity.CRITICAL, "LIMIT", "FINAL DE CARRERA DISPARADO: Interruptor hardware Eje X+ activado!")
+                engine.logEvent(LogSeverity.CRITICAL, "LIMIT", "HARD LIMIT TRIPPED: Hardware switch on Axis X+ triggered!")
             }
             SimulatedFaultType.SPINDLE_THERMAL -> {
                 feedbackManager.triggerWarningHaptic()

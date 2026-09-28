@@ -31,15 +31,15 @@ object ConversationalCamEngine {
         val toolRadius = toolDiameter / 2.0
 
         sb.append("; ==========================================================\n")
-        sb.append("; LINUXCNC CONVERSATIONAL: PLANEAR SUPERFICIE (FACING)\n")
-        sb.append(String.format(Locale.US, "; Area: %.1f x %.1f mm | Profundidad: -%.2f mm\n", lengthX, widthY, totalDepthZ))
-        sb.append(String.format(Locale.US, "; Fresa T%d (D=%.1f mm) | Paso: %.1f mm (%.0f%%)\n", toolNumber, toolDiameter, stepoverMm, stepoverPct))
+        sb.append("; LINUXCNC CONVERSATIONAL: SURFACE FACING\n")
+        sb.append(String.format(Locale.US, "; Area: %.1f x %.1f mm | Depth: -%.2f mm\n", lengthX, widthY, totalDepthZ))
+        sb.append(String.format(Locale.US, "; Tool T%d (D=%.1f mm) | Stepover: %.1f mm (%.0f%%)\n", toolNumber, toolDiameter, stepoverMm, stepoverPct))
         sb.append("; ==========================================================\n")
-        sb.append("G21 G90 G17 G40 G49 (Configuracion modal segura)\n")
+        sb.append("G21 G90 G17 G40 G49 (Safe modal setup)\n")
         sb.append(String.format(Locale.US, "T%d M6 G43\n", toolNumber))
-        sb.append(String.format(Locale.US, "S%.0f M3 (Arrancar husillo)\n", spindleRpm))
-        sb.append("M8 (Refrigeracion ON)\n")
-        sb.append(String.format(Locale.US, "G0 Z%.3f (Altura de seguridad)\n", safeZ))
+        sb.append(String.format(Locale.US, "S%.0f M3 (Start spindle)\n", spindleRpm))
+        sb.append("M8 (Coolant ON)\n")
+        sb.append(String.format(Locale.US, "G0 Z%.3f (Safe clearance height)\n", safeZ))
 
         var currentZ = 0.0
         val targetZ = -abs(totalDepthZ)
@@ -53,7 +53,7 @@ object ConversationalCamEngine {
             currentZ -= zStep
             if (currentZ < targetZ) currentZ = targetZ
 
-            sb.append(String.format(Locale.US, "\n; --- Pase Z = %.3f mm ---\n", currentZ))
+            sb.append(String.format(Locale.US, "\n; --- Pass Z = %.3f mm ---\n", currentZ))
 
             var currentY = yOrigin + toolRadius
             val maxY = yOrigin + widthY - toolRadius
@@ -90,11 +90,11 @@ object ConversationalCamEngine {
             sb.append(String.format(Locale.US, "G0 Z%.3f\n", safeZ))
         }
 
-        sb.append("\n(--- Fin de Ciclo ---)\n")
+        sb.append("\n(--- End of Cycle ---)\n")
         sb.append(String.format(Locale.US, "G0 Z%.3f\n", safeZ + 15.0))
-        sb.append("M9 (Refrigeracion OFF)\n")
-        sb.append("M5 (Parada de husillo)\n")
-        sb.append("G0 X0 Y0 (Retorno a origen)\n")
+        sb.append("M9 (Coolant OFF)\n")
+        sb.append("M5 (Spindle stop)\n")
+        sb.append("G0 X0 Y0 (Return to origin)\n")
         sb.append("M30\n")
 
         return sb.toString()
@@ -125,9 +125,9 @@ object ConversationalCamEngine {
         val effCornerRad = (cornerRad - toolRad).coerceAtLeast(0.0)
 
         sb.append("; ==========================================================\n")
-        sb.append("; LINUXCNC CONVERSATIONAL: CAJEADO RECTANGULAR (POCKET)\n")
-        sb.append(String.format(Locale.US, "; Centro: (%.1f, %.1f) | Tam: %.1f x %.1f mm | Radio Esquina: %.1f mm\n", xCenter, yCenter, lengthX, widthY, cornerRad))
-        sb.append(String.format(Locale.US, "; Profundidad Z: -%.2f mm | Fresa T%d (D=%.1f mm)\n", totalDepthZ, toolNumber, toolDiameter))
+        sb.append("; LINUXCNC CONVERSATIONAL: RECTANGULAR POCKET\n")
+        sb.append(String.format(Locale.US, "; Center: (%.1f, %.1f) | Size: %.1f x %.1f mm | Corner Radius: %.1f mm\n", xCenter, yCenter, lengthX, widthY, cornerRad))
+        sb.append(String.format(Locale.US, "; Depth Z: -%.2f mm | Tool T%d (D=%.1f mm)\n", totalDepthZ, toolNumber, toolDiameter))
         sb.append("; ==========================================================\n")
         sb.append("G21 G90 G17 G40 G49\n")
         sb.append(String.format(Locale.US, "T%d M6 G43\n", toolNumber))
@@ -149,7 +149,7 @@ object ConversationalCamEngine {
             currentZ -= zStep
             if (currentZ < targetZ) currentZ = targetZ
 
-            sb.append(String.format(Locale.US, "\n; --- Profundidad Z = %.3f mm ---\n", currentZ))
+            sb.append(String.format(Locale.US, "\n; --- Depth Z = %.3f mm ---\n", currentZ))
             // Plunge at center
             sb.append(String.format(Locale.US, "G0 X%.3f Y%.3f\n", xCenter, yCenter))
             sb.append(String.format(Locale.US, "G1 Z%.3f F%.0f\n", currentZ, plungeFeed))
@@ -195,7 +195,7 @@ object ConversationalCamEngine {
             sb.append(String.format(Locale.US, "G0 Z%.3f\n", safeZ))
         }
 
-        sb.append("\n(--- Fin de Cajeado ---)\n")
+        sb.append("\n(--- End of Pocket ---)\n")
         sb.append(String.format(Locale.US, "G0 Z%.3f\n", safeZ + 20.0))
         sb.append("M9\n")
         sb.append("M5\n")
@@ -228,11 +228,11 @@ object ConversationalCamEngine {
         val cycleCode = if (isPeck) "G83" else "G81"
 
         sb.append("; ==========================================================\n")
-        sb.append("; LINUXCNC CONVERSATIONAL: CIRCULO DE AGUJEROS (BOLT CIRCLE)\n")
-        sb.append(String.format(Locale.US, "; Centro: (%.1f, %.1f) | PCD: %.1f mm | Orificios: %d\n", centerX, centerY, pcdDiameter, numHoles))
-        sb.append(String.format(Locale.US, "; Profundidad Z: -%.2f mm | Ciclo: %s | Fresa T%d\n", drillDepthZ, cycleCode, toolNumber))
+        sb.append("; LINUXCNC CONVERSATIONAL: BOLT HOLE CIRCLE\n")
+        sb.append(String.format(Locale.US, "; Center: (%.1f, %.1f) | PCD: %.1f mm | Holes: %d\n", centerX, centerY, pcdDiameter, numHoles))
+        sb.append(String.format(Locale.US, "; Depth Z: -%.2f mm | Cycle: %s | Tool T%d\n", drillDepthZ, cycleCode, toolNumber))
         sb.append("; ==========================================================\n")
-        sb.append("G21 G90 G17 G40 G49 (Modal seguro)\n")
+        sb.append("G21 G90 G17 G40 G49 (Safe modal setup)\n")
         sb.append(String.format(Locale.US, "T%d M6 G43\n", toolNumber))
         sb.append(String.format(Locale.US, "S%.0f M3\n", spindleRpm))
         sb.append("M8\n")
@@ -252,7 +252,7 @@ object ConversationalCamEngine {
                     sb.append(
                         String.format(
                             Locale.US,
-                            "%s X%.3f Y%.3f Z-%.3f R%.3f Q%.3f F%.0f (Orificio #1 a %.1f deg)\n",
+                            "%s X%.3f Y%.3f Z-%.3f R%.3f Q%.3f F%.0f (Hole #1 at %.1f deg)\n",
                             cycleCode, holeX, holeY, drillDepthZ, retractR, peckQ, feedrate, angleDeg
                         )
                     )
@@ -260,7 +260,7 @@ object ConversationalCamEngine {
                     sb.append(
                         String.format(
                             Locale.US,
-                            "%s X%.3f Y%.3f Z-%.3f R%.3f F%.0f (Orificio #1 a %.1f deg)\n",
+                            "%s X%.3f Y%.3f Z-%.3f R%.3f F%.0f (Hole #1 at %.1f deg)\n",
                             cycleCode, holeX, holeY, drillDepthZ, retractR, feedrate, angleDeg
                         )
                     )
@@ -270,14 +270,14 @@ object ConversationalCamEngine {
                 sb.append(
                     String.format(
                         Locale.US,
-                        "X%.3f Y%.3f (Orificio #%d a %.1f deg)\n",
+                        "X%.3f Y%.3f (Hole #%d at %.1f deg)\n",
                         holeX, holeY, i + 1, angleDeg
                     )
                 )
             }
         }
 
-        sb.append("G80 (Cancelar ciclo enlatado)\n")
+        sb.append("G80 (Cancel canned cycle)\n")
         sb.append(String.format(Locale.US, "G0 Z%.3f\n", safeZ + 15.0))
         sb.append("M9\n")
         sb.append("M5\n")

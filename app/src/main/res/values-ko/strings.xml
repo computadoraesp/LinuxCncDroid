@@ -1001,4 +1001,43 @@
     <string name="camera_take_snapshot">스냅샷</string>
     <string name="camera_snapshot_saved_fmt">스냅샷 저장됨: %1$s</string>
     <string name="camera_snapshot_error_fmt">캡처 오류: %1$s</string>
+
+    <!-- New Localization Additions -->
+    <string name="jog_continuous_mode">연속 (CONT)</string>
+    <string name="jog_step_mode">스텝 (STEP)</string>
+    <string name="config_protocol_sim">시뮬레이터</string>
+    <string name="config_hw_manifest_title">하드웨어 기능 목록 (MANIFEST)</string>
+    <string name="config_spindle_encoder_short">스핀들 엔코더</string>
+    <string name="config_temp_drives_short">드라이브 온도</string>
+    <string name="config_servo_torque_short">서보 토크</string>
+    <string name="config_simulated_badge">시뮬레이션</string>
+    <string name="tool_wear_header">마모 (ΔL/ΔD)</string>
+    <string name="tool_holder_label">툴 홀더</string>
+    <string name="tool_wear_length_label">길이 마모 (ΔL mm)</string>
+    <string name="tool_wear_diameter_label">직경 마모 (ΔD mm)</string>
+    <string name="tool_table_copied_msg">tool.tbl이 클립보드에 복사되었습니다!</string>
+    <string name="tool_table_imported_msg">%1$d개의 공구를 성공적으로 가져왔습니다!</string>
+    <string name="wizard_badge_critical">중요</string>
+    <string name="calib_nominal_btn">= 공칭값</string>
+    <string name="rfl_safety_automation">안전 자동화: Z축이 +10.0mm 안전 간격으로 후퇴 -> 명령된 RPM으로 스핀들 재기동 -> 경로 준비 완료.</string>
+    <string name="soft_axis_overtravel_fmt">%1$s 축 오버트래블</string>
+    <string name="soft_g53_span_fmt">G53 범위: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_machine_limit_fmt">기계 한계: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_work_span_fmt">가공 좌표: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_g53_span_short_fmt">G53: [%1$.2f .. %2$.2f] mm</string>
+    <string name="wcs_system_fmt">좌표계 %1$s: %2$s</string>
+    <string name="wcs_g53_offset_label">G53 오프셋</string>
+    <string name="tp_zoom_in">확대</string>
+    <string name="tp_zoom_out">축소</string>
+    <string name="tp_reset_view">뷰 초기화</string>
+    <string name="topbar_user_role_desc">사용자 역할</string>
+    <string name="topbar_network_telemetry_desc">네트워크 원격 측정</string>
+    <string name="dro_home_axis_desc">%1$s 축 원점 복귀</string>
+    <string name="error_internal_subsystem_fault">내부 서브시스템 결함</string>
+    <string name="camera_flash_toggle">플래시 토글</string>
+    <string name="config_battery_charging">충전 중</string>
+    <string name="alarm_link_interrupted">연결 끊김</string>
+    <string name="common_clear">지우기</string>
+    <string name="status_active">활성</string>
+    <string name="cam_label_corner_radius">코너 반경 R (mm)</string>
 </resources>

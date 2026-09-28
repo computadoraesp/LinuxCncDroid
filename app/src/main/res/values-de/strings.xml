@@ -1099,4 +1099,43 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="camera_take_snapshot">Aufnahme erstellen</string>
     <string name="camera_snapshot_saved_fmt">Aufnahme gespeichert: %1$s</string>
     <string name="camera_snapshot_error_fmt">Aufnahmefehler: %1$s</string>
+
+    <!-- New Localization Additions -->
+    <string name="jog_continuous_mode">KONTINUIERLICH (KONT)</string>
+    <string name="jog_step_mode">SCHRITTWEISE (SCHRITT)</string>
+    <string name="config_protocol_sim">Simulator</string>
+    <string name="config_hw_manifest_title">HARDWARE-FÄHIGKEITEN (MANIFEST)</string>
+    <string name="config_spindle_encoder_short">SPINDEL-ENC</string>
+    <string name="config_temp_drives_short">ANTRIEBSTEMP</string>
+    <string name="config_servo_torque_short">SERVO-DREHMOMENT</string>
+    <string name="config_simulated_badge">SIMULIERT</string>
+    <string name="tool_wear_header">VERSCHLEISS (ΔL/ΔD)</string>
+    <string name="tool_holder_label">Werkzeughalter</string>
+    <string name="tool_wear_length_label">Längenverschleiß (ΔL mm)</string>
+    <string name="tool_wear_diameter_label">Durchmesserverschleiß (ΔD mm)</string>
+    <string name="tool_table_copied_msg">tool.tbl in die Zwischenablage kopiert!</string>
+    <string name="tool_table_imported_msg">%1$d Werkzeuge erfolgreich importiert!</string>
+    <string name="wizard_badge_critical">KRITISCH</string>
+    <string name="calib_nominal_btn">= Nominal</string>
+    <string name="rfl_safety_automation">SICHERHEITSAUTOMATIK: Z fährt auf +10,0 mm Freigabe -> Spindel startet bei Solldrehzahl neu -> Bahn wird scharfgeschaltet.</string>
+    <string name="soft_axis_overtravel_fmt">Achse %1$s Verfahrwegüberschreitung</string>
+    <string name="soft_g53_span_fmt">G53-Bereich: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_machine_limit_fmt">Maschinengrenze: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_work_span_fmt">Werkstück: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_g53_span_short_fmt">G53: [%1$.2f .. %2$.2f] mm</string>
+    <string name="wcs_system_fmt">System %1$s: %2$s</string>
+    <string name="wcs_g53_offset_label">G53-Versatz</string>
+    <string name="tp_zoom_in">Vergrößern</string>
+    <string name="tp_zoom_out">Verkleinern</string>
+    <string name="tp_reset_view">Ansicht zurücksetzen</string>
+    <string name="topbar_user_role_desc">Benutzerrolle</string>
+    <string name="topbar_network_telemetry_desc">Netzwerk-Telemetrie</string>
+    <string name="dro_home_axis_desc">Achse %1$s referenzieren</string>
+    <string name="error_internal_subsystem_fault">Interner Subsystemfehler</string>
+    <string name="camera_flash_toggle">Blitz umschalten</string>
+    <string name="config_battery_charging">LÄDT</string>
+    <string name="alarm_link_interrupted">Verbindung unterbrochen</string>
+    <string name="common_clear">LÖSCHEN</string>
+    <string name="status_active">Aktiv</string>
+    <string name="cam_label_corner_radius">Eckenradius R (mm)</string>
 </resources>

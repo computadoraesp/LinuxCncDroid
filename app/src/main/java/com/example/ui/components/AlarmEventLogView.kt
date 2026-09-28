@@ -7,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -90,102 +92,219 @@ fun AlarmEventLogView(
         )
     }
 
-    Card(
-        colors = CardDefaults.cardColors(containerColor = CncCardBg),
-        shape = RoundedCornerShape(12.dp),
-        border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            // Header
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(imageVector = Icons.Default.NotificationsActive, contentDescription = stringResource(R.string.logs_title), tint = CncWarningAmber, modifier = Modifier.size(18.dp))
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(stringResource(R.string.logs_title), fontWeight = FontWeight.Black, fontSize = 12.sp, color = CncTextPrimary)
-                }
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val isCompact = maxWidth < 600.dp
 
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
-                    if (onGenerateReport != null) {
-                        FilledTonalButton(
-                            onClick = {
-                                generatedReportText = onGenerateReport()
-                                showAuditDialog = true
-                            },
-                            shape = RoundedCornerShape(6.dp),
-                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
-                            colors = ButtonDefaults.filledTonalButtonColors(
-                                containerColor = CncCyberCyan.copy(alpha = 0.15f),
-                                contentColor = CncCyberCyan
-                            ),
-                            modifier = Modifier.height(28.dp).testTag("logs_export_audit_button")
+        Card(
+            colors = CardDefaults.cardColors(containerColor = CncCardBg),
+            shape = RoundedCornerShape(12.dp),
+            border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(if (isCompact) 10.dp else 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                // Header (Adaptive 2-row for compact portrait, single row for wide)
+                if (isCompact) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(imageVector = Icons.AutoMirrored.Filled.Assignment, contentDescription = null, modifier = Modifier.size(14.dp))
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(stringResource(R.string.logs_export_audit), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f, fill = false)) {
+                                Icon(imageVector = Icons.Default.NotificationsActive, contentDescription = stringResource(R.string.logs_title), tint = CncWarningAmber, modifier = Modifier.size(16.dp))
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    stringResource(R.string.logs_title),
+                                    fontWeight = FontWeight.Black,
+                                    fontSize = 11.sp,
+                                    color = CncTextPrimary,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+
+                            Surface(
+                                color = CncSurfaceVariant,
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(0.5.dp, CncCardBorder)
+                            ) {
+                                Text(
+                                    text = "${filteredLogs.size}",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = CncCyberCyan,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            if (onGenerateReport != null) {
+                                item {
+                                    FilledTonalButton(
+                                        onClick = {
+                                            generatedReportText = onGenerateReport()
+                                            showAuditDialog = true
+                                        },
+                                        shape = RoundedCornerShape(6.dp),
+                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                        colors = ButtonDefaults.filledTonalButtonColors(
+                                            containerColor = CncCyberCyan.copy(alpha = 0.15f),
+                                            contentColor = CncCyberCyan
+                                        ),
+                                        modifier = Modifier.height(28.dp).testTag("logs_export_audit_button")
+                                    ) {
+                                        Icon(imageVector = Icons.AutoMirrored.Filled.Assignment, contentDescription = null, modifier = Modifier.size(13.dp))
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Text(stringResource(R.string.logs_export_audit), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                }
+                            }
+
+                            if (onSimulateDiagnosticAlarm != null) {
+                                item {
+                                    FilledTonalButton(
+                                        onClick = onSimulateDiagnosticAlarm,
+                                        shape = RoundedCornerShape(6.dp),
+                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                        colors = ButtonDefaults.filledTonalButtonColors(
+                                            containerColor = CncWarningAmber.copy(alpha = 0.15f),
+                                            contentColor = CncWarningAmber
+                                        ),
+                                        modifier = Modifier.height(28.dp).testTag("logs_simulate_alarm_button")
+                                    ) {
+                                        Icon(imageVector = Icons.Default.WarningAmber, contentDescription = null, modifier = Modifier.size(13.dp))
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Text(stringResource(R.string.logs_simulate_alarm), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                }
+                            }
+
+                            item {
+                                FilledTonalButton(
+                                    onClick = onClearLogs,
+                                    enabled = logs.isNotEmpty(),
+                                    shape = RoundedCornerShape(6.dp),
+                                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                    colors = ButtonDefaults.filledTonalButtonColors(
+                                        containerColor = CncSurfaceVariant,
+                                        contentColor = if (logs.isNotEmpty()) CncTextSecondary else CncTextMuted
+                                    ),
+                                    modifier = Modifier.height(28.dp).testTag("logs_clear_button")
+                                ) {
+                                    Icon(imageVector = Icons.Default.DeleteSweep, contentDescription = null, modifier = Modifier.size(13.dp))
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(stringResource(R.string.logs_clear), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
                         }
                     }
+                } else {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f, fill = false)) {
+                            Icon(imageVector = Icons.Default.NotificationsActive, contentDescription = stringResource(R.string.logs_title), tint = CncWarningAmber, modifier = Modifier.size(18.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                stringResource(R.string.logs_title),
+                                fontWeight = FontWeight.Black,
+                                fontSize = 12.sp,
+                                color = CncTextPrimary,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
 
-                    if (onSimulateDiagnosticAlarm != null) {
-                        FilledTonalButton(
-                            onClick = onSimulateDiagnosticAlarm,
-                            shape = RoundedCornerShape(6.dp),
-                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
-                            colors = ButtonDefaults.filledTonalButtonColors(
-                                containerColor = CncWarningAmber.copy(alpha = 0.15f),
-                                contentColor = CncWarningAmber
-                            ),
-                            modifier = Modifier.height(28.dp).testTag("logs_simulate_alarm_button")
-                        ) {
-                            Icon(imageVector = Icons.Default.WarningAmber, contentDescription = null, modifier = Modifier.size(13.dp))
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(if (Locale.getDefault().language == "es") "Test Alarma" else "Test Alarm", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                            if (onGenerateReport != null) {
+                                FilledTonalButton(
+                                    onClick = {
+                                        generatedReportText = onGenerateReport()
+                                        showAuditDialog = true
+                                    },
+                                    shape = RoundedCornerShape(6.dp),
+                                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                    colors = ButtonDefaults.filledTonalButtonColors(
+                                        containerColor = CncCyberCyan.copy(alpha = 0.15f),
+                                        contentColor = CncCyberCyan
+                                    ),
+                                    modifier = Modifier.height(28.dp).testTag("logs_export_audit_button")
+                                ) {
+                                    Icon(imageVector = Icons.AutoMirrored.Filled.Assignment, contentDescription = null, modifier = Modifier.size(14.dp))
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(stringResource(R.string.logs_export_audit), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+
+                            if (onSimulateDiagnosticAlarm != null) {
+                                FilledTonalButton(
+                                    onClick = onSimulateDiagnosticAlarm,
+                                    shape = RoundedCornerShape(6.dp),
+                                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                    colors = ButtonDefaults.filledTonalButtonColors(
+                                        containerColor = CncWarningAmber.copy(alpha = 0.15f),
+                                        contentColor = CncWarningAmber
+                                    ),
+                                    modifier = Modifier.height(28.dp).testTag("logs_simulate_alarm_button")
+                                ) {
+                                    Icon(imageVector = Icons.Default.WarningAmber, contentDescription = null, modifier = Modifier.size(13.dp))
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(stringResource(R.string.logs_simulate_alarm), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+
+                            FilledTonalButton(
+                                onClick = onClearLogs,
+                                enabled = logs.isNotEmpty(),
+                                shape = RoundedCornerShape(6.dp),
+                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = CncSurfaceVariant,
+                                    contentColor = if (logs.isNotEmpty()) CncTextSecondary else CncTextMuted
+                                ),
+                                modifier = Modifier.height(28.dp).testTag("logs_clear_button")
+                            ) {
+                                Icon(imageVector = Icons.Default.DeleteSweep, contentDescription = null, modifier = Modifier.size(14.dp))
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(stringResource(R.string.logs_clear), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            }
                         }
                     }
+                }
 
-                    FilledTonalButton(
-                        onClick = onClearLogs,
-                        shape = RoundedCornerShape(6.dp),
-                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
-                        colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = CncSurfaceVariant,
-                            contentColor = CncTextSecondary
-                        ),
-                        modifier = Modifier.height(28.dp).testTag("logs_clear_button")
-                    ) {
-                        Icon(imageVector = Icons.Default.DeleteSweep, contentDescription = null, modifier = Modifier.size(14.dp))
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(stringResource(R.string.logs_clear), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                // Filter Chips (Scrollable LazyRow for great portrait experience)
+                LazyRow(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    items(filterOptions) { filterName ->
+                        val isSelected = selectedFilter == filterName
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .height(28.dp)
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(if (isSelected) CncCyberCyan else CncSurfaceVariant)
+                                .border(1.dp, if (isSelected) CncCyberCyan else CncCardBorder, RoundedCornerShape(4.dp))
+                                .clickable { selectedFilter = filterName }
+                                .padding(horizontal = 10.dp)
+                        ) {
+                            Text(
+                                filterName,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isSelected) Color(0xFF00363D) else CncTextSecondary
+                            )
+                        }
                     }
                 }
-            }
-
-            // Filter Chips
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                filterOptions.forEach { filterName ->
-                    val isSelected = selectedFilter == filterName
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(26.dp)
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(if (isSelected) CncCyberCyan else CncSurfaceVariant)
-                            .clickable { selectedFilter = filterName }
-                    ) {
-                        Text(
-                            filterName,
-                            fontSize = 9.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = if (isSelected) Color(0xFF00363D) else CncTextSecondary
-                        )
-                    }
-                }
-            }
 
             // Event Logs Listing
             Surface(
@@ -256,6 +375,7 @@ fun AlarmEventLogView(
             }
         }
     }
+}
 }
 
 @Composable

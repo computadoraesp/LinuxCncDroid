@@ -9,6 +9,7 @@ import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -144,126 +145,129 @@ fun IndustrialTopBar(
             .fillMaxWidth()
             .border(width = 1.dp, color = CncCardBorder),
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top))
-                .padding(horizontal = 6.dp, vertical = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            // =========================================================================
-            // FIXED / PINNED LEFT CONTROLS: E-STOP, Machine Power, State Indicator
-            // =========================================================================
+        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+            val isCompact = maxWidth < 480.dp
+
             Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top))
+                    .padding(horizontal = if (isCompact) 4.dp else 6.dp, vertical = 6.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
             ) {
-                // Emergency Stop Button
-                val isEstop = machineState == MachineStateEnum.ESTOP
-                val estopBg by animateColorAsState(
-                    targetValue = if (isEstop) CncEstopRed else Color(0xFF3E1218),
-                    label = "estop_color",
-                )
-
-                Button(
-                    onClick = onToggleEstop,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = estopBg,
-                        contentColor = Color.White,
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-                    modifier = Modifier
-                        .height(36.dp)
-                        .border(
-                            width = 2.dp,
-                            color = if (isEstop) Color.White else CncEstopRed,
-                            shape = RoundedCornerShape(8.dp),
-                        ),
+                // =========================================================================
+                // FIXED / PINNED LEFT CONTROLS: E-STOP, Machine Power, State Indicator
+                // =========================================================================
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(if (isCompact) 3.dp else 5.dp),
                 ) {
-                    Icon(
-                        imageVector = if (isEstop) Icons.Default.Warning else Icons.Default.Block,
-                        contentDescription = stringResource(R.string.topbar_estop),
-                        tint = Color.White,
-                        modifier = Modifier.size(15.dp),
+                    // Emergency Stop Button
+                    val isEstop = machineState == MachineStateEnum.ESTOP
+                    val estopBg by animateColorAsState(
+                        targetValue = if (isEstop) CncEstopRed else Color(0xFF3E1218),
+                        label = "estop_color",
                     )
-                    Spacer(modifier = Modifier.width(3.dp))
-                    Text(
-                        text = stringResource(R.string.topbar_estop),
-                        fontWeight = FontWeight.Black,
-                        fontSize = 11.sp,
-                        letterSpacing = 0.5.sp,
-                    )
-                }
 
-                // Power ON / OFF Button
-                if (!isEstop) {
-                    val isPowerOn = (machineState == MachineStateEnum.ON) ||
-                            (machineState == MachineStateEnum.RUNNING) ||
-                            (machineState == MachineStateEnum.IDLE) ||
-                            (machineState == MachineStateEnum.PAUSED)
-                    IconButton(
-                        onClick = { if (isPowerOn) onPowerOff() else onPowerOn() },
+                    Button(
+                        onClick = onToggleEstop,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = estopBg,
+                            contentColor = Color.White,
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = if (isCompact) 6.dp else 8.dp, vertical = 4.dp),
                         modifier = Modifier
-                            .size(36.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(if (isPowerOn) Color(0xFF003919) else Color(0xFF263238))
+                            .height(if (isCompact) 34.dp else 36.dp)
                             .border(
-                                1.dp,
-                                if (isPowerOn) CncActiveGreen else CncTextMuted,
-                                RoundedCornerShape(8.dp),
+                                width = 2.dp,
+                                color = if (isEstop) Color.White else CncEstopRed,
+                                shape = RoundedCornerShape(8.dp),
                             ),
                     ) {
                         Icon(
-                            imageVector = Icons.Default.PowerSettingsNew,
-                            contentDescription = stringResource(if (isPowerOn) R.string.topbar_power_off else R.string.topbar_power_on),
-                            tint = if (isPowerOn) CncActiveGreen else CncTextMuted,
-                            modifier = Modifier.size(18.dp),
-                        )
-                    }
-                }
-
-                // State Indicator (IDLE, RUNNING, HOMING, PAUSED, etc.)
-                val stateColor = when (machineState) {
-                    MachineStateEnum.ESTOP -> CncEstopRed
-                    MachineStateEnum.RUNNING -> CncActiveGreen
-                    MachineStateEnum.PAUSED -> CncWarningAmber
-                    MachineStateEnum.ON, MachineStateEnum.IDLE -> CncCyberCyan
-                    else -> CncTextMuted
-                }
-
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(stateColor.copy(alpha = 0.15f))
-                        .border(1.dp, stateColor, RoundedCornerShape(6.dp))
-                        .padding(horizontal = 6.dp, vertical = 4.dp),
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(
-                            modifier = Modifier
-                                .size(6.dp)
-                                .clip(CircleShape)
-                                .background(stateColor)
+                            imageVector = if (isEstop) Icons.Default.Warning else Icons.Default.Block,
+                            contentDescription = stringResource(R.string.topbar_estop),
+                            tint = Color.White,
+                            modifier = Modifier.size(if (isCompact) 14.dp else 15.dp),
                         )
                         Spacer(modifier = Modifier.width(3.dp))
                         Text(
-                            text = stringResource(machineState.displayNameRes),
-                            color = stateColor,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 10.sp
+                            text = stringResource(R.string.topbar_estop),
+                            fontWeight = FontWeight.Black,
+                            fontSize = if (isCompact) 10.sp else 11.sp,
+                            letterSpacing = 0.5.sp,
                         )
                     }
-                }
-            }
 
-            // Visual separation divider between Fixed items and Carousel
-            VerticalDivider(
-                modifier = Modifier
-                    .height(26.dp)
-                    .padding(horizontal = 4.dp),
-                color = CncCardBorder
-            )
+                    // Power ON / OFF Button
+                    if (!isEstop) {
+                        val isPowerOn = (machineState == MachineStateEnum.ON) ||
+                                (machineState == MachineStateEnum.RUNNING) ||
+                                (machineState == MachineStateEnum.IDLE) ||
+                                (machineState == MachineStateEnum.PAUSED)
+                        IconButton(
+                            onClick = { if (isPowerOn) onPowerOff() else onPowerOn() },
+                            modifier = Modifier
+                                .size(if (isCompact) 34.dp else 36.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isPowerOn) Color(0xFF003919) else Color(0xFF263238))
+                                .border(
+                                    1.dp,
+                                    if (isPowerOn) CncActiveGreen else CncTextMuted,
+                                    RoundedCornerShape(8.dp),
+                                ),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PowerSettingsNew,
+                                contentDescription = stringResource(if (isPowerOn) R.string.topbar_power_off else R.string.topbar_power_on),
+                                tint = if (isPowerOn) CncActiveGreen else CncTextMuted,
+                                modifier = Modifier.size(if (isCompact) 16.dp else 18.dp),
+                            )
+                        }
+                    }
+
+                    // State Indicator (IDLE, RUNNING, HOMING, PAUSED, etc.)
+                    val stateColor = when (machineState) {
+                        MachineStateEnum.ESTOP -> CncEstopRed
+                        MachineStateEnum.RUNNING -> CncActiveGreen
+                        MachineStateEnum.PAUSED -> CncWarningAmber
+                        MachineStateEnum.ON, MachineStateEnum.IDLE -> CncCyberCyan
+                        else -> CncTextMuted
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(stateColor.copy(alpha = 0.15f))
+                            .border(1.dp, stateColor, RoundedCornerShape(6.dp))
+                            .padding(horizontal = if (isCompact) 5.dp else 6.dp, vertical = 4.dp),
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                modifier = Modifier
+                                    .size(if (isCompact) 5.dp else 6.dp)
+                                    .clip(CircleShape)
+                                    .background(stateColor)
+                            )
+                            Spacer(modifier = Modifier.width(3.dp))
+                            Text(
+                                text = stringResource(machineState.displayNameRes),
+                                color = stateColor,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = if (isCompact) 9.sp else 10.sp
+                            )
+                        }
+                    }
+                }
+
+                // Visual separation divider between Fixed items and Carousel
+                VerticalDivider(
+                    modifier = Modifier
+                        .height(26.dp)
+                        .padding(horizontal = if (isCompact) 2.dp else 4.dp),
+                    color = CncCardBorder
+                )
 
             // =========================================================================
             // HORIZONTAL CAROUSEL: All other tools scroll smoothly with < and > controls
@@ -408,7 +412,7 @@ fun IndustrialTopBar(
                                 UserRole.OPERATOR -> Icons.Default.Engineering
                                 UserRole.VIEWER -> Icons.Default.Visibility
                             },
-                            contentDescription = "User Role",
+                            contentDescription = stringResource(R.string.topbar_user_role_desc),
                             tint = when (userRole) {
                                 UserRole.ADMIN -> CncWarningAmber
                                 UserRole.OPERATOR -> CncActiveGreen
@@ -550,7 +554,7 @@ fun IndustrialTopBar(
                                 isWeak -> Icons.Default.Sync
                                 else -> Icons.Default.Wifi
                             },
-                            contentDescription = "Network telemetry",
+                            contentDescription = stringResource(R.string.topbar_network_telemetry_desc),
                             tint = netColor,
                             modifier = Modifier.size(15.dp)
                         )
@@ -747,4 +751,5 @@ fun IndustrialTopBar(
         }
         }
     }
+}
 }

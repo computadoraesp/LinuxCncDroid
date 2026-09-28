@@ -85,6 +85,7 @@ import com.example.ui.theme.CncWarningAmber
 import androidx.compose.material.icons.filled.FileUpload
 import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.LocalTextStyle
@@ -112,6 +113,7 @@ fun ToolTableDialog(
     var importText by remember { mutableStateOf("") }
     var exportStatusMessage by remember { mutableStateOf<String?>(null) }
     val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
 
     val filteredTools = remember(tools, selectedFilter) {
         if (selectedFilter == null) tools else tools.filter { it.toolType == selectedFilter }
@@ -210,7 +212,7 @@ fun ToolTableDialog(
                                 onClick = {
                                     val exported = onExportToolTable()
                                     clipboardManager.setText(AnnotatedString(exported))
-                                    exportStatusMessage = "¡tool.tbl copiado al portapapeles!"
+                                    exportStatusMessage = context.getString(R.string.tool_table_copied_msg)
                                 },
                                 shape = RoundedCornerShape(6.dp),
                                 contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
@@ -222,7 +224,7 @@ fun ToolTableDialog(
                             }
 
                             IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
-                                Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = CncTextSecondary)
+                                Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(R.string.common_close), tint = CncTextSecondary)
                             }
                         }
                     }
@@ -371,7 +373,7 @@ fun ToolTableDialog(
                 Button(
                     onClick = {
                         val count = onImportToolTable(importText)
-                        exportStatusMessage = "¡$count herramientas importadas exitosamente!"
+                        exportStatusMessage = context.getString(R.string.tool_table_imported_msg, count)
                         showImportDialog = false
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = CncRunningGreen)
@@ -543,7 +545,7 @@ fun ToolCardItem(
                     modifier = Modifier.weight(1f)
                 ) {
                     Column(modifier = Modifier.padding(6.dp)) {
-                        Text("DESGASTE (ΔL/ΔD)", fontSize = 8.sp, color = CncTextSecondary)
+                        Text(stringResource(R.string.tool_wear_header), fontSize = 8.sp, color = CncTextSecondary)
                         Text("ΔL:${String.format(java.util.Locale.US, "%.2f", tool.wearLength)} ΔD:${String.format(java.util.Locale.US, "%.2f", tool.wearDiameter)}", fontSize = 9.5.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace, color = CncTextPrimary)
                     }
                 }
@@ -730,7 +732,7 @@ fun EditToolDetailsDialog(
                 OutlinedTextField(
                     value = holderTypeStr,
                     onValueChange = { holderTypeStr = it },
-                    label = { Text("Portaherramientas (Holder)", fontSize = 10.sp) },
+                    label = { Text(stringResource(R.string.tool_holder_label), fontSize = 10.sp) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -744,14 +746,14 @@ fun EditToolDetailsDialog(
                     OutlinedTextField(
                         value = wearLengthStr,
                         onValueChange = { wearLengthStr = it },
-                        label = { Text("Desgaste Longitud (ΔL mm)", fontSize = 10.sp) },
+                        label = { Text(stringResource(R.string.tool_wear_length_label), fontSize = 10.sp) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
                     OutlinedTextField(
                         value = wearDiameterStr,
                         onValueChange = { wearDiameterStr = it },
-                        label = { Text("Desgaste Diámetro (ΔD mm)", fontSize = 10.sp) },
+                        label = { Text(stringResource(R.string.tool_wear_diameter_label), fontSize = 10.sp) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )

@@ -984,4 +984,43 @@
     <string name="camera_take_snapshot">拍照</string>
     <string name="camera_snapshot_saved_fmt">快照已保存: %1$s</string>
     <string name="camera_snapshot_error_fmt">拍摄错误: %1$s</string>
+
+    <!-- New Localization Additions -->
+    <string name="jog_continuous_mode">连续 (CONT)</string>
+    <string name="jog_step_mode">单步 (STEP)</string>
+    <string name="config_protocol_sim">模拟器</string>
+    <string name="config_hw_manifest_title">硬件功能清单 (MANIFEST)</string>
+    <string name="config_spindle_encoder_short">主轴编码器</string>
+    <string name="config_temp_drives_short">驱动器温度</string>
+    <string name="config_servo_torque_short">伺服扭矩</string>
+    <string name="config_simulated_badge">模拟</string>
+    <string name="tool_wear_header">磨损 (ΔL/ΔD)</string>
+    <string name="tool_holder_label">刀柄</string>
+    <string name="tool_wear_length_label">长度磨损 (ΔL mm)</string>
+    <string name="tool_wear_diameter_label">直径磨损 (ΔD mm)</string>
+    <string name="tool_table_copied_msg">tool.tbl 已复制到剪贴板！</string>
+    <string name="tool_table_imported_msg">已成功导入 %1$d 个刀具！</string>
+    <string name="wizard_badge_critical">关键</string>
+    <string name="calib_nominal_btn">= 标称</string>
+    <string name="rfl_safety_automation">安全自动化：Z 轴退刀至 +10.0mm 安全高度 -> 主轴以设定转速重启 -> 轨迹就绪。</string>
+    <string name="soft_axis_overtravel_fmt">%1$s 轴超程</string>
+    <string name="soft_g53_span_fmt">G53 范围：[%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_machine_limit_fmt">机床限位：[%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_work_span_fmt">工件：[%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_g53_span_short_fmt">G53：[%1$.2f .. %2$.2f] mm</string>
+    <string name="wcs_system_fmt">坐标系 %1$s: %2$s</string>
+    <string name="wcs_g53_offset_label">G53 偏置</string>
+    <string name="tp_zoom_in">放大</string>
+    <string name="tp_zoom_out">缩小</string>
+    <string name="tp_reset_view">重置视图</string>
+    <string name="topbar_user_role_desc">用户角色</string>
+    <string name="topbar_network_telemetry_desc">网络遥测</string>
+    <string name="dro_home_axis_desc">%1$s 轴回原点</string>
+    <string name="error_internal_subsystem_fault">内部子系统故障</string>
+    <string name="camera_flash_toggle">开关闪光灯</string>
+    <string name="config_battery_charging">充电中</string>
+    <string name="alarm_link_interrupted">连接中断</string>
+    <string name="common_clear">清除</string>
+    <string name="status_active">激活</string>
+    <string name="cam_label_corner_radius">拐角半径 R (mm)</string>
 </resources>

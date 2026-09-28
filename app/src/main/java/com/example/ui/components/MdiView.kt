@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
@@ -52,204 +53,247 @@ fun MdiView(
 
     var selectedHistoryTab by remember { mutableIntStateOf(0) } // 0: Recent, 1: Favorites
 
-    Card(
-        colors = CardDefaults.cardColors(containerColor = CncCardBg),
-        shape = RoundedCornerShape(12.dp),
-        border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            // Header
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.Terminal,
-                        contentDescription = stringResource(R.string.mdi_title),
-                        tint = CncCyberCyan,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        stringResource(R.string.mdi_title),
-                        fontWeight = FontWeight.Black,
-                        fontSize = 12.sp,
-                        color = CncTextPrimary
-                    )
-                }
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val isCompact = maxWidth < 500.dp
 
-                // Live Syntax Indicator Badge
-                if (commandText.isNotBlank() && validationResult != null) {
-                    if (validationResult.isValid) {
-                        Surface(
-                            color = Color(0xFF1B5E20).copy(alpha = 0.3f),
-                            shape = RoundedCornerShape(4.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF4CAF50))
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                                verticalAlignment = Alignment.CenterVertically
+        Card(
+            colors = CardDefaults.cardColors(containerColor = CncCardBg),
+            shape = RoundedCornerShape(12.dp),
+            border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(if (isCompact) 10.dp else 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier.weight(1f, fill = false),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Terminal,
+                            contentDescription = stringResource(R.string.mdi_title),
+                            tint = CncCyberCyan,
+                            modifier = Modifier.size(if (isCompact) 16.dp else 18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            stringResource(R.string.mdi_title),
+                            fontWeight = FontWeight.Black,
+                            fontSize = if (isCompact) 11.sp else 12.sp,
+                            color = CncTextPrimary,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    // Live Syntax Indicator Badge
+                    if (commandText.isNotBlank() && validationResult != null) {
+                        if (validationResult.isValid) {
+                            Surface(
+                                color = Color(0xFF1B5E20).copy(alpha = 0.3f),
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF4CAF50))
                             ) {
-                                Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color(0xFF4CAF50), modifier = Modifier.size(12.dp))
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Text(stringResource(R.string.mdi_valid), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF81C784))
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color(0xFF4CAF50), modifier = Modifier.size(12.dp))
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(stringResource(R.string.mdi_valid), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF81C784), maxLines = 1)
+                                }
                             }
-                        }
-                    } else {
-                        Surface(
-                            color = Color(0xFFB71C1C).copy(alpha = 0.3f),
-                            shape = RoundedCornerShape(4.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE57373))
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                        } else {
+                            Surface(
+                                color = Color(0xFFB71C1C).copy(alpha = 0.3f),
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE57373))
                             ) {
-                                Icon(Icons.Default.Warning, contentDescription = null, tint = Color(0xFFE57373), modifier = Modifier.size(12.dp))
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Text(stringResource(R.string.mdi_syntax_error), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFEF9A9A))
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(Icons.Default.Warning, contentDescription = null, tint = Color(0xFFE57373), modifier = Modifier.size(12.dp))
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(stringResource(R.string.mdi_syntax_error), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFEF9A9A), maxLines = 1)
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            // Live Error / Token Hint Banner
-            if (commandText.isNotBlank() && validationResult != null && !validationResult.isValid) {
-                Surface(
-                    color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f),
-                    shape = RoundedCornerShape(6.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = validationResult.errorMessage ?: stringResource(R.string.mdi_syntax_error),
-                        color = MaterialTheme.colorScheme.error,
-                        fontSize = 11.sp,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        fontFamily = FontFamily.Monospace
-                    )
+                // Live Error / Token Hint Banner
+                if (commandText.isNotBlank() && validationResult != null && !validationResult.isValid) {
+                    Surface(
+                        color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f),
+                        shape = RoundedCornerShape(6.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = validationResult.errorMessage ?: stringResource(R.string.mdi_syntax_error),
+                            color = MaterialTheme.colorScheme.error,
+                            fontSize = 11.sp,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            fontFamily = FontFamily.Monospace
+                        )
+                    }
+                } else if (commandText.isNotBlank() && validationResult != null && validationResult.parsedTokens.isNotEmpty()) {
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        items(validationResult.parsedTokens) { token ->
+                            Surface(
+                                color = CncSurfaceVariant,
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(0.5.dp, CncCardBorder)
+                            ) {
+                                Text(
+                                    text = token,
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = CncCyberCyan,
+                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+                    }
                 }
-            } else if (commandText.isNotBlank() && validationResult != null && validationResult.parsedTokens.isNotEmpty()) {
+
+                // Command Input Bar
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OutlinedTextField(
+                        value = commandText,
+                        onValueChange = onCommandTextChange,
+                        enabled = isEnabled,
+                        placeholder = { Text(stringResource(R.string.mdi_placeholder), color = CncTextMuted, fontSize = 12.sp) },
+                        singleLine = true,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = CncSurface,
+                            unfocusedContainerColor = CncSurface,
+                            focusedTextColor = CncCyberCyan,
+                            unfocusedTextColor = CncTextPrimary,
+                            focusedBorderColor = if (validationResult?.isValid == false) MaterialTheme.colorScheme.error else CncCyberCyan,
+                            unfocusedBorderColor = CncCardBorder
+                        ),
+                        textStyle = LocalTextStyle.current.copy(fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 14.sp),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("mdi_input_field")
+                    )
+
+                    Button(
+                        onClick = { onExecuteCommand(commandText) },
+                        enabled = isEnabled && commandText.isNotBlank() && (validationResult == null || validationResult.isValid),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = CncCyberCyan,
+                            contentColor = Color(0xFF00363D)
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = if (isCompact) 10.dp else 16.dp, vertical = 4.dp),
+                        modifier = Modifier
+                            .height(52.dp)
+                            .testTag("mdi_send_button")
+                    ) {
+                        Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = stringResource(R.string.mdi_execute))
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(stringResource(R.string.mdi_execute), fontWeight = FontWeight.Black, fontSize = if (isCompact) 11.sp else 12.sp)
+                    }
+                }
+
+                // Quick G-Code Helper Chips - Scrollable LazyRow for great portrait experience
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
-                    items(validationResult.parsedTokens) { token ->
-                        Surface(
-                            color = CncSurfaceVariant,
-                            shape = RoundedCornerShape(4.dp),
-                            border = androidx.compose.foundation.BorderStroke(0.5.dp, CncCardBorder)
+                    items(listOf("G0 X0 Y0", "G0 Z10", "M3 S12000", "M5", "G28", "G54", "G90", "G91")) { gcode ->
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .height(28.dp)
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(CncSurfaceVariant)
+                                .border(1.dp, CncCardBorder, RoundedCornerShape(4.dp))
+                                .clickable(enabled = isEnabled) { onCommandTextChange(gcode) }
+                                .padding(horizontal = 10.dp)
                         ) {
-                            Text(
-                                text = token,
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = CncCyberCyan,
-                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
-                            )
+                            Text(gcode, fontSize = 10.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace, color = CncCyberCyan)
                         }
                     }
                 }
-            }
 
-            // Command Input Bar
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = commandText,
-                    onValueChange = onCommandTextChange,
-                    enabled = isEnabled,
-                    placeholder = { Text(stringResource(R.string.mdi_placeholder), color = CncTextMuted, fontSize = 12.sp) },
-                    singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = CncSurface,
-                        unfocusedContainerColor = CncSurface,
-                        focusedTextColor = CncCyberCyan,
-                        unfocusedTextColor = CncTextPrimary,
-                        focusedBorderColor = if (validationResult?.isValid == false) MaterialTheme.colorScheme.error else CncCyberCyan,
-                        unfocusedBorderColor = CncCardBorder
-                    ),
-                    textStyle = LocalTextStyle.current.copy(fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 14.sp),
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier
-                        .weight(1f)
-                        .testTag("mdi_input_field")
-                )
+                HorizontalDivider(Modifier, DividerDefaults.Thickness, color = CncCardBorder)
 
-                Button(
-                    onClick = { onExecuteCommand(commandText) },
-                    enabled = isEnabled && commandText.isNotBlank() && (validationResult == null || validationResult.isValid),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = CncCyberCyan,
-                        contentColor = Color(0xFF00363D)
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier
-                        .height(52.dp)
-                        .testTag("mdi_send_button")
-                ) {
-                    Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = stringResource(R.string.mdi_execute))
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(stringResource(R.string.mdi_execute), fontWeight = FontWeight.Black)
-                }
-            }
+                // Programmable Macros Grid (Adaptive 2x2 for compact vertical, single row for wide)
+                Text(stringResource(R.string.mdi_macros_header), fontSize = 11.sp, fontWeight = FontWeight.Bold, color = CncTextSecondary)
 
-            // Quick G-Code Helper Chips
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                listOf("G0 X0 Y0", "G0 Z10", "M3 S12000", "M5", "G28", "G54", "G90", "G91").forEach { gcode ->
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(28.dp)
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(CncSurfaceVariant)
-                            .border(1.dp, CncCardBorder, RoundedCornerShape(4.dp))
-                            .clickable(enabled = isEnabled) { onCommandTextChange(gcode) }
-                    ) {
-                        Text(gcode, fontSize = 9.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace, color = CncCyberCyan)
+                if (isCompact) {
+                    val macroList = macros.take(4)
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        macroList.chunked(2).forEach { rowMacros ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                rowMacros.forEach { macro ->
+                                    Surface(
+                                        color = CncSurface,
+                                        shape = RoundedCornerShape(8.dp),
+                                        border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .clickable(enabled = isEnabled) { onExecuteCommand(macro.command) }
+                                    ) {
+                                        Column(modifier = Modifier.padding(8.dp)) {
+                                            Text(macro.label, fontWeight = FontWeight.Bold, fontSize = 11.sp, color = CncWarningAmber, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                            Spacer(modifier = Modifier.height(2.dp))
+                                            Text(macro.description, fontSize = 9.sp, color = CncTextSecondary, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                        }
+                                    }
+                                }
+                                if (rowMacros.size == 1) {
+                                    Spacer(modifier = Modifier.weight(1f))
+                                }
+                            }
+                        }
                     }
-                }
-            }
-
-            HorizontalDivider(Modifier, DividerDefaults.Thickness, color = CncCardBorder)
-
-            // Programmable Macros Grid
-            Text(stringResource(R.string.mdi_macros_header), fontSize = 11.sp, fontWeight = FontWeight.Bold, color = CncTextSecondary)
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                macros.take(4).forEach { macro ->
-                    Surface(
-                        color = CncSurface,
-                        shape = RoundedCornerShape(8.dp),
-                        border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable(enabled = isEnabled) { onExecuteCommand(macro.command) }
+                } else {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        Column(modifier = Modifier.padding(8.dp)) {
-                            Text(macro.label, fontWeight = FontWeight.Bold, fontSize = 11.sp, color = CncWarningAmber)
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(macro.description, fontSize = 9.sp, color = CncTextSecondary, maxLines = 2)
+                        macros.take(4).forEach { macro ->
+                            Surface(
+                                color = CncSurface,
+                                shape = RoundedCornerShape(8.dp),
+                                border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(CncCardBorder)),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clickable(enabled = isEnabled) { onExecuteCommand(macro.command) }
+                            ) {
+                                Column(modifier = Modifier.padding(8.dp)) {
+                                    Text(macro.label, fontWeight = FontWeight.Bold, fontSize = 11.sp, color = CncWarningAmber, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(macro.description, fontSize = 9.sp, color = CncTextSecondary, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                }
+                            }
                         }
                     }
                 }
-            }
 
-            HorizontalDivider(Modifier, DividerDefaults.Thickness, color = CncCardBorder)
+                HorizontalDivider(Modifier, DividerDefaults.Thickness, color = CncCardBorder)
 
             // Command Execution History & Favorites Tabs
             Row(
@@ -283,7 +327,7 @@ fun MdiView(
                     ) {
                         Icon(
                             imageVector = Icons.Default.DeleteSweep,
-                            contentDescription = "Clear History",
+                            contentDescription = stringResource(R.string.logs_clear),
                             tint = CncTextSecondary,
                             modifier = Modifier.size(16.dp)
                         )
@@ -365,4 +409,5 @@ fun MdiView(
             }
         }
     }
+}
 }

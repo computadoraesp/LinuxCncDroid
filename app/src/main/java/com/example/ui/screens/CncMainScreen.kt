@@ -459,7 +459,7 @@ fun CncMainScreen(
                                 )
                             }
                             Text(
-                                text = "${stringResource(R.string.alarm_reconnecting_msg, connectionTelemetry.secondsUntilReconnect, connectionTelemetry.reconnectAttempt)} • ${connectionTelemetry.lastDisconnectReason ?: "Enlace interrumpido"}",
+                                text = "${stringResource(R.string.alarm_reconnecting_msg, connectionTelemetry.secondsUntilReconnect, connectionTelemetry.reconnectAttempt)} • ${connectionTelemetry.lastDisconnectReason ?: stringResource(R.string.alarm_link_interrupted)}",
                                 fontSize = 11.sp,
                                 color = CncTextPrimary
                             )
@@ -676,7 +676,7 @@ fun CncMainScreen(
 
                     CncNavigationTab.TOOLPATH -> {
                         CncErrorBoundary(
-                            componentName = "Visualizador 3D G-Code",
+                            componentName = stringResource(R.string.error_comp_3d_visualizer),
                             onReset = { /* resets locally */ }
                         ) {
                             ToolpathVisualizer3D(
@@ -732,7 +732,7 @@ fun CncMainScreen(
                             unitSystem = unitSystem,
                         ) { viewModel.zeroAxis(it) }
 
-                        CncErrorBoundary(componentName = "Ciclos de Palpado") {
+                        CncErrorBoundary(componentName = stringResource(R.string.error_comp_probing)) {
                             ProbingView(
                                 probeInfo = probe,
                                 onExecuteRoutine = { viewModel.triggerProbe(it) },
@@ -741,7 +741,7 @@ fun CncMainScreen(
                     }
 
                     CncNavigationTab.ETHERCAT -> {
-                        CncErrorBoundary(componentName = "Bus de Campo EtherCAT") {
+                        CncErrorBoundary(componentName = stringResource(R.string.error_comp_ethercat)) {
                             EtherCatTelemetryView(
                                 masterInfo = etherCatMaster,
                                 slaves = etherCatSlaves,

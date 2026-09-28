@@ -628,7 +628,7 @@ fun AxisCalibrationDialog(
                                                     .padding(horizontal = 8.dp, vertical = 4.dp)
                                             ) {
                                                 Text(
-                                                    text = "= Nominal",
+                                                    text = stringResource(R.string.calib_nominal_btn),
                                                     color = CncCyberCyan,
                                                     fontSize = 8.5.sp,
                                                     fontFamily = FontFamily.Monospace,

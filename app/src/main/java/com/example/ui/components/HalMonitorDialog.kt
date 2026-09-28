@@ -104,7 +104,7 @@ fun HalMonitorDialog(
                         onClick = onDismiss,
                         modifier = Modifier.testTag("close_hal_dialog_button")
                     ) {
-                        Icon(Icons.Default.Close, contentDescription = "Close")
+                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.common_close))
                     }
                 }
 
@@ -119,7 +119,7 @@ fun HalMonitorDialog(
                     trailingIcon = {
                         if (searchQuery.isNotEmpty()) {
                             IconButton(onClick = { searchQuery = "" }) {
-                                Icon(Icons.Default.Clear, contentDescription = "Clear")
+                                Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.common_clear))
                             }
                         }
                     },

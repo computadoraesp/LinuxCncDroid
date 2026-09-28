@@ -379,7 +379,7 @@ fun MachineConfigView(
                                     text = when (proto) {
                                         LinuxCncProtocolType.LINUXCNCRSH_TCP -> "linuxcncrsh (TCP 5007)"
                                         LinuxCncProtocolType.WEBSOCKET_JSON -> "WebSocket (JSON)"
-                                        LinuxCncProtocolType.SIMULATION_LOCAL -> "Simulador"
+                                        LinuxCncProtocolType.SIMULATION_LOCAL -> stringResource(R.string.config_protocol_sim)
                                     },
                                     fontSize = 9.sp,
                                     fontWeight = if (isProtoSelected) FontWeight.Bold else FontWeight.Normal,
@@ -604,7 +604,7 @@ fun MachineConfigView(
                             }
 
                             if (isSelected) {
-                                Icon(imageVector = Icons.Default.CheckCircle, contentDescription = "Active", tint = CncActiveGreen, modifier = Modifier.size(20.dp))
+                                Icon(imageVector = Icons.Default.CheckCircle, contentDescription = stringResource(R.string.status_active), tint = CncActiveGreen, modifier = Modifier.size(20.dp))
                             }
                         }
                     }
@@ -620,7 +620,7 @@ fun MachineConfigView(
             ) {
                 Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text(
-                        text = "CAPACIDADES DE HARDWARE (MANIFEST)",
+                        text = stringResource(R.string.config_hw_manifest_title),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Black,
                         color = CncCyberCyan,
@@ -657,7 +657,7 @@ fun MachineConfigView(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = "ENC HUSILLO",
+                                text = stringResource(R.string.config_spindle_encoder_short),
                                 fontSize = 8.5.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (encActive) CncRunningGreen else CncTextMuted,
@@ -672,7 +672,7 @@ fun MachineConfigView(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = "TEMP DRIVES",
+                                text = stringResource(R.string.config_temp_drives_short),
                                 fontSize = 8.5.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (tempActive) CncRunningGreen else CncTextMuted,
@@ -687,7 +687,7 @@ fun MachineConfigView(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = "PAR SERVO",
+                                text = stringResource(R.string.config_servo_torque_short),
                                 fontSize = 8.5.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (torqueActive) CncRunningGreen else CncTextMuted,
@@ -808,7 +808,7 @@ fun MachineConfigView(
                             if (isSelected) {
                                 Icon(
                                     imageVector = Icons.Default.CheckCircle,
-                                    contentDescription = "Active",
+                                    contentDescription = stringResource(R.string.status_active),
                                     tint = CncActiveGreen,
                                     modifier = Modifier.size(18.dp)
                                 )
@@ -855,8 +855,9 @@ fun MachineConfigView(
                             )
                         }
 
+                        val chargingSuffix = if (batterySafetyState.isCharging) " (${stringResource(R.string.config_battery_charging)})" else ""
                         Text(
-                            text = "${batterySafetyState.levelPct}% ${if (batterySafetyState.isCharging) "(CARGANDO)" else ""}",
+                            text = "${batterySafetyState.levelPct}%$chargingSuffix",
                             fontWeight = FontWeight.Bold,
                             fontSize = 11.sp,
                             fontFamily = FontFamily.Monospace,
@@ -1017,7 +1018,7 @@ fun MachineConfigView(
                                     shape = RoundedCornerShape(4.dp)
                                 ) {
                                     Text(
-                                        text = "SIMULADO",
+                                        text = stringResource(R.string.config_simulated_badge),
                                         fontWeight = FontWeight.Black,
                                         fontSize = 8.sp,
                                         color = CncWarningAmber,

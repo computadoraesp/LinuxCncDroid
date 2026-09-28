@@ -992,4 +992,43 @@
     <string name="camera_take_snapshot">スナップショット</string>
     <string name="camera_snapshot_saved_fmt">スナップショットを保存しました: %1$s</string>
     <string name="camera_snapshot_error_fmt">キャプチャエラー: %1$s</string>
+
+    <!-- New Localization Additions -->
+    <string name="jog_continuous_mode">連続 (CONT)</string>
+    <string name="jog_step_mode">ステップ (STEP)</string>
+    <string name="config_protocol_sim">シミュレーター</string>
+    <string name="config_hw_manifest_title">ハードウェア機能 (MANIFEST)</string>
+    <string name="config_spindle_encoder_short">主軸エンコーダ</string>
+    <string name="config_temp_drives_short">ドライバ温度</string>
+    <string name="config_servo_torque_short">サーボトルク</string>
+    <string name="config_simulated_badge">シミュレーション</string>
+    <string name="tool_wear_header">摩耗 (ΔL/ΔD)</string>
+    <string name="tool_holder_label">ツールホルダー</string>
+    <string name="tool_wear_length_label">長さ摩耗 (ΔL mm)</string>
+    <string name="tool_wear_diameter_label">径摩耗 (ΔD mm)</string>
+    <string name="tool_table_copied_msg">tool.tbl をクリップボードにコピーしました！</string>
+    <string name="tool_table_imported_msg">%1$d 本のツールを正常にインポートしました！</string>
+    <string name="wizard_badge_critical">重要</string>
+    <string name="calib_nominal_btn">= 公称値</string>
+    <string name="rfl_safety_automation">安全自動制御：Z軸が+10.0mmの安全クリアランスに後退 -> 指令回転数で主軸再起動 -> 軌道準備完了。</string>
+    <string name="soft_axis_overtravel_fmt">%1$s 軸オーバートラベル</string>
+    <string name="soft_g53_span_fmt">G53 範囲: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_machine_limit_fmt">機械リミット: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_work_span_fmt">ワーク: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_g53_span_short_fmt">G53: [%1$.2f .. %2$.2f] mm</string>
+    <string name="wcs_system_fmt">座標系 %1$s: %2$s</string>
+    <string name="wcs_g53_offset_label">G53 オフセット</string>
+    <string name="tp_zoom_in">ズームイン</string>
+    <string name="tp_zoom_out">ズームアウト</string>
+    <string name="tp_reset_view">ビューをリセット</string>
+    <string name="topbar_user_role_desc">ユーザーロール</string>
+    <string name="topbar_network_telemetry_desc">ネットワークテレメトリ</string>
+    <string name="dro_home_axis_desc">%1$s 軸原点復帰</string>
+    <string name="error_internal_subsystem_fault">内部サブシステム障害</string>
+    <string name="camera_flash_toggle">フラッシュ切り替え</string>
+    <string name="config_battery_charging">充電中</string>
+    <string name="alarm_link_interrupted">接続切断</string>
+    <string name="common_clear">クリア</string>
+    <string name="status_active">アクティブ</string>
+    <string name="cam_label_corner_radius">コーナー半径 R (mm)</string>
 </resources>

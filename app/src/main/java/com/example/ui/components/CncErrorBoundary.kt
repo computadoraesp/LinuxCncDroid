@@ -50,7 +50,7 @@ class CncErrorBoundaryState {
 
     fun reportFault(error: Throwable) {
         hasError = true
-        errorDescription = error.localizedMessage ?: "Fallo interno en el subsistema"
+        errorDescription = error.localizedMessage ?: "Internal subsystem fault"
     }
 
     fun reportFault(message: String) {

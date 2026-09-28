@@ -22,6 +22,7 @@ import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -86,6 +87,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -215,158 +217,212 @@ fun IndustrialCameraView(
                 .fillMaxSize()
                 .padding(8.dp),
         ) {
-            // Header Bar
-            Row(
+            // Header Bar (Adaptive for portrait and landscape)
+            BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 6.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
+                    .padding(bottom = 6.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Icon(
-                        imageVector = Icons.Default.Videocam,
-                        contentDescription = null,
-                        tint = CncCyberCyan,
-                        modifier = Modifier.size(20.dp),
-                    )
-                    Text(
-                        text = stringResource(R.string.camera_header),
-                        color = CncTextPrimary,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
-                }
+                val isCompact = maxWidth < 550.dp
 
-                // Macro Zoom Presets and Quick Controls
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    // Macro Zoom Presets
-                    listOf(1.0f, 2.0f, 4.0f, 8.0f).forEach { presetZoom ->
-                        val isCurrent = abs(zoomRatio - presetZoom) < 0.25f
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(if (isCurrent) CncCyberCyan else CncSurfaceVariant)
-                                .border(1.dp, if (isCurrent) CncCyberCyan else CncCardBorder, RoundedCornerShape(4.dp))
-                                .clickable {
-                                    zoomRatio = presetZoom
-                                    cameraControl?.setZoomRatio(presetZoom)
-                                }
-                                .padding(horizontal = 6.dp, vertical = 3.dp)
+                val controlsContent: @Composable () -> Unit = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        // Macro Zoom Presets
+                        listOf(1.0f, 2.0f, 4.0f, 8.0f).forEach { presetZoom ->
+                            val isCurrent = abs(zoomRatio - presetZoom) < 0.25f
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(4.dp))
+                                    .background(if (isCurrent) CncCyberCyan else CncSurfaceVariant)
+                                    .border(1.dp, if (isCurrent) CncCyberCyan else CncCardBorder, RoundedCornerShape(4.dp))
+                                    .clickable {
+                                        zoomRatio = presetZoom
+                                        cameraControl?.setZoomRatio(presetZoom)
+                                    }
+                                    .padding(horizontal = 6.dp, vertical = 3.dp)
+                            ) {
+                                Text(
+                                    text = "${presetZoom.toInt()}X",
+                                    color = if (isCurrent) Color.Black else CncTextSecondary,
+                                    fontSize = 8.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Monospace
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.width(2.dp))
+
+                        // Camera Spindle Offset Dialog Button
+                        IconButton(
+                            onClick = { showSpindleOffsetDialog = true },
+                            modifier = Modifier.size(30.dp),
                         ) {
-                            Text(
-                                text = "${presetZoom.toInt()}X",
-                                color = if (isCurrent) Color.Black else CncTextSecondary,
-                                fontSize = 8.5.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Monospace
+                            Icon(
+                                imageVector = Icons.Default.Tune,
+                                contentDescription = stringResource(R.string.camera_spindle_offset),
+                                tint = if (cameraSpindleOffsetX != 0.0 || cameraSpindleOffsetY != 0.0) CncWarningAmber else CncTextSecondary,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+
+                        // Flash / Torch toggle
+                        IconButton(
+                            onClick = {
+                                isFlashOn = !isFlashOn
+                                cameraControl?.enableTorch(isFlashOn)
+                            },
+                            modifier = Modifier.size(30.dp),
+                        ) {
+                            Icon(
+                                imageVector = if (isFlashOn) Icons.Default.FlashOn else Icons.Default.FlashOff,
+                                contentDescription = stringResource(R.string.camera_flash_toggle),
+                                tint = if (isFlashOn) CncWarningAmber else CncTextSecondary,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+
+                        // Flip camera
+                        IconButton(
+                            onClick = {
+                                lensFacing = if (lensFacing == CameraSelector.LENS_FACING_BACK) {
+                                    CameraSelector.LENS_FACING_FRONT
+                                } else {
+                                    CameraSelector.LENS_FACING_BACK
+                                }
+                            },
+                            modifier = Modifier.size(30.dp),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.FlipCameraAndroid,
+                                contentDescription = stringResource(R.string.camera_flip_camera),
+                                tint = CncTextSecondary,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+
+                        // Telemetry toggle
+                        IconButton(
+                            onClick = { showTelemetryOverlay = !showTelemetryOverlay },
+                            modifier = Modifier.size(30.dp),
+                        ) {
+                            Icon(
+                                imageVector = if (showTelemetryOverlay) Icons.Default.Layers else Icons.Default.LayersClear,
+                                contentDescription = stringResource(R.string.camera_telemetry_toggle),
+                                tint = if (showTelemetryOverlay) CncCyberCyan else CncTextSecondary,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+
+                        // Snapshot capture
+                        IconButton(
+                            onClick = {
+                                val cap = imageCapture
+                                if (cap != null) {
+                                    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+                                    val photoFile = File(attributionContext.cacheDir, "CNC_ALIGN_$timeStamp.jpg")
+                                    val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+                                    cap.takePicture(
+                                        outputOptions,
+                                        cameraExecutor,
+                                        object : ImageCapture.OnImageSavedCallback {
+                                            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                                                lastCapturedSnapshotMessage = attributionContext.getString(
+                                                    R.string.camera_snapshot_saved_fmt,
+                                                    "CNC_ALIGN_$timeStamp.jpg"
+                                                )
+                                            }
+
+                                            override fun onError(exc: ImageCaptureException) {
+                                                Log.e("CncCamera", "Snapshot error: ${exc.message}", exc)
+                                                lastCapturedSnapshotMessage = attributionContext.getString(
+                                                    R.string.camera_snapshot_error_fmt,
+                                                    exc.message ?: ""
+                                                )
+                                            }
+                                        }
+                                    )
+                                }
+                            },
+                            enabled = machineState != MachineStateEnum.RUNNING,
+                            modifier = Modifier.size(30.dp),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PhotoCamera,
+                                contentDescription = stringResource(R.string.camera_take_snapshot),
+                                tint = if (machineState != MachineStateEnum.RUNNING) CncActiveGreen else CncTextMuted,
+                                modifier = Modifier.size(16.dp)
                             )
                         }
                     }
+                }
 
-                    Spacer(modifier = Modifier.width(2.dp))
-
-                    // Camera Spindle Offset Dialog Button
-                    IconButton(
-                        onClick = { showSpindleOffsetDialog = true },
-                        modifier = Modifier.size(30.dp),
+                if (isCompact) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Tune,
-                            contentDescription = stringResource(R.string.camera_spindle_offset),
-                            tint = if (cameraSpindleOffsetX != 0.0 || cameraSpindleOffsetY != 0.0) CncWarningAmber else CncTextSecondary,
-                            modifier = Modifier.size(16.dp),
-                        )
-                    }
-
-                    // Flash / Torch toggle
-                    IconButton(
-                        onClick = {
-                            isFlashOn = !isFlashOn
-                            cameraControl?.enableTorch(isFlashOn)
-                        },
-                        modifier = Modifier.size(30.dp),
-                    ) {
-                        Icon(
-                            imageVector = if (isFlashOn) Icons.Default.FlashOn else Icons.Default.FlashOff,
-                            contentDescription = "Flash",
-                            tint = if (isFlashOn) CncWarningAmber else CncTextSecondary,
-                            modifier = Modifier.size(16.dp),
-                        )
-                    }
-
-                    // Flip camera
-                    IconButton(
-                        onClick = {
-                            lensFacing = if (lensFacing == CameraSelector.LENS_FACING_BACK) {
-                                CameraSelector.LENS_FACING_FRONT
-                            } else {
-                                CameraSelector.LENS_FACING_BACK
-                            }
-                        },
-                        modifier = Modifier.size(30.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.FlipCameraAndroid,
-                            contentDescription = stringResource(R.string.camera_flip_camera),
-                            tint = CncTextSecondary,
-                            modifier = Modifier.size(16.dp)
-                        )
-                    }
-
-                    // Telemetry toggle
-                    IconButton(
-                        onClick = { showTelemetryOverlay = !showTelemetryOverlay },
-                        modifier = Modifier.size(30.dp),
-                    ) {
-                        Icon(
-                            imageVector = if (showTelemetryOverlay) Icons.Default.Layers else Icons.Default.LayersClear,
-                            contentDescription = stringResource(R.string.camera_telemetry_toggle),
-                            tint = if (showTelemetryOverlay) CncCyberCyan else CncTextSecondary,
-                            modifier = Modifier.size(16.dp),
-                        )
-                    }
-
-                    // Snapshot capture
-                    IconButton(
-                        onClick = {
-                            val cap = imageCapture
-                            if (cap != null) {
-                                val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-                                val photoFile = File(attributionContext.cacheDir, "CNC_ALIGN_$timeStamp.jpg")
-                                val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-
-                                cap.takePicture(
-                                    outputOptions,
-                                    cameraExecutor,
-                                    object : ImageCapture.OnImageSavedCallback {
-                                        override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                                            lastCapturedSnapshotMessage = attributionContext.getString(
-                                                R.string.camera_snapshot_saved_fmt,
-                                                "CNC_ALIGN_$timeStamp.jpg"
-                                            )
-                                        }
-
-                                        override fun onError(exc: ImageCaptureException) {
-                                            Log.e("CncCamera", "Snapshot error: ${exc.message}", exc)
-                                            lastCapturedSnapshotMessage = attributionContext.getString(
-                                                R.string.camera_snapshot_error_fmt,
-                                                exc.message ?: ""
-                                            )
-                                        }
-                                    }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Icon(
+                                    imageVector = Icons.Default.Videocam,
+                                    contentDescription = null,
+                                    tint = CncCyberCyan,
+                                    modifier = Modifier.size(18.dp),
+                                )
+                                Text(
+                                    text = stringResource(R.string.camera_header),
+                                    color = CncTextPrimary,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                             }
-                        },
-                        enabled = machineState != MachineStateEnum.RUNNING,
-                        modifier = Modifier.size(30.dp),
+                        }
+
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            item {
+                                controlsContent()
+                            }
+                        }
+                    }
+                } else {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.PhotoCamera,
-                            contentDescription = stringResource(R.string.camera_take_snapshot),
-                            tint = if (machineState != MachineStateEnum.RUNNING) CncActiveGreen else CncTextMuted,
-                            modifier = Modifier.size(16.dp)
-                        )
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Icon(
+                                imageVector = Icons.Default.Videocam,
+                                contentDescription = null,
+                                tint = CncCyberCyan,
+                                modifier = Modifier.size(20.dp),
+                            )
+                            Text(
+                                text = stringResource(R.string.camera_header),
+                                color = CncTextPrimary,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+
+                        controlsContent()
                     }
                 }
             }
@@ -1116,7 +1172,7 @@ fun IndustrialCameraView(
                             Button(
                                 onClick = {
                                     onZeroWithOffset(cameraSpindleOffsetX, cameraSpindleOffsetY)
-                                    lastCapturedSnapshotMessage = String.format(Locale.US, "Cero G54 fijado con offset: X=%.2f, Y=%.2f", cameraSpindleOffsetX, cameraSpindleOffsetY)
+                                    lastCapturedSnapshotMessage = context.getString(R.string.camera_zero_offset_applied, cameraSpindleOffsetX, cameraSpindleOffsetY)
                                 },
                                 enabled = isEnabled,
                                 colors = ButtonDefaults.buttonColors(containerColor = CncWarningAmber, contentColor = Color.Black),

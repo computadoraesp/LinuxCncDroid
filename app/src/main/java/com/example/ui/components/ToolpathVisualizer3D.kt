@@ -1198,7 +1198,7 @@ fun ToolpathVisualizer3D(
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(CncSurfaceVariant.copy(alpha = 0.85f))
                         ) {
-                            Icon(Icons.Default.Add, contentDescription = "Zoom In", tint = CncTextPrimary, modifier = Modifier.size(15.dp))
+                            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.tp_zoom_in), tint = CncTextPrimary, modifier = Modifier.size(15.dp))
                         }
                         IconButton(
                             onClick = { zoomScale = (zoomScale / 1.3f).coerceAtLeast(0.5f) },
@@ -1207,7 +1207,7 @@ fun ToolpathVisualizer3D(
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(CncSurfaceVariant.copy(alpha = 0.85f))
                         ) {
-                            Icon(Icons.Default.Remove, contentDescription = "Zoom Out", tint = CncTextPrimary, modifier = Modifier.size(15.dp))
+                            Icon(Icons.Default.Remove, contentDescription = stringResource(R.string.tp_zoom_out), tint = CncTextPrimary, modifier = Modifier.size(15.dp))
                         }
                         IconButton(
                             onClick = performAutoFit,
@@ -1228,7 +1228,7 @@ fun ToolpathVisualizer3D(
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(CncSurfaceVariant.copy(alpha = 0.85f))
                         ) {
-                            Icon(Icons.Default.CenterFocusStrong, contentDescription = "Reset View", tint = CncTextPrimary, modifier = Modifier.size(14.dp))
+                            Icon(Icons.Default.CenterFocusStrong, contentDescription = stringResource(R.string.tp_reset_view), tint = CncTextPrimary, modifier = Modifier.size(14.dp))
                         }
                     }
                 }

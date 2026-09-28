@@ -179,7 +179,7 @@ fun AppManualDialog(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "Close",
+                                contentDescription = stringResource(R.string.common_close),
                                 tint = CncTextPrimary,
                                 modifier = Modifier.size(15.dp)
                             )

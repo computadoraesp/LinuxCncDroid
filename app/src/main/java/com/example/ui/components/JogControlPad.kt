@@ -225,7 +225,7 @@ fun JogControlPad(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = "CONTINUO (${stringResource(R.string.jog_cont)})",
+                                    text = stringResource(R.string.jog_continuous_mode),
                                     fontSize = 10.5.sp,
                                     fontWeight = FontWeight.Bold,
                                     maxLines = 1,
@@ -243,7 +243,7 @@ fun JogControlPad(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = "PASO A PASO (${stringResource(R.string.jog_step)})",
+                                    text = stringResource(R.string.jog_step_mode),
                                     fontSize = 10.5.sp,
                                     fontWeight = FontWeight.Bold,
                                     maxLines = 1,

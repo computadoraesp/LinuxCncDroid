@@ -1041,4 +1041,42 @@
     <string name="camera_take_snapshot">Capturar instantánea</string>
     <string name="camera_snapshot_saved_fmt">Captura guardada: %1$s</string>
     <string name="camera_snapshot_error_fmt">Error en captura: %1$s</string>
+
+    <!-- New Localization Additions -->
+    <string name="jog_continuous_mode">CONTINUO (CONT)</string>
+    <string name="jog_step_mode">PASO A PASO (PASO)</string>
+    <string name="config_protocol_sim">Simulador</string>
+    <string name="config_hw_manifest_title">CAPACIDADES DE HARDWARE (MANIFEST)</string>
+    <string name="config_spindle_encoder_short">ENC HUSILLO</string>
+    <string name="config_temp_drives_short">TEMP DRIVES</string>
+    <string name="config_servo_torque_short">PAR SERVO</string>
+    <string name="config_simulated_badge">SIMULADO</string>
+    <string name="tool_wear_header">DESGASTE (ΔL/ΔD)</string>
+    <string name="tool_holder_label">Portaherramientas</string>
+    <string name="tool_wear_length_label">Desgaste Longitud (ΔL mm)</string>
+    <string name="tool_wear_diameter_label">Desgaste Diámetro (ΔD mm)</string>
+    <string name="tool_table_copied_msg">¡tool.tbl copiado al portapapeles!</string>
+    <string name="tool_table_imported_msg">¡%1$d herramientas importadas con éxito!</string>
+    <string name="wizard_badge_critical">CRÍTICO</string>
+    <string name="calib_nominal_btn">= Nominal</string>
+    <string name="rfl_safety_automation">AUTOMATIZACIÓN SEGURA: Z retrae a +10.0mm de seguridad -> Husillo reinicia a RPM comandadas -> Trayectoria lista.</string>
+    <string name="soft_axis_overtravel_fmt">Exceso de Carrera Eje %1$s</string>
+    <string name="soft_g53_span_fmt">Rango G53: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_machine_limit_fmt">Límite Máquina: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_work_span_fmt">Trabajo: [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_g53_span_short_fmt">G53: [%1$.2f .. %2$.2f] mm</string>
+    <string name="wcs_system_fmt">Sistema %1$s: %2$s</string>
+    <string name="wcs_g53_offset_label">Offset G53</string>
+    <string name="tp_zoom_in">Acercar Zoom</string>
+    <string name="tp_zoom_out">Alejar Zoom</string>
+    <string name="tp_reset_view">Restablecer Vista</string>
+    <string name="topbar_user_role_desc">Rol de Usuario</string>
+    <string name="topbar_network_telemetry_desc">Telemetría de Red</string>
+    <string name="dro_home_axis_desc">Referenciar eje %1$s</string>
+    <string name="error_internal_subsystem_fault">Fallo interno en el subsistema</string>
+    <string name="camera_flash_toggle">Alternar Flash</string>
+    <string name="config_battery_charging">CARGANDO</string>
+    <string name="alarm_link_interrupted">Enlace interrumpido</string>
+    <string name="common_clear">LIMPIAR</string>
+    <string name="status_active">Activo</string>
 </resources>

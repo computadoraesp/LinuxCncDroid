@@ -1013,4 +1013,43 @@
     <string name="camera_take_snapshot">Prendre un instantané</string>
     <string name="camera_snapshot_saved_fmt">Instantané enregistré : %1$s</string>
     <string name="camera_snapshot_error_fmt">Erreur de capture : %1$s</string>
+
+    <!-- New Localization Additions -->
+    <string name="jog_continuous_mode">CONTINU (CONT)</string>
+    <string name="jog_step_mode">PAS À PAS (PAS)</string>
+    <string name="config_protocol_sim">Simulateur</string>
+    <string name="config_hw_manifest_title">CAPACITÉS MATÉRIELLES (MANIFEST)</string>
+    <string name="config_spindle_encoder_short">CODEUR BROCHE</string>
+    <string name="config_temp_drives_short">TEMP MOTEURS</string>
+    <string name="config_servo_torque_short">COUPLE SERVO</string>
+    <string name="config_simulated_badge">SIMULÉ</string>
+    <string name="tool_wear_header">USURE (ΔL/ΔD)</string>
+    <string name="tool_holder_label">Porte-outil</string>
+    <string name="tool_wear_length_label">Usure en longueur (ΔL mm)</string>
+    <string name="tool_wear_diameter_label">Usure en diamètre (ΔD mm)</string>
+    <string name="tool_table_copied_msg">tool.tbl copié dans le presse-papiers !</string>
+    <string name="tool_table_imported_msg">%1$d outils importés avec succès !</string>
+    <string name="wizard_badge_critical">CRITIQUE</string>
+    <string name="calib_nominal_btn">= Nominal</string>
+    <string name="rfl_safety_automation">AUTOMATISATION SÉCURITÉ : Z se rétracte à +10,0 mm -> Broche redémarre aux RPM commandés -> Trajectoire armée.</string>
+    <string name="soft_axis_overtravel_fmt">Dépassement de course Axe %1$s</string>
+    <string name="soft_g53_span_fmt">Étendue G53 : [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_machine_limit_fmt">Limite machine : [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_work_span_fmt">Travail : [%1$.2f .. %2$.2f] mm</string>
+    <string name="soft_g53_span_short_fmt">G53 : [%1$.2f .. %2$.2f] mm</string>
+    <string name="wcs_system_fmt">Système %1$s : %2$s</string>
+    <string name="wcs_g53_offset_label">Décalage G53</string>
+    <string name="tp_zoom_in">Zoom avant</string>
+    <string name="tp_zoom_out">Zoom arrière</string>
+    <string name="tp_reset_view">Réinitialiser la vue</string>
+    <string name="topbar_user_role_desc">Rôle utilisateur</string>
+    <string name="topbar_network_telemetry_desc">Télémétrie réseau</string>
+    <string name="dro_home_axis_desc">Référencer l’axe %1$s</string>
+    <string name="error_internal_subsystem_fault">Défaut interne du sous-système</string>
+    <string name="camera_flash_toggle">Activer/désactiver le flash</string>
+    <string name="config_battery_charging">EN CHARGE</string>
+    <string name="alarm_link_interrupted">Connexion interrompue</string>
+    <string name="common_clear">EFFACER</string>
+    <string name="status_active">Actif</string>
+    <string name="cam_label_corner_radius">Rayon d'angle R (mm)</string>
 </resources>

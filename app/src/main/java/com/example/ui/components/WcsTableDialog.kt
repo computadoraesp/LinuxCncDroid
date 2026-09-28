@@ -135,7 +135,7 @@ fun WcsTableDialog(
                         onClick = onDismiss,
                         modifier = Modifier.testTag("close_wcs_dialog_button")
                     ) {
-                        Icon(Icons.Default.Close, contentDescription = "Close")
+                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.common_close))
                     }
                 }
 
@@ -189,7 +189,7 @@ fun WcsTableDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "System $selectedTabWcs: ${activeOffsetObj.comment.ifEmpty { stringResource(R.string.wcs_default_origin_name) }}",
+                                text = stringResource(R.string.wcs_system_fmt, selectedTabWcs, activeOffsetObj.comment.ifEmpty { stringResource(R.string.wcs_default_origin_name) }),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -330,7 +330,7 @@ fun WcsTableDialog(
                                         }
                                     }
                                     Text(
-                                        text = offset.comment.ifEmpty { "G53 offset" },
+                                        text = offset.comment.ifEmpty { stringResource(R.string.wcs_g53_offset_label) },
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.outline,
                                         maxLines = 1

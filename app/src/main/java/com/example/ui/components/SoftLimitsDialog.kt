@@ -87,7 +87,7 @@ fun SoftLimitsDialog(
                         onClick = onDismiss,
                         modifier = Modifier.testTag("close_limits_dialog_button")
                     ) {
-                        Icon(Icons.Default.Close, contentDescription = "Close")
+                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.common_close))
                     }
                 }
 
@@ -168,17 +168,17 @@ fun SoftLimitsDialog(
                                 ) {
                                     Column {
                                         Text(
-                                            text = "Axis ${v.axis} Overtravel",
+                                            text = stringResource(R.string.soft_axis_overtravel_fmt, v.axis),
                                             fontWeight = FontWeight.Bold,
                                             color = MaterialTheme.colorScheme.error
                                         )
                                         Text(
-                                            text = "G53 Span: [${String.format(Locale.US, "%.2f", v.programMin)} .. ${String.format(Locale.US, "%.2f", v.programMax)}] mm",
+                                            text = stringResource(R.string.soft_g53_span_fmt, v.programMin, v.programMax),
                                             fontFamily = FontFamily.Monospace,
                                             fontSize = 12.sp
                                         )
                                         Text(
-                                            text = "Machine Limit: [${String.format(Locale.US, "%.2f", v.machineMinLimit)} .. ${String.format(Locale.US, "%.2f", v.machineMaxLimit)}] mm",
+                                            text = stringResource(R.string.soft_machine_limit_fmt, v.machineMinLimit, v.machineMaxLimit),
                                             fontFamily = FontFamily.Monospace,
                                             fontSize = 12.sp,
                                             color = MaterialTheme.colorScheme.outline
@@ -316,12 +316,12 @@ private fun BoundingBoxRow(
     ) {
         Text(axisName, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.bodyMedium)
         Text(
-            text = "Work: [${String.format(Locale.US, "%+7.2f", workMin)} .. ${String.format(Locale.US, "%+7.2f", workMax)}] mm",
+            text = stringResource(R.string.soft_work_span_fmt, workMin, workMax),
             fontFamily = FontFamily.Monospace,
             fontSize = 12.sp
         )
         Text(
-            text = "G53: [${String.format(Locale.US, "%+7.2f", machMin)} .. ${String.format(Locale.US, "%+7.2f", machMax)}] mm",
+            text = stringResource(R.string.soft_g53_span_short_fmt, machMin, machMax),
             fontFamily = FontFamily.Monospace,
             fontSize = 12.sp,
             color = MaterialTheme.colorScheme.outline

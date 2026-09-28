@@ -1113,4 +1113,43 @@
     <string name="camera_take_snapshot">التقاط صورة</string>
     <string name="camera_snapshot_saved_fmt">تم حفظ الصورة: %1$s</string>
     <string name="camera_snapshot_error_fmt">خطأ في الالتقاط: %1$s</string>
+
+    <!-- New Localization Additions -->
+    <string name="jog_continuous_mode">مستمر (CONT)</string>
+    <string name="jog_step_mode">خطوة (STEP)</string>
+    <string name="config_protocol_sim">المحاكي</string>
+    <string name="config_hw_manifest_title">إمكانيات الأجهزة (البيان)</string>
+    <string name="config_spindle_encoder_short">مشفر المغزل</string>
+    <string name="config_temp_drives_short">حرارة المحركات</string>
+    <string name="config_servo_torque_short">عزم المؤازر</string>
+    <string name="config_simulated_badge">محاكى</string>
+    <string name="tool_wear_header">التآكل (ΔL/ΔD)</string>
+    <string name="tool_holder_label">حامل الأداة</string>
+    <string name="tool_wear_length_label">تآكل الطول (ΔL مم)</string>
+    <string name="tool_wear_diameter_label">تآكل القطر (ΔD مم)</string>
+    <string name="tool_table_copied_msg">تم نسخ tool.tbl إلى الحافظة!</string>
+    <string name="tool_table_imported_msg">تم استيراد %1$d أداة بنجاح!</string>
+    <string name="wizard_badge_critical">حرج</string>
+    <string name="calib_nominal_btn">= القيمة الاسمية</string>
+    <string name="rfl_safety_automation">الأتمتة الآمنة: يتراجع المحور Z إلى +10.0 مم للخلوص -> يعاد تشغيل المغزل بالسرعة المحددة -> تصبح المسار جاهزاً.</string>
+    <string name="soft_axis_overtravel_fmt">تجاوز حدود المحور %1$s</string>
+    <string name="soft_g53_span_fmt">نطاق G53: [%1$.2f .. %2$.2f] مم</string>
+    <string name="soft_machine_limit_fmt">حدود الماكينة: [%1$.2f .. %2$.2f] مم</string>
+    <string name="soft_work_span_fmt">العمل: [%1$.2f .. %2$.2f] مم</string>
+    <string name="soft_g53_span_short_fmt">G53: [%1$.2f .. %2$.2f] مم</string>
+    <string name="wcs_system_fmt">النظام %1$s: %2$s</string>
+    <string name="wcs_g53_offset_label">إزاحة G53</string>
+    <string name="tp_zoom_in">تكبير</string>
+    <string name="tp_zoom_out">تصغير</string>
+    <string name="tp_reset_view">إعادة ضبط العرض</string>
+    <string name="topbar_user_role_desc">دور المستخدم</string>
+    <string name="topbar_network_telemetry_desc">قياسات الشبكة</string>
+    <string name="dro_home_axis_desc">إرجاع محور %1$s إلى الأصل</string>
+    <string name="error_internal_subsystem_fault">عطل داخلي في النظام الفرعي</string>
+    <string name="camera_flash_toggle">تبديل الفلاش</string>
+    <string name="config_battery_charging">جارٍ الشحن</string>
+    <string name="alarm_link_interrupted">انقطع الاتصال</string>
+    <string name="common_clear">مسح</string>
+    <string name="status_active">نشط</string>
+    <string name="cam_label_corner_radius">نصف قطر الزاوية R (مم)</string>
 </resources>
