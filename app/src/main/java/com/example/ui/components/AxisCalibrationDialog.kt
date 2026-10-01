@@ -284,7 +284,7 @@ fun AxisCalibrationDialog(
                                         modifier = Modifier.size(14.dp)
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text(stringResource(R.string.calib_init_btn), color = Color.Black, fontSize = 9.5.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.common_init), color = Color.Black, fontSize = 9.5.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
 
@@ -351,7 +351,7 @@ fun AxisCalibrationDialog(
                                         modifier = Modifier.size(14.dp)
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text(stringResource(R.string.calib_init_btn), color = Color.Black, fontSize = 9.5.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.common_init), color = Color.Black, fontSize = 9.5.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
 

@@ -77,7 +77,7 @@ fun SoftLimitsDialog(
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                text = stringResource(R.string.soft_limits_active_wcs, checkResult.activeWcs),
+                                text = stringResource(R.string.wcs_active_coord_sys, checkResult.activeWcs),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.outline
                             )

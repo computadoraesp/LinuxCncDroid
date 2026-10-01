@@ -220,7 +220,7 @@ fun RunFromLineDialog(
                         modifier = Modifier.weight(1f).height(44.dp),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = stringResource(R.string.run_from_line_cancel), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text(text = stringResource(R.string.common_cancel), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                     }
 
                     Button(

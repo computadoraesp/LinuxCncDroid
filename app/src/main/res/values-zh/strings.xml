@@ -1,7 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">LinuxCNC Droid HMI</string>
-
-    <!-- Navigation Tabs -->
     <string name="tab_control">控制</string>
     <string name="tab_toolpath">刀路</string>
     <string name="tab_camera">相机</string>
@@ -10,15 +9,12 @@
     <string name="tab_mdi">MDI</string>
     <string name="tab_logs">日志</string>
     <string name="tab_config">配置</string>
-
-    <!-- Common -->
     <string name="common_cancel">取消</string>
     <string name="common_close">关闭</string>
     <string name="common_save">保存</string>
     <string name="common_init">初始化</string>
     <string name="common_execute">执行</string>
     <string name="common_zero">归零</string>
-
     <string name="state_estop_disp">急停激活</string>
     <string name="state_off_disp">机器关闭</string>
     <string name="state_on_disp">机器就绪</string>
@@ -27,11 +23,9 @@
     <string name="state_paused_disp">进给保持 / 暂停</string>
     <string name="state_homing_disp">回原点中</string>
     <string name="state_error_disp">系统错误</string>
-
     <string name="mode_manual_disp">手动</string>
     <string name="mode_mdi_disp">MDI控制台</string>
     <string name="mode_auto_disp">自动程序</string>
-
     <string name="arch_ethercat_name">EtherCAT + Delta B3/A3 伺服</string>
     <string name="arch_ethercat_desc">100 Mbps 高速总线，实时扭矩/温度遥测，CiA 402 驱动器</string>
     <string name="arch_mesa_name">Mesa 7i96S / 7i76E FPGA</string>
@@ -40,11 +34,9 @@
     <string name="arch_parport_desc">软件生成步进信号，标准 LinuxCNC HAL 运动内核</string>
     <string name="arch_closed_loop_name">闭环混合式步进系统</string>
     <string name="arch_closed_loop_desc">通过编码器检测丢步，并以 Step/Dir 抽象实现快速定位</string>
-
     <string name="role_operator_disp">操作员 (控制和手控)</string>
     <string name="role_viewer_disp">查看者 (仅限 DRO)</string>
     <string name="role_admin_disp">管理员 (全面调试和 MDI)</string>
-
     <string name="tool_type_endmill_disp">平底立铣刀</string>
     <string name="tool_type_ballnose_disp">球头铣刀</string>
     <string name="tool_type_facemill_disp">面铣刀</string>
@@ -53,20 +45,16 @@
     <string name="tool_type_tap_disp">丝锥</string>
     <string name="tool_type_probe_disp">3D 触控探针</string>
     <string name="tool_type_flycutter_disp">单刃铣刀</string>
-
     <string name="jog_style_pad_disp">按键面板</string>
     <string name="jog_style_mpg_disp">MPG 手轮</string>
-
     <string name="log_info_disp">信息</string>
     <string name="log_warn_disp">警告</string>
     <string name="log_error_disp">错误</string>
     <string name="log_crit_disp">严重</string>
     <string name="log_security_disp">安全</string>
-
     <string name="threat_clean_disp">安全 / 已验证</string>
     <string name="threat_suspicious_disp">安全警告</string>
     <string name="threat_blocked_disp">威胁已阻止</string>
-
     <string name="mat_al6061_name">铝 6061-T6</string>
     <string name="mat_al6061_cat">非铁金属</string>
     <string name="mat_steel1018_name">低碳钢 (AISI 1018)</string>
@@ -77,7 +65,6 @@
     <string name="mat_wood_cat">木材和复合材料</string>
     <string name="mat_pom_name">POM / 赛钢 / 聚甲醛</string>
     <string name="mat_pom_cat">塑料</string>
-
     <string name="macro_zero_all_label">全轴清零 (G54)</string>
     <string name="macro_zero_all_desc">将当前位置设为 G54 工件零点</string>
     <string name="macro_park_label">停机位置</string>
@@ -88,18 +75,14 @@
     <string name="macro_laser_desc">切换光学对准激光十字准星</string>
     <string name="macro_probe_z_label">刀具长度对刀</string>
     <string name="macro_probe_z_desc">执行对刀仪探针对刀程序</string>
-
     <string name="profile_workshop_vmc">车间 VMC-850（EtherCAT + Delta）</string>
     <string name="profile_prototype_router">原型雕刻机（Mesa 7i96S FPGA）</string>
     <string name="profile_mini_mill">小型铣床（旧式并行端口）</string>
-
     <string name="reticle_crosshair">十字准星 (0.01mm)</string>
     <string name="reticle_concentric">同心圆</string>
     <string name="reticle_grid">测量网格</string>
     <string name="reticle_corner">寻边器 (EDGE)</string>
     <string name="reticle_none">无标线</string>
-
-    <!-- Header & Top Bar -->
     <string name="topbar_estop">急停</string>
     <string name="topbar_power_on">开启电源</string>
     <string name="topbar_power_off">关闭电源</string>
@@ -110,10 +93,6 @@
     <string name="topbar_axis_metrology_desc">轴校准</string>
     <string name="topbar_manual_desc">操作手册 &amp; SOP</string>
     <string name="topbar_event_logs_desc">事件日志</string>
-    <string name="topbar_sim_mode" formatted="false">仿真: %s</string>
-    <string name="topbar_real_mode" formatted="false">实时: %s</string>
-
-    <!-- DRO Panel -->
     <string name="dro_title">数字显示 (DRO)</string>
     <string name="dro_zero_all">全轴清零</string>
     <string name="dro_home_all">全轴回原点</string>
@@ -122,8 +101,6 @@
     <string name="dro_dtg">剩余距离</string>
     <string name="dro_torque">扭矩: %s%%</string>
     <string name="dro_drive_temp">驱动温度: %s°C</string>
-
-    <!-- Jog & MPG Controls -->
     <string name="jog_title">手动进给控制</string>
     <string name="jog_mode_pad">键盘模式</string>
     <string name="jog_mode_mpg">虚拟 MPG</string>
@@ -138,8 +115,6 @@
     <string name="jog_z_axis">Z 轴</string>
     <string name="jog_a_axis">A 轴</string>
     <string name="jog_style_mode_style">模式: %1$s | 样式: %2$s</string>
-
-    <!-- Spindle & Feed Controls -->
     <string name="spindle_actual_rpm">实际转速</string>
     <string name="feed_override">进给倍率</string>
     <string name="btn_cycle_start">循环启动</string>
@@ -155,8 +130,6 @@
     <string name="spindle_set_rpm">设定值: %d RPM</string>
     <string name="spindle_override_label">倍率: %d%%</string>
     <string name="spindle_feed_info">%1$d%% (%2$s)</string>
-
-    <!-- Tool Table & ATC -->
     <string name="tool_diameter">直径 (D)</string>
     <string name="tool_length_offset">长度补偿 (H)</string>
     <string name="tool_touch_off">Z 轴对刀 (G43.1)</string>
@@ -178,8 +151,6 @@
     <string name="tt_flutes_label">刃数</string>
     <string name="tt_max_rpm_label">最高转速</string>
     <string name="tt_save_btn">保存刀具</string>
-
-    <!-- Toolpath 3D View -->
     <string name="view_top">俯视</string>
     <string name="view_iso">轴测</string>
     <string name="view_front">正视</string>
@@ -194,11 +165,8 @@
     <string name="tp_toggle_lod_full">LOD 1:1</string>
     <string name="tp_hud_zmin">Z最小值: %1$.2f mm</string>
     <string name="tp_hud_zsafe">Z安全高: %1$.2f mm</string>
-    <string name="tp_hud_plane">安全避让平面</string>
     <string name="tp_hud_tool_dia">Ø%1$.1f mm</string>
     <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
-
-    <!-- Probing & Calibration -->
     <string name="probing_title">3D 探针和测量 (LEVEL 2)</string>
     <string name="probe_status_clear">探针就绪</string>
     <string name="probe_status_tripped">已触发</string>
@@ -206,13 +174,8 @@
     <string name="probe_boss">凸台中心测量</string>
     <string name="probe_corner_xy">找正角点</string>
     <string name="probe_surface_z">对刀仪 Z 轴对刀</string>
-    <string name="probe_last_contact_x">最后触发 X</string>
-    <string name="probe_last_contact_y">最后触发 Y</string>
-    <string name="probe_last_contact_z">最后触发 Z</string>
     <string name="probe_routines_header">自动对刀循环</string>
     <string name="probe_executing">正在对刀…</string>
-
-    <!-- EtherCAT & Telemetry -->
     <string name="ethercat_title">ETHERCAT 总线诊断 (LEVEL 3)</string>
     <string name="ethercat_cycle_jitter">周期抖动</string>
     <string name="ethercat_lost_frames">丢包</string>
@@ -223,36 +186,26 @@
     <string name="ethercat_torque_load">扭矩负载: %s %%</string>
     <string name="ethercat_drive_temp">驱动温度: %s °C</string>
     <string name="ethercat_diagnostic_status">诊断状态:</string>
-
-    <!-- MDI & Macros -->
     <string name="mdi_title">手动数据输入 (MDI)</string>
     <string name="mdi_execute">执行</string>
     <string name="mdi_placeholder">输入 G 代码 (例如: G0 X100 Y50)</string>
     <string name="mdi_macros_header">可编程宏</string>
-    <string name="mdi_history_header">指令历史</string>
-
-    <!-- Alarms & Event Logs -->
     <string name="logs_title">警报事件日志</string>
     <string name="logs_clear">清除日志</string>
     <string name="logs_simulate_alarm">模拟故障</string>
-
     <string name="logs_filter_all">全部</string>
     <string name="logs_filter_errors">错误</string>
     <string name="logs_filter_security">安全</string>
     <string name="logs_filter_warnings">警告</string>
     <string name="logs_no_entries">没有找到过滤器 \'%s\' 的事件日志</string>
-
-    <!-- Machine Config & Profiles -->
     <string name="config_title">硬件配置</string>
     <string name="config_architecture">控制器架构</string>
-    <string name="config_connect">连接</string>
     <string name="config_save_profile">新建配置</string>
     <string name="config_metrology_calib_btn">轴校准 (ISO 230–2)</string>
     <string name="config_manual_btn">操作手册 &amp; SOP</string>
     <string name="config_app_name">LinuxCNC Droid HMI</string>
     <string name="config_app_subtitle">通用工业控制器 • Level 1–3</string>
     <string name="config_app_tech_stack">LinuxCNC NML / HAL • EtherCAT • Delta ASDA-B3</string>
-    <string name="config_middleware_header">LINUXCNC 中间件服务器</string>
     <string name="config_host_ip_label">主机 IP / 名称</string>
     <string name="config_port_label">端口</string>
     <string name="config_saved_profiles_header">已保存配置</string>
@@ -263,12 +216,9 @@
     <string name="config_add_profile_title">添加机器配置</string>
     <string name="config_machine_name_label">机器名称</string>
     <string name="config_ip_address_placeholder">IP 地址 (例如: 192.168.1.100)</string>
-
-    <!-- Calibration Dialog -->
     <string name="calib_header">轴校准 (ISO 230–2)</string>
     <string name="calib_subtitle">螺距误差补偿和不确定度评估</string>
     <string name="calib_section1_header">1. 校准参数和仪器不确定度</string>
-    <string name="calib_init_btn">开始校准</string>
     <string name="calib_axis_label">轴</string>
     <string name="calib_travel_label">总行程 (mm)</string>
     <string name="calib_uncertainty_label">仪器不确定度 ±(mm)</string>
@@ -290,14 +240,10 @@
     <string name="calib_export_text">此表将误差直接映射到 HAL 中:</string>
     <string name="calib_copy_clipboard">复制到剪贴板</string>
     <string name="calib_toast_copied">comp.tbl 已复制</string>
-
     <string name="calib_preset_dial">指示表 (±0.003)</string>
     <string name="calib_preset_glass">玻璃尺 (±0.001)</string>
     <string name="calib_preset_micrometer">千分尺 (±0.002)</string>
     <string name="calib_preset_laser">激光 (±0.0005)</string>
-
-
-    <!-- Camera View -->
     <string name="camera_header">工业视觉系统</string>
     <string name="camera_permission_required">需要相机权限</string>
     <string name="camera_permission_text">相机用于光学找正和轴校准。</string>
@@ -308,8 +254,6 @@
     <string name="camera_micro_alignment_label">光学微调:</string>
     <string name="camera_zero_x">X 清零</string>
     <string name="camera_zero_y">Y 清零</string>
-
-    <!-- Speeds & Feeds Calculator -->
     <string name="calc_header">切削参数计算器</string>
     <string name="calc_material_header">加工材料</string>
     <string name="calc_diameter_label">直径 (mm)</string>
@@ -320,8 +264,6 @@
     <string name="calc_stepover_ae">步距 (Ae): %s mm</string>
     <string name="calc_power">功率: %s kW</string>
     <string name="calc_apply_btn">应用至 CNC</string>
-
-    <!-- G-Code Security Loader -->
     <string name="sl_header">G 代码安全加载器</string>
     <string name="sl_presets_header">示例脚本</string>
     <string name="sl_analysis_header">安全性发现</string>
@@ -329,17 +271,12 @@
     <string name="sl_load_btn">加载至 CNC</string>
     <string name="sl_pass">通过</string>
     <string name="sl_block">已阻止</string>
-
-    <!-- Attribution -->
     <string name="cnc_attribution_label">LinuxCNC Droid HMI Service</string>
-
-    <!-- Manual Content -->
     <string name="manual_title">CNC 操作与技术参考手册</string>
     <string name="manual_subtitle">安全、DRO、MPG、测头探测、EtherCAT 与计量校准完整指南</string>
     <string name="manual_search_placeholder">搜索手册（例如：校准、报警、MPG、WCS、急停）…</string>
     <string name="manual_sop_title">标准操作规程（SOP）</string>
     <string name="manual_safety_title">安全规范与联锁</string>
-
     <string name="manual_sec1_title">1. 安全与联锁</string>
     <string name="manual_sec1_summary">机床状态、加工期间允许的控制操作以及报警恢复。</string>
     <string name="manual_sec1_content" formatted="false">LinuxCNC Droid HMI 架构依据 ISO 23125 实现工业联锁：\n\n• 运行状态（加工周期进行中）：\n  – 可用：急停（E-STOP）、进给暂停（立即暂停）、中止/停止、进给倍率（0–150%）、主轴倍率（50–120%）和冷却液控制。\n  – 禁用：手动寸动（按键和 MPG 手轮）、归零（G92）、回原点（G28）、MDI 和配置更改。\n\n• 报警管理与恢复：\n  – 触发故障（伺服过载、限位开关或温度限制）时，轨迹规划器会在 &lt;1ms 内停止并保留当前 G-Code 程序段。\n  – 恢复步骤：\n    1. 排除故障原因。\n    2. 在日志选项卡中按“清除日志 / 重置”。\n    3. 按“开启电源”。\n    4. 按“循环启动”，从发生故障的程序段继续运行。</string>
@@ -352,7 +289,6 @@
         <item>加工周期运行期间，切勿尝试手动移动各轴。</item>
         <item>确认外部实体急停按钮与电气柜中的安全继电器串联。</item>
     </string-array>
-
     <string name="manual_sec2_title">2. 计量校准（ISO 230–2）</string>
     <string name="manual_sec2_summary" formatted="false">每隔 10% 轴行程进行校准、计算不确定度，并使用 comp.tbl 补偿丝杠误差。</string>
     <string name="manual_sec2_content" formatted="false">计量助手依据 ISO 230–2 评估并校正滚珠丝杠螺距误差（螺距误差映射）：\n\n• 10% 分段法：\n  将轴总行程分为 10 个区间（0%、10%、20%、…、100%）。\n  操作员在每个测点使用基准仪器（千分尺、指示表或光栅尺）读取数值。\n\n• 合成不确定度计算（ISO/IEC 17025）：\n  将仪器不确定度（U_inst）与轴的重复定位误差综合计算。\n  使用覆盖因子 k=2 计算扩展不确定度 U（95% 置信水平）。\n\n• 直接应用于 LINUXCNC（comp.tbl）：\n  完成后，系统会生成供 HAL 模块 linear_comp 使用的 comp.tbl 文件。LinuxCNC 将在切削期间实时补偿偏差。</string>
@@ -368,7 +304,6 @@
         <item>测量前让主轴以正常工作温度运行 15 分钟，避免热漂移影响测量。</item>
         <item>使用刚性磁性表座将指示表牢固固定在机床床身上。</item>
     </string-array>
-
     <string name="manual_sec3_title">3. DRO 与坐标系</string>
     <string name="manual_sec3_summary">DRO 数显、WCS G54-G59 工件原点、G53 机床坐标和伺服扭矩。</string>
     <string name="manual_sec3_content" formatted="false">DRO 面板以 3 位小数精度（0.001 mm）实时显示位置：\n\n• 坐标模式：\n  – 工件位置（G54 至 G59）：相对于工件原点的坐标。\n  – 机床绝对坐标（G53）：相对于回原点限位开关的机架物理绝对坐标。\n  – 剩余距离（DTG）：到当前 G-Code 程序段终点的剩余距离。\n\n• 伺服遥测：\n  监控伺服驱动器的负载百分比（% 扭矩）。持续高于 85% 可能表示导轨磨损或进给率过高。</string>
@@ -380,7 +315,6 @@
     <string-array name="manual_sec3_safety">
         <item>刀具位于材料内部时，若未确认安全高度，切勿将 G92 坐标归零。</item>
     </string-array>
-
     <string name="manual_sec4_title">4. 虚拟 MPG 电子手轮</string>
     <string name="manual_sec4_summary">工业级 100 格触控手轮，提供 x1、x10、x100、x1000 分辨率倍率。</string>
     <string name="manual_sec4_content">虚拟 MPG 手轮可真实模拟实体电子手轮：\n\n• 每圈 100 格（每个触觉档位为 3.6°）。\n• 倍率：\n  – x1：每步 0.001 mm（最终微米级对齐）。\n  – x10：每步 0.010 mm（精确靠近）。\n  – x100：每步 0.100 mm（快速定位工件）。\n  – x1000：每步 1.000 mm（工作台长距离移动）。\n• 触觉反馈：每旋转 3.6° 会产生振动和提示音。</string>
@@ -393,7 +327,6 @@
     <string-array name="manual_sec4_safety">
         <item>Z 轴靠近虎钳或工件时，仅使用 x1 或 x10 倍率，以免主轴发生碰撞。</item>
     </string-array>
-
     <string name="manual_sec5_title">5. 刀具表与 ATC（tool.tbl）</string>
     <string name="manual_sec5_summary">管理 T1-T99 刀具、H 长度补偿（G43）、快速对刀和刀具寿命。</string>
     <string name="manual_sec5_content" formatted="false">刀具管理器与 LinuxCNC 的 tool.tbl 文件直接同步：\n\n• 装载刀具（M6）：将刀具装入主轴并启用 G43 Hx 补偿。\n• Z 轴对刀（G43.1）：通过一次触碰读取主轴 Z 坐标，校准当前刀具长度。\n• 磨损监控：累计切削时间超过预计刀具寿命的 85% 时发出提醒。</string>
@@ -405,7 +338,6 @@
     <string-array name="manual_sec5_safety">
         <item>确认分配给刀具的最高 RPM 不超过夹头或刀柄的承载能力。</item>
     </string-array>
-
     <string name="manual_sec6_title">6. 3D 测头循环（WCS 探测）</string>
     <string name="manual_sec6_summary">用于孔、圆柱、角点定心和 Z 高度测量的自动程序。</string>
     <string name="manual_sec6_content">PROBING 选项卡包含带电气触碰停止功能的运动学测量程序（G38.2）：\n\n• 孔中心：沿 4 个象限（-X、+X、-Y、+Y）探测并计算精确孔中心。\n• 凸台中心：探测圆柱的 4 个外侧面以确定中心轴。\n• 角点寻边：定位角点的 XY 顶点并设定工件原点。\n• Z 表面高度：向下移动直至触碰，以设定 Z=0 平面。</string>
@@ -418,7 +350,6 @@
     <string-array name="manual_sec6_safety">
         <item>开始自动循环前，用手轻触测头并检查其指示 LED 是否亮起。</item>
     </string-array>
-
     <string name="manual_sec7_title">7. EtherCAT 总线遥测</string>
     <string name="manual_sec7_summary">实时监控 CiA 402 从站、周期抖动和丢帧。</string>
     <string name="manual_sec7_content">EtherCAT 监控器会报告工业自动化网络的运行状况：\n\n• 主站状态：必须保持为 OP（运行）状态。\n• 周期抖动：实时钟的时间变化；数值 &lt; 5 µs 为理想状态。\n• 丢帧：如果计数器大于 0，请检查屏蔽线缆和接地。</string>
@@ -430,8 +361,6 @@
     <string-array name="manual_sec7_safety">
         <item>加工期间若主站进入 INIT 或 PRE-OP 状态，机床将立即执行安全停机。</item>
     </string-array>
-
-    <!-- In-App Manual Sections 8, 9, 10, 11 (Chinese) -->
     <string name="manual_sec8_title">8. 电源、屏幕常亮与网络安全防护策略</string>
     <string name="manual_sec8_summary">低电量警告、网络断开防护、屏幕常亮防止急停（E-STOP）按键不可达策略。</string>
     <string name="manual_sec8_content" formatted="false">为防止加工过程中发生机床碰撞或无法即时按下急停（E-STOP）：\n\n• 屏幕常亮（WAKE LOCK）：加工过程中防止平板电脑自动休眠锁屏。\n• 电池安全预警：电量低于20%发出警告，低于10%发出严重告警。\n• 指数退避自动重连：工业局域网瞬断时提供毫秒级智能重连。</string>
@@ -442,7 +371,6 @@
     <string-array name="manual_sec8_safety">
         <item>若电池达到严重告警阈值（&lt; 10%），请立即点击进给暂停（Feed Hold）并充电。</item>
     </string-array>
-
     <string name="manual_sec9_title">09. 工业光学相机与非接触式光学精密对刀系统</string>
     <string name="manual_sec9_summary">非接触式工件寻边、角点对齐、高精度分划板标线、主轴偏置自动补偿及光学滤镜。</string>
     <string name="manual_sec9_content" formatted="false">工业相机专用于非接触式工件对齐和工件坐标系（WCS）原点设定：\n\n• 超精密分划板：0.01毫米极细十字线、同心圆测距环、公差网格、90°角落对齐、靶心标线及旋转量角器。\n• 宏观数字变焦（1X, 2X, 4X, 8X）：车间手套操作专属大尺寸快捷按钮。\n• 光学图像滤镜：标准、高对比度、负片反转、边缘锐化轮廓滤镜。\n• 镜头主轴偏置补偿：点击“应用偏置并设定G54为零”，系统自动计算并写入对齐坐标。\n• 品质检验快照存档：保存带有DRO实时坐标与WCS系统水印的高清图片。</string>
@@ -454,7 +382,6 @@
     <string-array name="manual_sec9_safety">
         <item>在进行光学对准与测量期间，主轴电机必须处于完全停止状态（M5）。</item>
     </string-array>
-
     <string name="manual_sec10_title">10. 综合仿真与工业故障诊断测试中心</string>
     <string name="manual_sec10_summary">机床运动学仿真、工业故障注入、平板电池及3D测头虚拟校验环境。</string>
     <string name="manual_sec10_content" formatted="false">CONFIG设置选项卡中的仿真控制中心集成了完备的诊断与教学工具：\n\n• LINUXCNC仿真器：在真实物理硬件机床与本地运动学仿真引擎间无缝切换。\n• 平板电池模拟：测试15%及8%电量警报下的应急机制。\n• 网络延迟及断网模拟：注入380毫秒高延迟，验证重连与安全刹车算法。\n• 工业级故障注入：可控触发EtherCAT跟随误差AL.006、限位开关、主轴过温和冷却液压力报警。\n• 3D测头仿真（G38.2）：安全模拟探针接触，防止意外折断红宝石测针。</string>
@@ -466,7 +393,6 @@
     <string-array name="manual_sec10_safety">
         <item>危险警告：在物理机床上启动主轴或运行加工前，务必确认顶部状态指示为“REAL”。</item>
     </string-array>
-
     <string name="manual_sec11_title">11. 3D刀具路径可视化与空运行（Dry-Run）模拟器</string>
     <string name="manual_sec11_summary">交互式3D G代码预览、动态加工色谱历程、3D毛坯线框、WCS三维基准轴及触控拖拽模拟。</string>
     <string name="manual_sec11_content" formatted="false">3D刀具路径可视化引擎兼具高品质工业CAM渲染与移动端低功耗极致流畅：\n\n• 动态色谱加工历程：\n  – 森林绿（浅淡）：铣刀已切削完成并排屑的成型轨迹。\n  – 荧光亮绿（带切削光晕）：当前正在切削加工的实时G代码程序段。\n  – 工业青色：后续待加工的直线切削路径（G1）。\n  – 电光洋红：圆弧及螺旋插补切削轨迹（G2/G3）。\n  – 虚线琥珀色：刀具空载快速定位移动（G0）。\n\n• 3D毛坯线框与WCS工件原点三维轴：\n  – 3D外包络线框：直观显示毛坯长宽高总尺寸（ΔX, ΔY, ΔZ）及加工安全裕量。\n  – WCS原点三联基准轴（0,0,0）：RGB空间箭头（红=X、绿=Y、蓝=Z）标明活动工件坐标系。\n\n• 触控拖拽式空运行模拟器：\n  – 检验滑动条：在电机通电前，轻拖滑动条即可步进预览任意位置的刀尖位置。\n  – 虚拟播放（1X, 2X, 5X, 10X）：无需实际移动机床即可极速验证加工全流程。\n\n• 移动端轻量化图层过滤控制：\n  – 隐藏快速移动（G0）：一键关闭空走线，提升复杂数控程序的加载响应。\n  – 刀具追踪（Follow Tool）：动态将相机视角平滑锁定在铣刀刀尖。\n  – 自动适屏（Auto-Fit）：智能计算全屏最佳缩放比例与中心对齐。\n  – G代码代码面板切换：可随时收起或展开侧边代码窗，充分利用手机或平板屏幕。</string>
@@ -481,13 +407,10 @@
         <item>在金属加工前，务必在正视图或侧视图中严格检查Z轴负向垂直下刀深度与进给轨迹。</item>
         <item>切勿仅依赖3D视觉对齐，启动加工前必须使用物理寻边器或测头标定WCS（G54）。</item>
     </string-array>
-
-    <!-- 连接、配置、报警和报告的补充文本 -->
     <string name="wizard_step_1_code_snippet"># 在 LinuxCNC 终端（PC/Raspberry Pi）中检查 IP 地址：\nhostname -I\n# IP 地址示例：192.168.1.120</string>
     <string name="wizard_step_2_code_snippet">[APPLICATIONS]\n# LinuxCNC 启动时启动远程控制守护进程：\nAPP = linuxcncrsh — -w -p 5007 -d</string>
     <string name="wizard_step_3_code_snippet"># 在 Linux 终端中运行：\nsudo ufw allow 5007/tcp\n# 检查 linuxcncrsh 是否正在监听：\nss -tulpn | grep 5007</string>
     <string name="wizard_step_4_code_snippet">主机 IP：%1$s\n端口：%2$s\n密码：%3$s</string>
-
     <string name="ini_machine_name_fmt">机床：%1$s</string>
     <string name="ini_kinematics_fmt">运动学：%1$s</string>
     <string name="ini_max_velocity_fmt">最大速度：%1$s mm/s</string>
@@ -495,7 +418,6 @@
     <string name="ini_soft_limits_title">行程限位（软件限位）和比例</string>
     <string name="ini_limits_applied">限位已应用！</string>
     <string name="ini_axis_limit_fmt">限位：[%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
-
     <string name="manual_category_calibration">校准</string>
     <string name="manual_category_operation">操作</string>
     <string name="manual_category_probing">测头探测</string>
@@ -507,51 +429,19 @@
     <string name="manual_category_ini_configuration">INI 配置</string>
     <string name="manual_category_hal_diagnostics">HAL 与诊断</string>
     <string name="manual_category_wcs_origins">WCS 工件坐标原点</string>
-
     <string name="log_battery_critical_during_cycle">严重危险！加工周期中电池电量为 %1$d%%。设备即将关机：请暂停加工周期或连接充电器。</string>
     <string name="log_battery_critical">严重电池警报！电量为 %1$d%%。请立即连接充电器。</string>
     <string name="log_battery_low">电量低警告：%1$d%%。请连接设备充电器。</string>
     <string name="log_battery_sensor_restored">电池传感器已恢复为系统实时读数。</string>
     <string name="log_screen_timeout_enabled">安全提示：系统屏幕超时已启用。建议保持屏幕常亮。</string>
-    <string name="log_servo_overtorque_alarm">AL.006 报警：EtherCAT Z 轴伺服过扭矩保护已触发。</string>
     <string name="log_vfd_thermal_alarm">VFD 过热故障：主轴绕组温度超过 85°C。</string>
     <string name="log_low_coolant_alarm">冷却液液位低：I/O 总线上的泵压不足。</string>
-
-    <string name="engine_local_simulation_mode">已切换到本地仿真模式（离线）。</string>
-    <string name="engine_disconnected_from_linuxcnc">已断开与 LinuxCNC 的连接。仿真模式已启用。</string>
-    <string name="engine_tool_table_imported">刀具表导入成功：已加载 %1$d 把刀具。</string>
-
-    <string name="audit_report_title">LINUXCNC DROID - 工业审计报告</string>
-    <string name="audit_machine_label">机床：             %1$s</string>
-    <string name="audit_generation_date_label">生成日期：%1$s (%2$s)</string>
-    <string name="audit_machine_state_label">机床状态：   %1$s</string>
-    <string name="audit_axis_telemetry_section">1. 运动轴遥测</string>
-    <string name="audit_ethercat_section">3. ETHERCAT 主站与从站诊断</string>
-    <string name="audit_alarm_history_section">4. 报警历史与事件日志（最近 %1$d 条）</string>
-
     <string name="protocol_linuxcncrsh_description">LinuxCNC Remote Shell (linuxcncrsh) TCP 流（标准端口 5007）</string>
     <string name="protocol_websocket_description">WebSocket JSON 网关 / 遥测桥接（标准端口 8000）</string>
     <string name="protocol_simulation_description">内部运动学和实时模拟器（无实体机床）</string>
-    <string name="tool_table_copied_message">tool.tbl 已复制到剪贴板！</string>
-    <string name="tool_table_import_count_message">成功导入 %1$d 把刀具！</string>
     <string name="log_wifi_weak_signal">网络警报：Wi-Fi 信号较弱或不稳定，遥测数据可能丢失。</string>
     <string name="log_connection_reconnecting">网络连接丢失。正在启动自动重连…</string>
     <string name="log_network_device_disconnected">设备网络连接丢失</string>
-    <string name="engine_ini_applied_fmt">已应用 INI 配置：%1$s（限位：X[%2$s..%3$s]，Y[%4$s..%5$s]，Z[%6$s..%7$s]）</string>
-    <string name="engine_tool_mounted_fmt">已装载刀具：T%1$d（%2$s），补偿 G43 H%3$d（Z 偏移：%4$s mm）</string>
-    <string name="engine_reconnect_scheduled_fmt">%1$s。将在 %2$d 秒后自动重连（第 %3$d 次尝试）…</string>
-    <string name="engine_manual_reconnect_started">操作员已启动手动重连…</string>
-    <string name="engine_weak_signal_fmt">网络警报：检测到信号弱。延迟较高（%1$d ms），存在失去同步的风险。</string>
-    <string name="engine_network_normalized_fmt">网络信号已恢复正常（延迟：%1$d ms）。</string>
-    <string name="engine_simulated_disconnect">操作员模拟了网络信号丢失</string>
-    <string name="engine_virtual_simulation_on">虚拟仿真模式已启用（运动学与 HAL/NML 模拟）</string>
-    <string name="engine_virtual_simulation_off">虚拟仿真模式已禁用：正在使用真实硬件运行</string>
-    <string name="engine_network_restored">网络连接已成功恢复。</string>
-    <string name="rsh_handshake_unexpected_fmt">握手响应异常：%1$s。继续进行身份验证…</string>
-    <string name="rsh_authenticated_fmt">已成功通过 LinuxCNC 身份验证（%1$s:%2$d）</string>
-    <string name="rsh_auth_response_fmt">身份验证响应：%1$s</string>
-    <string name="rsh_polling_disconnect_fmt">轮询期间检测到断开连接：%1$s</string>
-
     <string name="reticle_protractor">量角器（角度）</string>
     <string name="reticle_bullseye">靶心标线</string>
     <string name="camera_optical_filters">光学滤镜</string>
@@ -565,12 +455,6 @@
     <string name="camera_zero_with_offset">应用偏置并设定 G54 零点</string>
     <string name="camera_zero_offset_applied">已应用偏置并设定零点：X=%1$.2f，Y=%2$.2f</string>
     <string name="camera_angle_label">角度：%1$.1f°</string>
-    <string name="camera_reset_angle">0°</string>
-    <string name="camera_zoom_preset_1x">1X</string>
-    <string name="camera_zoom_preset_2x">2X</string>
-    <string name="camera_zoom_preset_4x">4X</string>
-    <string name="camera_zoom_preset_8x">8X</string>
-    <string name="camera_qc_report_title">光学质量检验</string>
     <string name="view_side">侧视</string>
     <string name="tp_autofit">自动适屏</string>
     <string name="tp_toggle_rapids">G0 快速移动</string>
@@ -578,12 +462,8 @@
     <string name="tp_toggle_grid">网格</string>
     <string name="tp_toggle_follow">跟随刀具</string>
     <string name="tp_toggle_code">G-Code</string>
-    <string name="tp_dry_run">空运行仿真</string>
     <string name="tp_sim_play">播放</string>
     <string name="tp_sim_pause">暂停</string>
-    <string name="tp_sim_speed">%1$dX</string>
-    <string name="tp_scrub_label">程序段 %1$d / %2$d</string>
-    <string name="tp_wcs_origin">WCS (0,0,0)</string>
     <string name="tp_past_cuts">已切削</string>
     <string name="tp_current_tool">当前</string>
     <string name="tp_arc_cut">圆弧 G2/G3</string>
@@ -591,7 +471,6 @@
     <string name="logs_copied_to_clipboard">报告已复制到剪贴板</string>
     <string name="logs_share_report">分享给维护人员</string>
     <string name="logs_copy_report">复制报告</string>
-    <string name="logs_close">关闭</string>
     <string name="logs_audit_modal_title">工业审计与遥测报告</string>
     <string name="screen_policy_always_on">始终常亮（安全 HMI）</string>
     <string name="screen_policy_always_on_desc">应用位于前台时始终防止屏幕休眠（建议用于 CNC 安全操作）</string>
@@ -616,10 +495,6 @@
     <string name="config_safety_power_header">安全、电池与屏幕超时</string>
     <string name="config_screen_timeout_label">屏幕休眠管理（唤醒锁）</string>
     <string name="config_battery_health_label">设备电池与电源状态</string>
-    <string name="config_battery_sim_btn" formatted="false">模拟低电量（15%）</string>
-    <string name="config_battery_restore_btn">恢复传感器读数</string>
-    <string name="config_weak_signal_sim_btn">模拟弱信号（350 ms）</string>
-    <string name="config_disconnect_sim_btn">模拟断连并重连</string>
     <string name="config_simulations_hub_header">仿真与测试控制中心</string>
     <string name="config_simulations_hub_desc">集中控制机床仿真、遥测模拟、电池测试、测头仿真和故障注入。</string>
     <string name="config_sim_master_label">LinuxCNC 控制器仿真</string>
@@ -628,8 +503,6 @@
     <string name="config_sim_badge_real">实体机床模式</string>
     <string name="config_sim_battery_section">操作员平板电池仿真</string>
     <string name="config_sim_battery_desc">测试电池阈值和警报，不会消耗平板电量。</string>
-    <string name="config_sim_battery_toggle">覆盖电池状态</string>
-    <string name="config_sim_battery_charging_toggle">模拟已连接 USB-C 充电器</string>
     <string name="config_sim_battery_restore">恢复真实硬件传感器</string>
     <string name="config_sim_battery_crit" formatted="false">8%（严重不足）</string>
     <string name="config_sim_battery_low" formatted="false">15%（低）</string>
@@ -637,7 +510,6 @@
     <string name="config_sim_battery_full" formatted="false">100%（充满）</string>
     <string name="config_sim_network_section">网络与延迟仿真</string>
     <string name="config_sim_network_desc">模拟链路质量下降或断连，以测试故障安全断开和指数退避重连。</string>
-    <string name="config_sim_weak_signal_toggle">模拟弱信号（380 ms）</string>
     <string name="config_sim_drop_network_btn">模拟断连并重连</string>
     <string name="config_sim_restore_network_btn">恢复最佳链路（2 ms）</string>
     <string name="config_sim_faults_section">工业故障与报警注入</string>
@@ -656,32 +528,16 @@
     <string name="config_sim_probe_desc">模拟工件边缘/表面触碰，不会损坏测头针尖。</string>
     <string name="config_sim_probe_btn">触发 3D 测头触碰（G38.2）</string>
     <string name="modal_bar_title">当前 G-Code 模态组</string>
-    <string name="exec_mod_single_block">单段执行（步进）</string>
-    <string name="exec_mod_opt_stop">可选停止（M1）</string>
-    <string name="exec_mod_block_delete">跳过程序段（/）</string>
-    <string name="exec_mod_run_from_line">从指定行运行…</string>
-    <string name="exec_step_next">下一程序段 &gt;</string>
     <string name="run_from_line_title">从指定行运行（恢复切削）</string>
     <string name="run_from_line_desc">选择特定程序段，在更换刀具或检查后恢复加工。系统会自动执行安全 Z 轴退让并重新启动主轴。</string>
     <string name="run_from_line_btn">从该行重新启动</string>
-    <string name="run_from_line_cancel">取消</string>
     <string name="protocol_linuxcncrsh_name">LinuxCNC 服务器（linuxcncrsh TCP :5007）</string>
     <string name="protocol_websocket_name">WebSocket 网关（:8000）</string>
     <string name="protocol_sim_name">本地仿真器（离线）</string>
-    <string name="conn_protocol_label">LinuxCNC 连接协议</string>
-    <string name="conn_host_label">LinuxCNC 主机 IP 地址</string>
-    <string name="conn_port_label">TCP 端口</string>
-    <string name="conn_pass_label">密码（linuxcncrsh）</string>
-    <string name="conn_connect_btn">连接到 LinuxCNC</string>
-    <string name="conn_disconnect_btn">断开连接</string>
-    <string name="conn_status_label">服务器状态</string>
     <string name="tool_table_import_btn">导入 tool.tbl</string>
     <string name="tool_table_export_btn">导出 tool.tbl</string>
     <string name="tool_table_mount_btn">装载（M6 T%1$d G43）</string>
-    <string name="tool_table_import_dialog_title">导入 LinuxCNC tool.tbl 文件</string>
-    <string name="tool_table_import_dialog_desc">粘贴 LinuxCNC tool.tbl 文件内容，以更新机床刀库：</string>
     <string name="tool_table_import_confirm">导入并应用</string>
-    <string name="tool_table_export_copied">tool.tbl 文件已复制到剪贴板</string>
     <string name="ini_editor_title">LINUXCNC 配置（machine.ini）</string>
     <string name="ini_editor_desc">查看并编辑软件限位、加速度、步数和 LinuxCNC 运动学配置。</string>
     <string name="ini_apply_btn">将限位应用到控制器</string>
@@ -700,24 +556,15 @@
     <string name="cam_tab_facing">端面铣削</string>
     <string name="cam_tab_pocket">矩形型腔</string>
     <string name="cam_tab_bolt_circle">螺栓孔圆周（G83）</string>
-    <string name="cam_generate_btn">生成 G-Code</string>
     <string name="cam_load_to_controller">加载到控制器并仿真</string>
     <string name="cam_copy_gcode">复制 G-Code</string>
     <string name="cam_preview_title">生成的 G-Code 预览</string>
     <string name="wizard_title">LINUXCNC 连接向导</string>
-    <string name="wizard_subtitle">通过分步交互指南，将 Android 设备连接到实体机床</string>
-    <string name="wizard_btn_open">打开连接向导</string>
     <string name="wizard_btn_skip">跳过教程</string>
     <string name="wizard_btn_next">下一步</string>
     <string name="wizard_btn_prev">上一步</string>
     <string name="wizard_btn_finish">完成并连接</string>
     <string name="wizard_dont_show_again">不再自动显示</string>
-    <string name="wizard_step_1_title">1. 检测网络接口并建立连接</string>
-    <string name="wizard_step_2_title">2. 在 LinuxCNC 中启用服务器（machine.ini）</string>
-    <string name="wizard_step_3_title">3. Ping 测试与 Linux 防火墙</string>
-    <string name="wizard_step_4_title">4. RSH 身份验证与握手</string>
-    <string name="wizard_step_5_title">5. 安全检查与急停</string>
-
     <string name="manual_sec12_title">12. LinuxCNC 连接与通信向导（linuxcncrsh）</string>
     <string name="manual_sec12_summary">TCP 套接字通信、machine.ini 配置、防火墙规则和身份验证握手指南。</string>
     <string name="manual_sec12_content">Android 平板电脑/手机与 CNC 之间的工业远程通信通过 linuxcncrsh 服务器进行：\n\n• 网络接口：支持车间 Wi-Fi LAN、有线以太网（USB-C 转 RJ45 适配器）或直接热点/网络共享。\n• machine.ini 配置：\n  – 必须在 [APPLICATIONS] 区段中添加以下指令：\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -w 标志启用写入权限（轴移动、模式切换和主轴控制）。\n  – -p 5007 标志设定标准 TCP 端口。\n• LINUX 防火墙规则：\n  – 在 Linux 中使用 sudo ufw allow 5007/tcp 开放端口。\n  – 使用 ss -tulpn | grep 5007 检查守护进程是否正在监听。\n• 握手协议：\n  – 初始问候：\'hello EMC LinuxCncDroid 1.0\'\n  – 密码验证：\'set enable password\'\n  – 持续实时监控 X/Y/Z/A 位置、急停状态和错误。</string>
@@ -789,7 +636,6 @@
     <string-array name="manual_sec17_safety">
         <item>若未将有线急停按钮串联到电气柜继电器中，切勿使用未经认证的无线控制器。</item>
     </string-array>
-
     <string name="wcs_active_badge">当前</string>
     <string name="wcs_set_active">设为活动 WCS</string>
     <string name="wcs_target_pos_label">目标工件位置（mm）</string>
@@ -823,7 +669,6 @@
     <string name="status_paused_short">已暂停</string>
     <string name="btn_feed_hold_short">进给\n暂停</string>
     <string name="btn_cycle_stop_short">循环\n停止</string>
-    <string name="exec_single_block">单段执行（M0）</string>
     <string name="exec_single_block_short">单段（M0）</string>
     <string name="exec_optional_stop">可选停止（M1）</string>
     <string name="exec_optional_stop_short">可选停止</string>
@@ -832,12 +677,7 @@
     <string name="exec_run_from_line_btn">从指定行运行（恢复切削）…</string>
     <string name="exec_from_line_short">从指定行…</string>
     <string name="exec_step_next_line">单段执行：运行下一行 &gt;</string>
-    <string name="jog_pad_tab">按键面板</string>
-    <string name="jog_mpg_tab">虚拟 MPG 手轮</string>
-    <string name="jog_pad_tab_short">按键</string>
-    <string name="jog_mpg_tab_short">MPG 手轮</string>
     <string name="soft_limits_dialog_title">软件限位轨迹预检</string>
-    <string name="soft_limits_active_wcs">活动坐标系：%s</string>
     <string name="soft_limits_safe_title">程序轨迹位于安全行程范围内</string>
     <string name="soft_limits_safe_desc">已加载的刀具路径在 %s 坐标系下完全符合机械限位范围。</string>
     <string name="soft_limits_danger_title">严重：超出行程限位</string>
@@ -954,7 +794,6 @@
     <string name="wizard_status_offline">离线</string>
     <string name="wizard_linux_cmd_title">LINUX 命令/配置</string>
     <string name="wizard_copied_to_clipboard">已复制到剪贴板！</string>
-    <string name="error_subsystem_internal_fault">子系统内部故障</string>
     <string name="error_fault_isolation">故障隔离：%1$s</string>
     <string name="error_subsystem_halted_safety">为保护 HMI 和机床各轴，子系统已预防性停止。</string>
     <string name="error_comp_3d_visualizer">3D G-Code 可视化器</string>
@@ -962,13 +801,9 @@
     <string name="error_comp_probing">测头探测循环</string>
     <string name="error_comp_ethercat">EtherCAT 现场总线</string>
     <string name="config_connection_wizard_banner">LINUXCNC 连接向导与教程</string>
-    <string name="battery_charging_suffix">（正在充电）</string>
-    <string name="simulated_badge">模拟</string>
     <string name="sim_weak_signal_active">信号弱（380 ms）</string>
     <string name="sim_weak_signal_btn">模拟弱信号</string>
     <string name="server_error_fmt">服务器错误：%1$s</string>
-
-    <!-- Added by localisation pass -->
     <string name="common_copy">复制</string>
     <string name="ini_units_fmt">单位: %1$s</string>
     <string name="ini_steps_scale_fmt">比例: %1$s 步/mm</string>
@@ -984,8 +819,6 @@
     <string name="camera_take_snapshot">拍照</string>
     <string name="camera_snapshot_saved_fmt">快照已保存: %1$s</string>
     <string name="camera_snapshot_error_fmt">拍摄错误: %1$s</string>
-
-    <!-- New Localization Additions -->
     <string name="jog_continuous_mode">连续 (CONT)</string>
     <string name="jog_step_mode">单步 (STEP)</string>
     <string name="config_protocol_sim">模拟器</string>
@@ -1002,7 +835,7 @@
     <string name="tool_table_imported_msg">已成功导入 %1$d 个刀具！</string>
     <string name="wizard_badge_critical">关键</string>
     <string name="calib_nominal_btn">= 标称</string>
-    <string name="rfl_safety_automation">安全自动化：Z 轴退刀至 +10.0mm 安全高度 -> 主轴以设定转速重启 -> 轨迹就绪。</string>
+    <string name="rfl_safety_automation">安全自动化：Z 轴退刀至 +10.0mm 安全高度 -&gt; 主轴以设定转速重启 -&gt; 轨迹就绪。</string>
     <string name="soft_axis_overtravel_fmt">%1$s 轴超程</string>
     <string name="soft_g53_span_fmt">G53 范围：[%1$.2f .. %2$.2f] mm</string>
     <string name="soft_machine_limit_fmt">机床限位：[%1$.2f .. %2$.2f] mm</string>
@@ -1016,11 +849,12 @@
     <string name="topbar_user_role_desc">用户角色</string>
     <string name="topbar_network_telemetry_desc">网络遥测</string>
     <string name="dro_home_axis_desc">%1$s 轴回原点</string>
-    <string name="error_internal_subsystem_fault">内部子系统故障</string>
     <string name="camera_flash_toggle">开关闪光灯</string>
     <string name="config_battery_charging">充电中</string>
     <string name="alarm_link_interrupted">连接中断</string>
     <string name="common_clear">清除</string>
     <string name="status_active">激活</string>
     <string name="cam_label_corner_radius">拐角半径 R (mm)</string>
+    <string name="wizard_sim_banner_title">离线模拟器已激活</string>
+    <string name="wizard_sim_banner_desc">已选择虚拟沙箱。无需物理机床即可测试DRO、MDI、3D预览和刀具磨损。</string>
 </resources>

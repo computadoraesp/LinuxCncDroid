@@ -606,7 +606,7 @@ fun JogStyleHeader(
                                 .padding(vertical = 6.dp)
                         ) {
                             Text(
-                                text = stringResource(R.string.jog_pad_tab),
+                                text = stringResource(R.string.jog_mode_pad),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (currentStyle == JogControlStyle.BUTTON_PAD) Color(0xFF00363D) else CncTextSecondary,
@@ -623,7 +623,7 @@ fun JogStyleHeader(
                                 .padding(vertical = 6.dp)
                         ) {
                             Text(
-                                text = stringResource(R.string.jog_mpg_tab),
+                                text = stringResource(R.string.jog_mode_mpg),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (currentStyle == JogControlStyle.VIRTUAL_MPG) Color(0xFF00363D) else CncTextSecondary
@@ -656,7 +656,7 @@ fun JogStyleHeader(
                                 .padding(horizontal = 8.dp, vertical = 3.dp)
                         ) {
                             Text(
-                                text = stringResource(R.string.jog_pad_tab_short),
+                                text = stringResource(R.string.jog_style_pad_disp),
                                 fontSize = 9.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (currentStyle == JogControlStyle.BUTTON_PAD) Color(0xFF00363D) else CncTextSecondary,
@@ -671,7 +671,7 @@ fun JogStyleHeader(
                                 .padding(horizontal = 8.dp, vertical = 3.dp)
                         ) {
                             Text(
-                                text = stringResource(R.string.jog_mpg_tab_short),
+                                text = stringResource(R.string.jog_style_mpg_disp),
                                 fontSize = 9.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (currentStyle == JogControlStyle.VIRTUAL_MPG) Color(0xFF00363D) else CncTextSecondary

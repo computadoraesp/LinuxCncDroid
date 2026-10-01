@@ -1,7 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">LinuxCNC Droid HMI</string>
-
-    <!-- Navigation Tabs -->
     <string name="tab_control">STEUERUNG</string>
     <string name="tab_toolpath">WERKZEUGPFAD</string>
     <string name="tab_camera">KAMERA</string>
@@ -10,15 +9,12 @@
     <string name="tab_mdi">MDI</string>
     <string name="tab_logs">PROTOKOLLE</string>
     <string name="tab_config">KONFIG</string>
-
-    <!-- Common -->
     <string name="common_cancel">ABBRECHEN</string>
     <string name="common_close">SCHLIESSEN</string>
     <string name="common_save">SPEICHERN</string>
     <string name="common_init">INIT</string>
     <string name="common_execute">AUSFÜHREN</string>
     <string name="common_zero">NULL</string>
-
     <string name="state_estop_disp">NOT-AUS AKTIV</string>
     <string name="state_off_disp">MASCHINE AUS</string>
     <string name="state_on_disp">MASCHINE BEREIT</string>
@@ -27,11 +23,9 @@
     <string name="state_paused_disp">VORSCHUB HALT</string>
     <string name="state_homing_disp">REFERENZIEREN</string>
     <string name="state_error_disp">SYSTEMFEHLER</string>
-
     <string name="mode_manual_disp">MANUELL</string>
     <string name="mode_mdi_disp">MDI KONSOLE</string>
     <string name="mode_auto_disp">AUTO PROGRAMM</string>
-
     <string name="arch_ethercat_name">EtherCAT + Delta B3/A3 Servos</string>
     <string name="arch_ethercat_desc">Highspeed-Bus mit 100 Mbps, Echtzeit-Telemetrie für Drehmoment/Temperatur, CiA-402-Antriebe</string>
     <string name="arch_mesa_name">Mesa 7i96S / 7i76E FPGA</string>
@@ -40,11 +34,9 @@
     <string name="arch_parport_desc">Step-Erzeugung per Software, Standard-Bewegungskernel von LinuxCNC HAL</string>
     <string name="arch_closed_loop_name">Hybrider Schrittmotor mit Regelkreis</string>
     <string name="arch_closed_loop_desc">Schrittverlust-Erkennung per Encoder, schnelle Positionierung mit Step/Dir-Abstraktion</string>
-
     <string name="role_operator_disp">Bediener (Steuerung &amp; Jog)</string>
     <string name="role_viewer_disp">Beobachter (Nur DRO)</string>
     <string name="role_admin_disp">Administrator (Tuning &amp; MDI)</string>
-
     <string name="tool_type_endmill_disp">Schaftfräser</string>
     <string name="tool_type_ballnose_disp">Radiusfräser</string>
     <string name="tool_type_facemill_disp">Messerkopf</string>
@@ -53,20 +45,16 @@
     <string name="tool_type_tap_disp">Gewindebohrer</string>
     <string name="tool_type_probe_disp">3D-Taster</string>
     <string name="tool_type_flycutter_disp">Schlagzahnfräser</string>
-
     <string name="jog_style_pad_disp">TASTENFELD</string>
     <string name="jog_style_mpg_disp">MPG-HANDRAD</string>
-
     <string name="log_info_disp">INFO</string>
     <string name="log_warn_disp">WARNUNG</string>
     <string name="log_error_disp">FEHLER</string>
     <string name="log_crit_disp">KRITISCH</string>
     <string name="log_security_disp">SICHERHEIT</string>
-
     <string name="threat_clean_disp">SICHER / VERIFIZIERT</string>
     <string name="threat_suspicious_disp">SICHERHEITSWARNUNG</string>
     <string name="threat_blocked_disp">BEDROHUNG BLOCKIERT</string>
-
     <string name="mat_al6061_name">Aluminium 6061-T6</string>
     <string name="mat_al6061_cat">Nichteisen</string>
     <string name="mat_steel1018_name">Baustahl (AISI 1018)</string>
@@ -77,7 +65,6 @@
     <string name="mat_wood_cat">Holz &amp; Verbundstoffe</string>
     <string name="mat_pom_name">POM / Delrin / Acetal</string>
     <string name="mat_pom_cat">Kunststoffe</string>
-
     <string name="macro_zero_all_label">Alle Nullen (G54)</string>
     <string name="macro_zero_all_desc">Aktuelle Position als G54 Werkstück-Nullpunkt setzen</string>
     <string name="macro_park_label">Parkposition</string>
@@ -88,11 +75,9 @@
     <string name="macro_laser_desc">Optisches Laser-Fadenkreuz umschalten</string>
     <string name="macro_probe_z_label">Werkzeuglängen-Messung</string>
     <string name="macro_probe_z_desc">Werkzeugsensor-Antastroutine ausführen</string>
-
     <string name="profile_workshop_vmc">Workshop VMC-850 (EtherCAT + Delta)</string>
     <string name="profile_prototype_router">Prototype Router (Mesa 7i96S FPGA)</string>
     <string name="profile_mini_mill">Mini Mill (Parallel Port Legacy)</string>
-
     <string name="reticle_crosshair">FADENKREUZ (0.01mm)</string>
     <string name="reticle_concentric">KONZENTRISCHE KREISE</string>
     <string name="reticle_grid">METROLOGISCHES GITTER</string>
@@ -111,14 +96,6 @@
     <string name="camera_zero_with_offset">G54‑NULL MIT VERSATZ SETZEN</string>
     <string name="camera_zero_offset_applied">Nullpunkt mit Versatz gesetzt: X=%1$.2f, Y=%2$.2f</string>
     <string name="camera_angle_label">Winkel: %1$.1f°</string>
-    <string name="camera_reset_angle">0°</string>
-    <string name="camera_zoom_preset_1x">1X</string>
-    <string name="camera_zoom_preset_2x">2X</string>
-    <string name="camera_zoom_preset_4x">4X</string>
-    <string name="camera_zoom_preset_8x">8X</string>
-    <string name="camera_qc_report_title">OPTISCHE QUALITÄTSKONTROLLE</string>
-
-    <!-- Header & Top Bar -->
     <string name="topbar_estop">NOT-AUS</string>
     <string name="topbar_power_on">EIN</string>
     <string name="topbar_power_off">AUS</string>
@@ -129,10 +106,6 @@
     <string name="topbar_axis_metrology_desc">Achskalibrierung</string>
     <string name="topbar_manual_desc">Handbuch &amp; SOPs</string>
     <string name="topbar_event_logs_desc">Ereignisprotokoll</string>
-    <string name="topbar_sim_mode" formatted="false">SIM: %s</string>
-    <string name="topbar_real_mode" formatted="false">REAL: %s</string>
-
-    <!-- DRO Panel -->
     <string name="dro_title">DIGITALE ANZEIGE (DRO)</string>
     <string name="dro_zero_all">ALLE NULLEN</string>
     <string name="dro_home_all">ALLE REFERENZIEREN</string>
@@ -141,8 +114,6 @@
     <string name="dro_dtg">RESTWEG</string>
     <string name="dro_torque">MOMENT: %s%%</string>
     <string name="dro_drive_temp">ANTRIEB: %s°C</string>
-
-    <!-- Jog & MPG Controls -->
     <string name="jog_title">MANUELLE ACHSSTEUERUNG</string>
     <string name="jog_mode_pad">TASTENFELD</string>
     <string name="jog_mode_mpg">VIRTUAL MPG</string>
@@ -157,8 +128,6 @@
     <string name="jog_z_axis">Z-ACHSE</string>
     <string name="jog_a_axis">A-ACHSE</string>
     <string name="jog_style_mode_style">MODUS: %1$s | STIL: %2$s</string>
-
-    <!-- Spindle & Feed Controls -->
     <string name="spindle_actual_rpm">IST-DREHZAHL</string>
     <string name="feed_override">VORSCHUB OVERRIDE</string>
     <string name="btn_cycle_start">START</string>
@@ -174,8 +143,6 @@
     <string name="spindle_set_rpm">SOLL: %d U/min</string>
     <string name="spindle_override_label">OVERRIDE: %d%%</string>
     <string name="spindle_feed_info">%1$d%% (%2$s)</string>
-
-    <!-- Tool Table & ATC -->
     <string name="tool_diameter">DURCHMESSER (D)</string>
     <string name="tool_length_offset">LÄNGEN-OFFSET (H)</string>
     <string name="tool_touch_off">Z-ANTENNTEN (G43.1)</string>
@@ -200,9 +167,6 @@
     <string name="tp_past_cuts">SCHNITT</string>
     <string name="tp_current_tool">AKTIV</string>
     <string name="tp_arc_cut">BOGEN G2/G3</string>
-
-
-    <!-- Toolpath 3D View -->
     <string name="view_top">DRAUFSICHT</string>
     <string name="view_iso">ISO 3D</string>
     <string name="view_front">VORNE</string>
@@ -217,7 +181,6 @@
     <string name="tp_toggle_lod_full">LOD 1:1</string>
     <string name="tp_hud_zmin">Z-MIN: %1$.2f mm</string>
     <string name="tp_hud_zsafe">Z-SICHER: %1$.2f mm</string>
-    <string name="tp_hud_plane">SICHERHEITSEBENE</string>
     <string name="tp_hud_tool_dia">Ø%1$.1f mm</string>
     <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
     <string name="view_side">SEITE</string>
@@ -227,16 +190,8 @@
     <string name="tp_toggle_grid">RASTER</string>
     <string name="tp_toggle_follow">WERKZEUG FOLGEN</string>
     <string name="tp_toggle_code">G‑CODE</string>
-    <string name="tp_dry_run">TROCKENLAUF‑SIMULATION</string>
     <string name="tp_sim_play">START</string>
     <string name="tp_sim_pause">PAUSE</string>
-    <string name="tp_sim_speed">%1$dX</string>
-    <string name="tp_scrub_label">BLOCK %1$d / %2$d</string>
-    <string name="tp_wcs_origin">WCS (0,0,0)</string>
-
-
-
-    <!-- Probing & Calibration -->
     <string name="probing_title">3D TASTER &amp; METROLOGIE (LEVEL 2)</string>
     <string name="probe_status_clear">TASTER BEREIT</string>
     <string name="probe_status_tripped">KONTAKT</string>
@@ -244,13 +199,8 @@
     <string name="probe_boss">Zapfenzentrum</string>
     <string name="probe_corner_xy">Eckenfinder</string>
     <string name="probe_surface_z">Z-Antasten</string>
-    <string name="probe_last_contact_x">KONTAKT X</string>
-    <string name="probe_last_contact_y">KONTAKT Y</string>
-    <string name="probe_last_contact_z">KONTAKT Z</string>
     <string name="probe_routines_header">AUTOMATISCHE TASTZYKLEN</string>
     <string name="probe_executing">TASTE…</string>
-
-    <!-- EtherCAT & Telemetry -->
     <string name="ethercat_title">ETHERCAT BUS-DIAGNOSE (LEVEL 3)</string>
     <string name="ethercat_cycle_jitter">ZYKLUS-JITTER</string>
     <string name="ethercat_lost_frames">PAKETVERLUST</string>
@@ -261,15 +211,10 @@
     <string name="ethercat_torque_load">MOMENT: %s %%</string>
     <string name="ethercat_drive_temp">ANTRIEBSTEMP: %s °C</string>
     <string name="ethercat_diagnostic_status">DIAGNOSESTATUS:</string>
-
-    <!-- MDI & Macros -->
     <string name="mdi_title">MANUELLE DATENEINGABE (MDI)</string>
     <string name="mdi_execute">AUSFÜHREN</string>
     <string name="mdi_placeholder">G-Code eingeben (z.B. G0 X100 Y50)</string>
     <string name="mdi_macros_header">PROGRAMMIERBARE MAKROS</string>
-    <string name="mdi_history_header">VERLAUF</string>
-
-    <!-- Alarms & Event Logs -->
     <string name="logs_title">ALARMMELDUNGS‑PROTOKOLL</string>
     <string name="logs_clear">PROTOKOLLE LÖSCHEN</string>
     <string name="logs_simulate_alarm">ALARM SIMULIEREN</string>
@@ -277,25 +222,20 @@
     <string name="logs_copied_to_clipboard">Bericht in die Zwischenablage kopiert</string>
     <string name="logs_share_report">MIT WARTUNG TEILEN</string>
     <string name="logs_copy_report">BERICHT KOPIEREN</string>
-    <string name="logs_close">SCHLIESSEN</string>
     <string name="logs_audit_modal_title">INDUSTRIELLER AUDIT‑ &amp; TELEMETRIEBERICHT</string>
     <string name="logs_filter_all">ALLE</string>
     <string name="logs_filter_errors">FEHLER</string>
     <string name="logs_filter_security">SICHERHEIT</string>
     <string name="logs_filter_warnings">WARNUNGEN</string>
     <string name="logs_no_entries">Keine Ereignisprotokolle für Filter „%s“ gefunden</string>
-
-    <!-- Machine Config & Profiles -->
     <string name="config_title">HARDWARE-KONFIGURATION</string>
     <string name="config_architecture">CONTROLLER ARCHITEKTUR</string>
-    <string name="config_connect">VERBINDEN</string>
     <string name="config_save_profile">NEUES PROFIL</string>
     <string name="config_metrology_calib_btn">Achskalibrierung (ISO 230–2)</string>
     <string name="config_manual_btn">Handbuch &amp; SOPs</string>
     <string name="config_app_name">LinuxCNC Droid HMI</string>
     <string name="config_app_subtitle">Industrielle Steuerung • Level 1–3</string>
     <string name="config_app_tech_stack">LinuxCNC NML / HAL • EtherCAT • Delta ASDA-B3</string>
-    <string name="config_middleware_header">LINUXCNC MIDDLEWARE SERVER</string>
     <string name="config_host_ip_label">Host-IP / Hostname</string>
     <string name="config_port_label">Port</string>
     <string name="config_saved_profiles_header">GESPEICHERTE PROFILE</string>
@@ -306,12 +246,9 @@
     <string name="config_add_profile_title">Profil hinzufügen</string>
     <string name="config_machine_name_label">Maschinenname</string>
     <string name="config_ip_address_placeholder">IP-Adresse (z.B. 192.168.1.100)</string>
-
-    <!-- Calibration Dialog -->
     <string name="calib_header">ACHSKALIBRIERUNG (ISO 230–2)</string>
     <string name="calib_subtitle">Steigungsfehler‑Mapping &amp; Unsicherheit (ISO 230‑2)</string>
     <string name="calib_section1_header">1. PARAMETER &amp; UNSICHERHEIT</string>
-    <string name="calib_init_btn">INIT</string>
     <string name="calib_axis_label">ACHSE</string>
     <string name="calib_travel_label">WEG (mm)</string>
     <string name="calib_uncertainty_label">UNSICHERHEIT ±(mm)</string>
@@ -339,8 +276,6 @@ Diese Kompensationstabelle ordnet die Fehler für jeweils 10% der Achse direkt d
     <string name="calib_preset_glass">Glasmaßstab (±0.001)</string>
     <string name="calib_preset_micrometer">Mikrometer (±0.002)</string>
     <string name="calib_preset_laser">Laser (±0.0005)</string>
-
-    <!-- Camera View -->
     <string name="camera_header">INDUSTRIELLES VISION-SYSTEM</string>
     <string name="camera_permission_required">KAMERAZUGRIFF ERFORDERLICH</string>
     <string name="camera_permission_text">Die Kamera wird zum optischen Ausrichten und Zentrieren genutzt.</string>
@@ -351,8 +286,6 @@ Diese Kompensationstabelle ordnet die Fehler für jeweils 10% der Achse direkt d
     <string name="camera_micro_alignment_label">OPTISCHE FEINAUSRICHTUNG:</string>
     <string name="camera_zero_x">NULL X</string>
     <string name="camera_zero_y">NULL Y</string>
-
-    <!-- Speeds & Feeds Calculator -->
     <string name="calc_header">SCHNITTDATENRECHNER</string>
     <string name="calc_material_header">WERKSTÜCKMATERIAL</string>
     <string name="calc_diameter_label">DURCHMESSER (mm)</string>
@@ -363,8 +296,6 @@ Diese Kompensationstabelle ordnet die Fehler für jeweils 10% der Achse direkt d
     <string name="calc_stepover_ae">Breite (Ae): %s mm</string>
     <string name="calc_power">Leistung: %s kW</string>
     <string name="calc_apply_btn">AN CNC ÜBERNEHMEN</string>
-
-    <!-- G-Code Security Loader -->
     <string name="sl_header">G-CODE SICHERHEIT &amp; DATEI-LOADER</string>
     <string name="sl_presets_header">BEISPIEL-SCRIPTE</string>
     <string name="sl_analysis_header">SICHERHEITSANALYSE</string>
@@ -372,18 +303,12 @@ Diese Kompensationstabelle ordnet die Fehler für jeweils 10% der Achse direkt d
     <string name="sl_load_btn">IN CNC LADEN</string>
     <string name="sl_pass">GEPRÜFT</string>
     <string name="sl_block">BLOCKIERT</string>
-
-    <!-- Attribution -->
     <string name="cnc_attribution_label">LinuxCNC Droid HMI Service</string>
-
-    <!-- Manual Content -->
     <string name="manual_title">CNC‑BETRIEBS‑ &amp; TECHNISCHES REFERENZHANDBUCH</string>
     <string name="manual_subtitle">Vollständiger Leitfaden zu Sicherheit, DRO, MPG, Antasten, EtherCAT und metrologischer Kalibrierung</string>
     <string name="manual_search_placeholder">Handbuch durchsuchen (z. B. Kalibrierung, Alarm, MPG, WCS, E‑STOP)…</string>
     <string name="manual_sop_title">STANDARD‑BETRIEBSVERFAHREN (SOP)</string>
     <string name="manual_safety_title">SICHERHEITSSTANDARDS &amp; VERRIEGELUNGEN</string>
-
-    <!-- Section 1 -->
     <string name="manual_sec1_title">1. Sicherheit und Verriegelungen</string>
     <string name="manual_sec1_summary">Maschinenzustände, zulässige Steuerungen während der Bearbeitung und Alarmwiederherstellung.</string>
     <string name="manual_sec1_content" formatted="false">
@@ -399,19 +324,15 @@ Die LinuxCNC‑Droid‑HMI‑Architektur implementiert industrielle Sicherheitsv
     3. „POWER ON“ drücken.\n
     4. „CYCLE START“ drücken, um an der Fehlerzeile weiterzumachen.
 </string>
-
     <string-array name="manual_sec1_sop">
         <item>Bei drohender Kollision den roten E‑STOP‑Knopf in der oberen Leiste drücken.</item>
         <item>Zur Reduzierung von Vibrationen (Rattern) den Spindel‑Override erhöhen oder den Vorschub‑Override verringern, ohne das Programm zu stoppen.</item>
         <item>Nach einem Alarmstopp den Fehlercode im LOGS‑Tab prüfen, bevor die Maschine wieder eingeschaltet wird.</item>
     </string-array>
-
     <string-array name="manual_sec1_safety">
         <item>Niemals versuchen, Achsen manuell zu bewegen, während der Zyklus läuft.</item>
         <item>Sicherstellen, dass der externe physische Not‑Aus in Reihe mit dem Sicherheitsrelais im Schaltschrank verbunden ist.</item>
     </string-array>
-
-    <!-- Section 2 -->
     <string name="manual_sec2_title">2. Metrologische Kalibrierung (ISO 230–2)</string>
     <string name="manual_sec2_summary" formatted="false">Kalibrierung alle 10 % der Achse, Unsicherheitsberechnung und Gewindespindelkompensation (comp.tbl).</string>
     <string name="manual_sec2_content" formatted="false">
@@ -425,7 +346,6 @@ Der metrologische Assistent ermöglicht die Bewertung und Korrektur des Kugelgew
 • DIREKTE ANWENDUNG IN LINUXCNC (comp.tbl):\n
   Nach Abschluss erzeugt das System die Datei „comp.tbl“ für das HAL‑Modul „linear_comp“. LinuxCNC kompensiert Abweichungen aktiv in Echtzeit während der Bearbeitung.
 </string>
-
     <string-array name="manual_sec2_sop">
         <item>Den Dialog „Metrologische Kalibrierung“ über die obere Leiste (Lineal/Kompass‑Symbol) öffnen.</item>
         <item>Achse (X, Y oder Z), Verfahrweg und Instrumentenunsicherheit (z. B. ±0.003 mm) auswählen.</item>
@@ -434,13 +354,10 @@ Der metrologische Assistent ermöglicht die Bewertung und Korrektur des Kugelgew
         <item>Referenzinstrument ablesen, den gemessenen Wert eingeben (oder die =‑Soll‑Taste und ±1 µm‑Feinjustierung verwenden) und „SAVE &amp; NEXT“ drücken.</item>
         <item>Nach 100 % Fertigstellung die Fehlerkurve prüfen und „EXPORT comp.tbl“ drücken, um die Tabelle in die LinuxCNC‑Konfiguration zu übernehmen.</item>
     </string-array>
-
     <string-array name="manual_sec2_safety">
         <item>Sicherstellen, dass die Spindel Betriebstemperatur erreicht hat (15 Minuten Vorlauf), um thermische Drift zu vermeiden.</item>
         <item>Messuhr fest mit einem starren Magnetfuß am Maschinenbett befestigen.</item>
     </string-array>
-
-    <!-- Section 3 -->
     <string name="manual_sec3_title">3. DRO und Koordinatensysteme</string>
     <string name="manual_sec3_summary">DRO‑Anzeige, WCS G54–G59, G53 Maschinenkoordinaten und Servodrehmoment.</string>
     <string name="manual_sec3_content" formatted="false">
@@ -452,18 +369,14 @@ Das DRO‑Panel zeigt Echtzeitpositionen mit einer Auflösung von 0,001 mm:\n\
 • SERVO‑TELEMETRIE:\n
   Überwacht die Last des Servoantriebs (%‑Drehmoment). Dauerhafte Werte über 85% weisen auf Führungsverschleiß oder zu hohen Vorschub hin.
 </string>
-
     <string-array name="manual_sec3_sop">
         <item>Gewünschtes Koordinatensystem über den oberen Leisten‑Selektor wählen (Standard: G54).</item>
         <item>Zum Nullsetzen einer Achse die ZERO‑Taste im DRO‑Panel verwenden.</item>
         <item>Zum Referenzieren aller Achsen „HOME ALL (G28)“ drücken.</item>
     </string-array>
-
     <string-array name="manual_sec3_safety">
         <item>Niemals G92‑Nullpunkte setzen, wenn der Fräser im Material steckt, ohne Sicherheitsabstände zu prüfen.</item>
     </string-array>
-
-    <!-- Section 4 -->
     <string name="manual_sec4_title">4. Virtuelles MPG‑Handrad</string>
     <string name="manual_sec4_summary">Industrielles 100‑Teilungs‑Touch‑Handrad mit x1, x10, x100, x1000‑Multiplikatoren.</string>
     <string name="manual_sec4_content">
@@ -476,19 +389,15 @@ Das virtuelle MPG‑Handrad emuliert ein physisches elektronisches Handrad:\n\n
   – x1000: 1,000 mm/Schritt (Langer Tischweg).\n
 • HAPTISCHES FEEDBACK: Vibration und akustischer Klick bei jedem 3,6°‑Raster.
 </string>
-
     <string-array name="manual_sec4_sop">
         <item>Im Jog‑Panel die Registerkarte „VIRTUAL MPG WHEEL“ auswählen.</item>
         <item>Achse (X, Y, Z oder A) im Achsselektor wählen.</item>
         <item>Passenden Multiplikator wählen (aus Sicherheitsgründen mit x10 beginnen).</item>
         <item>Handrad mit dem Finger im Uhrzeigersinn (+) oder gegen den Uhrzeigersinn (–) drehen und die DRO‑Reaktion beobachten.</item>
     </string-array>
-
     <string-array name="manual_sec4_safety">
         <item>Auf der Z‑Achse in der Nähe von Schraubstock oder Werkstück ausschließlich x1 oder x10 verwenden, um Spindelkollisionen zu vermeiden.</item>
     </string-array>
-
-    <!-- Section 5 -->
     <string name="manual_sec5_title">5. Werkzeugtabelle und ATC (tool.tbl)</string>
     <string name="manual_sec5_summary">Verwaltung von T1–T99, Längenkompensation (G43), schnelles Antasten und Werkzeuglebensdauer.</string>
     <string name="manual_sec5_content" formatted="false">
@@ -497,18 +406,14 @@ Der Werkzeugmanager synchronisiert direkt mit der LinuxCNC‑Datei „tool.tbl�
 • Z‑ANTASTEN (G43.1): Kalibriert die Werkzeuglänge durch eine einzige Berührung.\n
 • VERSCHLEISSÜBERWACHUNG: Warnt, wenn die akkumulierte Bearbeitungszeit 85% der geschätzten Werkzeuglebensdauer überschreitet.
 </string>
-
     <string-array name="manual_sec5_sop">
         <item>Werkzeugtabelle über das Schraubenschlüssel‑Symbol in der oberen Leiste öffnen.</item>
         <item>Zum Montieren Werkzeugplatz wählen und „MOUNT (M6)“ drücken.</item>
         <item>Zur Z‑Längenmessung Spitze auf den Sensorsockel absenken und „TOUCH‑OFF (G43.1)“ drücken.</item>
     </string-array>
-
     <string-array name="manual_sec5_safety">
         <item>Sicherstellen, dass die maximale RPM des Werkzeugs die Kapazität der Spannzange oder des Werkzeughalters nicht überschreitet.</item>
     </string-array>
-
-    <!-- Section 6 -->
     <string name="manual_sec6_title">6. 3D‑Antastzyklen (WCS‑Probing)</string>
     <string name="manual_sec6_summary">Automatisierte Routinen zum Zentrieren von Löchern, Zylindern, Ecken und Z‑Höhenmessung.</string>
     <string name="manual_sec6_content">
@@ -518,19 +423,15 @@ Der PROBING‑Tab enthält kinematische Routinen mit elektrischem Kontaktstopp (
 • ECKFINDER: Lokalisiert die XY‑Ecke zur Festlegung des Werkstücknullpunkts.\n
 • OBERFLÄCHENHÖHE Z: Fährt abwärts bis zum Kontakt, um die Z=0‑Ebene zu setzen.
 </string>
-
     <string-array name="manual_sec6_sop">
         <item>3D‑Taster montieren und Signalkabel am PROBE‑Port anschließen.</item>
         <item>Taster manuell ins Loch oder über die Oberfläche positionieren.</item>
         <item>Im PROBING‑Tab gewünschte Routine wählen (z. B. LOCHMITTE).</item>
         <item>System führt die Kontakte aus und aktualisiert automatisch WCS G54.</item>
     </string-array>
-
     <string-array name="manual_sec6_safety">
         <item>LED‑Anzeige des Tasters durch leichtes Berühren testen, bevor ein automatischer Zyklus gestartet wird.</item>
     </string-array>
-
-    <!-- Section 7 -->
     <string name="manual_sec7_title">7. EtherCAT‑Bus‑Telemetrie</string>
     <string name="manual_sec7_summary">Echtzeitüberwachung von CiA402‑Slaves, Zyklusjitter und verlorenen Frames.</string>
     <string name="manual_sec7_content">
@@ -539,23 +440,18 @@ Der EtherCAT‑Monitor zeigt den Zustand des industriellen Automatisierungsnetzw
 • ZYKLUSJITTER: Variation der Echtzeituhr. Werte &lt; 5 µs sind optimal.\n
 • VERLORENE FRAMES: Wenn dieser Zähler über 0 steigt, geschirmte Kabel und Erdung prüfen.
 </string>
-
     <string-array name="manual_sec7_sop">
         <item>ETHERCAT‑Tab öffnen.</item>
         <item>Sicherstellen, dass alle Servoantriebe der X‑, Y‑ und Z‑Achse im „OP“‑Zustand erscheinen.</item>
         <item>Temperaturen der Antriebe während schwerer Bearbeitung überwachen.</item>
     </string-array>
-
     <string-array name="manual_sec7_safety">
         <item>Wenn der Master während der Bearbeitung in INIT oder PRE‑OP wechselt, führt die Maschine einen sofortigen Sicherheitsstopp aus.</item>
     </string-array>
-
-    <!-- Manual Section 17 — Roadmap & Next Version Enhancements  -->
     <string name="manual_sec17_title">17. Entwicklungsplan und zukünftige Erweiterungen</string>
     <string name="manual_sec17_summary">
 Geplante Verbesserungen: SCP/FTP/Samba‑Massentransfer, OTG/Bluetooth‑Bedienpendants, 5. Achse (B/C) und Wi‑Fi‑Latenzreduktion.
 </string>
-
     <string name="manual_sec17_content">
 Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren werden folgende Erweiterungen vorgeschlagen:\n\n
 1. VERWALTUNG UND TRANSFER GROßER G‑CODE‑DATEIEN:\n
@@ -567,19 +463,14 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
 4. REDUKTION STARKER WI‑FI‑LATENZEN:\n
    – Prädiktiver Buffer‑Kompensationsalgorithmus für EM‑gestörte Netzwerke (VFD‑Einflüsse) und Empfehlung für USB‑C‑zu‑Ethernet‑Verbindungen.
 </string>
-
     <string-array name="manual_sec17_sop">
         <item>1. Für große G‑Code‑Programme derzeit lokale Datei‑ oder SD‑Karten‑Ladung verwenden.</item>
         <item>2. In EM‑störanfälligen Umgebungen USB‑C‑zu‑Ethernet‑Adapter verwenden.</item>
         <item>3. Diese Sektion regelmäßig prüfen, um neue Hardware‑Erweiterungen zu verfolgen.</item>
     </string-array>
-
     <string-array name="manual_sec17_safety">
         <item>Keine nicht zugelassenen drahtlosen Bediengeräte ohne physischen Not‑Aus in Reihe mit dem Sicherheitsrelais verwenden.</item>
     </string-array>
-
-
-    <!-- Conversational CAM Input Labels -->
     <string name="cam_label_length_x">Länge X (mm)</string>
     <string name="cam_label_width_y">Breite Y (mm)</string>
     <string name="cam_label_tool_diam">Fräserdurchmesser D (mm)</string>
@@ -602,8 +493,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="cam_label_hole_depth">Bohrtiefe Z (mm)</string>
     <string name="cam_label_peck_q">Tiefbohrzustellung Q (mm)</string>
     <string name="cam_label_retract_r">Rückzugsebene R (mm)</string>
-
-    <!-- Connection Wizard Detailed Content -->
     <string name="wizard_step_1_title_full">SCHRITT 1: ERKENNUNG DER PHYSISCHEN VERBINDUNG</string>
     <string name="wizard_step_1_subtitle">Überprüfung der Netzwerkschnittstelle zwischen Android und CNC</string>
     <string name="wizard_step_1_inst_1">Das Android-Gerät muss sich im selben Subnetz wie die LinuxCNC-Maschine befinden.</string>
@@ -640,30 +529,20 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="wizard_status_offline">OFFLINE</string>
     <string name="wizard_linux_cmd_title">LINUX-BEFEHL / KONFIGURATION</string>
     <string name="wizard_copied_to_clipboard">In die Zwischenablage kopiert!</string>
-
-    <!-- Error Boundary & Component Names -->
-    <string name="error_subsystem_internal_fault">Interner Subsystemfehler</string>
     <string name="error_fault_isolation">FEHLERISOLATION: %1$s</string>
     <string name="error_subsystem_halted_safety">Das Subsystem wurde vorsorglich gestoppt, um die HMI und die Maschinenachsen zu schützen.</string>
     <string name="error_comp_3d_visualizer">3D-G-Code-Visualisierung</string>
     <string name="error_comp_camera_vision">Kamera &amp; Computer Vision</string>
     <string name="error_comp_probing">Tastzyklen</string>
     <string name="error_comp_ethercat">EtherCAT-Feldbus</string>
-
-    <!-- Machine Config & Misc -->
     <string name="config_connection_wizard_banner">LINUXCNC-VERBINDUNGSASSISTENT UND TUTORIAL</string>
-    <string name="battery_charging_suffix">(LÄDT)</string>
-    <string name="simulated_badge">SIMULIERT</string>
     <string name="sim_weak_signal_active">SCHWACHES SIGNAL (380ms)</string>
     <string name="sim_weak_signal_btn">SCHWACHES SIGNAL SIMULIEREN</string>
     <string name="server_error_fmt">Serverfehler: %1$s</string>
-
-    <!-- Zusätzliche Verbindungs-, Konfigurations-, Alarm- und Berichtstexte -->
     <string name="wizard_step_1_code_snippet"># Prüfen Sie die IP-Adresse im LinuxCNC-Terminal (PC/Raspberry Pi):\nhostname -I\n# Beispiel-IP-Adresse: 192.168.1.120</string>
     <string name="wizard_step_2_code_snippet">[APPLICATIONS]\n# Remote-Steuerungsdienst beim Start von LinuxCNC starten:\nAPP = linuxcncrsh — -w -p 5007 -d</string>
     <string name="wizard_step_3_code_snippet"># In einem Linux-Terminal ausführen:\nsudo ufw allow 5007/tcp\n# Prüfen, ob linuxcncrsh lauscht:\nss -tulpn | grep 5007</string>
     <string name="wizard_step_4_code_snippet">Host-IP: %1$s\nPort: %2$s\nPasswort: %3$s</string>
-
     <string name="ini_machine_name_fmt">MASCHINE: %1$s</string>
     <string name="ini_kinematics_fmt">Kinematik: %1$s</string>
     <string name="ini_max_velocity_fmt">Max. Geschwindigkeit: %1$s mm/s</string>
@@ -671,7 +550,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="ini_soft_limits_title">VERFAHRWEGBEGRENZUNGEN (SOFT LIMITS) UND SKALEN</string>
     <string name="ini_limits_applied">GRENZEN ANGEWENDET!</string>
     <string name="ini_axis_limit_fmt">Grenze: [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
-
     <string name="manual_category_calibration">KALIBRIERUNG</string>
     <string name="manual_category_operation">BETRIEB</string>
     <string name="manual_category_probing">TASTEN</string>
@@ -683,51 +561,19 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="manual_category_ini_configuration">INI-KONFIGURATION</string>
     <string name="manual_category_hal_diagnostics">HAL &amp; DIAGNOSE</string>
     <string name="manual_category_wcs_origins">WCS-NULLPUNKTE</string>
-
     <string name="log_battery_critical_during_cycle">KRITISCHE GEFAHR! Akkustand bei %1$d%% während eines Bearbeitungszyklus. Gerät schaltet sich bald aus: Zyklus pausieren oder Ladegerät anschließen.</string>
     <string name="log_battery_critical">KRITISCHER AKKU-ALARM! Akkustand bei %1$d%%. Ladegerät sofort anschließen.</string>
     <string name="log_battery_low">Warnung bei niedrigem Akkustand: %1$d%%. Ladegerät anschließen.</string>
     <string name="log_battery_sensor_restored">Akkusensor auf aktuelle Systemmesswerte zurückgesetzt.</string>
     <string name="log_screen_timeout_enabled">Sicherheitshinweis: Systembedingtes Ausschalten des Bildschirms aktiviert. Dauerhaft eingeschalteter Bildschirm wird empfohlen.</string>
-    <string name="log_servo_overtorque_alarm">ALARM AL.006: Übermomentschutz am EtherCAT-Servoantrieb der Z-Achse ausgelöst.</string>
     <string name="log_vfd_thermal_alarm">VFD-ÜBERHITZUNG: Wicklungstemperatur der Spindel über 85 °C.</string>
     <string name="log_low_coolant_alarm">KÜHLMITTELSTAND NIEDRIG: Unzureichender Pumpendruck am I/O-Bus.</string>
-
-    <string name="engine_local_simulation_mode">Zum lokalen Simulationsmodus (Offline) gewechselt.</string>
-    <string name="engine_disconnected_from_linuxcnc">Von LinuxCNC getrennt. Simulationsmodus ist aktiv.</string>
-    <string name="engine_tool_table_imported">Werkzeugtabelle erfolgreich importiert: %1$d Werkzeuge geladen.</string>
-
-    <string name="audit_report_title">LINUXCNC DROID - INDUSTRIELLER AUDITBERICHT</string>
-    <string name="audit_machine_label">Maschine:             %1$s</string>
-    <string name="audit_generation_date_label">Erstellungsdatum: %1$s (%2$s)</string>
-    <string name="audit_machine_state_label">Maschinenstatus:   %1$s</string>
-    <string name="audit_axis_telemetry_section">1. KINEMATISCHE ACHSEN-TELEMETRIE</string>
-    <string name="audit_ethercat_section">3. ETHERCAT-MASTER- &amp; SLAVE-DIAGNOSE</string>
-    <string name="audit_alarm_history_section">4. ALARMVERLAUF UND EREIGNISPROTOKOLL (LETZTE %1$d)</string>
-
     <string name="protocol_linuxcncrsh_description">LinuxCNC Remote Shell (linuxcncrsh) TCP-Datenstrom (Standardport 5007)</string>
     <string name="protocol_websocket_description">WebSocket-JSON-Gateway / Telemetriebrücke (Standardport 8000)</string>
     <string name="protocol_simulation_description">Interner Kinematik- und Echtzeitsimulator (keine physische Maschine)</string>
-    <string name="tool_table_copied_message">tool.tbl in die Zwischenablage kopiert!</string>
-    <string name="tool_table_import_count_message">%1$d Werkzeuge erfolgreich importiert!</string>
     <string name="log_wifi_weak_signal">Netzwerkalarm: Schwaches oder beeinträchtigtes WLAN-Signal. Telemetrieverlust möglich.</string>
     <string name="log_connection_reconnecting">Netzwerkverbindung verloren. Automatische Wiederverbindung wird gestartet…</string>
     <string name="log_network_device_disconnected">Netzwerkverbindung des Geräts verloren</string>
-    <string name="engine_ini_applied_fmt">INI-Konfiguration angewendet: %1$s (Grenzen: X[%2$s..%3$s], Y[%4$s..%5$s], Z[%6$s..%7$s])</string>
-    <string name="engine_tool_mounted_fmt">Werkzeug montiert: T%1$d (%2$s), Kompensation G43 H%3$d (Z-Offset: %4$s mm)</string>
-    <string name="engine_reconnect_scheduled_fmt">%1$s. Automatische Wiederverbindung in %2$d s (Versuch #%3$d)…</string>
-    <string name="engine_manual_reconnect_started">Manuelle Wiederverbindung durch den Bediener gestartet…</string>
-    <string name="engine_weak_signal_fmt">Netzwerkalarm: Schwaches Signal erkannt. Hohe Latenz (%1$d ms). Risiko eines Synchronisationsverlusts.</string>
-    <string name="engine_network_normalized_fmt">Netzwerksignal normalisiert (Latenz: %1$d ms).</string>
-    <string name="engine_simulated_disconnect">Netzwerkausfall durch Bediener simuliert</string>
-    <string name="engine_virtual_simulation_on">Virtueller Simulationsmodus AKTIVIERT (Kinematik- und HAL/NML-Emulation)</string>
-    <string name="engine_virtual_simulation_off">Virtueller Simulationsmodus DEAKTIVIERT: Betrieb mit realer Hardware</string>
-    <string name="engine_network_restored">Netzwerkverbindung erfolgreich wiederhergestellt.</string>
-    <string name="rsh_handshake_unexpected_fmt">Unerwartete Handshake-Antwort: %1$s. Authentifizierung wird fortgesetzt…</string>
-    <string name="rsh_authenticated_fmt">Erfolgreich bei LinuxCNC authentifiziert (%1$s: %2$d)</string>
-    <string name="rsh_auth_response_fmt">Authentifizierungsantwort: %1$s</string>
-    <string name="rsh_polling_disconnect_fmt">Verbindung während des Pollings getrennt: %1$s</string>
-
     <string name="screen_policy_always_on">Immer eingeschaltet (sichere HMI)</string>
     <string name="screen_policy_always_on_desc">Verhindert den Ruhezustand des Bildschirms, solange die App im Vordergrund ist (empfohlen für CNC-Sicherheit).</string>
     <string name="screen_policy_machine_active">Bei Maschinenaktivität eingeschaltet</string>
@@ -751,10 +597,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="config_safety_power_header">SICHERHEIT, AKKU UND BILDSCHIRM-ZEITLIMIT</string>
     <string name="config_screen_timeout_label">Bildschirm-Ruhezustand verwalten (Aktivsperre)</string>
     <string name="config_battery_health_label">Akkustand und Stromversorgung des Geräts</string>
-    <string name="config_battery_sim_btn" formatted="false">NIEDRIGEN AKKUSTAND SIMULIEREN (15%)</string>
-    <string name="config_battery_restore_btn">SENSOR ZURÜCKSETZEN</string>
-    <string name="config_weak_signal_sim_btn">SCHWACHES SIGNAL SIMULIEREN (350 ms)</string>
-    <string name="config_disconnect_sim_btn">VERBINDUNGSABBRUCH UND WIEDERVERBINDUNG SIMULIEREN</string>
     <string name="manual_sec8_title">8. Ausfallsicherheitsalarme für Stromversorgung, Bildschirm und Netzwerk</string>
     <string name="manual_sec8_summary">Sicherheitsrichtlinien für niedrigen Akkustand, schwaches Netzwerksignal und die Vermeidung des Bildschirm-Ruhezustands.</string>
     <string name="manual_sec8_content" formatted="false">Um schwerwiegende Werkzeugkollisionen und den Verlust der E-STOP-Reaktionsfähigkeit zu verhindern:\n\n• BILDSCHIRM-RUHEZUSTAND (AKTIVSPERRE): Die App setzt FLAG_KEEP_SCREEN_ON, damit der Bildschirm während des Maschinenbetriebs stets eingeschaltet und berührungsempfindlich bleibt.\n• ALARM BEI NIEDRIGEM AKKUSTAND: Warnung bei &lt;= 20% und kritischer Alarm bei &lt;= 10%. Ist der Akkustand während eines Zyklus kritisch, ertönt ein Notfallalarm.\n• SCHWACHES SIGNAL UND AUTOMATISCHE WIEDERVERBINDUNG: Bei einer Netzwerklatenz über 200 ms oder einem Verbindungsabbruch wird die Verbindung mit exponentiell wachsendem Zeitabstand automatisch und ohne manuellen Neustart wiederhergestellt.</string>
@@ -766,7 +608,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string-array name="manual_sec8_safety">
         <item>Lassen Sie den Akku des Bediener-Tablets niemals vollständig entladen, während die CNC-Spindel läuft.</item>
     </string-array>
-
     <string name="config_simulations_hub_header">SIMULATIONS- UND TESTSTEUERZENTRALE</string>
     <string name="config_simulations_hub_desc">Zentrale Steuerung für Maschinenemulation, Telemetriesimulation, Akkutests, 3D-Taster und das Einspeisen von Fehlern.</string>
     <string name="config_sim_master_label">LinuxCNC-Steuerungssimulation</string>
@@ -775,8 +616,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="config_sim_badge_real">MODUS: PHYSISCHE MASCHINE</string>
     <string name="config_sim_battery_section">Akkusimulation für das Bediener-Tablet</string>
     <string name="config_sim_battery_desc">Testen Sie Akkuschwellenwerte und Alarme, ohne den Tablet-Akku zu entladen.</string>
-    <string name="config_sim_battery_toggle">Akkustand überschreiben</string>
-    <string name="config_sim_battery_charging_toggle">Angeschlossenes USB-C-Ladegerät simulieren</string>
     <string name="config_sim_battery_restore">ECHTEN HARDWARESENSOR WIEDERHERSTELLEN</string>
     <string name="config_sim_battery_crit" formatted="false">8% (KRITISCH)</string>
     <string name="config_sim_battery_low" formatted="false">15% (NIEDRIG)</string>
@@ -784,7 +623,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="config_sim_battery_full" formatted="false">100% (VOLL)</string>
     <string name="config_sim_network_section">Netzwerk- und Latenzsimulation</string>
     <string name="config_sim_network_desc">Simulieren Sie eine beeinträchtigte Verbindung oder Verbindungsabbrüche, um ausfallsichere Trennung und exponentielle Wiederverbindung zu testen.</string>
-    <string name="config_sim_weak_signal_toggle">Schwaches Signal simulieren (380 ms)</string>
     <string name="config_sim_drop_network_btn">VERBINDUNGSABBRUCH UND WIEDERVERBINDUNG SIMULIEREN</string>
     <string name="config_sim_restore_network_btn">OPTIMALE VERBINDUNG WIEDERHERSTELLEN (2 ms)</string>
     <string name="config_sim_faults_section">Industrielle Fehler- und Alarmeinspeisung</string>
@@ -802,7 +640,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="config_sim_probe_section">Simulation von Messtechnik und 3D-Taster</string>
     <string name="config_sim_probe_desc">Simulieren Sie das Antasten einer Werkstückkante oder -fläche, ohne die Tastspitze zu beschädigen.</string>
     <string name="config_sim_probe_btn">3D-TASTERKONTAKT AUSLÖSEN (G38.2)</string>
-
     <string name="manual_sec9_title">9. Industrielle optische Kamera und Messtechnik</string>
     <string name="manual_sec9_summary">Berührungsloses Ausrichten des Werkstücks, Kantenerkennung, Präzisionsmarkierungen, Spindelversatzkompensation und optische Filter.</string>
     <string name="manual_sec9_content" formatted="false">Die Industriekamera ermöglicht das berührungslose Ausrichten des Werkstücks und das Setzen des Nullpunkts des Werkstückkoordinatensystems (WCS):\n\n• HOCHPRÄZISE MARKIERUNGEN: Verfügbar sind ein Fadenkreuz mit 0.01 mm, konzentrische Kreise, ein metrologisches Raster, ein 90°-Eckenfinder, ein Zielkreis sowie ein drehbarer Winkelmesser zur Prüfung der Parallelität von Schraubstock und Werkstück. Feine Winkelschritte von ±0.1°, ±1° und ±10° sind möglich. Mit den seitlichen Schaltflächen lässt sich schnell zwischen den Markierungen wechseln.\n• ZOOM-VOREINSTELLUNGEN (1X, 2X, 4X, 8X): Direkte Vergrößerungsschaltflächen, die für die Bedienung mit Werkstatthandschuhen ohne Pinch-Geste ausgelegt sind.\n• INDUSTRIELLE OPTISCHE FILTER: Reduzieren Blendungen durch Kühlmittel und spiegelnde Metalle mit den Filtern Farbe, hoher Schwarz-Weiß-Kontrast, Negativ oder Kantenhervorhebung.\n• KOMPENSATION DES KAMERA-SPINDEL-VERSATZES: Speichert den kalibrierten physischen Versatz zwischen Objektiv und Fräser (X_off, Y_off). Mit „G54-NULLPUNKT MIT VERSATZ SETZEN“ wird der Spindelkoordinaten-Nullpunkt ohne manuelle Berechnung gesetzt.\n• SCHNAPPSCHÜSSE ZUR QUALITÄTSKONTROLLE: Speichert hochauflösende Prüfbilder mit Zeitstempel, aktuellen DRO-Koordinaten und aktivem WCS zur Rückverfolgbarkeit des Werkstücks.</string>
@@ -817,7 +654,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
         <item>WARNUNG: Der Spindelmotor MUSS während der Sichtprüfung und optischen Ausrichtung vollständig stillstehen (M5).</item>
         <item>Prüfen Sie vor dem Verfahren der Achsen stets den ausreichenden Z-Abstand, damit die Kamera nicht mit Spannpratzen oder Schraubstöcken kollidiert.</item>
     </string-array>
-
     <string name="manual_sec10_title">10. Simulations- und Teststeuerzentrale</string>
     <string name="manual_sec10_summary">Zentrale Arbeitsumgebung für Kinematiksimulation, Fehlereinspeisung, Akkuüberwachung und Tests des 3D-Tasters.</string>
     <string name="manual_sec10_content" formatted="false">Die Simulationszentrale auf der Registerkarte KONFIG (Abschnitt 6) vereint Diagnose- und Trainingswerkzeuge:\n\n• LINUXCNC-MASTERSIMULATOR: Wechselt nahtlos zwischen der realen Hardware und der lokalen Kinematik-Emulation.\n• AKKUSIMULATION DES BEDIENER-TABLETS: Prüft Warnschwellen bei niedrigem Akkustand (15%) und kritischem Akkustand (8%) sowie das Ladeverhalten über USB-C, ohne den echten Geräteakku zu entladen.\n• SIMULATION VON NETZWERKLATENZ UND VERBINDUNGSABBRÜCHEN: Speist industrielle Latenz (380 ms) und verlorene Verbindungspakete ein, um exponentielle Wiederverbindung und Sicherheitsreaktionen zu testen.\n• INDUSTRIELLE FEHLEREINSPEISUNG: Löst gezielt echte Alarme aus (EtherCAT-Servoantrieb-Übermoment AL.006, Endschalter X+, Spindelüberhitzung am VFD, Türverriegelung und Kühlmitteldruckverlust), um Bediener für Notfall-Wiederherstellungsabläufe zu schulen.\n• 3D-TASTER-SIMULATION (G38.2): Emuliert den Kontakt der Tastspitze, um automatische Zentrierroutinen ohne Beschädigungsrisiko für die Rubintasterspitze zu prüfen.</string>
@@ -831,7 +667,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
         <item>GEFAHR: Prüfen Sie vor dem Starten der Spindel oder eines G-Code-Zyklus an einer realen Maschine stets, ob in der Statusleiste oben „ECHT“ angezeigt wird.</item>
         <item>Werkzeuge zur Fehlereinspeisung dienen der Schulung und Inbetriebnahme. Überbrücken Sie beim realen Schneiden niemals die Endschalter der Maschine.</item>
     </string-array>
-
     <string name="manual_sec11_title">11. Leistungsstarke 3D-Werkzeugbahn- und Trockenlaufsimulation</string>
     <string name="manual_sec11_summary">Interaktive 3D-G-Code-Vorschau, farbige Bearbeitungshistorie, Rohmaterial-Drahtmodell, WCS-Nullpunktmarkierung und Simulation mit Positionssuche.</string>
     <string name="manual_sec11_content" formatted="false">Der 3D-Werkzeugbahn-Viewer verbindet hochwertige CAM-Grafik mit akkuschonender Darstellung für Mobilgeräte und Werkstatt-Tablets:\n\n• DYNAMISCHE, FARBIGE BEARBEITUNGSHISTORIE:\n  – Gedämpftes Waldgrün: bereits vom Fräser bearbeitete Segmente.\n  – Neongrün mit Schnitt-Halo: aktueller G-Code-Block und Eingriff des Werkzeugs.\n  – Industrielles Cyan: zukünftige lineare Schnittbewegungen (G1).\n  – Elektrisches Magenta: Kreisbögen und helikale Interpolation (G2/G3).\n  – Gestricheltes Amber: Eilgangpositionierungen (G0).\n\n• 3D-DRAHTMODELL DES ROHMATERIALS UND WCS-NULLPUNKTMARKIERUNG:\n  – 3D-Begrenzungsrahmen: berechnete Hüllkontur mit Rohmaterialmaßen (ΔX, ΔY, ΔZ) und Sicherheitsabständen.\n  – WCS-Koordinatenkreuz (0,0,0): gut sichtbare RGB-Koordinatenpfeile (Rot=X, Grün=Y, Blau=Z) für den aktiven Werkstücknullpunkt.\n\n• TROCKENLAUFSIMULATOR UND INTERAKTIVE POSITIONSWAHL:\n  – Positionsregler: Ziehen Sie den Regler, um vor dem Verfahren realer Achsen beliebige Punkte der Werkzeugbahn zu prüfen.\n  – Virtuelle Wiedergabe: Simuliert Werkzeugbewegungen mit 1X, 2X, 5X oder 10X, ohne die Maschine zu bewegen.\n\n• LEISTUNGSSCHALTER FÜR MOBILGERÄTE:\n  – G0-Eilgangausblendung: Blendet Eilganglinien komplexer Programme mit einem Tastendruck aus.\n  – Werkzeug folgen: Fixiert den Anzeigebereich während der Ausführung auf der Fräserspitze.\n  – Automatisch einpassen: Berechnet sofort optimalen Maßstab und Zentrierungsversatz für beliebige Werkstückmaße.\n  – G-Code-Inspektor: Ausklappbare Codeansicht mit Zeilenverfolgung.</string>
@@ -846,35 +681,17 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
         <item>KRITISCH: Prüfen Sie vor dem Schneiden von Metall stets die Eintauchpunkte des Werkzeugs und die Bewegungen in negativer Z-Richtung in der Vorder- oder Seitenansicht.</item>
         <item>Tasten Sie das Werkstückkoordinatensystem (WCS G54–G59) physisch an und setzen Sie seinen Nullpunkt, bevor Sie sich auf die 3D-Nullpunktausrichtung verlassen.</item>
     </string-array>
-
     <string name="modal_bar_title">AKTIVE G-CODE-MODALGRUPPEN</string>
-    <string name="exec_mod_single_block">EINZELSATZ (SCHRITT)</string>
-    <string name="exec_mod_opt_stop">OPTIONALER HALT (M1)</string>
-    <string name="exec_mod_block_delete">SATZ AUSBLENDEN (/)</string>
-    <string name="exec_mod_run_from_line">AB ZEILE STARTEN…</string>
-    <string name="exec_step_next">NÄCHSTER SATZ &gt;</string>
     <string name="run_from_line_title">AB ZEILE STARTEN (BEARBEITUNG FORTSETZEN)</string>
     <string name="run_from_line_desc">Wählen Sie einen Satz aus, ab dem die Bearbeitung nach einem Werkzeugwechsel oder einer Prüfung fortgesetzt werden soll. Der sichere Z-Abstand wird angefahren und die Spindel automatisch wieder gestartet.</string>
     <string name="run_from_line_btn">AB ZEILE NEU STARTEN</string>
-    <string name="run_from_line_cancel">ABBRECHEN</string>
-
     <string name="protocol_linuxcncrsh_name">LinuxCNC-Server (linuxcncrsh TCP :5007)</string>
     <string name="protocol_websocket_name">WebSocket-Gateway (:8000)</string>
     <string name="protocol_sim_name">Lokaler Simulator (offline)</string>
-    <string name="conn_protocol_label">LinuxCNC-Verbindungsprotokoll</string>
-    <string name="conn_host_label">IP-Adresse des LinuxCNC-Hosts</string>
-    <string name="conn_port_label">TCP-Port</string>
-    <string name="conn_pass_label">Passwort (linuxcncrsh)</string>
-    <string name="conn_connect_btn">MIT LINUXCNC VERBINDEN</string>
-    <string name="conn_disconnect_btn">TRENNEN</string>
-    <string name="conn_status_label">Serverstatus</string>
     <string name="tool_table_import_btn">tool.tbl IMPORTIEREN</string>
     <string name="tool_table_export_btn">tool.tbl EXPORTIEREN</string>
     <string name="tool_table_mount_btn">LADEN (M6 T%1$d G43)</string>
-    <string name="tool_table_import_dialog_title">LinuxCNC-tool.tbl-Datei importieren</string>
-    <string name="tool_table_import_dialog_desc">Fügen Sie den Inhalt Ihrer LinuxCNC-tool.tbl-Datei ein, um das Werkzeugmagazin der Maschine zu aktualisieren:</string>
     <string name="tool_table_import_confirm">IMPORTIEREN UND ANWENDEN</string>
-    <string name="tool_table_export_copied">tool.tbl-Datei in die Zwischenablage kopiert</string>
     <string name="ini_editor_title">LINUXCNC-KONFIGURATION (machine.ini)</string>
     <string name="ini_editor_desc">Prüfen und bearbeiten Sie Verfahrweggrenzen, Beschleunigungen, Schrittwerte und die LinuxCNC-Kinematik.</string>
     <string name="ini_apply_btn">GRENZEN AUF STEUERUNG ANWENDEN</string>
@@ -893,24 +710,15 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="cam_tab_facing">PLANFRÄSEN</string>
     <string name="cam_tab_pocket">RECHTECKTASCHE</string>
     <string name="cam_tab_bolt_circle">LOCHKREIS (G83)</string>
-    <string name="cam_generate_btn">G-CODE ERZEUGEN</string>
     <string name="cam_load_to_controller">IN STEUERUNG LADEN UND SIMULIEREN</string>
     <string name="cam_copy_gcode">G-CODE KOPIEREN</string>
     <string name="cam_preview_title">VORSCHAU DES ERZEUGTEN G-CODES</string>
     <string name="wizard_title">LINUXCNC-VERBINDUNGSASSISTENT</string>
-    <string name="wizard_subtitle">Interaktive Schritt-für-Schritt-Anleitung zum Verbinden Ihres Android-Geräts mit der realen Maschine</string>
-    <string name="wizard_btn_open">VERBINDUNGSASSISTENT ÖFFNEN</string>
     <string name="wizard_btn_skip">TUTORIAL ÜBERSPRINGEN</string>
     <string name="wizard_btn_next">NÄCHSTER SCHRITT</string>
     <string name="wizard_btn_prev">VORHERIGER SCHRITT</string>
     <string name="wizard_btn_finish">FERTIGSTELLEN UND VERBINDEN</string>
     <string name="wizard_dont_show_again">Nicht mehr automatisch anzeigen</string>
-    <string name="wizard_step_1_title">1. Schnittstelle erkennen und Verbindung herstellen</string>
-    <string name="wizard_step_2_title">2. Server in LinuxCNC aktivieren (machine.ini)</string>
-    <string name="wizard_step_3_title">3. Ping-Test und Linux-Firewall</string>
-    <string name="wizard_step_4_title">4. RSH-Authentifizierung und Handshake</string>
-    <string name="wizard_step_5_title">5. Sicherheitsprüfung und E-STOP</string>
-
     <string name="manual_sec12_title">12. LinuxCNC-Verbindungsassistent und Verbindung (linuxcncrsh)</string>
     <string name="manual_sec12_summary">Anleitung zur TCP-Socket-Kommunikation, Konfiguration von machine.ini, Firewall-Regeln und Authentifizierungs-Handshake.</string>
     <string name="manual_sec12_content">Die industrielle Fernkommunikation zwischen dem Android-Tablet oder -Mobilgerät und der CNC-Maschine erfolgt über den linuxcncrsh-Server:\n\n• NETZWERKSCHNITTSTELLE: Unterstützt Werkstatt-WLAN, kabelgebundenes Ethernet (USB-C-auf-RJ45-Adapter) oder direkten Hotspot/Tethering-Betrieb.\n• machine.ini-KONFIGURATION:\n  – Fügen Sie im Abschnitt [APPLICATIONS] die Direktive ein:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – Das Flag -w aktiviert Schreibberechtigungen (Achsenbewegungen, Moduswechsel und Spindelsteuerung).\n  – Das Flag -p 5007 legt den Standard-TCP-Port fest.\n• LINUX-FIREWALL-REGELN:\n  – Öffnen Sie den Port unter Linux mit: sudo ufw allow 5007/tcp\n  – Prüfen Sie, ob der Dienst Verbindungen annimmt, mit: ss -tulpn | grep 5007\n• HANDSHAKE-PROTOKOLL:\n  – Erstes Begrüßungssignal: \'hello EMC LinuxCncDroid 1.0\'\n  – Schlüsselauthentifizierung: \'set enable password\'\n  – Laufende Überwachung der Positionen X/Y/Z/A, des E-Stop-Status und von Fehlern in Echtzeit.</string>
@@ -924,7 +732,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
         <item>Stellen Sie vor dem Verbinden sicher, dass der physische Not-Aus-Schalter an der Maschine jederzeit erreichbar ist.</item>
         <item>Verwenden Sie WPA2/WPA3-geschützte WLAN-Netzwerke oder eine dedizierte Ethernet-Verbindung, um Latenzen und elektromagnetische Störungen durch Frequenzumrichter (VFD) zu vermeiden.</item>
     </string-array>
-
     <string name="manual_sec13_title">13. Konversationelles CAM und Festzyklen</string>
     <string name="manual_sec13_summary">Schnelle Bearbeitung direkt an der Maschine: Planfräsen, rechteckige Taschen und Lochkreise (G83).</string>
     <string name="manual_sec13_content">Mit dem konversationellen CAM-Generator lassen sich Standardbearbeitungen ohne CAD-Modell und ohne Nachbearbeitung in einem externen CAM-System ausführen:\n\n• PLANFRÄSZYKLUS:\n  – Erzeugt parallele Zickzackbahnen mit einstellbarer seitlicher Zustellung (Stepover) passend zum Fräserdurchmesser.\n  – Bietet eine sanfte Anfahrt auf die sichere Z-Höhe und optionale Schlichtgänge.\n\n• RECHTECKTASCHENZYKLUS:\n  – Schruppt rechteckige Taschen konzentrisch. Die Zustellung pro Schnitt (ap) und das spiralförmige oder rampenförmige Eintauchen sind einstellbar.\n\n• LOCHKREIS / BOHRUNGSBILD:\n  – Berechnet die Winkelpositionen und erzeugt Tiefbohrzyklen mit Pecken und Spanbruch (G83).\n\n• DIREKTE ÜBERTRAGUNG AN DIE STEUERUNG:\n  – Mit „IN STEUERUNG LADEN UND SIMULIEREN“ wird der erzeugte Code an den Interpreter und die 3D-Ansicht übertragen.</string>
@@ -938,7 +745,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
         <item>Prüfen Sie, ob der in der Spindel montierte Fräser dem in den Zyklusparametern angegebenen Durchmesser entspricht.</item>
         <item>Prüfen Sie die Höhe der Sicherheitsfläche (Z Safety), damit das Werkzeug nicht mit Spannpratzen oder Schraubstöcken kollidiert.</item>
     </string-array>
-
     <string name="manual_sec14_title">14. Editor und Diagnose für machine.ini</string>
     <string name="manual_sec14_summary">Prüfung physischer und virtueller Verfahrweggrenzen (Soft Limits), Beschleunigungen und Achskinematik.</string>
     <string name="manual_sec14_content">Das INI-Konfigurationsmodul ermöglicht die Überwachung und Synchronisierung der strukturellen Variablen in der .ini-Datei der Maschine:\n\n• SOFTWARE-VERFAHRWEGGRENZEN (MIN_LIMIT / MAX_LIMIT):\n  – Legen die sichere Arbeitshüllkontur fest und verhindern mechanische Kollisionen an den Spindelenden.\n\n• ACHSDYNAMIK (MAX_VELOCITY / MAX_ACCELERATION):\n  – Steuern Positioniergeschwindigkeiten und Beschleunigungs-/Verzögerungsrampen, um Schrittverluste bei Schrittmotoren und Übermomente bei Servomotoren zu vermeiden.\n\n• SCHRITTE PRO EINHEIT (SCALE / STEP_SCALE):\n  – Legen das Verhältnis von Impulsen pro Umdrehung und Kugelgewindesteigung fest, um eine genaue Auflösung in Millimetern sicherzustellen.\n\n• DIREKTEDITOR UND KOPIEREN:\n  – Zeigt die Rohdatei an, ermöglicht die Suche und bietet Optionen zum Kopieren in die Zwischenablage und zum direkten Anwenden.</string>
@@ -951,7 +757,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string-array name="manual_sec14_safety">
         <item>Erhöhen Sie Beschleunigung oder Höchstgeschwindigkeit niemals, ohne zuvor die mechanische Resonanz geprüft zu haben.</item>
     </string-array>
-
     <string name="manual_sec15_title">15. Echtzeitüberwachung von HAL-Pins und -Signalen</string>
     <string name="manual_sec15_summary">Diagnose von Hardware-Ein- und -Ausgängen, Endschaltern, Sicherheits-Not-Aus-Schaltern und Antriebsstatus.</string>
     <string name="manual_sec15_content">Der HAL-Monitor (Hardware Abstraction Layer) zeigt den logischen Zustand der Maschine in Echtzeit:\n\n• SICHERHEITSPINS:\n  – Überwachung der Not-Aus-Eingänge (iocontrol.0.emc-enable-in) und der Türverriegelungen.\n\n• ENDSCHALTER UND REFERENZFAHRT:\n  – Status von induktiven Sensoren oder Mikroschaltern für Referenz- und Endlagen (joint.0.home-sw-in, min-hard-limit, max-hard-limit).\n\n• SPINDEL- UND KÜHLMITTELSIGNALE:\n  – Spindel ein/aus (spindle.0.on), Drehrichtung (spindle.0.forward), Analogdrehzahl und Kühlmittelrelais M7/M8.\n\n• FILTER UND DYNAMISCHE SUCHE:\n  – Signale lassen sich nach Betriebskategorien filtern, um Wartung und Inbetriebnahme zu erleichtern.</string>
@@ -963,7 +768,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string-array name="manual_sec15_safety">
         <item>Wird ein Endschalter dauerhaft als ausgelöst angezeigt, prüfen Sie die Verdrahtung, bevor Sie im manuellen Modus eine Bewegung erzwingen.</item>
     </string-array>
-
     <string name="manual_sec16_title">16. Tabelle der Werkstückkoordinatensysteme WCS (G54–G59.3)</string>
     <string name="manual_sec16_summary">Verwaltung mehrerer Werkstücknullpunkte, Schraubstockversätze und Koordinatennullung.</string>
     <string name="manual_sec16_content">Die WCS-Tabelle verwaltet die 9 standardmäßigen LinuxCNC-Koordinatensysteme:\n\n• UNTERSTÜTZTE SYSTEME:\n  – G54 bis G59 (die sechs standardmäßigen Werkstücknullpunkte).\n  – G59.1, G59.2 und G59.3 (zusätzliche Nullpunkte für Unterbacken und Mehrfachspannvorrichtungen).\n\n• VERSATZWERTE:\n  – Jeder Nullpunkt speichert eigene Versätze für X, Y, Z und die Drehachse A relativ zum absoluten Maschinennullpunkt (G53).\n\n• SCHNELLES NULLEN MIT TASTER ODER KAMERA:\n  – Automatische 3D-Tastzyklen und Bildverarbeitung übertragen ihre Ergebnisse nach Bestätigung direkt in das aktive WCS.</string>
@@ -975,7 +779,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string-array name="manual_sec16_safety">
         <item>Prüfen Sie vor dem Start eines G-Code-Programms in der oberen Leiste, ob das aktive WCS mit dem im Programmkopf angegebenen System übereinstimmt.</item>
     </string-array>
-
     <string name="wcs_active_badge">AKTIV</string>
     <string name="wcs_set_active">Als aktives WCS festlegen</string>
     <string name="wcs_target_pos_label">Ziel-Werkstückposition (mm)</string>
@@ -1009,7 +812,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="status_paused_short">PAUSIERT</string>
     <string name="btn_feed_hold_short">VORSCHUB\nHALT</string>
     <string name="btn_cycle_stop_short">ZYKLUS\nSTOPP</string>
-    <string name="exec_single_block">EINZELSATZ (M0)</string>
     <string name="exec_single_block_short">EINZELSATZ (M0)</string>
     <string name="exec_optional_stop">OPTIONALER HALT (M1)</string>
     <string name="exec_optional_stop_short">OPT. HALT</string>
@@ -1018,12 +820,7 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="exec_run_from_line_btn">AB ZEILE STARTEN (BEARBEITUNG FORTSETZEN)…</string>
     <string name="exec_from_line_short">AB ZEILE…</string>
     <string name="exec_step_next_line">EINZELSATZ: NÄCHSTE ZEILE AUSFÜHREN &gt;</string>
-    <string name="jog_pad_tab">TASTENFELD</string>
-    <string name="jog_mpg_tab">VIRTUELLES MPG-HANDRAD</string>
-    <string name="jog_pad_tab_short">TASTENFELD</string>
-    <string name="jog_mpg_tab_short">MPG-HANDRAD</string>
     <string name="soft_limits_dialog_title">Vorabprüfung des Werkzeugbahn-Verfahrbereichs</string>
-    <string name="soft_limits_active_wcs">Aktives Koordinatensystem: %s</string>
     <string name="soft_limits_safe_title">PROGRAMMBAHN LIEGT INNERHALB DES SICHEREN VERFAHRBEREICHS</string>
     <string name="soft_limits_safe_desc">Die geladene Werkzeugbahn liegt im Koordinatensystem %s vollständig innerhalb der mechanischen Grenzen.</string>
     <string name="soft_limits_danger_title">KRITISCH: VERFAHRWEGGRENZE ÜBERSCHRITTEN</string>
@@ -1082,8 +879,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="security_preset_collision">Kollisions-Eintauchbewegung (Warnung)</string>
     <string name="security_motion_detected">Bewegungscode erkannt</string>
     <string name="security_no_motion">Keine Achsenbewegung gefunden</string>
-
-    <!-- Added by localisation pass -->
     <string name="common_copy">Kopieren</string>
     <string name="ini_units_fmt">Einheiten: %1$s</string>
     <string name="ini_steps_scale_fmt">Skalierung: %1$s Schritte/mm</string>
@@ -1099,8 +894,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="camera_take_snapshot">Aufnahme erstellen</string>
     <string name="camera_snapshot_saved_fmt">Aufnahme gespeichert: %1$s</string>
     <string name="camera_snapshot_error_fmt">Aufnahmefehler: %1$s</string>
-
-    <!-- New Localization Additions -->
     <string name="jog_continuous_mode">KONTINUIERLICH (KONT)</string>
     <string name="jog_step_mode">SCHRITTWEISE (SCHRITT)</string>
     <string name="config_protocol_sim">Simulator</string>
@@ -1117,7 +910,7 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="tool_table_imported_msg">%1$d Werkzeuge erfolgreich importiert!</string>
     <string name="wizard_badge_critical">KRITISCH</string>
     <string name="calib_nominal_btn">= Nominal</string>
-    <string name="rfl_safety_automation">SICHERHEITSAUTOMATIK: Z fährt auf +10,0 mm Freigabe -> Spindel startet bei Solldrehzahl neu -> Bahn wird scharfgeschaltet.</string>
+    <string name="rfl_safety_automation">SICHERHEITSAUTOMATIK: Z fährt auf +10,0 mm Freigabe -&gt; Spindel startet bei Solldrehzahl neu -&gt; Bahn wird scharfgeschaltet.</string>
     <string name="soft_axis_overtravel_fmt">Achse %1$s Verfahrwegüberschreitung</string>
     <string name="soft_g53_span_fmt">G53-Bereich: [%1$.2f .. %2$.2f] mm</string>
     <string name="soft_machine_limit_fmt">Maschinengrenze: [%1$.2f .. %2$.2f] mm</string>
@@ -1131,11 +924,12 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="topbar_user_role_desc">Benutzerrolle</string>
     <string name="topbar_network_telemetry_desc">Netzwerk-Telemetrie</string>
     <string name="dro_home_axis_desc">Achse %1$s referenzieren</string>
-    <string name="error_internal_subsystem_fault">Interner Subsystemfehler</string>
     <string name="camera_flash_toggle">Blitz umschalten</string>
     <string name="config_battery_charging">LÄDT</string>
     <string name="alarm_link_interrupted">Verbindung unterbrochen</string>
     <string name="common_clear">LÖSCHEN</string>
     <string name="status_active">Aktiv</string>
     <string name="cam_label_corner_radius">Eckenradius R (mm)</string>
+    <string name="wizard_sim_banner_title">Offline-Simulator Aktiv</string>
+    <string name="wizard_sim_banner_desc">Virtuelle Sandbox ausgewählt. Testen Sie DRO, MDI, 3D-Vorschau und Werkzeugverschleiß ohne physische Maschine.</string>
 </resources>

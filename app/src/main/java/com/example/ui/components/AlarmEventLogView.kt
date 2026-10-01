@@ -425,7 +425,7 @@ fun IndustrialAuditReportDialog(
                     }
 
                     IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(R.string.logs_close), tint = CncTextMuted)
+                        Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(R.string.common_close), tint = CncTextMuted)
                     }
                 }
 

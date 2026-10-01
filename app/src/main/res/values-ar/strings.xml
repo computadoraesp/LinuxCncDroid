@@ -1,7 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools">
     <string name="app_name">LinuxCNC Droid HMI</string>
-
-    <!-- Navigation Tabs -->
     <string name="tab_control">التحكم</string>
     <string name="tab_toolpath">المسار</string>
     <string name="tab_camera">الكاميرا</string>
@@ -10,15 +9,12 @@
     <string name="tab_mdi">MDI</string>
     <string name="tab_logs">السجلات</string>
     <string name="tab_config">الإعدادات</string>
-
-    <!-- Common -->
     <string name="common_cancel">إلغاء</string>
     <string name="common_close">إغلاق</string>
     <string name="common_save">حفظ</string>
     <string name="common_init">بدء</string>
     <string name="common_execute">تنفيذ</string>
     <string name="common_zero">تصفير</string>
-
     <string name="state_estop_disp">E-STOP نشط</string>
     <string name="state_off_disp">الآلة متوقفة</string>
     <string name="state_on_disp">الآلة جاهزة</string>
@@ -27,11 +23,9 @@
     <string name="state_paused_disp">إيقاف مؤقت للتغذية</string>
     <string name="state_homing_disp">إرجاع المحاور</string>
     <string name="state_error_disp">خطأ في النظام</string>
-
     <string name="mode_manual_disp">يدوي</string>
     <string name="mode_mdi_disp">وحدة تحكم MDI</string>
     <string name="mode_auto_disp">برنامج تلقائي</string>
-
     <string name="arch_ethercat_name">EtherCAT + Delta B3/A3 Servos</string>
     <string name="arch_ethercat_desc">ناقل بسرعة 100Mbps وقياسات عزم/حرارة لحظية ومشغّلات CiA 402</string>
     <string name="arch_mesa_name">Mesa 7i96S / 7i76E FPGA</string>
@@ -40,11 +34,9 @@
     <string name="arch_parport_desc">توليد برمجي للخطوات ونواة الحركة القياسية في LinuxCNC HAL</string>
     <string name="arch_closed_loop_name">محرك خطوي هجين بحلقة مغلقة</string>
     <string name="arch_closed_loop_desc">كشف فقدان الخطوات عبر المشفّر وتموضع سريع باستخدام إشارات Step/Dir</string>
-
     <string name="role_operator_disp">مشغّل (تحكم وتحريك)</string>
     <string name="role_viewer_disp">مشاهد (قراءة DRO فقط)</string>
     <string name="role_admin_disp">مسؤول (ضبط كامل وMDI)</string>
-
     <string name="tool_type_endmill_disp">قاطع تفريز مسطح الطرف</string>
     <string name="tool_type_ballnose_disp">قاطع كروي الطرف</string>
     <string name="tool_type_facemill_disp">قاطع تسوية السطح</string>
@@ -53,20 +45,16 @@
     <string name="tool_type_tap_disp">قلاوظ داخلي</string>
     <string name="tool_type_probe_disp">مجس لمسي ثلاثي الأبعاد</string>
     <string name="tool_type_flycutter_disp">قاطع طائر</string>
-
     <string name="jog_style_pad_disp">لوحة مفاتيح</string>
     <string name="jog_style_mpg_disp">عجلة MPG</string>
-
     <string name="log_info_disp">معلومات</string>
     <string name="log_warn_disp">تحذير</string>
     <string name="log_error_disp">خطأ</string>
     <string name="log_crit_disp">حرج</string>
     <string name="log_security_disp">أمان</string>
-
     <string name="threat_clean_disp">آمن / تم التحقق</string>
     <string name="threat_suspicious_disp">تحذير أمني</string>
     <string name="threat_blocked_disp">تم حظر التهديد</string>
-
     <string name="mat_al6061_name">ألمنيوم 6061-T6</string>
     <string name="mat_al6061_cat">غير حديدي</string>
     <string name="mat_steel1018_name">فولاذ طري (AISI 1018)</string>
@@ -77,7 +65,6 @@
     <string name="mat_wood_cat">خشب ومواد مركبة</string>
     <string name="mat_pom_name">POM / Delrin / Acetal</string>
     <string name="mat_pom_cat">لدائن</string>
-
     <string name="macro_zero_all_label">تصفير الكل (G54)</string>
     <string name="macro_zero_all_desc">تعيين الموقع الحالي كنقطة صفر الشغلة G54</string>
     <string name="macro_park_label">موضع التوقف</string>
@@ -88,18 +75,14 @@
     <string name="macro_laser_desc">تبديل علامة تصويب ليزر المحاذاة البصرية</string>
     <string name="macro_probe_z_label">قياس طول الأداة باللمس</string>
     <string name="macro_probe_z_desc">تنفيذ إجراء ملامسة مجس ضبط الأداة</string>
-
     <string name="profile_workshop_vmc">Workshop VMC-850 (EtherCAT + Delta)</string>
     <string name="profile_prototype_router">Prototype Router (Mesa 7i96S FPGA)</string>
     <string name="profile_mini_mill">Mini Mill (Parallel Port Legacy)</string>
-
     <string name="reticle_crosshair">تقاطع (0.01mm)</string>
     <string name="reticle_concentric">دوائر متحدّة المركز</string>
     <string name="reticle_grid">شبكة قياس</string>
     <string name="reticle_corner">كاشف الزاوية (حافة)</string>
     <string name="reticle_none">بدون تقاطع</string>
-
-    <!-- Header & Top Bar -->
     <string name="topbar_estop">E-STOP</string>
     <string name="topbar_power_on">تشغيل</string>
     <string name="topbar_power_off">إطفاء</string>
@@ -110,10 +93,6 @@
     <string name="topbar_axis_metrology_desc">معايرة المحاور المترولوجية</string>
     <string name="topbar_manual_desc">دليل CNC و SOPs</string>
     <string name="topbar_event_logs_desc">سجلات الأحداث</string>
-    <string name="topbar_sim_mode" formatted="false">محاكاة: %s</string>
-    <string name="topbar_real_mode" formatted="false">حقيقي: %s</string>
-
-    <!-- DRO Panel -->
     <string name="dro_title">شاشة القراءة الرقمية (DRO)</string>
     <string name="dro_zero_all">تصفير كل المحاور</string>
     <string name="dro_home_all">إرجاع كل المحاور للمرجع</string>
@@ -122,8 +101,6 @@
     <string name="dro_dtg">المسافة المتبقية</string>
     <string name="dro_torque">العزم: %s%%</string>
     <string name="dro_drive_temp">المحرك: %s°C</string>
-
-    <!-- Jog & MPG Controls -->
     <string name="jog_title">التحكم اليدوي بالمحاور (JOG)</string>
     <string name="jog_mode_pad">لوحة الأزرار</string>
     <string name="jog_mode_mpg">عجلة MPG الافتراضية</string>
@@ -138,8 +115,6 @@
     <string name="jog_z_axis">المحور Z</string>
     <string name="jog_a_axis">المحور A</string>
     <string name="jog_style_mode_style">الوضع: %1$s | النمط: %2$s</string>
-
-    <!-- Spindle & Feed Controls -->
     <string name="spindle_actual_rpm">السرعة الفعلية</string>
     <string name="feed_override">تجاوز التغذية</string>
     <string name="btn_cycle_start">بدء الدورة</string>
@@ -155,8 +130,6 @@
     <string name="spindle_set_rpm">ضبط: %d دورة</string>
     <string name="spindle_override_label">تجاوز: %d%%</string>
     <string name="spindle_feed_info">%1$d%% (%2$s)</string>
-
-    <!-- Tool Table & ATC -->
     <string name="tool_diameter">القطر (D)</string>
     <string name="tool_length_offset">إزاحة الطول (H)</string>
     <string name="tool_touch_off">معايرة Z (G43.1)</string>
@@ -178,8 +151,6 @@
     <string name="tt_flutes_label">عدد الشفرات</string>
     <string name="tt_max_rpm_label">أقصى سرعة</string>
     <string name="tt_save_btn">حفظ الأداة</string>
-
-    <!-- Toolpath 3D View -->
     <string name="view_top">علوي</string>
     <string name="view_iso">منظوري</string>
     <string name="view_front">أمامي</string>
@@ -194,11 +165,8 @@
     <string name="tp_toggle_lod_full">LOD 1:1</string>
     <string name="tp_hud_zmin">Z أدنى: %1$.2f مم</string>
     <string name="tp_hud_zsafe">Z أمان: %1$.2f مم</string>
-    <string name="tp_hud_plane">مستوى الأمان (G0)</string>
     <string name="tp_hud_tool_dia">Ø%1$.1f مم</string>
     <string name="tp_hud_delta">ΔX:%1$.2f ΔY:%2$.2f ΔZ:%3$.2f</string>
-
-    <!-- Probing & Calibration -->
     <string name="probing_title">المجس ثلاثي الأبعاد والمترولوجيا (المستوى 2)</string>
     <string name="probe_status_clear">المجس جاهز</string>
     <string name="probe_status_tripped">تم التلامس</string>
@@ -206,13 +174,8 @@
     <string name="probe_boss">مركز الأسطوانة الخارجي</string>
     <string name="probe_corner_xy">تحديد الزاوية</string>
     <string name="probe_surface_z">معايرة Z</string>
-    <string name="probe_last_contact_x">آخر تلامس X</string>
-    <string name="probe_last_contact_y">آخر تلامس Y</string>
-    <string name="probe_last_contact_z">آخر تلامس Z</string>
     <string name="probe_routines_header">دورات الجس الآلية</string>
     <string name="probe_executing">جاري الجس…</string>
-
-    <!-- EtherCAT & Telemetry -->
     <string name="ethercat_title">مراقبة ناقل ETHERCAT وتيليمترية السيرفو (المستوى 3)</string>
     <string name="ethercat_cycle_jitter">ارتعاش المزامنة</string>
     <string name="ethercat_lost_frames">فقدان الحزم</string>
@@ -223,36 +186,26 @@
     <string name="ethercat_torque_load">حمل العزم: %s %%</string>
     <string name="ethercat_drive_temp">حرارة المحرك: %s °C</string>
     <string name="ethercat_diagnostic_status">حالة التشخيص:</string>
-
-    <!-- MDI & Macros -->
     <string name="mdi_title">محطة إدخال البيانات يدوياً (MDI)</string>
     <string name="mdi_execute">تشغيل</string>
     <string name="mdi_placeholder">أدخل G-Code (مثال: G0 X50 Y20 Z5)</string>
     <string name="mdi_macros_header">أوامر ماكرو قابلة للبرمجة</string>
-    <string name="mdi_history_header">سجل الأوامر الأخير</string>
-
-    <!-- Alarms & Event Logs -->
     <string name="logs_title">سجل أحداث الإنذارات</string>
     <string name="logs_clear">مسح السجلات</string>
     <string name="logs_simulate_alarm">محاكاة إنذار</string>
-
     <string name="logs_filter_all">الكل</string>
     <string name="logs_filter_errors">الأخطاء</string>
     <string name="logs_filter_security">الأمن</string>
     <string name="logs_filter_warnings">التحذيرات</string>
     <string name="logs_no_entries">لم يتم تسجيل أي سجلات أحداث للمرشح \'%s\'</string>
-
-    <!-- Machine Config & Profiles -->
     <string name="config_title">تجريد العتاد وملفات التعريف</string>
     <string name="config_architecture">بنية العتاد المستهدف</string>
-    <string name="config_connect">اتصال</string>
     <string name="config_save_profile">ملف تعريف جديد</string>
-    <string name="config_metrology_calib_btn" tools:ignore="TypographyDashes">معايرة مترولوجية (ISO 230-2)</string>
+    <string name="config_metrology_calib_btn" ns0:ignore="TypographyDashes">معايرة مترولوجية (ISO 230-2)</string>
     <string name="config_manual_btn">الدليل التقني و SOPs</string>
     <string name="config_app_name">LinuxCNC Droid HMI</string>
-    <string name="config_app_subtitle" tools:ignore="TypographyDashes">تحكم صناعي شامل • المستوى 1-3</string>
+    <string name="config_app_subtitle" ns0:ignore="TypographyDashes">تحكم صناعي شامل • المستوى 1-3</string>
     <string name="config_app_tech_stack">LinuxCNC NML / HAL • EtherCAT • Delta ASDA-B3</string>
-    <string name="config_middleware_header">خادم LINUXCNC (WEBSOCKET / REST)</string>
     <string name="config_host_ip_label">عنوان IP / المضيف</string>
     <string name="config_port_label">المنفذ</string>
     <string name="config_saved_profiles_header">ملفات تعريف الآلات المحفوظة</string>
@@ -263,12 +216,9 @@
     <string name="config_add_profile_title">إضافة ملف تعريف آلة</string>
     <string name="config_machine_name_label">اسم الآلة</string>
     <string name="config_ip_address_placeholder">عنوان IP (مثال: 192.168.1.100)</string>
-
-    <!-- Calibration Dialog -->
-    <string name="calib_header" tools:ignore="TypographyDashes">معايرة المحاور المترولوجية (ISO 230-2)</string>
+    <string name="calib_header" ns0:ignore="TypographyDashes">معايرة المحاور المترولوجية (ISO 230-2)</string>
     <string name="calib_subtitle">رسم أخطاء المحور وتقييم اليقين</string>
     <string name="calib_section1_header">1. معايير المعايرة ويقين الجهاز</string>
-    <string name="calib_init_btn">بدء الجلسة</string>
     <string name="calib_axis_label">المحور</string>
     <string name="calib_travel_label">إجمالي الحركة (مم)</string>
     <string name="calib_uncertainty_label">يقين الجهاز ±(مم)</string>
@@ -290,16 +240,10 @@
     <string name="calib_export_text">يقوم هذا الجدول برسم الأخطاء مباشرة في HAL:</string>
     <string name="calib_copy_clipboard">نسخ للحافظة</string>
     <string name="calib_toast_copied">تم نسخ comp.tbl</string>
-
-
-
     <string name="calib_preset_dial">مؤشر قرصي (±0.003)</string>
     <string name="calib_preset_glass">مسطرة زجاجية (±0.001)</string>
     <string name="calib_preset_micrometer">ميكرومتر (±0.002)</string>
     <string name="calib_preset_laser">ليزر (±0.0005)</string>
-
-
-    <!-- Camera View -->
     <string name="camera_header">نظام الرؤية الصناعية والتحليل البصري</string>
     <string name="camera_permission_required">مطلوب إذن الوصول للكاميرا</string>
     <string name="camera_permission_text">تستخدم الكاميرا للمحاذاة البصرية ومعايرة المحاور.</string>
@@ -310,8 +254,6 @@
     <string name="camera_micro_alignment_label">المحاذاة الدقيقة البصرية:</string>
     <string name="camera_zero_x">تصفر X</string>
     <string name="camera_zero_y">تصفير Y</string>
-
-    <!-- Speeds & Feeds Calculator -->
     <string name="calc_header">حاسبة السرعات والتغذية</string>
     <string name="calc_material_header">مادة القطعة المستهدفة</string>
     <string name="calc_diameter_label">القطر (مم)</string>
@@ -322,8 +264,6 @@
     <string name="calc_stepover_ae">الخطوة (Ae): %s مم</string>
     <string name="calc_power">الطاقة: %s كيلوواط</string>
     <string name="calc_apply_btn">تطبيق على CNC</string>
-
-    <!-- G-Code Security Loader -->
     <string name="sl_header">الأمن السيبراني لـ G-CODE وتحميل الملفات</string>
     <string name="sl_presets_header">نماذج نصوص G-CODE</string>
     <string name="sl_analysis_header">نتائج الفحص الأمني</string>
@@ -331,17 +271,12 @@
     <string name="sl_load_btn">تحميل إلى CNC</string>
     <string name="sl_pass">تم القبول</string>
     <string name="sl_block">تم الحظر</string>
-
-    <!-- Attribution -->
     <string name="cnc_attribution_label">خدمة LinuxCNC Droid HMI</string>
-
-    <!-- Manual Content -->
     <string name="manual_title">دليل تشغيل CNC والمرجع التقني</string>
     <string name="manual_subtitle">دليل شامل للسلامة وDRO وMPG والفحص وEtherCAT والمعايرة المترولوجية</string>
     <string name="manual_search_placeholder">ابحث في الدليل (مثال: المعايرة، الإنذار، MPG، WCS، E-STOP)…</string>
     <string name="manual_sop_title">إجراءات التشغيل القياسية (SOP)</string>
     <string name="manual_safety_title">معايير السلامة والتشابكات</string>
-
     <string name="manual_sec1_title">1. السلامة والتشابكات</string>
     <string name="manual_sec1_summary">حالات الآلة وعناصر التحكم المسموح بها أثناء التشغيل والتعافي من الإنذارات.</string>
     <string name="manual_sec1_content" formatted="false">تطبّق بنية LinuxCNC Droid HMI تشابكات السلامة الصناعية وفقًا للمعيار ISO 23125:\n\n• حالة التشغيل (دورة قيد التنفيذ):\n  – متاح: التوقف الطارئ (E–STOP)، وإيقاف التغذية مؤقتًا (Feed Hold)، والإلغاء/الإيقاف، وتجاوز التغذية (0–150%) والمغزل (50–120%)، وسائل التبريد.\n  - محظور: التحريك اليدوي (الأزرار وعجلة MPG)، والتصفير (G92)، والتهيئة المرجعية (G28)، وMDI، وتغييرات الإعدادات.\n\n• إدارة الإنذارات والتعافي منها:\n  - عند حدوث عطل (حمل زائد للمحرك المؤازر، أو مفتاح حد، أو حد حراري)، يوقف مخطط المسار الحركة خلال &lt;1ms ويحافظ على سطر G-Code النشط.\n  - للاستئناف:\n    1. أزل سبب العطل فعليًا.\n    2. في علامة تبويب السجلات، اضغط \'CLEAR LOGS / RESET\'.\n    3. اضغط \'POWER ON\'.\n    4. اضغط \'CYCLE START\' للمتابعة من السطر الذي وقع عنده العطل.</string>
@@ -354,7 +289,6 @@
         <item>لا تحاول أبدًا تحريك المحاور يدويًا أثناء تشغيل الدورة.</item>
         <item>تحقق من توصيل زر التوقف الطارئ الفيزيائي الخارجي على التوالي مع مرحّل السلامة في الخزانة الكهربائية.</item>
     </string-array>
-
     <string name="manual_sec2_title">2. المعايرة المترولوجية (ISO 230–2)</string>
     <string name="manual_sec2_summary" formatted="false">معايرة قياسية كل 10% من محور الحركة، وحساب عدم اليقين، وتعويض برغي الحركة (comp.tbl).</string>
     <string name="manual_sec2_content" formatted="false">يتيح مساعد القياس المترولوجي تقييم خطأ خطوة البرغي الكروي وتصحيحه (رسم خرائط خطأ الخطوة) وفقًا للمعيار ISO 230–2:\n\n• طريقة القطاعات بنسبة 10%:\n  يُقسّم مدى حركة المحور الكلي إلى 10 فواصل (0%، 10%، 20%، …، 100%).\n  يأخذ المشغّل عند كل نقطة قراءة باستخدام أداة مرجعية (ميكرومتر، أو مؤشر قرصي، أو مسطرة بصرية).\n\n• حساب عدم اليقين المركب (ISO/IEC 17025):\n  يدمج عدم اليقين في أداة المشغّل (U_inst) مع قابلية تكرار المحور.\n  يحسب عدم اليقين الموسع U بمعامل تغطية k=2 (مستوى ثقة 95%).\n\n• التطبيق المباشر في LinuxCNC (comp.tbl):\n  عند الإكمال، ينشئ النظام ملف \'comp.tbl\' لوحدة HAL المسماة \'linear_comp\'. ويعوض LinuxCNC تلقائيًا عن الانحرافات أثناء القطع.</string>
@@ -370,7 +304,6 @@
         <item>تأكد من وصول المغزل إلى درجة حرارة التشغيل المعتادة (بعد تدويره 15 دقيقة) لتجنب الانحراف الحراري أثناء القياس.</item>
         <item>ثبّت المؤشر القرصي بإحكام على قاعدة الآلة باستخدام قاعدة مغناطيسية صلبة.</item>
     </string-array>
-
     <string name="manual_sec3_title">3. DRO وأنظمة الإحداثيات</string>
     <string name="manual_sec3_summary">قراءة DRO الرقمية، وأصل الشغلة WCS G54-G59، وإحداثيات الآلة G53، وعزم المحرك المؤازر.</string>
     <string name="manual_sec3_content" formatted="false">تعرض لوحة DRO المواضع الفعلية بدقة ثلاث منازل عشرية (0.001 mm):\n\n• أوضاع الإحداثيات:\n  - موضع الشغلة (G54 إلى G59): إحداثيات نسبةً إلى أصل الشغلة.\n  - إحداثيات الآلة المطلقة (G53): الإحداثيات المطلقة للإطار بالنسبة إلى مفاتيح الحد المرجعية.\n  - المسافة المتبقية (DTG): المسافة المتبقية حتى نهاية كتلة G-Code الحالية.\n\n• قياسات المحرك المؤازر:\n  تراقب نسبة حمل مشغّل المحرك المؤازر (% Torque). وتشير القيم المستمرة التي تتجاوز 85% إلى تآكل الموجهات أو زيادة معدل التغذية.</string>
@@ -382,7 +315,6 @@
     <string-array name="manual_sec3_safety">
         <item>لا تصفّر إحداثيات G92 والقاطع داخل المادة قبل التحقق من ارتفاعات الأمان.</item>
     </string-array>
-
     <string name="manual_sec4_title">4. عجلة MPG الإلكترونية الافتراضية</string>
     <string name="manual_sec4_summary">عجلة لمس صناعية ذات 100 تقسيم ومضاعفات دقة x1 وx10 وx100 وx1000.</string>
     <string name="manual_sec4_content">تحاكي عجلة MPG الافتراضية عجلة إلكترونية فعلية بدقة:\n\n• 100 تقسيم لكل دورة (3.6° لكل نقرة لمسية).\n• المضاعفات:\n  - x1: ‏0.001 mm لكل خطوة (للمحاذاة الميكرومترية النهائية).\n  - x10: ‏0.010 mm لكل خطوة (للاقتراب الدقيق).\n  - x100: ‏0.100 mm لكل خطوة (لتموضع الشغلة بسرعة).\n  - x1000: ‏1.000 mm لكل خطوة (للحركة الطويلة للطاولة).\n• الاستجابة اللمسية: تصدر اهتزازًا ونقرة صوتية عند كل درجة من 3.6°.</string>
@@ -395,7 +327,6 @@
     <string-array name="manual_sec4_safety">
         <item>على محور Z قرب الملزمة أو الشغلة، استخدم حصريًا المضاعف x1 أو x10 لتجنب اصطدام المغزل.</item>
     </string-array>
-
     <string name="manual_sec5_title">5. جدول الأدوات ومبدّل الأدوات الآلي (tool.tbl)</string>
     <string name="manual_sec5_summary">إدارة أدوات T1-T99، وتعويض الطول H (G43)، والقياس السريع، وعمر الأداة.</string>
     <string name="manual_sec5_content" formatted="false">يتزامن مدير الأدوات مباشرةً مع ملف LinuxCNC \'tool.tbl\':\n\n• تركيب الأداة (M6): يحمّل الأداة في المغزل ويفعّل تعويض G43 Hx.\n• قياس طول Z (G43.1): يتيح معايرة طول الأداة الحالية بأخذ إحداثي Z للمغزل بلمسة واحدة.\n• مراقبة التآكل: تنبّه عند تجاوز زمن القطع المتراكم 85% من عمر الأداة المقدّر.</string>
@@ -407,7 +338,6 @@
     <string-array name="manual_sec5_safety">
         <item>تحقق من أن أقصى RPM محدد للأداة لا يتجاوز قدرة الكوليت أو حامل الأداة.</item>
     </string-array>
-
     <string name="manual_sec6_title">6. دورات المجس ثلاثي الأبعاد (فحص WCS)</string>
     <string name="manual_sec6_summary">إجراءات آلية لتوسيط الثقوب والأسطوانات والزوايا واستشعار ارتفاع Z.</string>
     <string name="manual_sec6_content">تتضمن علامة تبويب PROBING إجراءات حركية تتوقف عند التلامس الكهربائي (G38.2):\n\n• مركز الثقب: يفحص أربعة أرباع (-X، +X، -Y، +Y) ويحسب مركز الثقب بدقة.\n• مركز البروز: يفحص الأوجه الخارجية الأربعة للأسطوانة لإيجاد محور مركزها.\n• محدد الزاوية: يحدد رأس الزاوية XY لتعيين أصل الشغلة.\n• ارتفاع السطح Z: يهبط حتى التلامس لتعيين مستوى Z=0.</string>
@@ -420,7 +350,6 @@
     <string-array name="manual_sec6_safety">
         <item>اختبر مؤشر LED للمجس بلمسه برفق بيدك قبل بدء دورة آلية.</item>
     </string-array>
-
     <string name="manual_sec7_title">7. قياسات ناقل EtherCAT</string>
     <string name="manual_sec7_summary">مراقبة التابعين CiA402 وارتعاش الدورة والإطارات المفقودة في الوقت الفعلي.</string>
     <string name="manual_sec7_content">يعرض مراقب EtherCAT حالة شبكة الأتمتة الصناعية:\n\n• حالة المتحكم الرئيسي: يجب أن تبقى OP (تشغيلية).\n• ارتعاش الدورة: تغير توقيت الساعة الآنية. القيم &lt; 5 µs هي الأفضل.\n• الإطارات المفقودة: إذا تجاوز هذا العداد 0، فتحقق من الكابلات المحمية والتأريض.</string>
@@ -432,8 +361,6 @@
     <string-array name="manual_sec7_safety">
         <item>إذا دخل المتحكم الرئيسي حالة INIT أو PRE-OP أثناء التشغيل، فستنفذ الآلة توقفًا فوريًا للسلامة.</item>
     </string-array>
-
-    <!-- In-App Manual Sections 8, 9, 10, 11 (Arabic) -->
     <string name="manual_sec8_title">8. الطاقة، قفل الشاشة وأمان الشبكة</string>
     <string name="manual_sec8_summary">سياسات السلامة لانخفاض شحن البطارية وانقطاع الشبكة ومنع قفل الشاشة لحماية زر التوقف في حالات الطوارئ (E-STOP).</string>
     <string name="manual_sec8_content" formatted="false">لتجنب تصادم العدة وفقدان الوصول إلى التوقف الطارئ:\n\n• إبقاء الشاشة قيد التشغيل (WAKE LOCK): يمنع السكون التلقائي للجهاز اللوحي أثناء التشغيل.\n• تنبيه أمان البطارية: تحذير عند &lt;= 20% وإنذار حرج عند &lt;= 10%.\n• إعادة الاتصال التلقائي بالشبكة الصناعية في حال الانقطاع اللحظي.</string>
@@ -444,7 +371,6 @@
     <string-array name="manual_sec8_safety">
         <item>عند انخفاض شحن البطارية بشكل حرج (&lt; 10%)، قم بتفعيل Feed Hold فوراً ووصّل الشاحن.</item>
     </string-array>
-
     <string name="manual_sec9_title">09. الكاميرا البصرية الصناعية والقياس الدقيق</string>
     <string name="manual_sec9_summary">محاذاة القطع بدون تلامس، كشف الحواف، شبكات القياس، تعويض إزاحة المغزل والمرشحات البصرية.</string>
     <string name="manual_sec9_content" formatted="false">تتيح الكاميرا الصناعية تحديد نقطة الصفر لمحاور القطعة بدون لمس:\n\n• شبكات عالية الدقة: صليب 0.01 مم، دوائر متحدة المركز، شبكة متريّة، كاشف زوايا 90°، وهدف مركز.\n• تكبير ماكرو (1X, 2X, 4X, 8X): أزرار سريعة مصممة للاستخدام مع قفازات الورش.\n• مرشحات بصرية: قياسي، تباين عالٍ، سلبي، وتعزيز الحواف.\n• تعويض المسافة بين الكاميرا والمغزل تلقائياً بضغطة زر \'تعيين صفر G54 مع الإزاحة\'.\n• لقطات مراقبة الجودة (QC): حفظ صور موثقة بإحداثيات DRO ونظام الإحداثيات النشط.</string>
@@ -456,7 +382,6 @@
     <string-array name="manual_sec9_safety">
         <item>يجب إيقاف محرك المغزل تماماً (M5) أثناء الفحص والمحاذاة البصرية.</item>
     </string-array>
-
     <string name="manual_sec10_title">10. مركز التحكم في المحاكاة والاختبار</string>
     <string name="manual_sec10_summary">بيئة موحدة لمحاكاة الآلة واختبار الإنذارات وحالة البطارية ومجس اللمس 3D.</string>
     <string name="manual_sec10_content" formatted="false">يجمع مركز المحاكاة في تبويب CONFIG جميع أدوات الفحص والتدريب:\n\n• محاكي LINUXCNC: التبديل الفوري بين الجهاز الحقيقي والمحرك الحركي المحلي.\n• محاكاة بطارية الجهاز اللوحي: التحقق من استجابة النظام عند 15% و 8%.\n• محاكاة تأخير وانقطاع الشبكة: حقن تأخير 380 مللي ثانية للتحقق من استقرار الاستجابة.\n• حقن الأعطال الصناعية: تشغيل متحكم فيه لإنذارات EtherCAT AL.006 ومفاتيح النهاية وحرارة المغزل.\n• محاكاة مجس اللمس 3D (G38.2): اختبار دورات القياس وتصفير المحاور دون المخاطرة بكسر المجس.</string>
@@ -468,7 +393,6 @@
     <string-array name="manual_sec10_safety">
         <item>خطر: تأكد دائماً من أن المؤشر العلوي يعرض \'REAL\' قبل تشغيل المغزل على ماكينة حقيقية.</item>
     </string-array>
-
     <string name="manual_sec11_title">11. مسار الأداة 3D ومحاكي التشغيل التجريبي (Dry-Run)</string>
     <string name="manual_sec11_summary">معاينة تفاعلية لمسار G-Code ثلاثي الأبعاد، سجل لوني للقطع، إطار الخامة 3D، ومحاور WCS.</string>
     <string name="manual_sec11_content" formatted="false">يجمع عارض المسار ثلاثي الأبعاد بين رسومات CAM المتقدمة وكفاءة استهلاك البطارية على الأجهزة المحمولة:\n\n• سجل ألوان القطع الديناميكي:\n  – أخضر غامق خافت: المسارات التي تم تشغيلها وقطعها بالفعل.\n  – أخضر نيون مع هالة قطع: سطر كود G-Code النشط المتصل بالقطعة حالياً.\n  – سماوي صناعي: مسارات القطع الخطي المتبقية (G1).\n  – قرمزي كهربائي: أقواس الاستيفاء الدائري والحلزوني (G2/G3).\n  – كهرماني متقطع: حركات الانتقال السريع في الفراغ (G0).\n\n• إطار سلكي ثلاثي الأبعاد للخامة ومحاور WCS:\n  – الصندوق الحجمي: يوضح أبعاد الخامة الكلية (ΔX, ΔY, ΔZ) وهوامش الأمان.\n  – ثلاثي محاور WCS النشط (0,0,0): أسهم RGB ملونة (أحمر=X، أخضر=Y، أزرق=Z) لنقطة الصفر.\n\n• محاكي التشغيل التجريبي والتحكم باللمس:\n  – شريط التمرير الدقيق: اسحب المؤشر لاستعراض أي سطر في البرنامج قبل تشغيل المحركات.\n  – تشغيل افتراضي (1X, 2X, 5X, 10X): فحص مسار العدة بدون حركة ميكانيكية.\n\n• تصفية الطبقات للأجهزة المحمولة:\n  – إخفاء الحركات السريعة (G0): لتسريع وتسهيل عرض البرامج الكبيرة بلمسة واحدة.\n  – تتبع الأداة (Follow Tool): ضبط الكاميرا تلقائياً على رأس القاطع.\n  – الملاءمة التلقائية (Auto-Fit): حساب أفضل زاوية وتكبير لعرض القطعة بالكامل.\n  – لوحة كود G-Code قابلة للطي: لتوفير المساحة الكاملة للشاشة على الهواتف والأجهزة اللوحية.</string>
@@ -483,14 +407,10 @@
         <item>افحص دائماً نقاط النزول الرأسي وعمق Z السالب في المنظور الأمامي أو الجانبي قبل بَدْء القطع.</item>
         <item>لا تعتمد فقط على المحاذاة البصرية، بل تأكد دائمًا من ضبط صفر القطعة WCS (G54) بالمجس الحقيقي.</item>
     </string-array>
-
-    <!-- In-App Manual Section 12: Connection Wizard & Remote Architecture -->
     <string name="manual_sec12_title">12. مساعد الاتصال وربط LinuxCNC (linuxcncrsh)</string>
-
     <string name="manual_sec12_summary">
 دليل الاتصال عبر مقبس TCP، إعداد ملف machine.ini، قواعد الجدار الناري، ومصافحة المصادقة.
 </string>
-
     <string name="manual_sec12_content">
 يعمل الاتصال الصناعي البعيد بين جهاز Android (هاتف/جهاز لوحي) وآلة CNC عبر خادم linuxcncrsh:\n\n
 • واجهة الشبكة:\n
@@ -508,27 +428,20 @@
   – مصادقة كلمة المرور: \'set enable password\'\n
   – مراقبة مستمرة لمواضع X/Y/Z/A، حالات التوقف الطارئ، والأخطاء في الزمن الحقيقي.
 </string>
-
     <string-array name="manual_sec12_sop">
         <item>1. اضغط على أيقونة الموجّه في الشريط العلوي أو في الإعدادات لبدء مساعد الاتصال.</item>
         <item>2. تأكد من أن Android وLinuxCNC على نفس الشبكة الفرعية (مثل 192.168.1.X).</item>
         <item>3. قم بإعداد توجيه linuxcncrsh في ملف ‎.ini‎ الخاص بك وفعّل المنفذ 5007 في الجدار الناري.</item>
         <item>4. أدخل عنوان IP وكلمة المرور (الافتراضية: pwd) واضغط "إنهاء والاتصال".</item>
     </string-array>
-
     <string-array name="manual_sec12_safety">
         <item>احرص دائماً على أن يكون زر التوقف الطارئ الفيزيائي (E‑STOP) في متناول اليد قبل الاتصال.</item>
         <item>استخدم شبكات Wi‑Fi محمية بـ WPA2/WPA3 أو اتصال Ethernet مخصص لتجنب التأخر أو التداخل الكهرومغناطيسي الناتج عن مشغلات السرعة (VFD).</item>
     </string-array>
-
-
-    <!-- In-App Manual Section 13: Conversational CAM & Canned Cycles -->
     <string name="manual_sec13_title">13. CAM الحواري والدورات الجاهزة</string>
-
     <string name="manual_sec13_summary">
 تشغيل سريع على الآلة: تسوية الأسطح، جيوب مستطيلة، ودائرة ثقوب (G83).
 </string>
-
     <string name="manual_sec13_content">
 يتيح مولد CAM الحواري تنفيذ عمليات تشغيل قياسية دون الحاجة إلى تصميم CAD أو معالجة CAM خارجية:\n\n
 • دورة تسوية السطح (FACING):\n
@@ -541,28 +454,20 @@
 • النقل المباشر إلى وحدة التحكم:\n
   – ضغطة واحدة على "تحميل إلى وحدة التحكم والمحاكاة" تنقل الكود المولد إلى المفسر والعارض ثلاثي الأبعاد.
 </string>
-
     <string-array name="manual_sec13_sop">
         <item>1. افتح مربع CAM الحواري من علامة التبويب الإعدادات أو من الشريط العلوي.</item>
         <item>2. اختر علامة تبويب الدورة المطلوبة: تسوية السطح، الجيب المستطيل، أو دائرة الثقوب.</item>
         <item>3. أدخل أبعاد القطعة، سرعة دوران المغزل (RPM)، وتغذية القطع (F).</item>
         <item>4. اضغط "توليد كود G"، راجع المعاينة، ثم اضغط "تحميل إلى وحدة التحكم والمحاكاة".</item>
     </string-array>
-
     <string-array name="manual_sec13_safety">
         <item>تأكد من أن الأداة المثبتة في المغزل تطابق القطر المحدد في إعدادات الدورة.</item>
         <item>تحقق من ارتفاع مستوى الأمان Z لتجنب الاصطدام مع الماسكات أو المشابك.</item>
     </string-array>
-
-
-
-    <!-- In-App Manual Section 14: Machine INI Configuration & Kinematics -->
     <string name="manual_sec14_title">14. محرر وتشخيص ملف machine.ini</string>
-
     <string name="manual_sec14_summary">
 فحص حدود الحركة الفيزيائية والافتراضية (الحدود الناعمة)، التسارعات، وكينماتيكا المحاور.
 </string>
-
     <string name="manual_sec14_content">
 يتيح لك قسم إعدادات INI مراقبة ومزامنة المتغيرات البنيوية داخل ملف ‎.ini‎ الخاص بالآلة:\n\n
 • الحدود الناعمة (MIN_LIMIT / MAX_LIMIT):\n
@@ -574,26 +479,19 @@
 • محرر مباشر وخيار النسخ:\n
   – يعرض الملف الخام، يسمح بالبحث، ويوفر خيار النسخ إلى الحافظة والتطبيق المباشر.
 </string>
-
     <string-array name="manual_sec14_sop">
         <item>1. ادخل إلى زر "إعدادات LINUXCNC (machine.ini)" من علامة التبويب CONFIG.</item>
         <item>2. افحص علامة التبويب "ملخص الآلة" للتحقق من الحدود الحجمية لمحاور X و Y و Z.</item>
         <item>3. في علامة التبويب "محرر machine.ini"، راجع تعليمات الكينماتيكا والاتصالات.</item>
         <item>4. اضغط "تطبيق الحدود على وحدة التحكم" لمزامنة الإعدادات مع واجهة HMI.</item>
     </string-array>
-
     <string-array name="manual_sec14_safety">
         <item>لا ترفع قيم التسارع أو السرعة القصوى قبل إجراء اختبارات الرنين الميكانيكي.</item>
     </string-array>
-
-
-    <!-- In-App Manual Section 15: HAL Real-Time Pins & Signals Monitor -->
     <string name="manual_sec15_title">15. مراقب دبابيس وإشارات HAL في الزمن الحقيقي</string>
-
     <string name="manual_sec15_summary">
 تشخيص مدخلات ومخرجات العتاد، مفاتيح النهاية، أزرار الطوارئ، وحالة مشغلات السرعة.
 </string>
-
     <string name="manual_sec15_content">
 يوفر مراقب HAL (طبقة تجريد العتاد) رؤية فورية لحالة الإشارات المنطقية في الآلة:\n\n
 • دبابيس الأمان (SAFETY):\n
@@ -605,24 +503,18 @@
 • التصفية والبحث الديناميكي:\n
   – يسمح بعزل الإشارات حسب الفئة التشغيلية لتسهيل مهام الصيانة والتشغيل.
 </string>
-
     <string-array name="manual_sec15_sop">
         <item>1. اضغط على أيقونة HAL (رقاقة طرفية) في الشريط العلوي أو في علامة التبويب CONFIG.</item>
         <item>2. اختر فئة الإشارة المطلوبة (أمان، حدود، مغزل، حركة، إدخال/إخراج).</item>
         <item>3. قم بتفعيل حساس أو مفتاح نهاية فعلياً للتحقق من تغير الحالة (أخضر = نشط، رمادي = غير نشط).</item>
     </string-array>
-
     <string-array name="manual_sec15_safety">
         <item>إذا ظهر مفتاح نهاية في حالة تشغيل دائم، افحص الأسلاك قبل محاولة الحركة في الوضع اليدوي.</item>
     </string-array>
-
-    <!-- In-App Manual Section 16: Work Coordinate Systems (G54 - G59.3) -->
     <string name="manual_sec16_title">16. جدول أنظمة إحداثيات العمل WCS (G54 - G59.3)</string>
-
     <string name="manual_sec16_summary">
 إدارة عدة نقاط أصل للقطعة، تعويض الماسكات، وتعيين الصفر للإحداثيات.
 </string>
-
     <string name="manual_sec16_content">
 يدير جدول أنظمة إحداثيات العمل WCS الأنظمة التسعة القياسية في LinuxCNC:\n\n
 • الأنظمة المدعومة:\n
@@ -633,25 +525,18 @@
 • التصفير السريع باستخدام مسبار أو كاميرا:\n
   – تنقل دورات الفحص ثلاثي الأبعاد والرؤية الاصطناعية نتائجها مباشرة إلى نظام WCS النشط بمجرد تأكيد العملية.
 </string>
-
     <string-array name="manual_sec16_sop">
         <item>1. افتح مُحدد WCS من الشريط العلوي أو اضغط "جدول أصول WCS" في الإعدادات.</item>
         <item>2. اختر نظام الإحداثيات الذي تريد تفعيله (مثل G54 للقطعة الرئيسية أو G55 للمسكة الثانية).</item>
         <item>3. اضبط أو صفّر المحاور المقابلة باستخدام أزرار ZERO في لوحة DRO أو عبر الفحص.</item>
     </string-array>
-
     <string-array name="manual_sec16_safety">
         <item>قبل تنفيذ برنامج G‑Code، تأكد من أن نظام WCS النشط في الشريط العلوي يطابق النظام المحدد في رأس الملف.</item>
     </string-array>
-
-
-    <!-- In-App Manual Section 17: Roadmap and Next Version Enhancements -->
     <string name="manual_sec17_title">17. خارطة الطريق واقتراحات الإصدار القادم</string>
-
     <string name="manual_sec17_summary">
 التحسينات القادمة المتوقعة: نقل الملفات الضخمة عبر ‎SCP/FTP/Samba‎، وحدات التحكم المحمولة عبر ‎OTG/Bluetooth‎، المحور الخامس (B/C)، وتقليل تأخر شبكات Wi‑Fi.
 </string>
-
     <string name="manual_sec17_content">
 لتحقيق أقصى أداء في المصانع الصناعية ومراكز التشغيل المعقدة، تُقترح التكاملات التالية للإصدارات القادمة:\n\n
 1. إدارة ونقل ملفات G‑Code الكبيرة:\n
@@ -663,18 +548,14 @@
 4. الاستجابة وتقليل التأخر الشديد في شبكات Wi‑Fi:\n
    – خوارزمية تنبؤية لتعويض المخزن المؤقت للشبكات ذات التداخل الكهرومغناطيسي الناتج عن مشغلات السرعة (VFD)، مع توصية أولوية باستخدام وصلة USB‑C إلى Ethernet (RJ45).
 </string>
-
     <string-array name="manual_sec17_sop">
         <item>1. بالنسبة لبرامج G‑Code الضخمة، استخدم حالياً التحميل عبر ملف محلي أو بطاقة SD.</item>
         <item>2. في البيئات ذات التداخل الكهرومغناطيسي العالي، قم بتوصيل محول USB‑C إلى Ethernet سلكي.</item>
         <item>3. راجع هذه القسم بشكل دوري لمعرفة توفر امتدادات العتاد الجديدة.</item>
     </string-array>
-
     <string-array name="manual_sec17_safety">
         <item>لا تستخدم وحدات التحكم اللاسلكية غير المعتمدة دون وجود زر إيقاف طارئ سلكي متصل على التوالي مع مرحّف لوحة الكهرباء.</item>
     </string-array>
-
-    <!-- Additional UI Strings for Localization -->
     <string name="wcs_active_badge">نشط</string>
     <string name="wcs_set_active">تعيين كنظام إحداثيات نشط</string>
     <string name="wcs_target_pos_label">موضع العمل الهدف (مم)</string>
@@ -708,7 +589,6 @@
     <string name="status_paused_short">متوقف مؤقتاً</string>
     <string name="btn_feed_hold_short">إيقاف\nالتغذية</string>
     <string name="btn_cycle_stop_short">إيقاف\nالدورة</string>
-    <string name="exec_single_block">كتلة واحدة (M0)</string>
     <string name="exec_single_block_short">كتلة واحدة</string>
     <string name="exec_optional_stop">توقف اختياري (M1)</string>
     <string name="exec_optional_stop_short">توقف اختياري</string>
@@ -717,12 +597,7 @@
     <string name="exec_run_from_line_btn">تشغيل من السطر (استئناف القطع)…</string>
     <string name="exec_from_line_short">من السطر…</string>
     <string name="exec_step_next_line">كتلة واحدة: تنفيذ السطر التالي &gt;</string>
-    <string name="jog_pad_tab">لوحة الأزرار</string>
-    <string name="jog_mpg_tab">عجلة MPG الافتراضية</string>
-    <string name="jog_pad_tab_short">لوحة</string>
-    <string name="jog_mpg_tab_short">عجلة MPG</string>
     <string name="soft_limits_dialog_title">فحص مسار الحدود الناعمة</string>
-    <string name="soft_limits_active_wcs">نظام الإحداثيات النشط: %s</string>
     <string name="soft_limits_safe_title">مسار البرنامج ضمن غلاف الحركة الآمن</string>
     <string name="soft_limits_safe_desc">مسار الأداة المحمّل يقع بالكامل ضمن الحدود الميكانيكية تحت %s.</string>
     <string name="soft_limits_danger_title">حرج: تم تجاوز حدود الحركة</string>
@@ -781,9 +656,6 @@
     <string name="security_preset_collision">غوص تصادمي (تحذير)</string>
     <string name="security_motion_detected">تم اكتشاف حركة</string>
     <string name="security_no_motion">لم يتم العثور على حركة محاور</string>
-
-
-    <!-- Conversational CAM Input Labels -->
     <string name="cam_label_length_x">الطول X (مم)</string>
     <string name="cam_label_width_y">العرض Y (مم)</string>
     <string name="cam_label_tool_diam">قطر القاطعة D (مم)</string>
@@ -806,8 +678,6 @@
     <string name="cam_label_hole_depth">عمق الثقب Z (مم)</string>
     <string name="cam_label_peck_q">النقار Q (مم)</string>
     <string name="cam_label_retract_r">مستوى التراجع R (مم)</string>
-
-    <!-- Connection Wizard Detailed Content -->
     <string name="wizard_step_1_title_full">الخطوة 1: اكتشاف الاتصال الفيزيائي</string>
     <string name="wizard_step_1_subtitle">التحقق من واجهة الشبكة بين Android و CNC</string>
     <string name="wizard_step_1_inst_1">يجب أن يكون جهاز Android في نفس الشبكة الفرعية مثل آلة LinuxCNC.</string>
@@ -844,30 +714,20 @@
     <string name="wizard_status_offline">غير متصل</string>
     <string name="wizard_linux_cmd_title">أمر / تكوين LINUX</string>
     <string name="wizard_copied_to_clipboard">تم النسخ إلى الحافظة!</string>
-
-    <!-- Error Boundary & Component Names -->
-    <string name="error_subsystem_internal_fault">خطأ داخلي في النظام الفرعي</string>
     <string name="error_fault_isolation">عزل الخطأ: %1$s</string>
     <string name="error_subsystem_halted_safety">تم إيقاف النظام الفرعي وقائيًا لحماية واجهة المستخدم ومحاور الآلة.</string>
     <string name="error_comp_3d_visualizer">أداة العرض ثلاثية الأبعاد لـ G-Code</string>
     <string name="error_comp_camera_vision">الكاميرا والرؤية الحاسوبية</string>
     <string name="error_comp_probing">دورات الفحص</string>
     <string name="error_comp_ethercat">ناقل المجال EtherCAT</string>
-
-    <!-- Machine Config & Misc -->
     <string name="config_connection_wizard_banner">معالج ومعلم اتصال LINUXCNC</string>
-    <string name="battery_charging_suffix">(جاري الشحن)</string>
-    <string name="simulated_badge">محاكى</string>
     <string name="sim_weak_signal_active">إشارة ضعيفة (380 ملي ثانية)</string>
     <string name="sim_weak_signal_btn">محاكاة إشارة ضعيفة</string>
     <string name="server_error_fmt">خطأ في الخادم: %1$s</string>
-
-    <!-- نصوص إضافية للاتصال والإعدادات والإنذارات والتقارير -->
     <string name="wizard_step_1_code_snippet"># تحقق من عنوان IP في طرفية LinuxCNC (الكمبيوتر/Raspberry Pi):\nhostname -I\n# مثال على عنوان IP: 192.168.1.120</string>
     <string name="wizard_step_2_code_snippet">[APPLICATIONS]\n# تشغيل خدمة التحكم عن بُعد عند بدء LinuxCNC:\nAPP = linuxcncrsh -- -w -p 5007 -d</string>
     <string name="wizard_step_3_code_snippet"># نفّذ في طرفية Linux:\nsudo ufw allow 5007/tcp\n# تحقق من أن linuxcncrsh يستمع للاتصالات:\nss -tulpn | grep 5007</string>
     <string name="wizard_step_4_code_snippet">عنوان المضيف: %1$s\nالمنفذ: %2$s\nكلمة المرور: %3$s</string>
-
     <string name="ini_machine_name_fmt">الآلة: %1$s</string>
     <string name="ini_kinematics_fmt">الحركيات: %1$s</string>
     <string name="ini_max_velocity_fmt">السرعة القصوى: %1$s مم/ث</string>
@@ -875,7 +735,6 @@
     <string name="ini_soft_limits_title">حدود الحركة (الحدود البرمجية) والمقاييس</string>
     <string name="ini_limits_applied">تم تطبيق الحدود!</string>
     <string name="ini_axis_limit_fmt">الحد: [%1$d مم .. %2$d مم] (Δ %3$d مم)</string>
-
     <string name="manual_category_calibration">المعايرة</string>
     <string name="manual_category_operation">التشغيل</string>
     <string name="manual_category_probing">الفحص بالمسبار</string>
@@ -887,50 +746,19 @@
     <string name="manual_category_ini_configuration">إعداد INI</string>
     <string name="manual_category_hal_diagnostics">HAL والتشخيص</string>
     <string name="manual_category_wcs_origins">أصول WCS</string>
-
     <string name="log_battery_critical_during_cycle">خطر حرج! مستوى البطارية %1$d%% أثناء دورة التشغيل. إيقاف وشيك: أوقف الدورة مؤقتًا أو صِل الشاحن.</string>
     <string name="log_battery_critical">إنذار بطارية حرج! المستوى %1$d%%. صِل الشاحن فورًا.</string>
     <string name="log_battery_low">تنبيه انخفاض البطارية: %1$d%%. صِل شاحن الجهاز.</string>
     <string name="log_battery_sensor_restored">تمت استعادة مستشعر البطارية إلى قراءات النظام الفعلية.</string>
     <string name="log_screen_timeout_enabled">إشعار أمان: تم تفعيل إيقاف الشاشة وفق إعدادات النظام. يُنصح بإبقاء الشاشة قيد التشغيل دائمًا.</string>
-    <string name="log_servo_overtorque_alarm">إنذار AL.006: تم تشغيل حماية زيادة العزم في محرك EtherCAT للمحور Z.</string>
     <string name="log_vfd_thermal_alarm">عطل حراري في VFD: تجاوزت حرارة ملفات المغزل 85°م.</string>
     <string name="log_low_coolant_alarm">انخفاض مستوى سائل التبريد: ضغط المضخة غير كافٍ على ناقل الإدخال/الإخراج.</string>
-
-    <string name="engine_local_simulation_mode">تم التبديل إلى وضع المحاكاة المحلية (دون اتصال).</string>
-    <string name="engine_disconnected_from_linuxcnc">تم قطع الاتصال بـ LinuxCNC. وضع المحاكاة نشط.</string>
-    <string name="engine_tool_table_imported">تم استيراد جدول الأدوات بنجاح: تم تحميل %1$d أداة.</string>
-
-    <string name="audit_report_title">LINUXCNC DROID - تقرير التدقيق الصناعي</string>
-    <string name="audit_machine_label">الآلة:             %1$s</string>
-    <string name="audit_generation_date_label">تاريخ الإنشاء: %1$s (%2$s)</string>
-    <string name="audit_machine_state_label">حالة الآلة:   %1$s</string>
-    <string name="audit_axis_telemetry_section">1. القياسات عن بُعد لمحاور الحركة</string>
-    <string name="audit_ethercat_section">3. تشخيص EtherCAT الرئيسي والوحدات التابعة</string>
-    <string name="audit_alarm_history_section">4. سجل الإنذارات والأحداث (آخر %1$d)</string>
-
     <string name="protocol_linuxcncrsh_description">تدفق TCP لـ LinuxCNC Remote Shell (linuxcncrsh) (المنفذ القياسي 5007)</string>
     <string name="protocol_websocket_description">بوابة WebSocket JSON / جسر القياس عن بُعد (المنفذ القياسي 8000)</string>
     <string name="protocol_simulation_description">محاكي داخلي للحركيات والوقت الفعلي (دون آلة فعلية)</string>
-    <string name="tool_table_copied_message">تم نسخ tool.tbl إلى الحافظة!</string>
-    <string name="tool_table_import_count_message">تم استيراد %1$d أدوات بنجاح!</string>
     <string name="log_wifi_weak_signal">إنذار شبكة: إشارة Wi-Fi ضعيفة أو متدهورة. قد تُفقد بيانات القياس عن بُعد.</string>
     <string name="log_connection_reconnecting">فُقد اتصال الشبكة. جارٍ بدء إعادة الاتصال التلقائية…</string>
     <string name="log_network_device_disconnected">فُقد اتصال شبكة الجهاز</string>
-    <string name="engine_ini_applied_fmt">تم تطبيق إعداد INI: %1$s (الحدود: X[%2$s..%3$s]، Y[%4$s..%5$s]، Z[%6$s..%7$s])</string>
-    <string name="engine_tool_mounted_fmt">تم تركيب الأداة: T%1$d (%2$s)، تعويض G43 H%3$d (إزاحة Z: %4$s مم)</string>
-    <string name="engine_reconnect_scheduled_fmt">%1$s. إعادة الاتصال تلقائيًا خلال %2$d ث (المحاولة رقم %3$d)…</string>
-    <string name="engine_manual_reconnect_started">بدأ المشغل إعادة الاتصال يدويًا…</string>
-    <string name="engine_weak_signal_fmt">إنذار شبكة: تم اكتشاف إشارة ضعيفة. زمن استجابة مرتفع (%1$d ملي ثانية). خطر فقدان التزامن.</string>
-    <string name="engine_network_normalized_fmt">عادت إشارة الشبكة إلى طبيعتها (زمن الاستجابة: %1$d ملي ثانية).</string>
-    <string name="engine_simulated_disconnect">تمت محاكاة فقدان إشارة الشبكة بواسطة المشغل</string>
-    <string name="engine_virtual_simulation_on">تم تفعيل وضع المحاكاة الافتراضية (الحركيات ومحاكاة HAL/NML)</string>
-    <string name="engine_virtual_simulation_off">تم تعطيل وضع المحاكاة الافتراضية: التشغيل باستخدام الأجهزة الفعلية</string>
-    <string name="engine_network_restored">تمت استعادة اتصال الشبكة بنجاح.</string>
-    <string name="rsh_handshake_unexpected_fmt">استجابة مصافحة غير متوقعة: %1$s. متابعة المصادقة…</string>
-    <string name="rsh_authenticated_fmt">تمت المصادقة بنجاح مع LinuxCNC (%1$s:%2$d)</string>
-    <string name="rsh_auth_response_fmt">استجابة المصادقة: %1$s</string>
-    <string name="rsh_polling_disconnect_fmt">تم اكتشاف انقطاع أثناء الاستطلاع: %1$s</string>
     <string name="reticle_protractor">منقلة (زاوية)</string>
     <string name="reticle_bullseye">مركز الهدف</string>
     <string name="camera_optical_filters">الفلاتر البصرية</string>
@@ -944,12 +772,6 @@
     <string name="camera_zero_with_offset">تعيين صفر G54 مع الإزاحة</string>
     <string name="camera_zero_offset_applied">تم تعيين الصفر مع الإزاحة: X=%1$.2f، Y=%2$.2f</string>
     <string name="camera_angle_label">الزاوية: %1$.1f°</string>
-    <string name="camera_reset_angle">0°</string>
-    <string name="camera_zoom_preset_1x">1X</string>
-    <string name="camera_zoom_preset_2x">2X</string>
-    <string name="camera_zoom_preset_4x">4X</string>
-    <string name="camera_zoom_preset_8x">8X</string>
-    <string name="camera_qc_report_title">مراقبة الجودة البصرية</string>
     <string name="view_side">جانبي</string>
     <string name="tp_autofit">ملاءمة تلقائية</string>
     <string name="tp_toggle_rapids">الحركات السريعة G0</string>
@@ -957,12 +779,8 @@
     <string name="tp_toggle_grid">الشبكة</string>
     <string name="tp_toggle_follow">تتبع الأداة</string>
     <string name="tp_toggle_code">G-CODE</string>
-    <string name="tp_dry_run">محاكاة التشغيل الجاف</string>
     <string name="tp_sim_play">تشغيل</string>
     <string name="tp_sim_pause">إيقاف مؤقت</string>
-    <string name="tp_sim_speed">%1$dX</string>
-    <string name="tp_scrub_label">الكتلة %1$d / %2$d</string>
-    <string name="tp_wcs_origin">WCS (0,0,0)</string>
     <string name="tp_past_cuts">القطوع السابقة</string>
     <string name="tp_current_tool">نشط</string>
     <string name="tp_arc_cut">قوس G2/G3</string>
@@ -970,7 +788,6 @@
     <string name="logs_copied_to_clipboard">تم نسخ التقرير إلى الحافظة</string>
     <string name="logs_share_report">مشاركة مع الصيانة</string>
     <string name="logs_copy_report">نسخ التقرير</string>
-    <string name="logs_close">إغلاق</string>
     <string name="logs_audit_modal_title">تقرير التدقيق الصناعي والقياسات عن بُعد</string>
     <string name="screen_policy_always_on">تشغيل دائم (واجهة HMI آمنة)</string>
     <string name="screen_policy_always_on_desc">يمنع إطفاء الشاشة ما دام التطبيق في المقدمة (موصى به لسلامة CNC).</string>
@@ -995,10 +812,6 @@
     <string name="config_safety_power_header">السلامة والبطارية ومهلة إطفاء الشاشة</string>
     <string name="config_screen_timeout_label">إدارة سكون الشاشة (Wake Lock)</string>
     <string name="config_battery_health_label">بطارية الجهاز وحالة الطاقة</string>
-    <string name="config_battery_sim_btn" formatted="false">محاكاة انخفاض البطارية (15%)</string>
-    <string name="config_battery_restore_btn">استعادة المستشعر</string>
-    <string name="config_weak_signal_sim_btn">محاكاة ضعف الإشارة (350ms)</string>
-    <string name="config_disconnect_sim_btn">محاكاة الانقطاع وإعادة الاتصال</string>
     <string name="config_simulations_hub_header">مركز المحاكاة والاختبارات</string>
     <string name="config_simulations_hub_desc">عناصر تحكم موحّدة لمحاكاة الآلة والقياسات عن بُعد واختبار البطارية والمجس اللمسي وحقن الأعطال.</string>
     <string name="config_sim_master_label">محاكاة وحدة تحكم LinuxCNC</string>
@@ -1007,8 +820,6 @@
     <string name="config_sim_badge_real">وضع الآلة الفعلية</string>
     <string name="config_sim_battery_section">محاكاة بطارية الجهاز اللوحي للمشغّل</string>
     <string name="config_sim_battery_desc">اختبر حدود البطارية وإنذاراتها دون استنزاف بطارية الجهاز اللوحي.</string>
-    <string name="config_sim_battery_toggle">تجاوز حالة البطارية</string>
-    <string name="config_sim_battery_charging_toggle">محاكاة توصيل شاحن USB-C</string>
     <string name="config_sim_battery_restore">استعادة مستشعر العتاد الحقيقي</string>
     <string name="config_sim_battery_crit" formatted="false">8% (حرج)</string>
     <string name="config_sim_battery_low" formatted="false">15% (منخفض)</string>
@@ -1016,7 +827,6 @@
     <string name="config_sim_battery_full" formatted="false">100% (ممتلئ)</string>
     <string name="config_sim_network_section">محاكاة الشبكة وزمن الاستجابة</string>
     <string name="config_sim_network_desc">حاكِ تدهور الاتصال أو انقطاعه لاختبار الفصل الآمن وإعادة الاتصال المتزايدة تدريجيًا.</string>
-    <string name="config_sim_weak_signal_toggle">محاكاة ضعف الإشارة (380 ms)</string>
     <string name="config_sim_drop_network_btn">محاكاة الانقطاع وإعادة الاتصال</string>
     <string name="config_sim_restore_network_btn">استعادة الاتصال الأمثل (2 ms)</string>
     <string name="config_sim_faults_section">محاكاة الأعطال والإنذارات الصناعية</string>
@@ -1035,32 +845,16 @@
     <string name="config_sim_probe_desc">حاكِ ملامسة حافة/سطح الشغلة دون تعريض سنّ المجس لخطر التلف.</string>
     <string name="config_sim_probe_btn">تفعيل لمسة المجس ثلاثي الأبعاد (G38.2)</string>
     <string name="modal_bar_title">مجموعات G-CODE النمطية النشطة</string>
-    <string name="exec_mod_single_block">كتلة واحدة (خطوة)</string>
-    <string name="exec_mod_opt_stop">إيقاف اختياري (M1)</string>
-    <string name="exec_mod_block_delete">تجاوز الكتلة (/)</string>
-    <string name="exec_mod_run_from_line">تشغيل بدءًا من السطر…</string>
-    <string name="exec_step_next">الكتلة التالية ></string>
     <string name="run_from_line_title">تشغيل بدءًا من السطر (استئناف القطع)</string>
     <string name="run_from_line_desc">حدد كتلة بعينها لاستئناف التشغيل بعد استبدال الأداة أو فحصها. ستتم تلقائيًا تهيئة خلوص Z الآمن وإعادة تشغيل المغزل.</string>
     <string name="run_from_line_btn">إعادة التشغيل من السطر</string>
-    <string name="run_from_line_cancel">إلغاء</string>
     <string name="protocol_linuxcncrsh_name">خادم LinuxCNC (linuxcncrsh TCP :5007)</string>
     <string name="protocol_websocket_name">بوابة WebSocket (:8000)</string>
     <string name="protocol_sim_name">محاكي محلي (دون اتصال)</string>
-    <string name="conn_protocol_label">بروتوكول اتصال LinuxCNC</string>
-    <string name="conn_host_label">عنوان IP لمضيف LinuxCNC</string>
-    <string name="conn_port_label">منفذ TCP</string>
-    <string name="conn_pass_label">كلمة المرور (linuxcncrsh)</string>
-    <string name="conn_connect_btn">الاتصال بـ LinuxCNC</string>
-    <string name="conn_disconnect_btn">قطع الاتصال</string>
-    <string name="conn_status_label">حالة الخادم</string>
     <string name="tool_table_import_btn">استيراد tool.tbl</string>
     <string name="tool_table_export_btn">تصدير tool.tbl</string>
     <string name="tool_table_mount_btn">تحميل (M6 T%1$d G43)</string>
-    <string name="tool_table_import_dialog_title">استيراد ملف LinuxCNC tool.tbl</string>
-    <string name="tool_table_import_dialog_desc">الصق محتويات ملف LinuxCNC tool.tbl لتحديث مخزن أدوات الآلة:</string>
     <string name="tool_table_import_confirm">استيراد وتطبيق</string>
-    <string name="tool_table_export_copied">تم نسخ ملف tool.tbl إلى الحافظة</string>
     <string name="ini_editor_title">إعدادات LINUXCNC (machine.ini)</string>
     <string name="ini_editor_desc">افحص الحدود البرمجية والتسارعات والخطوات وحركيات LinuxCNC وعدّلها.</string>
     <string name="ini_apply_btn">تطبيق الحدود على وحدة التحكم</string>
@@ -1079,25 +873,15 @@
     <string name="cam_tab_facing">تفريز تسوية السطح</string>
     <string name="cam_tab_pocket">جيب مستطيل</string>
     <string name="cam_tab_bolt_circle">دائرة ثقوب (G83)</string>
-    <string name="cam_generate_btn">توليد G-CODE</string>
     <string name="cam_load_to_controller">تحميل إلى وحدة التحكم ومحاكاة</string>
     <string name="cam_copy_gcode">نسخ G-CODE</string>
     <string name="cam_preview_title">معاينة G-CODE المُولّد</string>
     <string name="wizard_title">معالج الاتصال بـ LINUXCNC</string>
-    <string name="wizard_subtitle">دليل تفاعلي خطوة بخطوة لربط جهاز Android بالآلة الفعلية</string>
-    <string name="wizard_btn_open">فتح معالج الاتصال</string>
     <string name="wizard_btn_skip">تخطي البرنامج التعليمي</string>
     <string name="wizard_btn_next">الخطوة التالية</string>
     <string name="wizard_btn_prev">الخطوة السابقة</string>
     <string name="wizard_btn_finish">إنهاء والاتصال</string>
     <string name="wizard_dont_show_again">عدم العرض تلقائيًا مرة أخرى</string>
-    <string name="wizard_step_1_title">1. اكتشاف الواجهة والاتصال</string>
-    <string name="wizard_step_2_title">2. تفعيل الخادم في LinuxCNC (machine.ini)</string>
-    <string name="wizard_step_3_title">3. اختبار Ping وجدار حماية Linux</string>
-    <string name="wizard_step_4_title">4. مصادقة RSH والمصافحة</string>
-    <string name="wizard_step_5_title">5. التحقق من السلامة وE-STOP</string>
-
-    <!-- Added by localization pass -->
     <string name="common_copy">نسخ</string>
     <string name="ini_units_fmt">الوحدات: %1$s</string>
     <string name="ini_steps_scale_fmt">المقياس: %1$s خطوة/مم</string>
@@ -1113,8 +897,6 @@
     <string name="camera_take_snapshot">التقاط صورة</string>
     <string name="camera_snapshot_saved_fmt">تم حفظ الصورة: %1$s</string>
     <string name="camera_snapshot_error_fmt">خطأ في الالتقاط: %1$s</string>
-
-    <!-- New Localization Additions -->
     <string name="jog_continuous_mode">مستمر (CONT)</string>
     <string name="jog_step_mode">خطوة (STEP)</string>
     <string name="config_protocol_sim">المحاكي</string>
@@ -1131,7 +913,7 @@
     <string name="tool_table_imported_msg">تم استيراد %1$d أداة بنجاح!</string>
     <string name="wizard_badge_critical">حرج</string>
     <string name="calib_nominal_btn">= القيمة الاسمية</string>
-    <string name="rfl_safety_automation">الأتمتة الآمنة: يتراجع المحور Z إلى +10.0 مم للخلوص -> يعاد تشغيل المغزل بالسرعة المحددة -> تصبح المسار جاهزاً.</string>
+    <string name="rfl_safety_automation">الأتمتة الآمنة: يتراجع المحور Z إلى +10.0 مم للخلوص -&gt; يعاد تشغيل المغزل بالسرعة المحددة -&gt; تصبح المسار جاهزاً.</string>
     <string name="soft_axis_overtravel_fmt">تجاوز حدود المحور %1$s</string>
     <string name="soft_g53_span_fmt">نطاق G53: [%1$.2f .. %2$.2f] مم</string>
     <string name="soft_machine_limit_fmt">حدود الماكينة: [%1$.2f .. %2$.2f] مم</string>
@@ -1145,11 +927,12 @@
     <string name="topbar_user_role_desc">دور المستخدم</string>
     <string name="topbar_network_telemetry_desc">قياسات الشبكة</string>
     <string name="dro_home_axis_desc">إرجاع محور %1$s إلى الأصل</string>
-    <string name="error_internal_subsystem_fault">عطل داخلي في النظام الفرعي</string>
     <string name="camera_flash_toggle">تبديل الفلاش</string>
     <string name="config_battery_charging">جارٍ الشحن</string>
     <string name="alarm_link_interrupted">انقطع الاتصال</string>
     <string name="common_clear">مسح</string>
     <string name="status_active">نشط</string>
     <string name="cam_label_corner_radius">نصف قطر الزاوية R (مم)</string>
+    <string name="wizard_sim_banner_title">وضع المحاكي غير المتصل نشط</string>
+    <string name="wizard_sim_banner_desc">تم اختيار بيئة المحاكاة الافتراضية. يمكنك اختبار العرض الرقمي وMDI والمعاينة ثلاثية الأبعاد دون آلة فعلية.</string>
 </resources>

@@ -72,6 +72,7 @@ import com.example.model.InterfaceType
 import com.example.model.LinuxCncConnectionConfig
 import com.example.model.LinuxCncServerTelemetry
 import com.example.ui.theme.CncActiveGreen
+import com.example.ui.theme.CncWarningAmber
 import com.example.ui.theme.CncCardBg
 import com.example.ui.theme.CncCardBorder
 import com.example.ui.theme.CncCyberCyan
@@ -376,6 +377,42 @@ fun ConnectionWizardDialog(
                     }
                 }
 
+                if (detectedInterface == InterfaceType.OFFLINE_SIMULATOR) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Surface(
+                        color = CncWarningAmber.copy(alpha = 0.12f),
+                        shape = RoundedCornerShape(8.dp),
+                        border = BorderStroke(1.dp, CncWarningAmber.copy(alpha = 0.6f)),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Terminal,
+                                contentDescription = null,
+                                tint = CncWarningAmber,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = stringResource(R.string.wizard_sim_banner_title),
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = CncWarningAmber
+                                )
+                                Text(
+                                    text = stringResource(R.string.wizard_sim_banner_desc),
+                                    fontSize = 9.5.sp,
+                                    color = CncTextSecondary
+                                )
+                            }
+                        }
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Step Content (Scrollable)
@@ -643,7 +680,11 @@ fun ConnectionWizardDialog(
                                     if (dontShowAgainChecked) {
                                         onSkipTutorial(true)
                                     }
-                                    onConnectDirect(connectionConfig)
+                                    if (detectedInterface == InterfaceType.OFFLINE_SIMULATOR) {
+                                        onConnectDirect(connectionConfig.copy(protocolType = com.example.model.LinuxCncProtocolType.SIMULATION_LOCAL))
+                                    } else {
+                                        onConnectDirect(connectionConfig)
+                                    }
                                     onDismiss()
                                 },
                                 shape = RoundedCornerShape(8.dp),
