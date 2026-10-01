@@ -134,7 +134,6 @@ fun CncMainScreen(
     val feed by viewModel.feed.collectAsStateWithLifecycle()
     val coolant by viewModel.coolant.collectAsStateWithLifecycle()
     val probe by viewModel.probe.collectAsStateWithLifecycle()
-    val tool by viewModel.tool.collectAsStateWithLifecycle()
     val etherCatMaster by viewModel.etherCatMaster.collectAsStateWithLifecycle()
     val etherCatSlaves by viewModel.etherCatSlaves.collectAsStateWithLifecycle()
     val capabilities by viewModel.capabilities.collectAsStateWithLifecycle()
@@ -183,7 +182,6 @@ fun CncMainScreen(
     val showIniDialog by viewModel.showIniDialog.collectAsStateWithLifecycle()
     val showConversationalCamDialog by viewModel.showConversationalCamDialog.collectAsStateWithLifecycle()
     val showConnectionWizardDialog by viewModel.showConnectionWizardDialog.collectAsStateWithLifecycle()
-    val isWizardPermanentlyDismissed by viewModel.isWizardPermanentlyDismissed.collectAsStateWithLifecycle()
     val connectionConfig by viewModel.connectionConfig.collectAsStateWithLifecycle()
     val serverTelemetry by viewModel.serverTelemetry.collectAsStateWithLifecycle()
 

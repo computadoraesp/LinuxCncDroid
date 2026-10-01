@@ -365,6 +365,13 @@ fun ConnectionWizardDialog(
                                 onClick = { detectedInterface = InterfaceType.USB_HOTSPOT },
                                 modifier = Modifier.weight(1f)
                             )
+                            InterfacePill(
+                                title = "Simulator",
+                                icon = Icons.Default.Terminal,
+                                isSelected = detectedInterface == InterfaceType.OFFLINE_SIMULATOR,
+                                onClick = { detectedInterface = InterfaceType.OFFLINE_SIMULATOR },
+                                modifier = Modifier.weight(1f)
+                            )
                         }
                     }
                 }
@@ -440,13 +447,20 @@ fun ConnectionWizardDialog(
                                         verticalAlignment = Alignment.Top,
                                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        Box(
-                                            modifier = Modifier
-                                                .padding(top = 4.dp)
-                                                .size(6.dp)
-                                                .clip(CircleShape)
-                                                .background(CncCyberCyan)
-                                        )
+                                        Surface(
+                                            shape = CircleShape,
+                                            color = CncCyberCyan.copy(alpha = 0.2f),
+                                            modifier = Modifier.size(16.dp)
+                                        ) {
+                                            Box(contentAlignment = Alignment.Center) {
+                                                Text(
+                                                    text = "${idx + 1}",
+                                                    fontSize = 9.sp,
+                                                    fontWeight = FontWeight.Bold,
+                                                    color = CncCyberCyan
+                                                )
+                                            }
+                                        }
                                         Text(
                                             text = instruction,
                                             fontSize = 11.sp,

@@ -43,6 +43,7 @@ import androidx.compose.material.icons.filled.ScreenLockPortrait
 import androidx.compose.material.icons.filled.SettingsEthernet
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.StayCurrentPortrait
+import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material.icons.filled.Visibility
@@ -350,6 +351,35 @@ fun IndustrialTopBar(
                     }
                 }
 
+                // Simulation Mode Indicator Badge
+                if (isSimulated) {
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = CncWarningAmber.copy(alpha = 0.15f),
+                        border = BorderStroke(1.dp, CncWarningAmber.copy(alpha = 0.8f)),
+                        modifier = Modifier.height(34.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Terminal,
+                                contentDescription = "Simulated Mode",
+                                tint = CncWarningAmber,
+                                modifier = Modifier.size(13.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "SIM",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Black,
+                                color = CncWarningAmber
+                            )
+                        }
+                    }
+                }
+
                 // 2. Coordinate System Dropdown (G54 - G59.3)
                 Box {
                     OutlinedButton(
@@ -445,7 +475,8 @@ fun IndustrialTopBar(
                 }
 
                 // 4. Screen Sleep / Wake Lock Status Badge
-                val screenColor = if (keepScreenOn) CncActiveGreen else CncWarningAmber
+                val isAlwaysOn = screenTimeoutPolicy == ScreenTimeoutPolicy.ALWAYS_ON || keepScreenOn
+                val screenColor = if (isAlwaysOn) CncActiveGreen else CncWarningAmber
                 Surface(
                     shape = RoundedCornerShape(6.dp),
                     color = screenColor.copy(alpha = 0.12f),
@@ -461,13 +492,13 @@ fun IndustrialTopBar(
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Icon(
-                            imageVector = if (keepScreenOn) Icons.Default.ScreenLockPortrait else Icons.Default.StayCurrentPortrait,
-                            contentDescription = stringResource(if (keepScreenOn) R.string.status_screen_always_on else R.string.status_screen_system_timeout),
+                            imageVector = if (isAlwaysOn) Icons.Default.ScreenLockPortrait else Icons.Default.StayCurrentPortrait,
+                            contentDescription = stringResource(if (isAlwaysOn) R.string.status_screen_always_on else R.string.status_screen_system_timeout),
                             tint = screenColor,
                             modifier = Modifier.size(15.dp)
                         )
                         Text(
-                            text = if (keepScreenOn) stringResource(R.string.status_screen_on_short) else stringResource(R.string.status_screen_timeout_short),
+                            text = if (isAlwaysOn) stringResource(R.string.status_screen_on_short) else stringResource(R.string.status_screen_timeout_short),
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
                             color = screenColor

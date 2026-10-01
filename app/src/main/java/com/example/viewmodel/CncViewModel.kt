@@ -945,15 +945,27 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
 
     fun saveProfile(name: String, ip: String, port: Int, arch: String) {
         viewModelScope.launch(exceptionHandler) {
-            db.profileDao().insertProfile(
-                MachineProfileEntity(
-                    name = name,
-                    hostIp = ip,
-                    port = port,
-                    architecture = arch,
-                ),
-            )
-            feedbackManager.triggerSuccessHaptic()
+            val existingProfiles = machineProfiles.value
+            val existing = existingProfiles.find { it.name.equals(name, ignoreCase = true) }
+            if (existing != null) {
+                updateMachineProfile(
+                    existing.copy(
+                        hostIp = ip,
+                        port = port,
+                        architecture = arch
+                    )
+                )
+            } else {
+                db.profileDao().insertProfile(
+                    MachineProfileEntity(
+                        name = name,
+                        hostIp = ip,
+                        port = port,
+                        architecture = arch,
+                    ),
+                )
+                feedbackManager.triggerSuccessHaptic()
+            }
         }
     }
 
