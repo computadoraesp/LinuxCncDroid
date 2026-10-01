@@ -141,7 +141,7 @@ fun ToolpathVisualizer3D(
     fileName: String = "face_pocket_contour.ngc",
     elapsedSeconds: Long = 0L,
     estimatedTotalSeconds: Long = 180L,
-    @Suppress("UNUSED_PARAMETER") feedRate: Double = 1500.0,
+    feedRate: Double = 1500.0,
     spindleRpm: Double = 18000.0,
     activeToolDiameter: Double = 6.0,
     onOpenLoader: () -> Unit = {},
@@ -1457,6 +1457,12 @@ fun ToolpathVisualizer3D(
                                 fontSize = 8.5.sp,
                                 fontFamily = FontFamily.Monospace,
                                 color = CncTextSecondary
+                            )
+                            Text(
+                                text = "F:${feedRate.toInt()}",
+                                fontSize = 8.5.sp,
+                                fontFamily = FontFamily.Monospace,
+                                color = CncCyberCyan
                             )
                         }
                     }

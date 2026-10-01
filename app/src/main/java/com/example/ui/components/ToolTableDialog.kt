@@ -395,10 +395,10 @@ fun ToolTableDialog(
 fun ToolCardItem(
     tool: CncToolItem,
     isCurrentlyActive: Boolean,
-    @Suppress("UNUSED_PARAMETER") currentSpindleZ: Double,
+    currentSpindleZ: Double,
     onMount: () -> Unit,
     onEdit: () -> Unit,
-    @Suppress("UNUSED_PARAMETER") onDelete: () -> Unit,
+    onDelete: () -> Unit,
     onTouchOff: () -> Unit
 ) {
     val lifePct = (tool.lifeMinutesCurrent / tool.lifeMinutesMax).toFloat().coerceIn(0f, 1f)
@@ -504,6 +504,10 @@ fun ToolCardItem(
                     IconButton(onClick = onEdit, modifier = Modifier.size(28.dp)) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = stringResource(R.string.tool_edit), tint = CncTextSecondary, modifier = Modifier.size(14.dp))
                     }
+
+                    IconButton(onClick = onDelete, modifier = Modifier.size(28.dp)) {
+                        Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(R.string.common_close), tint = CncTextSecondary, modifier = Modifier.size(14.dp))
+                    }
                 }
             }
 
@@ -565,7 +569,12 @@ fun ToolCardItem(
                     ) {
                         Column {
                             Text(stringResource(R.string.tool_touch_off), fontSize = 8.sp, color = CncCyberCyan, fontWeight = FontWeight.Bold)
-                            Text(stringResource(R.string.tool_set_current_z), fontSize = 9.sp, fontWeight = FontWeight.Black, color = CncTextPrimary)
+                            Text(
+                                text = if (currentSpindleZ != 0.0) "Z: ${String.format(java.util.Locale.US, "%+.2f", currentSpindleZ)}" else stringResource(R.string.tool_set_current_z),
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Black,
+                                color = CncTextPrimary
+                            )
                         }
                         Icon(imageVector = Icons.Default.VerticalAlignBottom, contentDescription = stringResource(R.string.tool_touch_off), tint = CncCyberCyan, modifier = Modifier.size(14.dp))
                     }

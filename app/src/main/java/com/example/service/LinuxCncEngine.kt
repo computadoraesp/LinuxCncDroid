@@ -612,9 +612,11 @@ class LinuxCncEngine {
         sendRemoteCommand("POWER_OFF", emptyMap())
     }
 
-    @Suppress("unused")
     fun setTaskMode(mode: TaskMode) {
         _taskMode.value = mode
+        if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
+            rshClient?.setTaskMode(mode)
+        }
         sendRemoteCommand("SET_MODE", mapOf("mode" to mode.name))
     }
 
@@ -1007,7 +1009,7 @@ class LinuxCncEngine {
     fun cycleStart() {
         if ((_machineState.value == MachineStateEnum.ON) || (_machineState.value == MachineStateEnum.IDLE) || (_machineState.value == MachineStateEnum.PAUSED)) {
             _machineState.value = MachineStateEnum.RUNNING
-            _taskMode.value = TaskMode.AUTO
+            setTaskMode(TaskMode.AUTO)
             _spindle.value = _spindle.value.copy(isEnabled = true)
             logEvent(LogSeverity.INFO, "CYCLE", "Cycle Started: Executing program '${_loadedFileName.value}'")
             if (!_isSimulatedMode.value && _connectionConfig.value.protocolType == LinuxCncProtocolType.LINUXCNCRSH_TCP) {
@@ -1612,7 +1614,7 @@ class LinuxCncEngine {
     fun singleBlockStep() {
         if (_machineState.value == MachineStateEnum.PAUSED || _machineState.value == MachineStateEnum.IDLE || _machineState.value == MachineStateEnum.ON) {
             _machineState.value = MachineStateEnum.RUNNING
-            _taskMode.value = TaskMode.AUTO
+            setTaskMode(TaskMode.AUTO)
             logEvent(LogSeverity.INFO, "CYCLE", "SINGLE BLOCK: Step commanded")
             sendRemoteCommand("SINGLE_BLOCK_STEP", emptyMap())
         }
@@ -1635,7 +1637,7 @@ class LinuxCncEngine {
             
             _spindle.value = _spindle.value.copy(isEnabled = true)
             _machineState.value = MachineStateEnum.PAUSED
-            _taskMode.value = TaskMode.AUTO
+            setTaskMode(TaskMode.AUTO)
             
             logEvent(LogSeverity.WARNING, "CYCLE", "RUN FROM LINE: Positioned at block ${seg.lineNumber} ('${seg.rawText.trim()}'). Spindle started, Z safe. Press CYCLE START to engage.")
             sendRemoteCommand("RUN_FROM_LINE", mapOf("line" to targetLineIndex, "lineNumber" to seg.lineNumber))

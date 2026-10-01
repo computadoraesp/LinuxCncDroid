@@ -413,14 +413,6 @@ data class MdiValidationResult(
     val isSpindleCommand: Boolean = false,
 )
 
-data class MdiHistoryItem(
-    val id: Long = 0,
-    val command: String,
-    val timestamp: Long = System.currentTimeMillis(),
-    val isFavorite: Boolean = false,
-    val executionStatus: String = "SUCCESS",
-)
-
 // ============================================================================
 // PRO MODULE 3: HAL SIGNALS & REAL-TIME PIN MONITOR
 // ============================================================================
