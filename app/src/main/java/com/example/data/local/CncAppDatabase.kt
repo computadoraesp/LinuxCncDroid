@@ -64,6 +64,12 @@ interface WcsOffsetDao {
 
     @Query("UPDATE wcs_offsets SET a = :a, updatedAt = :time WHERE name = :name")
     suspend fun updateA(name: String, a: Double, time: Long = System.currentTimeMillis())
+
+    @Query("UPDATE wcs_offsets SET b = :b, updatedAt = :time WHERE name = :name")
+    suspend fun updateB(name: String, b: Double, time: Long = System.currentTimeMillis())
+
+    @Query("UPDATE wcs_offsets SET c = :c, updatedAt = :time WHERE name = :name")
+    suspend fun updateC(name: String, c: Double, time: Long = System.currentTimeMillis())
 }
 
 @Dao

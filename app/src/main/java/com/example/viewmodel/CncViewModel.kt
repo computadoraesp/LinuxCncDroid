@@ -905,8 +905,8 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
                     "Y" -> db.wcsOffsetDao().updateY(name, offsetValue, now)
                     "Z" -> db.wcsOffsetDao().updateZ(name, offsetValue, now)
                     "A" -> db.wcsOffsetDao().updateA(name, offsetValue, now)
-                    "B" -> db.wcsOffsetDao().insertOrUpdate(existing.copy(b = offsetValue, updatedAt = now))
-                    "C" -> db.wcsOffsetDao().insertOrUpdate(existing.copy(c = offsetValue, updatedAt = now))
+                    "B" -> db.wcsOffsetDao().updateB(name, offsetValue, now)
+                    "C" -> db.wcsOffsetDao().updateC(name, offsetValue, now)
                     else -> db.wcsOffsetDao().insertOrUpdate(existing.copy(updatedAt = now))
                 }
             } else {

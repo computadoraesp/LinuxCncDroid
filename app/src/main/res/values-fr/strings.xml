@@ -1051,5 +1051,5 @@
     <string name="alarm_link_interrupted">Connexion interrompue</string>
     <string name="common_clear">EFFACER</string>
     <string name="status_active">Actif</string>
-    <string name="cam_label_corner_radius">Rayon d'angle R (mm)</string>
+    <string name="cam_label_corner_radius">Rayon d\'angle R (mm)</string>
 </resources>
