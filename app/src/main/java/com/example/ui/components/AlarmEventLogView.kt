@@ -44,9 +44,9 @@ import java.util.*
 fun AlarmEventLogView(
     logs: List<CncEventLog>,
     onClearLogs: () -> Unit,
+    modifier: Modifier = Modifier,
     onGenerateReport: (() -> String)? = null,
     onSimulateDiagnosticAlarm: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current

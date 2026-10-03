@@ -358,8 +358,9 @@
     <string name="manual_sec8_summary">배터리 부족 경고, 연결 유지, 화면 항상 켜짐(WakeLock)을 통한 비상 정지(E-STOP) 보호 정책.</string>
     <string name="manual_sec8_content" formatted="false">가공 중 공구 충돌 및 비상 정지(E-STOP) 버튼 접근 상실을 방지하기 위한 정책:\n\n• 화면 항상 켜짐 (WAKE LOCK): 가공 중 태블릿 화면 꺼짐을 방지합니다.\n• 배터리 안전 경고: 20% 이하 주의, 10% 이하 심각 알람 발령.\n• 지수 백오프 자동 재연결: 공장 Wi-Fi/이더넷 일시 단절 시에도 자동 복구.</string>
     <string-array name="manual_sec8_sop">
-        <item>1. 가공 중에는 항상 태블릿을 USB-C 충전기에 연결하십시오.</item>
-        <item>2. 상단 상태바의 지터 및 핑 응답속도를 모니터링하십시오.</item>
+        <item>1. 장시간 G-코드 가공 중에는 항상 태블릿을 USB-C 충전기에 연결하십시오.</item>
+        <item>2. CONFIG 탭에서 \'화면 항상 켜짐\'이 활성화되어 있는지 확인하십시오.</item>
+        <item>3. \'약한 신호\' 배너가 나타나면 Wi-Fi 신호를 점검하거나 이더넷 어댑터를 사용하십시오.</item>
     </string-array>
     <string-array name="manual_sec8_safety">
         <item>배터리 심각 경고(&lt; 10%) 발생 시 즉시 Feed Hold를 누르고 충전기를 연결하십시오.</item>
@@ -368,23 +369,28 @@
     <string name="manual_sec9_summary">비접촉 공작물 정렬, 에지 검출, 정밀 십자선, 스핀들 오프셋 자동 보정 및 광학 필터.</string>
     <string name="manual_sec9_content" formatted="false">산업용 카메라를 활용한 비접촉 원점 설정 및 치수 검사:\n\n• 초정밀 레티클: 0.01mm 십자선, 동심원 링, 측정 그리드, 90° 코너 정렬기, 불스아이 타겟, 회전 각도기.\n• 매크로 줌 (1X, 2X, 4X, 8X): 장갑 착용 작업자를 위한 원터치 프리셋 버튼.\n• 광학 필터: 일반, 고대비, 네거티브 반전, 에지 강조 필터.\n• 스핀들 오프셋 자동 보정: \'오프셋 적용 G54 0점 설정\' 원터치 좌표 등록.\n• 품질 검사(QC) 스냅샷: DRO 좌표 및 활성 WCS 워터마크가 각인된 이미지 저장.</string>
     <string-array name="manual_sec9_sop">
-        <item>1. 카메라를 브래킷에 고정하고 보조 LED 조명을 켭니다.</item>
-        <item>2. 적합한 레티클을 선택하고 줌 배율(4X/8X)을 설정합니다.</item>
-        <item>3. 마이크로 조그(±0.05mm)로 에지를 맞추고 \'오프셋 적용 G54 0점 설정\'을 누릅니다.</item>
+        <item>1. 보정된 브래킷에 카메라를 장착하고 필요 시 보조 LED 조명을 켭니다.</item>
+        <item>2. \'십자선\' 또는 \'코너 파인더\' 레티클을 선택하고 줌 배율을 4X 또는 8X로 설정합니다.</item>
+        <item>3. 금속 표면 반사광이 심할 경우 \'고대비\' 또는 \'반전\' 광학 필터를 활성화합니다.</item>
+        <item>4. 미세 조그 이송(±0.05mm)으로 공작물 모서리를 중심선에 정렬합니다.</item>
+        <item>5. \'오프셋 적용 G54 0점 설정\'을 눌러 보정된 원점을 LinuxCNC로 전송합니다.</item>
     </string-array>
     <string-array name="manual_sec9_safety">
-        <item>광학 검사 중에는 스핀들을 반드시 완전 정지(M5) 상태로 유지하십시오.</item>
+        <item>경고: 광학 검사 및 정렬 중에는 스핀들 모터를 반드시 완전 정지(M5) 상태로 유지하십시오.</item>
+        <item>클램프나 바이스와의 물리적 카메라 충돌을 방지하기 위해 축 이동 전 항상 충분한 Z 안전 거리를 확보하십시오.</item>
     </string-array>
     <string name="manual_sec10_title">10. 시뮬레이션 및 결함 진단 통합 제어 센터</string>
     <string name="manual_sec10_summary">기계 기구학 시뮬레이션, 산업 결함 주입, 배터리 및 3D 프로브 테스트 환경.</string>
     <string name="manual_sec10_content" formatted="false">CONFIG 탭 내 시뮬레이션 제어 센터에서 제공하는 종합 진단 및 교육 도구:\n\n• LINUXCNC 시뮬레이터: 실제 장비와 로컬 가상 기구학 엔진 간 즉시 전환.\n• 태블릿 배터리 시뮬레이션: 15% 및 8% 저전력 보호 동작 사전 검증.\n• 네트워크 지연 및 단절 시뮬레이션: 380ms 레이턴시 주입을 통한 재연결 검증.\n• 산업 결함 주입: EtherCAT 서보 추종 오차 AL.006, 리미트 스위치, 과열, 절삭유 압력 알람 테스트.\n• 3D 프로브 가상 테스트(G38.2): 루비 프로브 파손 위험 없이 센터링 루틴 검증.</string>
     <string-array name="manual_sec10_sop">
         <item>1. 작업자 교육 시 CONFIG 탭에서 \'LinuxCNC 제어기 시뮬레이션\'을 활성화하십시오.</item>
-        <item>2. 결함 주입 패널에서 알람을 발생시켜 비상 대처 절차를 실습합니다.</item>
-        <item>3. 테스트 완료 후 \'실제 하드웨어 센서 복원\'을 눌러 시뮬레이션을 해제하십시오.</item>
+        <item>2. \'고장 및 알람 주입\' 패널에서 가상 알람을 트리거하여 비상 대응을 실습합니다.</item>
+        <item>3. 비상 정지(E-STOP) 및 이송 정지가 주입된 고장에 즉각 반응하는지 확인하십시오.</item>
+        <item>4. 점검 완료 후 \'실제 하드웨어 센서 복원\'을 누르고 시뮬레이션을 비활성화한 뒤 실제 가공을 진행하십시오.</item>
     </string-array>
     <string-array name="manual_sec10_safety">
-        <item>위험: 실제 공작기계에서 가공을 시작하기 전에 상단 표시가 \'REAL\' 상태인지 확인하십시오.</item>
+        <item>위험: 실제 공작기계에서 스핀들을 구동하거나 사이클을 시작하기 전에 상단 상태바가 \'REAL\'인지 반드시 확인하십시오.</item>
+        <item>고장 주입 기능은 교육 및 시운전 전용입니다. 실제 가공 중에는 작업장의 물리적 리미트 스위치를 우회하지 마십시오.</item>
     </string-array>
     <string name="manual_sec11_title">11. 3D 공구 경로 시각화 &amp; 드라이 런 시뮬레이터</string>
     <string name="manual_sec11_summary">대화형 3D G-코드 미리보기, 동적 절삭 이력, 소재 3D 와이어프레임, WCS 3축 및 스크러빙 시뮬레이션.</string>

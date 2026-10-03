@@ -58,8 +58,7 @@ class CncFeedbackManager(context: Context) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK))
             } else {
-                @Suppress("DEPRECATION")
-                vibrator?.vibrate(15)
+                vibrator?.vibrate(VibrationEffect.createOneShot(15, VibrationEffect.DEFAULT_AMPLITUDE))
             }
         } catch (_: Exception) {}
     }
@@ -69,35 +68,24 @@ class CncFeedbackManager(context: Context) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
             } else {
-                @Suppress("DEPRECATION")
-                vibrator?.vibrate(25)
+                vibrator?.vibrate(VibrationEffect.createOneShot(25, VibrationEffect.DEFAULT_AMPLITUDE))
             }
         } catch (_: Exception) {}
     }
 
     fun triggerEstopHaptic() {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val timings = longArrayOf(0, 150, 80, 150, 80, 250)
-                val amplitudes = intArrayOf(0, 255, 0, 255, 0, 255)
-                vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
-            } else {
-                @Suppress("DEPRECATION")
-                vibrator?.vibrate(longArrayOf(0, 150, 80, 150, 80, 250), -1)
-            }
+            val timings = longArrayOf(0, 150, 80, 150, 80, 250)
+            val amplitudes = intArrayOf(0, 255, 0, 255, 0, 255)
+            vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
         } catch (_: Exception) {}
     }
 
     fun triggerWarningHaptic() {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val timings = longArrayOf(0, 80, 50, 80)
-                val amplitudes = intArrayOf(0, 200, 0, 200)
-                vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
-            } else {
-                @Suppress("DEPRECATION")
-                vibrator?.vibrate(longArrayOf(0, 80, 50, 80), -1)
-            }
+            val timings = longArrayOf(0, 80, 50, 80)
+            val amplitudes = intArrayOf(0, 200, 0, 200)
+            vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
         } catch (_: Exception) {}
     }
 
@@ -106,8 +94,7 @@ class CncFeedbackManager(context: Context) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK))
             } else {
-                @Suppress("DEPRECATION")
-                vibrator?.vibrate(longArrayOf(0, 30, 40, 30), -1)
+                vibrator?.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 30, 40, 30), -1))
             }
         } catch (_: Exception) {}
     }
@@ -169,14 +156,9 @@ class CncFeedbackManager(context: Context) {
     fun playLowBatteryAlert() {
         scope.launch {
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val timings    = longArrayOf(0, 120, 100, 120)
-                    val amplitudes = intArrayOf(0, 180, 0, 180)
-                    vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
-                } else {
-                    @Suppress("DEPRECATION")
-                    vibrator?.vibrate(longArrayOf(0, 120, 100, 120), -1)
-                }
+                val timings    = longArrayOf(0, 120, 100, 120)
+                val amplitudes = intArrayOf(0, 180, 0, 180)
+                vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
                 toneGenerator?.startTone(ToneGenerator.TONE_PROP_BEEP2, 250)
             } catch (_: Exception) {}
         }
@@ -189,14 +171,9 @@ class CncFeedbackManager(context: Context) {
     fun playCycleCompleteHaptic() {
         scope.launch {
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val timings    = longArrayOf(0, 80, 60, 80, 60, 200)
-                    val amplitudes = intArrayOf(0, 160, 0, 160, 0, 255)
-                    vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
-                } else {
-                    @Suppress("DEPRECATION")
-                    vibrator?.vibrate(longArrayOf(0, 80, 60, 80, 60, 200), -1)
-                }
+                val timings    = longArrayOf(0, 80, 60, 80, 60, 200)
+                val amplitudes = intArrayOf(0, 160, 0, 160, 0, 255)
+                vibrator?.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
             } catch (_: Exception) {}
         }
     }

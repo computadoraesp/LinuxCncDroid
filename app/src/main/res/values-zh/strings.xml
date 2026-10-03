@@ -358,8 +358,9 @@
     <string name="manual_sec8_summary">低电量警告、网络断开防护、屏幕常亮防止急停（E-STOP）按键不可达策略。</string>
     <string name="manual_sec8_content" formatted="false">为防止加工过程中发生机床碰撞或无法即时按下急停（E-STOP）：\n\n• 屏幕常亮（WAKE LOCK）：加工过程中防止平板电脑自动休眠锁屏。\n• 电池安全预警：电量低于20%发出警告，低于10%发出严重告警。\n• 指数退避自动重连：工业局域网瞬断时提供毫秒级智能重连。</string>
     <string-array name="manual_sec8_sop">
-        <item>1. 加工过程中请务必连接平板电脑USB-C供电线缆。</item>
-        <item>2. 密切监控顶部状态栏的网络延迟（Ping）与抖动指标。</item>
+        <item>1. 长时间执行G代码加工期间，请务必将平板电脑保持连接至工业级USB-C供电线缆。</item>
+        <item>2. 确保在CONFIG选项卡中启用了“屏幕常亮”功能。</item>
+        <item>3. 若出现“信号微弱”提示，请检查Wi-Fi路由器信号或使用以太网转接器。</item>
     </string-array>
     <string-array name="manual_sec8_safety">
         <item>若电池达到严重告警阈值（&lt; 10%），请立即点击进给暂停（Feed Hold）并充电。</item>
@@ -368,23 +369,28 @@
     <string name="manual_sec9_summary">非接触式工件寻边、角点对齐、高精度分划板标线、主轴偏置自动补偿及光学滤镜。</string>
     <string name="manual_sec9_content" formatted="false">工业相机专用于非接触式工件对齐和工件坐标系（WCS）原点设定：\n\n• 超精密分划板：0.01毫米极细十字线、同心圆测距环、公差网格、90°角落对齐、靶心标线及旋转量角器。\n• 宏观数字变焦（1X, 2X, 4X, 8X）：车间手套操作专属大尺寸快捷按钮。\n• 光学图像滤镜：标准、高对比度、负片反转、边缘锐化轮廓滤镜。\n• 镜头主轴偏置补偿：点击“应用偏置并设定G54为零”，系统自动计算并写入对齐坐标。\n• 品质检验快照存档：保存带有DRO实时坐标与WCS系统水印的高清图片。</string>
     <string-array name="manual_sec9_sop">
-        <item>1. 将相机固定于测量支架并开启环形LED补光灯。</item>
-        <item>2. 选择合适分划标线并将变焦倍率调至4X或8X。</item>
-        <item>3. 利用微步寸动（±0.05mm）对齐工件边缘，随后点击“应用偏置并设定G54为零”。</item>
+        <item>1. 将相机固定于已校准的支架上，若机床内部照明不足请开启辅助LED补光灯。</item>
+        <item>2. 选择“十字线”或“寻角器”标线，并将微距数码变焦设置为4X或8X。</item>
+        <item>3. 若金属表面产生强烈眩光，可切换“高对比度”或“负片”光学滤镜。</item>
+        <item>4. 使用微步微调（±0.05mm）使工件边缘与标线中心精确重合。</item>
+        <item>5. 点击“应用偏置并设定G54为零”，将补偿后的坐标原点传输给LinuxCNC。</item>
     </string-array>
     <string-array name="manual_sec9_safety">
-        <item>在进行光学对准与测量期间，主轴电机必须处于完全停止状态（M5）。</item>
+        <item>警告：在进行光学测量与视觉对准期间，主轴电机必须处于完全停止状态（M5）。</item>
+        <item>在轴向移动前请务必确认Z轴提升至安全高度，避免工业相机与夹具或虎钳发生机械碰撞。</item>
     </string-array>
     <string name="manual_sec10_title">10. 综合仿真与工业故障诊断测试中心</string>
     <string name="manual_sec10_summary">机床运动学仿真、工业故障注入、平板电池及3D测头虚拟校验环境。</string>
     <string name="manual_sec10_content" formatted="false">CONFIG设置选项卡中的仿真控制中心集成了完备的诊断与教学工具：\n\n• LINUXCNC仿真器：在真实物理硬件机床与本地运动学仿真引擎间无缝切换。\n• 平板电池模拟：测试15%及8%电量警报下的应急机制。\n• 网络延迟及断网模拟：注入380毫秒高延迟，验证重连与安全刹车算法。\n• 工业级故障注入：可控触发EtherCAT跟随误差AL.006、限位开关、主轴过温和冷却液压力报警。\n• 3D测头仿真（G38.2）：安全模拟探针接触，防止意外折断红宝石测针。</string>
     <string-array name="manual_sec10_sop">
         <item>1. 在进行操作员培训时，可在CONFIG选项卡中启用“LinuxCNC控制器模拟”。</item>
-        <item>2. 通过故障注入面板触发报警以演练紧急应对规程。</item>
-        <item>3. 测试完毕后，点击“恢复真实传感器”解除仿真，然后再启动实际切削。</item>
+        <item>2. 通过“工业故障与报警注入”面板触发模拟报警以测试操作员响应。</item>
+        <item>3. 验证急停按键（E-STOP）和进给保持对注入的故障能够做出即时制动响应。</item>
+        <item>4. 验证完毕后，点击“恢复真实硬件传感器”关闭仿真，然后再启动实际物理切削。</item>
     </string-array>
     <string-array name="manual_sec10_safety">
-        <item>危险警告：在物理机床上启动主轴或运行加工前，务必确认顶部状态指示为“REAL”。</item>
+        <item>危险：在物理机床上启动主轴旋转或运行加工循环前，务必确认顶部状态栏显示为“REAL”。</item>
+        <item>故障注入工具仅供培训与调试使用；在实际加工切削时，严禁屏蔽工作现场的真实限位行程开关。</item>
     </string-array>
     <string name="manual_sec11_title">11. 3D刀具路径可视化与空运行（Dry-Run）模拟器</string>
     <string name="manual_sec11_summary">交互式3D G代码预览、动态加工色谱历程、3D毛坯线框、WCS三维基准轴及触控拖拽模拟。</string>

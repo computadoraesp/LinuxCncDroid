@@ -279,7 +279,7 @@ fun IndustrialTopBar(
             ) {
                 CarouselNavButton(
                     direction = "<",
-                    enabled = toolsScrollState.value > 0,
+                    enabled = toolsScrollState.canScrollBackward,
                     height = 30.dp,
                     width = 18.dp,
                     onClick = {
@@ -772,7 +772,7 @@ fun IndustrialTopBar(
 
             CarouselNavButton(
                 direction = ">",
-                enabled = toolsScrollState.value < toolsScrollState.maxValue,
+                enabled = toolsScrollState.canScrollForward,
                 height = 30.dp,
                 width = 18.dp,
                 onClick = {

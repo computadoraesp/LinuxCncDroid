@@ -28,11 +28,11 @@ import com.example.ui.theme.CncTextMuted
 @Composable
 fun CarouselNavButton(
     direction: String, // "<" or ">"
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     height: Dp = 32.dp,
     width: Dp = 22.dp,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier

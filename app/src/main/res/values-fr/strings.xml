@@ -358,10 +358,9 @@
     <string name="manual_sec8_summary">Politiques de sécurité pour batterie faible, signal réseau et prévention de mise en veille.</string>
     <string name="manual_sec8_content" formatted="false">Pour éviter les collisions d\'outils et maintenir l\'accès direct à l\'arrêt d\'urgence (E-STOP):\n\n• ÉCRAN ACTIF (WAKE LOCK): Maintient l\'écran allumé en continu pendant l\'usinage.\n• ALARME BATTERIE: Avertissement à &lt;= 20% et alarme critique à &lt;= 10%.\n• RECONNEXION AUTOMATIQUE: Rétablissement avec temporisation exponentielle en cas de perte de réseau.</string>
     <string-array name="manual_sec8_sop">
-        <item>1. Gardez la tablette connectée à son chargeur pendant le fraisage.</item>
-        <item>2. Vérifiez que l’option \'Écran toujours allumé\' est activée dans CONFIG afin de garder E-STOP et l’arrêt d’avance immédiatement accessibles.</item>
-        <item>3. Si la bannière \'SIGNAL FAIBLE\' apparaît, vérifiez la puissance du signal Wi-Fi ou utilisez un adaptateur Ethernet.</item>
-        <item>Surveillez la latence et le débit dans la barre d\'état supérieure.</item>
+        <item>1. Gardez la tablette connectée à son chargeur pendant le fraisage de longs cycles de code G.</item>
+        <item>2. Vérifiez que l’option \'Écran toujours allumé\' est activée dans l’onglet CONFIG.</item>
+        <item>3. Si la bannière \'SIGNAL FAIBLE\' apparaît, vérifiez la puissance du routeur Wi-Fi ou utilisez un adaptateur Ethernet.</item>
     </string-array>
     <string-array name="manual_sec8_safety">
         <item>En cas de batterie critique (&lt; 10%), activez Feed Hold et branchez l\'alimentation.</item>
