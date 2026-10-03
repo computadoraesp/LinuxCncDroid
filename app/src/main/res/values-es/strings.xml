@@ -524,7 +524,10 @@
     <string name="wizard_dont_show_again">No volver a mostrar automáticamente</string>
     <string name="manual_sec12_title">12. Asistente de Conexión y Enlace LinuxCNC (linuxcncrsh)</string>
     <string name="manual_sec12_summary">Guía de comunicación por socket TCP, configuración de machine.ini, reglas de firewall y handshake de autenticación.</string>
-    <string name="manual_sec12_content">La comunicación remota industrial entre la tablet/móvil Android y el CNC opera a través del servidor linuxcncrsh:\n\n• INTERFAZ DE RED: Soporta Wi-Fi LAN de taller, conexión Ethernet cableada (adaptador USB-C a RJ45) o Hotspot/Tethering directo.\n• CONFIGURACIÓN DE machine.ini:\n  – Debe incluirse en la sección [APPLICATIONS] la directiva:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – El flag -w habilita permisos de escritura (movimiento de ejes, cambio de modos, control de husillo).\n  – El flag -p 5007 define el puerto TCP estándar.\n• REGLAS DE FIREWALL LINUX:\n  – Abrir puerto en Linux con: sudo ufw allow 5007/tcp\n  – Verificar que el demonio escucha con: ss -tulpn | grep 5007\n• PROTOCOLO DE HANDSHAKE:\n  – Saludo inicial: \'hello EMC LinuxCncDroid 1.0\'\n  – Autenticación de clave: \'set enable password\'\n  – Monitoreo constante de posiciones X/Y/Z/A, estados E-Stop y errores en tiempo real.</string>
+    <string name="manual_sec12_content">La comunicación remota industrial entre la tablet/móvil Android y el CNC opera a través del servidor linuxcncrsh:\n\n• INTERFAZ DE RED: Soporta Wi-Fi LAN de taller, conexión Ethernet cableada (adaptador USB-C a RJ45) o Hotspot/Tethering directo.\n• CONFIGURACIÓN DE machine.ini:\n  – Debe incluirse en la sección [APPLICATIONS] la directiva:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – El flag -w habilita permisos de escritura (movimiento de ejes, cambio de modos, control de husillo).\n  – El flag -p 5007 define el puerto TCP estándar.\n• REGLAS DE FIREWALL LINUX:\n  – Abrir puerto en Linux con: sudo ufw allow 5007/tcp\n  – Verificar que el demonio escucha con: ss -tulpn | grep 5007\n• PROTOCOLO DE HANDSHAKE:\n  – Saludo inicial: \'hello EMC LinuxCncDroid 1.0\'\n  – Autenticación de clave: \'set enable password\'\n  – Monitoreo constante de posiciones X/Y/Z/A, estados E-Stop y errores en tiempo real.
+
+• SIMULADOR VIRTUAL OFFLINE:
+  – Controlador CNC virtual autónomo para ejecución en seco de código, verificación de DRO y visualización 3D sin requerir una máquina física ni conexión de red.</string>
     <string-array name="manual_sec12_sop">
         <item>1. Pulsa el icono del router en la barra superior o en AJUSTES para iniciar el Asistente de Conexión.</item>
         <item>2. Comprueba que Android y LinuxCNC se encuentren en la misma subred IP (p.ej. 192.168.1.X).</item>
@@ -848,4 +851,10 @@
     <string name="wizard_sim_banner_desc">Entorno virtual seleccionado. Pruebe DRO, MDI, visualización 3D y desgaste de herramientas sin máquina física.</string>
     <string name="common_apply">APLICAR</string>
     <string name="common_reconnect">RECONECTAR</string>
+    <string name="wizard_interface_wifi">Wi-Fi LAN</string>
+    <string name="wizard_interface_ethernet">Ethernet RJ45</string>
+    <string name="wizard_interface_usb">USB / Hotspot</string>
+    <string name="wizard_interface_simulator">Simulador</string>
+    <string name="wizard_step_1_inst_5">Simulador Offline: Seleccione la píldora Simulador para probar DRO, MDI y visualizador de trayectorias sin un PC LinuxCNC físico.</string>
+    <string name="manual_search_no_results">No se encontraron secciones del manual que coincidan con "%1"</string>
 </resources>

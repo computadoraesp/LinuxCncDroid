@@ -420,7 +420,10 @@
   – التحية الأولية: \'hello EMC LinuxCncDroid 1.0\'\n
   – مصادقة كلمة المرور: \'set enable password\'\n
   – مراقبة مستمرة لمواضع X/Y/Z/A، حالات التوقف الطارئ، والأخطاء في الزمن الحقيقي.
-</string>
+
+
+• المحاكي الافتراضي دون اتصال:
+  – وحدة تحكم CNC افتراضية مستقلة للتشغيل التجريبي والتحقق من DRO والمعاينة ثلاثية الأبعاد دون الحاجة لآلة فعلية أو شبكة.</string>
     <string-array name="manual_sec12_sop">
         <item>1. اضغط على أيقونة الموجّه في الشريط العلوي أو في الإعدادات لبدء مساعد الاتصال.</item>
         <item>2. تأكد من أن Android وLinuxCNC على نفس الشبكة الفرعية (مثل 192.168.1.X).</item>
@@ -920,4 +923,10 @@
     <string name="wizard_sim_banner_desc">تم اختيار بيئة المحاكاة الافتراضية. يمكنك اختبار العرض الرقمي وMDI والمعاينة ثلاثية الأبعاد دون آلة فعلية.</string>
     <string name="common_apply">تطبيق</string>
     <string name="common_reconnect">إعادة الاتصال</string>
+    <string name="wizard_interface_wifi">شبكة واي فاي</string>
+    <string name="wizard_interface_ethernet">إيثرنت RJ45</string>
+    <string name="wizard_interface_usb">USB / نقطة اتصال</string>
+    <string name="wizard_interface_simulator">المحاكي</string>
+    <string name="wizard_step_1_inst_5">المحاكي غير المتصل: اختر خيار المحاكي لاختبار العرض الرقمي وMDI والمعاينة ثلاثية الأبعاد دون الحاجة لحاسوب LinuxCNC فعلي.</string>
+    <string name="manual_search_no_results">لم يتم العثور على أقسام في الدليل تطابق "%1"</string>
 </resources>

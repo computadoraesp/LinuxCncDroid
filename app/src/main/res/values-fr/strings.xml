@@ -530,7 +530,10 @@
     <string name="wizard_dont_show_again">Ne plus afficher automatiquement</string>
     <string name="manual_sec12_title">12. Assistant de connexion LinuxCNC (linuxcncrsh)</string>
     <string name="manual_sec12_summary">Guide de communication par socket TCP, de configuration de machine.ini, de règles de pare-feu et de négociation d’authentification.</string>
-    <string name="manual_sec12_content" formatted="false">La communication industrielle à distance entre la tablette ou le téléphone Android et la CNC passe par le serveur linuxcncrsh :\n\n• INTERFACE RÉSEAU : prend en charge le Wi-Fi LAN de l’atelier, une connexion Ethernet filaire (adaptateur USB-C vers RJ45) ou un point d’accès/partage de connexion direct.\n• CONFIGURATION DE machine.ini :\n  • La directive suivante doit figurer dans la section [APPLICATIONS] :\n    APP = linuxcncrsh -w -p 5007 -d\n  • L’option -w autorise les commandes d’écriture (déplacement des axes, changement de mode, commande de broche).\n  • L’option -p 5007 définit le port TCP standard.\n• RÈGLES DU PARE-FEU LINUX :\n  • Ouvrez le port sous Linux avec : sudo ufw allow 5007/tcp\n  • Vérifiez que le démon écoute avec : ss -tulpn | grep 5007\n• NÉGOCIATION DU PROTOCOLE :\n  • Message initial : \'hello EMC LinuxCncDroid 1.0\'\n  • Authentification par mot de passe : \'set enable password\'\n  • Surveillance continue des positions X/Y/Z/A, de l’état E-Stop et des erreurs en temps réel.</string>
+    <string name="manual_sec12_content" formatted="false">La communication industrielle à distance entre la tablette ou le téléphone Android et la CNC passe par le serveur linuxcncrsh :\n\n• INTERFACE RÉSEAU : prend en charge le Wi-Fi LAN de l’atelier, une connexion Ethernet filaire (adaptateur USB-C vers RJ45) ou un point d’accès/partage de connexion direct.\n• CONFIGURATION DE machine.ini :\n  • La directive suivante doit figurer dans la section [APPLICATIONS] :\n    APP = linuxcncrsh -w -p 5007 -d\n  • L’option -w autorise les commandes d’écriture (déplacement des axes, changement de mode, commande de broche).\n  • L’option -p 5007 définit le port TCP standard.\n• RÈGLES DU PARE-FEU LINUX :\n  • Ouvrez le port sous Linux avec : sudo ufw allow 5007/tcp\n  • Vérifiez que le démon écoute avec : ss -tulpn | grep 5007\n• NÉGOCIATION DU PROTOCOLE :\n  • Message initial : \'hello EMC LinuxCncDroid 1.0\'\n  • Authentification par mot de passe : \'set enable password\'\n  • Surveillance continue des positions X/Y/Z/A, de l’état E-Stop et des erreurs en temps réel.
+
+• SIMULATEUR VIRTUEL HORS-LIGNE:
+  – Contrôleur CNC virtuel autonome pour l\'exécution à blanc, la vérification DRO et le visualiseur 3D sans machine physique ni connexion réseau.</string>
     <string-array name="manual_sec12_sop">
         <item>1. Appuyez sur l’icône de routeur dans la barre supérieure ou dans CONFIG pour lancer l’assistant de connexion.</item>
         <item>2. Vérifiez qu’Android et LinuxCNC se trouvent sur le même sous-réseau IP (par ex. 192.168.1.X).</item>
@@ -849,4 +852,10 @@
     <string name="wizard_sim_banner_desc">Environnement virtuel sélectionné. Testez la DRO, le MDI, la prévisualisation 3D et les outils sans machine physique.</string>
     <string name="common_apply">APPLIQUER</string>
     <string name="common_reconnect">RECONNECTER</string>
+    <string name="wizard_interface_wifi">Wi-Fi LAN</string>
+    <string name="wizard_interface_ethernet">Ethernet RJ45</string>
+    <string name="wizard_interface_usb">USB / Point d\'accès</string>
+    <string name="wizard_interface_simulator">Simulateur</string>
+    <string name="wizard_step_1_inst_5">Simulateur Hors-ligne: Sélectionnez l\'option Simulateur pour tester la DRO, le MDI et la trajectoire 3D sans PC LinuxCNC physique.</string>
+    <string name="manual_search_no_results">Aucune section du manuel ne correspond à "%1"</string>
 </resources>

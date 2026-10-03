@@ -587,7 +587,10 @@
     <string name="wizard_dont_show_again">다시 자동으로 표시하지 않음</string>
     <string name="manual_sec12_title">12. LinuxCNC 연결 마법사 및 링크 (linuxcncrsh)</string>
     <string name="manual_sec12_summary">TCP 소켓 통신, machine.ini 구성, 방화벽 규칙 및 인증 핸드셰이크 안내.</string>
-    <string name="manual_sec12_content" formatted="false">Android 태블릿/휴대폰과 CNC 간 산업용 원격 통신은 linuxcncrsh 서버를 통해 이루어집니다:\n\n• 네트워크 인터페이스: 작업장 Wi-Fi LAN, 유선 이더넷 (USB-C-RJ45 어댑터) 또는 직접 핫스팟/테더링을 지원합니다.\n• machine.ini 구성:\n  – [APPLICATIONS] 섹션에 다음 지시문을 포함해야 합니다:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -w 플래그는 쓰기 권한 (축 이동, 모드 변경, 주축 제어)을 활성화합니다.\n  – -p 5007 플래그는 표준 TCP 포트를 지정합니다.\n• Linux 방화벽 규칙:\n  – Linux에서 다음 명령으로 포트를 엽니다: sudo ufw allow 5007/tcp\n  – 다음 명령으로 데몬의 수신 대기 상태를 확인합니다: ss -tulpn | grep 5007\n• 핸드셰이크 프로토콜:\n  – 초기 인사: \'hello EMC LinuxCncDroid 1.0\'\n  – 키 인증: \'set enable password\'\n  – X/Y/Z/A 위치, E-Stop 상태 및 오류를 실시간으로 지속 모니터링합니다.</string>
+    <string name="manual_sec12_content" formatted="false">Android 태블릿/휴대폰과 CNC 간 산업용 원격 통신은 linuxcncrsh 서버를 통해 이루어집니다:\n\n• 네트워크 인터페이스: 작업장 Wi-Fi LAN, 유선 이더넷 (USB-C-RJ45 어댑터) 또는 직접 핫스팟/테더링을 지원합니다.\n• machine.ini 구성:\n  – [APPLICATIONS] 섹션에 다음 지시문을 포함해야 합니다:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -w 플래그는 쓰기 권한 (축 이동, 모드 변경, 주축 제어)을 활성화합니다.\n  – -p 5007 플래그는 표준 TCP 포트를 지정합니다.\n• Linux 방화벽 규칙:\n  – Linux에서 다음 명령으로 포트를 엽니다: sudo ufw allow 5007/tcp\n  – 다음 명령으로 데몬의 수신 대기 상태를 확인합니다: ss -tulpn | grep 5007\n• 핸드셰이크 프로토콜:\n  – 초기 인사: \'hello EMC LinuxCncDroid 1.0\'\n  – 키 인증: \'set enable password\'\n  – X/Y/Z/A 위치, E-Stop 상태 및 오류를 실시간으로 지속 모니터링합니다.
+
+• 오프라인 가상 시뮬레이터:
+  – 실제 기계나 네트워크 연결 없이 코드 드라이런, DRO 검증 및 3D 시각화를 수행할 수 있는 독립형 가상 CNC 컨트롤러.</string>
     <string-array name="manual_sec12_sop">
         <item>1. 상단 바의 라우터 아이콘 또는 CONFIG에서 연결 마법사를 시작합니다.</item>
         <item>2. Android와 LinuxCNC가 동일한 IP 서브넷 (예: 192.168.1.X)에 있는지 확인합니다.</item>
@@ -842,4 +845,10 @@
     <string name="wizard_sim_banner_desc">가상 샌드박스가 선택되었습니다. 실제 기계 없이 DRO, MDI, 3D 미리보기 및 공구 마모를 테스트할 수 있습니다.</string>
     <string name="common_apply">적용</string>
     <string name="common_reconnect">다시 연결</string>
+    <string name="wizard_interface_wifi">Wi-Fi LAN</string>
+    <string name="wizard_interface_ethernet">이더넷 RJ45</string>
+    <string name="wizard_interface_usb">USB / 핫스팟</string>
+    <string name="wizard_interface_simulator">시뮬레이터</string>
+    <string name="wizard_step_1_inst_5">오프라인 시뮬레이터: 실제 LinuxCNC PC 없이 DRO, MDI 및 3D 툴패스를 테스트하려면 시뮬레이터를 선택하세요.</string>
+    <string name="manual_search_no_results">"%1"와(과) 일치하는 설명서 항목이 없습니다</string>
 </resources>

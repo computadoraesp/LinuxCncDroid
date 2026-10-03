@@ -109,7 +109,8 @@ fun ConnectionWizardDialog(
                     stringResource(R.string.wizard_step_1_inst_1),
                     stringResource(R.string.wizard_step_1_inst_2),
                     stringResource(R.string.wizard_step_1_inst_3),
-                    stringResource(R.string.wizard_step_1_inst_4)
+                    stringResource(R.string.wizard_step_1_inst_4),
+                    stringResource(R.string.wizard_step_1_inst_5)
                 ),
                 codeSnippet = stringResource(R.string.wizard_step_1_code_snippet),
                 isCrucial = true
@@ -346,28 +347,28 @@ fun ConnectionWizardDialog(
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             InterfacePill(
-                                title = "Wi-Fi LAN",
+                                title = stringResource(R.string.wizard_interface_wifi),
                                 icon = Icons.Default.Wifi,
                                 isSelected = detectedInterface == InterfaceType.WIFI_LAN,
                                 onClick = { detectedInterface = InterfaceType.WIFI_LAN },
                                 modifier = Modifier.weight(1f)
                             )
                             InterfacePill(
-                                title = "Ethernet RJ45",
+                                title = stringResource(R.string.wizard_interface_ethernet),
                                 icon = Icons.Default.Lan,
                                 isSelected = detectedInterface == InterfaceType.ETHERNET_DIRECT,
                                 onClick = { detectedInterface = InterfaceType.ETHERNET_DIRECT },
                                 modifier = Modifier.weight(1f)
                             )
                             InterfacePill(
-                                title = "USB / Hotspot",
+                                title = stringResource(R.string.wizard_interface_usb),
                                 icon = Icons.Default.Usb,
                                 isSelected = detectedInterface == InterfaceType.USB_HOTSPOT,
                                 onClick = { detectedInterface = InterfaceType.USB_HOTSPOT },
                                 modifier = Modifier.weight(1f)
                             )
                             InterfacePill(
-                                title = "Simulator",
+                                title = stringResource(R.string.wizard_interface_simulator),
                                 icon = Icons.Default.Terminal,
                                 isSelected = detectedInterface == InterfaceType.OFFLINE_SIMULATOR,
                                 onClick = { detectedInterface = InterfaceType.OFFLINE_SIMULATOR },

@@ -557,7 +557,10 @@
     <string name="wizard_dont_show_again">不再自动显示</string>
     <string name="manual_sec12_title">12. LinuxCNC 连接与通信向导（linuxcncrsh）</string>
     <string name="manual_sec12_summary">TCP 套接字通信、machine.ini 配置、防火墙规则和身份验证握手指南。</string>
-    <string name="manual_sec12_content">Android 平板电脑/手机与 CNC 之间的工业远程通信通过 linuxcncrsh 服务器进行：\n\n• 网络接口：支持车间 Wi-Fi LAN、有线以太网（USB-C 转 RJ45 适配器）或直接热点/网络共享。\n• machine.ini 配置：\n  – 必须在 [APPLICATIONS] 区段中添加以下指令：\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -w 标志启用写入权限（轴移动、模式切换和主轴控制）。\n  – -p 5007 标志设定标准 TCP 端口。\n• LINUX 防火墙规则：\n  – 在 Linux 中使用 sudo ufw allow 5007/tcp 开放端口。\n  – 使用 ss -tulpn | grep 5007 检查守护进程是否正在监听。\n• 握手协议：\n  – 初始问候：\'hello EMC LinuxCncDroid 1.0\'\n  – 密码验证：\'set enable password\'\n  – 持续实时监控 X/Y/Z/A 位置、急停状态和错误。</string>
+    <string name="manual_sec12_content">Android 平板电脑/手机与 CNC 之间的工业远程通信通过 linuxcncrsh 服务器进行：\n\n• 网络接口：支持车间 Wi-Fi LAN、有线以太网（USB-C 转 RJ45 适配器）或直接热点/网络共享。\n• machine.ini 配置：\n  – 必须在 [APPLICATIONS] 区段中添加以下指令：\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -w 标志启用写入权限（轴移动、模式切换和主轴控制）。\n  – -p 5007 标志设定标准 TCP 端口。\n• LINUX 防火墙规则：\n  – 在 Linux 中使用 sudo ufw allow 5007/tcp 开放端口。\n  – 使用 ss -tulpn | grep 5007 检查守护进程是否正在监听。\n• 握手协议：\n  – 初始问候：\'hello EMC LinuxCncDroid 1.0\'\n  – 密码验证：\'set enable password\'\n  – 持续实时监控 X/Y/Z/A 位置、急停状态和错误。
+
+• 离线虚拟模拟器：
+  – 独立的虚拟 CNC 控制器，无需物理机床或网络连接即可进行代码空运行、DRO 校验和 3D 可视化测试。</string>
     <string-array name="manual_sec12_sop">
         <item>1. 按顶部栏或 CONFIG 中的路由器图标，启动连接向导。</item>
         <item>2. 确认 Android 设备与 LinuxCNC 位于同一 IP 子网（例如 192.168.1.X）。</item>
@@ -842,4 +845,10 @@
     <string name="wizard_sim_banner_desc">已选择虚拟沙箱。无需物理机床即可测试DRO、MDI、3D预览和刀具磨损。</string>
     <string name="common_apply">应用</string>
     <string name="common_reconnect">重新连接</string>
+    <string name="wizard_interface_wifi">Wi-Fi 局域网</string>
+    <string name="wizard_interface_ethernet">以太网 RJ45</string>
+    <string name="wizard_interface_usb">USB / 热点</string>
+    <string name="wizard_interface_simulator">模拟器</string>
+    <string name="wizard_step_1_inst_5">离线模拟器：选择模拟器选项，无需物理 LinuxCNC 电脑即可测试 DRO、MDI 和 3D 刀路可视化。</string>
+    <string name="manual_search_no_results">未找到与 "%1" 匹配的说明书章节</string>
 </resources>

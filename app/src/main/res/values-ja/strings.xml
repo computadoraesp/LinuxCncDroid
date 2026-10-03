@@ -625,7 +625,10 @@
     <string name="wizard_dont_show_again">次回から自動表示しない</string>
     <string name="manual_sec12_title">12. LinuxCNC接続・リンクアシスタント（linuxcncrsh）</string>
     <string name="manual_sec12_summary">TCPソケット通信、machine.iniの設定、ファイアウォール規則、認証ハンドシェイクのガイド。</string>
-    <string name="manual_sec12_content">Androidタブレット／スマートフォンとCNC間の産業用リモート通信は、linuxcncrshサーバーを介して行われます:\n\n• ネットワーク接続: 工場内Wi-Fi LAN、有線Ethernet（USB-C - RJ45アダプター）、または直接接続のホットスポット／テザリングに対応します。\n• machine.iniの設定:\n  – [APPLICATIONS]セクションに次のディレクティブを追加します:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -wフラグは書き込み権限（軸移動、モード切り替え、主軸制御）を有効にします。\n  – -p 5007フラグは標準TCPポートを指定します。\n• Linuxファイアウォール規則:\n  – Linuxで次を実行してポートを開きます: sudo ufw allow 5007/tcp\n  – デーモンの待ち受けを確認します: ss -tulpn | grep 5007\n• ハンドシェイクプロトコル:\n  – 初期メッセージ: \'hello EMC LinuxCncDroid 1.0\'\n  – パスワード認証: \'set enable password\'\n  – X/Y/Z/A位置、E-Stop状態、エラーを継続的に監視します。</string>
+    <string name="manual_sec12_content">Androidタブレット／スマートフォンとCNC間の産業用リモート通信は、linuxcncrshサーバーを介して行われます:\n\n• ネットワーク接続: 工場内Wi-Fi LAN、有線Ethernet（USB-C - RJ45アダプター）、または直接接続のホットスポット／テザリングに対応します。\n• machine.iniの設定:\n  – [APPLICATIONS]セクションに次のディレクティブを追加します:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – -wフラグは書き込み権限（軸移動、モード切り替え、主軸制御）を有効にします。\n  – -p 5007フラグは標準TCPポートを指定します。\n• Linuxファイアウォール規則:\n  – Linuxで次を実行してポートを開きます: sudo ufw allow 5007/tcp\n  – デーモンの待ち受けを確認します: ss -tulpn | grep 5007\n• ハンドシェイクプロトコル:\n  – 初期メッセージ: \'hello EMC LinuxCncDroid 1.0\'\n  – パスワード認証: \'set enable password\'\n  – X/Y/Z/A位置、E-Stop状態、エラーを継続的に監視します。
+
+• オフライン仮想シミュレータ:
+  – 実機やネットワーク接続なしでコードのドライラン、DRO検証、3D可視化を行える独立型仮想CNCコントローラ。</string>
     <string-array name="manual_sec12_sop">
         <item>1. 上部バーのルーターアイコン、またはCONFIGをタップして接続ウィザードを開きます。</item>
         <item>2. Android端末とLinuxCNCが同じIPサブネット（例: 192.168.1.X）にあることを確認します。</item>
@@ -842,4 +845,10 @@
     <string name="wizard_sim_banner_desc">仮想サンドボックスを選択しました。実機なしでDRO、MDI、3Dプレビュー、工具摩耗をテストできます。</string>
     <string name="common_apply">適用</string>
     <string name="common_reconnect">再接続</string>
+    <string name="wizard_interface_wifi">Wi-Fi LAN</string>
+    <string name="wizard_interface_ethernet">有線LAN (RJ45)</string>
+    <string name="wizard_interface_usb">USB / テザリング</string>
+    <string name="wizard_interface_simulator">シミュレータ</string>
+    <string name="wizard_step_1_inst_5">オフラインシミュレータ: 実機のLinuxCNC PCなしでDRO、MDI、3Dプレビューをテストするにはシミュレータを選択してください。</string>
+    <string name="manual_search_no_results">「%1」に一致するマニュアル項目は見つかりませんでした</string>
 </resources>

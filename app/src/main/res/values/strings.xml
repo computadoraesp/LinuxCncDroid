@@ -529,7 +529,10 @@
     <string name="wizard_dont_show_again">Do not show automatically again</string>
     <string name="manual_sec12_title">12. LinuxCNC Connection Wizard &amp; Link (linuxcncrsh)</string>
     <string name="manual_sec12_summary">TCP socket communication guide: machine.ini configuration, firewall rules, and authentication handshake.</string>
-    <string name="manual_sec12_content">Industrial remote communication between the Android tablet/phone and the CNC runs through the linuxcncrsh server:\n\n• NETWORK INTERFACE: Supports workshop Wi-Fi LAN, wired Ethernet (USB-C to RJ45 adapter) or direct Hotspot/Tethering.\n• machine.ini CONFIGURATION:\n  – The [APPLICATIONS] section must include the directive:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – The -w flag enables write permissions (axis motion, mode changes, spindle control).\n  – The -p 5007 flag defines the standard TCP port.\n• LINUX FIREWALL RULES:\n  – Open the port on Linux with: sudo ufw allow 5007/tcp\n  – Verify that the daemon is listening with: ss -tulpn | grep 5007\n• HANDSHAKE PROTOCOL:\n  – Initial greeting: \'hello EMC LinuxCncDroid 1.0\'\n  – Password authentication: \'set enable password\'\n  – Continuous real-time monitoring of X/Y/Z/A positions, E-Stop states and faults.</string>
+    <string name="manual_sec12_content">Industrial remote communication between the Android tablet/phone and the CNC runs through the linuxcncrsh server:\n\n• NETWORK INTERFACE: Supports workshop Wi-Fi LAN, wired Ethernet (USB-C to RJ45 adapter) or direct Hotspot/Tethering.\n• machine.ini CONFIGURATION:\n  – The [APPLICATIONS] section must include the directive:\n    APP = linuxcncrsh — -w -p 5007 -d\n  – The -w flag enables write permissions (axis motion, mode changes, spindle control).\n  – The -p 5007 flag defines the standard TCP port.\n• LINUX FIREWALL RULES:\n  – Open the port on Linux with: sudo ufw allow 5007/tcp\n  – Verify that the daemon is listening with: ss -tulpn | grep 5007\n• HANDSHAKE PROTOCOL:\n  – Initial greeting: \'hello EMC LinuxCncDroid 1.0\'\n  – Password authentication: \'set enable password\'\n  – Continuous real-time monitoring of X/Y/Z/A positions, E-Stop states and faults.
+
+• OFFLINE VIRTUAL SIMULATOR:
+  – Standalone virtual CNC controller for code dry-runs, DRO verification, and 3D visualizer testing without requiring a physical machine or network connection.</string>
     <string-array name="manual_sec12_sop">
         <item>1. Tap the router icon in the top bar or in CONFIG to start the Connection Wizard.</item>
         <item>2. Verify that Android and LinuxCNC are on the same IP subnet (e.g. 192.168.1.X).</item>
@@ -848,4 +851,10 @@
     <string name="wizard_sim_banner_desc">Virtual sandbox selected. Test DRO, MDI, G-code 3D preview and tool wear without physical machine.</string>
     <string name="common_apply">APPLY</string>
     <string name="common_reconnect">RECONNECT</string>
+    <string name="wizard_interface_wifi">Wi-Fi LAN</string>
+    <string name="wizard_interface_ethernet">Ethernet RJ45</string>
+    <string name="wizard_interface_usb">USB / Hotspot</string>
+    <string name="wizard_interface_simulator">Simulator</string>
+    <string name="wizard_step_1_inst_5">Offline Simulator: Select the Simulator pill to test DRO, MDI, and toolpath visualizer without any physical LinuxCNC PC.</string>
+    <string name="manual_search_no_results">No documentation sections found matching "%1"</string>
 </resources>
