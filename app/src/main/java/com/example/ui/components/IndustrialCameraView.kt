@@ -1153,7 +1153,7 @@ fun IndustrialCameraView(
                             contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
                             modifier = Modifier.height(24.dp)
                         ) {
-                            Text(stringResource(R.string.camera_zero_x), fontSize = 7.5.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.wcs_zero_axis, "X"), fontSize = 7.5.sp, fontWeight = FontWeight.Bold)
                         }
 
                         OutlinedButton(
@@ -1165,7 +1165,7 @@ fun IndustrialCameraView(
                             contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
                             modifier = Modifier.height(24.dp)
                         ) {
-                            Text(stringResource(R.string.camera_zero_y), fontSize = 7.5.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.wcs_zero_axis, "Y"), fontSize = 7.5.sp, fontWeight = FontWeight.Bold)
                         }
 
                         if (onZeroWithOffset != null) {

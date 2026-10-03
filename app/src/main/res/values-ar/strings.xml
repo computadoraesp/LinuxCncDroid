@@ -112,8 +112,6 @@
     <string name="mpg_axis_select">اختر المحور</string>
     <string name="mpg_step_pos">+ خطوة</string>
     <string name="mpg_step_neg">− خطوة</string>
-    <string name="jog_z_axis">المحور Z</string>
-    <string name="jog_a_axis">المحور A</string>
     <string name="jog_style_mode_style">الوضع: %1$s | النمط: %2$s</string>
     <string name="spindle_actual_rpm">السرعة الفعلية</string>
     <string name="feed_override">تجاوز التغذية</string>
@@ -195,7 +193,6 @@
     <string name="logs_simulate_alarm">محاكاة إنذار</string>
     <string name="logs_filter_all">الكل</string>
     <string name="logs_filter_errors">الأخطاء</string>
-    <string name="logs_filter_security">الأمن</string>
     <string name="logs_filter_warnings">التحذيرات</string>
     <string name="logs_no_entries">لم يتم تسجيل أي سجلات أحداث للمرشح \'%s\'</string>
     <string name="config_title">تجريد العتاد وملفات التعريف</string>
@@ -252,18 +249,14 @@
     <string name="camera_telemetry_info">WCS: %1$s | زووم: %2$.1fx | مقياس: %3$d مم</string>
     <string name="camera_recentre_btn">إعادة تمركز الشبكة</string>
     <string name="camera_micro_alignment_label">المحاذاة الدقيقة البصرية:</string>
-    <string name="camera_zero_x">تصفر X</string>
-    <string name="camera_zero_y">تصفير Y</string>
     <string name="calc_header">حاسبة السرعات والتغذية</string>
     <string name="calc_material_header">مادة القطعة المستهدفة</string>
-    <string name="calc_diameter_label">القطر (مم)</string>
     <string name="calc_flutes_label">عدد الشفرات (Z)</string>
     <string name="calc_spindle_speed">سرعة المغزل</string>
     <string name="calc_feedrate">سرعة التغذية (F)</string>
     <string name="calc_depth_ap">العمق (Ap): %s مم</string>
     <string name="calc_stepover_ae">الخطوة (Ae): %s مم</string>
     <string name="calc_power">الطاقة: %s كيلوواط</string>
-    <string name="calc_apply_btn">تطبيق على CNC</string>
     <string name="sl_header">الأمن السيبراني لـ G-CODE وتحميل الملفات</string>
     <string name="sl_presets_header">نماذج نصوص G-CODE</string>
     <string name="sl_analysis_header">نتائج الفحص الأمني</string>
@@ -604,13 +597,9 @@
     <string name="soft_limits_danger_desc">سيتم تجاوز الحدود الفيزيائية أثناء التنفيذ! زر بدء الدورة مقفل لأسباب السلامة.</string>
     <string name="soft_limits_violations_detected">تم اكتشاف تجاوزات للحركة</string>
     <string name="soft_limits_bounding_box_title">صندوق حدود البرنامج (العمل مقابل غلاف الآلة)</string>
-    <string name="soft_limits_axis_x">محور X</string>
-    <string name="soft_limits_axis_y">محور Y</string>
-    <string name="soft_limits_axis_z">محور Z</string>
     <string name="soft_limits_traj_length">الطول التقديري لمسار الأداة:</string>
     <string name="soft_limits_adjust_wcs">ضبط إزاحة WCS</string>
     <string name="soft_limits_override_start">تجاوز &amp; بدء</string>
-    <string name="soft_limits_cycle_start">بدء الدورة</string>
     <string name="rfl_select_block">اختر كتلة الاستئناف:</string>
     <string name="rfl_no_program">لا يوجد برنامج G-Code محمّل</string>
     <string name="rfl_resume_here">استئناف هنا</string>
@@ -628,7 +617,6 @@
     <string name="status_screen_on_short">الشاشة تعمل</string>
     <string name="status_screen_timeout_short">انتهاء الوقت</string>
     <string name="net_retry_format">إعادة المحاولة %ds</string>
-    <string name="net_reconnect">إعادة الاتصال</string>
     <string name="net_weak">ضعيف</string>
     <string name="conn_status_connected">متصل (%d مللي ثانية)</string>
     <string name="conn_status_disconnected">غير متصل</string>
@@ -737,7 +725,6 @@
     <string name="ini_axis_limit_fmt">الحد: [%1$d مم .. %2$d مم] (Δ %3$d مم)</string>
     <string name="manual_category_calibration">المعايرة</string>
     <string name="manual_category_operation">التشغيل</string>
-    <string name="manual_category_probing">الفحص بالمسبار</string>
     <string name="manual_category_diagnostics">التشخيص</string>
     <string name="manual_category_vision_metrology">الرؤية والقياس</string>
     <string name="manual_category_simulation_testing">المحاكاة والاختبار</string>
@@ -803,7 +790,6 @@
     <string name="alarm_weak_signal_msg">تم رصد زمن استجابة مرتفع (%1$d ms) أو إشارة ضعيفة. قد يحدث تذبذب في القياسات عن بُعد أو فقدان للإطارات.</string>
     <string name="alarm_reconnecting_title">انقطع الاتصال بـ LinuxCNC</string>
     <string name="alarm_reconnecting_msg">إعادة الاتصال تلقائيًا خلال %1$d ثانية (المحاولة رقم %2$d)…</string>
-    <string name="alarm_reconnect_now_btn">إعادة الاتصال الآن</string>
     <string name="alarm_dismiss_btn">تجاهل</string>
     <string name="alarm_pause_cycle_btn">إيقاف التغذية مؤقتًا (FEED HOLD)</string>
     <string name="status_screen_always_on">قفل إبقاء الشاشة نشطة</string>
@@ -857,7 +843,6 @@
     <string name="tool_table_import_confirm">استيراد وتطبيق</string>
     <string name="ini_editor_title">إعدادات LINUXCNC (machine.ini)</string>
     <string name="ini_editor_desc">افحص الحدود البرمجية والتسارعات والخطوات وحركيات LinuxCNC وعدّلها.</string>
-    <string name="ini_apply_btn">تطبيق الحدود على وحدة التحكم</string>
     <string name="ini_reset_default_btn">استعادة ملف INI نموذجي</string>
     <string name="ini_copy_btn">نسخ INI</string>
     <string name="ini_tab_summary">ملخص الآلة</string>
@@ -886,7 +871,6 @@
     <string name="ini_units_fmt">الوحدات: %1$s</string>
     <string name="ini_steps_scale_fmt">المقياس: %1$s خطوة/مم</string>
     <string name="ini_axis_label_fmt">المحور %1$s</string>
-    <string name="manual_category_security">الأمان</string>
     <string name="manual_category_jog">JOG</string>
     <string name="manual_category_tools">الأدوات</string>
     <string name="manual_category_fail_safe">أمان الأعطال</string>
@@ -911,7 +895,6 @@
     <string name="tool_wear_diameter_label">تآكل القطر (ΔD مم)</string>
     <string name="tool_table_copied_msg">تم نسخ tool.tbl إلى الحافظة!</string>
     <string name="tool_table_imported_msg">تم استيراد %1$d أداة بنجاح!</string>
-    <string name="wizard_badge_critical">حرج</string>
     <string name="calib_nominal_btn">= القيمة الاسمية</string>
     <string name="rfl_safety_automation">الأتمتة الآمنة: يتراجع المحور Z إلى +10.0 مم للخلوص -&gt; يعاد تشغيل المغزل بالسرعة المحددة -&gt; تصبح المسار جاهزاً.</string>
     <string name="soft_axis_overtravel_fmt">تجاوز حدود المحور %1$s</string>
@@ -935,4 +918,6 @@
     <string name="cam_label_corner_radius">نصف قطر الزاوية R (مم)</string>
     <string name="wizard_sim_banner_title">وضع المحاكي غير المتصل نشط</string>
     <string name="wizard_sim_banner_desc">تم اختيار بيئة المحاكاة الافتراضية. يمكنك اختبار العرض الرقمي وMDI والمعاينة ثلاثية الأبعاد دون آلة فعلية.</string>
+    <string name="common_apply">تطبيق</string>
+    <string name="common_reconnect">إعادة الاتصال</string>
 </resources>

@@ -112,8 +112,6 @@
     <string name="mpg_axis_select">CHOISIR AXE</string>
     <string name="mpg_step_pos">+ PAS</string>
     <string name="mpg_step_neg">− PAS</string>
-    <string name="jog_z_axis">AXE Z</string>
-    <string name="jog_a_axis">AXE A</string>
     <string name="jog_style_mode_style">MODE: %1$s | STYLE : %2$s</string>
     <string name="spindle_actual_rpm">RPM RÉEL</string>
     <string name="feed_override">OVERRIDE AVANCE</string>
@@ -195,7 +193,6 @@
     <string name="logs_simulate_alarm">SIMULER ALARME</string>
     <string name="logs_filter_all">TOUS</string>
     <string name="logs_filter_errors">ERREURS</string>
-    <string name="logs_filter_security">SÉCURITÉ</string>
     <string name="logs_filter_warnings">AVERTISSEMENTS</string>
     <string name="logs_no_entries">Aucun journal d\'événements enregistrés pour le filtre \'%s\'</string>
     <string name="config_title">CONFIGURATION MATÉRIELLE</string>
@@ -252,18 +249,14 @@
     <string name="camera_telemetry_info">WCS: %1$s | ZOOM: %2$.1fx | ÉCHELLE: %3$dmm</string>
     <string name="camera_recentre_btn">RECENTRER RÉTICULE</string>
     <string name="camera_micro_alignment_label">MICRO-ALIGNEMENT OPTIQUE:</string>
-    <string name="camera_zero_x">ZÉRO X</string>
-    <string name="camera_zero_y">ZÉRO Y</string>
     <string name="calc_header">CALCULATEUR DE COUPE</string>
     <string name="calc_material_header">MATÉRIAU PIÈCE</string>
-    <string name="calc_diameter_label">DIAMÈTRE (mm)</string>
     <string name="calc_flutes_label">DENTS (Z)</string>
     <string name="calc_spindle_speed">VITESSE BROCHE</string>
     <string name="calc_feedrate">AVANCE (F)</string>
     <string name="calc_depth_ap">Prof. (Ap): %s mm</string>
     <string name="calc_stepover_ae">Pas (Ae): %s mm</string>
     <string name="calc_power">Puissance: %s kW</string>
-    <string name="calc_apply_btn">APPLIQUER AU CNC</string>
     <string name="sl_header">CYBERSÉCURITÉ G-CODE &amp; CHARGEMENT</string>
     <string name="sl_presets_header">SCRIPTS G-CODE EXEMPLES</string>
     <string name="sl_analysis_header">RÉSULTATS DE SÉCURITÉ</string>
@@ -458,7 +451,6 @@
     <string name="alarm_weak_signal_msg">Latence élevée (%1$d ms) ou signal faible détecté. Risque de gigue de télémétrie ou de perte de trames.</string>
     <string name="alarm_reconnecting_title">DÉCONNECTÉ DE LINUXCNC</string>
     <string name="alarm_reconnecting_msg">Reconnexion automatique dans %1$d s (tentative n° %2$d)…</string>
-    <string name="alarm_reconnect_now_btn">SE RECONNECTER</string>
     <string name="alarm_dismiss_btn">IGNORER</string>
     <string name="alarm_pause_cycle_btn">ARRÊT AVANCE (PAUSE)</string>
     <string name="status_screen_always_on">VERROUILLAGE DE VEILLE ACTIF</string>
@@ -512,7 +504,6 @@
     <string name="tool_table_import_confirm">IMPORTER ET APPLIQUER</string>
     <string name="ini_editor_title">CONFIGURATION LINUXCNC (machine.ini)</string>
     <string name="ini_editor_desc">Inspectez et modifiez les limites logicielles, les accélérations, les pas et la cinématique LinuxCNC.</string>
-    <string name="ini_apply_btn">APPLIQUER LES LIMITES AU CONTRÔLEUR</string>
     <string name="ini_reset_default_btn">RÉTABLIR L’INI D’EXEMPLE</string>
     <string name="ini_copy_btn">COPIER L’INI</string>
     <string name="ini_tab_summary">RÉSUMÉ DE LA MACHINE</string>
@@ -656,13 +647,9 @@
     <string name="soft_limits_danger_desc">Les limites physiques seront dépassées pendant l’exécution ! Le départ du cycle est verrouillé par sécurité.</string>
     <string name="soft_limits_violations_detected">DÉPASSEMENTS DE COURSE DÉTECTÉS</string>
     <string name="soft_limits_bounding_box_title">BOÎTE ENGLOBANTE DU PROGRAMME (PIÈCE / ENVELOPPE MACHINE)</string>
-    <string name="soft_limits_axis_x">Axe X</string>
-    <string name="soft_limits_axis_y">Axe Y</string>
-    <string name="soft_limits_axis_z">Axe Z</string>
     <string name="soft_limits_traj_length">Longueur estimée de la trajectoire :</string>
     <string name="soft_limits_adjust_wcs">Ajuster le décalage WCS</string>
     <string name="soft_limits_override_start">Forcer et démarrer</string>
-    <string name="soft_limits_cycle_start">Départ cycle</string>
     <string name="rfl_select_block">SÉLECTIONNER LE BLOC DE REPRISE :</string>
     <string name="rfl_no_program">Aucun programme G-Code chargé</string>
     <string name="rfl_resume_here">REPRENDRE ICI</string>
@@ -680,7 +667,6 @@
     <string name="status_screen_on_short">ÉCRAN ACTIF</string>
     <string name="status_screen_timeout_short">VEILLE</string>
     <string name="net_retry_format">NOUVEL ESSAI %ds</string>
-    <string name="net_reconnect">RECONNECTER</string>
     <string name="net_weak">FAIBLE</string>
     <string name="conn_status_connected">CONNECTÉ (%d ms)</string>
     <string name="conn_status_disconnected">DÉCONNECTÉ</string>
@@ -789,7 +775,6 @@
     <string name="ini_axis_limit_fmt">Limite : [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
     <string name="manual_category_calibration">CALIBRAGE</string>
     <string name="manual_category_operation">OPÉRATION</string>
-    <string name="manual_category_probing">PALPAGE</string>
     <string name="manual_category_diagnostics">DIAGNOSTIC</string>
     <string name="manual_category_vision_metrology">VISION &amp; MÉTROLOGIE</string>
     <string name="manual_category_simulation_testing">SIMULATION &amp; ESSAIS</string>
@@ -815,7 +800,6 @@
     <string name="ini_units_fmt">Unités : %1$s</string>
     <string name="ini_steps_scale_fmt">Échelle : %1$s pas/mm</string>
     <string name="ini_axis_label_fmt">AXE %1$s</string>
-    <string name="manual_category_security">SÉCURITÉ</string>
     <string name="manual_category_jog">JOG</string>
     <string name="manual_category_tools">OUTILS</string>
     <string name="manual_category_fail_safe">SÉCURITÉ INTÉGRÉE</string>
@@ -840,7 +824,6 @@
     <string name="tool_wear_diameter_label">Usure en diamètre (ΔD mm)</string>
     <string name="tool_table_copied_msg">tool.tbl copié dans le presse-papiers !</string>
     <string name="tool_table_imported_msg">%1$d outils importés avec succès !</string>
-    <string name="wizard_badge_critical">CRITIQUE</string>
     <string name="calib_nominal_btn">= Nominal</string>
     <string name="rfl_safety_automation">AUTOMATISATION SÉCURITÉ : Z se rétracte à +10,0 mm -&gt; Broche redémarre aux RPM commandés -&gt; Trajectoire armée.</string>
     <string name="soft_axis_overtravel_fmt">Dépassement de course Axe %1$s</string>
@@ -864,4 +847,6 @@
     <string name="cam_label_corner_radius">Rayon d\'angle R (mm)</string>
     <string name="wizard_sim_banner_title">Simulateur Hors-ligne Actif</string>
     <string name="wizard_sim_banner_desc">Environnement virtuel sélectionné. Testez la DRO, le MDI, la prévisualisation 3D et les outils sans machine physique.</string>
+    <string name="common_apply">APPLIQUER</string>
+    <string name="common_reconnect">RECONNECTER</string>
 </resources>

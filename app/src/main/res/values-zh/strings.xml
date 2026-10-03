@@ -112,8 +112,6 @@
     <string name="mpg_axis_select">选择轴</string>
     <string name="mpg_step_pos">+ 进给</string>
     <string name="mpg_step_neg">− 进给</string>
-    <string name="jog_z_axis">Z 轴</string>
-    <string name="jog_a_axis">A 轴</string>
     <string name="jog_style_mode_style">模式: %1$s | 样式: %2$s</string>
     <string name="spindle_actual_rpm">实际转速</string>
     <string name="feed_override">进给倍率</string>
@@ -195,7 +193,6 @@
     <string name="logs_simulate_alarm">模拟故障</string>
     <string name="logs_filter_all">全部</string>
     <string name="logs_filter_errors">错误</string>
-    <string name="logs_filter_security">安全</string>
     <string name="logs_filter_warnings">警告</string>
     <string name="logs_no_entries">没有找到过滤器 \'%s\' 的事件日志</string>
     <string name="config_title">硬件配置</string>
@@ -252,18 +249,14 @@
     <string name="camera_telemetry_info">WCS: %1$s | 缩放: %2$.1fx | 刻度: %3$dmm</string>
     <string name="camera_recentre_btn">重置标线</string>
     <string name="camera_micro_alignment_label">光学微调:</string>
-    <string name="camera_zero_x">X 清零</string>
-    <string name="camera_zero_y">Y 清零</string>
     <string name="calc_header">切削参数计算器</string>
     <string name="calc_material_header">加工材料</string>
-    <string name="calc_diameter_label">直径 (mm)</string>
     <string name="calc_flutes_label">刃数 (Z)</string>
     <string name="calc_spindle_speed">主轴转速</string>
     <string name="calc_feedrate">进给率 (F)</string>
     <string name="calc_depth_ap">切深 (Ap): %s mm</string>
     <string name="calc_stepover_ae">步距 (Ae): %s mm</string>
     <string name="calc_power">功率: %s kW</string>
-    <string name="calc_apply_btn">应用至 CNC</string>
     <string name="sl_header">G 代码安全加载器</string>
     <string name="sl_presets_header">示例脚本</string>
     <string name="sl_analysis_header">安全性发现</string>
@@ -420,7 +413,6 @@
     <string name="ini_axis_limit_fmt">限位：[%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
     <string name="manual_category_calibration">校准</string>
     <string name="manual_category_operation">操作</string>
-    <string name="manual_category_probing">测头探测</string>
     <string name="manual_category_diagnostics">诊断</string>
     <string name="manual_category_vision_metrology">视觉与计量</string>
     <string name="manual_category_simulation_testing">仿真与测试</string>
@@ -486,7 +478,6 @@
     <string name="alarm_weak_signal_msg">检测到高延迟（%1$d ms）或信号弱，可能导致遥测抖动或丢帧。</string>
     <string name="alarm_reconnecting_title">与 LinuxCNC 的连接已断开</string>
     <string name="alarm_reconnecting_msg">将在 %1$d 秒后自动重连（第 %2$d 次尝试）…</string>
-    <string name="alarm_reconnect_now_btn">立即重连</string>
     <string name="alarm_dismiss_btn">忽略</string>
     <string name="alarm_pause_cycle_btn">进给暂停</string>
     <string name="status_screen_always_on">屏幕唤醒锁已启用</string>
@@ -540,7 +531,6 @@
     <string name="tool_table_import_confirm">导入并应用</string>
     <string name="ini_editor_title">LINUXCNC 配置（machine.ini）</string>
     <string name="ini_editor_desc">查看并编辑软件限位、加速度、步数和 LinuxCNC 运动学配置。</string>
-    <string name="ini_apply_btn">将限位应用到控制器</string>
     <string name="ini_reset_default_btn">恢复示例 INI</string>
     <string name="ini_copy_btn">复制 INI</string>
     <string name="ini_tab_summary">机床摘要</string>
@@ -684,13 +674,9 @@
     <string name="soft_limits_danger_desc">执行期间将超出物理限位！循环启动已被安全锁定。</string>
     <string name="soft_limits_violations_detected">检测到超行程违规</string>
     <string name="soft_limits_bounding_box_title">程序包围盒（工件与机床行程范围）</string>
-    <string name="soft_limits_axis_x">X 轴</string>
-    <string name="soft_limits_axis_y">Y 轴</string>
-    <string name="soft_limits_axis_z">Z 轴</string>
     <string name="soft_limits_traj_length">预计刀具路径长度：</string>
     <string name="soft_limits_adjust_wcs">调整 WCS 偏移</string>
     <string name="soft_limits_override_start">覆盖限制并启动</string>
-    <string name="soft_limits_cycle_start">循环启动</string>
     <string name="rfl_select_block">选择重新启动的程序段：</string>
     <string name="rfl_no_program">未加载 G-Code 程序</string>
     <string name="rfl_resume_here">从此处继续</string>
@@ -708,7 +694,6 @@
     <string name="status_screen_on_short">屏幕常亮</string>
     <string name="status_screen_timeout_short">超时</string>
     <string name="net_retry_format">%d 秒后重试</string>
-    <string name="net_reconnect">重新连接</string>
     <string name="net_weak">信号弱</string>
     <string name="conn_status_connected">已连接（%d ms）</string>
     <string name="conn_status_disconnected">已断开连接</string>
@@ -808,7 +793,6 @@
     <string name="ini_units_fmt">单位: %1$s</string>
     <string name="ini_steps_scale_fmt">比例: %1$s 步/mm</string>
     <string name="ini_axis_label_fmt">轴 %1$s</string>
-    <string name="manual_category_security">安全</string>
     <string name="manual_category_jog">点动</string>
     <string name="manual_category_tools">刀具</string>
     <string name="manual_category_fail_safe">故障安全</string>
@@ -833,7 +817,6 @@
     <string name="tool_wear_diameter_label">直径磨损 (ΔD mm)</string>
     <string name="tool_table_copied_msg">tool.tbl 已复制到剪贴板！</string>
     <string name="tool_table_imported_msg">已成功导入 %1$d 个刀具！</string>
-    <string name="wizard_badge_critical">关键</string>
     <string name="calib_nominal_btn">= 标称</string>
     <string name="rfl_safety_automation">安全自动化：Z 轴退刀至 +10.0mm 安全高度 -&gt; 主轴以设定转速重启 -&gt; 轨迹就绪。</string>
     <string name="soft_axis_overtravel_fmt">%1$s 轴超程</string>
@@ -857,4 +840,6 @@
     <string name="cam_label_corner_radius">拐角半径 R (mm)</string>
     <string name="wizard_sim_banner_title">离线模拟器已激活</string>
     <string name="wizard_sim_banner_desc">已选择虚拟沙箱。无需物理机床即可测试DRO、MDI、3D预览和刀具磨损。</string>
+    <string name="common_apply">应用</string>
+    <string name="common_reconnect">重新连接</string>
 </resources>

@@ -468,7 +468,7 @@ fun ConnectionWizardDialog(
                                                 border = BorderStroke(0.5.dp, CncEstopRed)
                                             ) {
                                                 Text(
-                                                    text = stringResource(R.string.wizard_badge_critical),
+                                                    text = stringResource(R.string.log_crit_disp),
                                                     fontSize = 8.sp,
                                                     fontWeight = FontWeight.Black,
                                                     color = CncEstopRed,

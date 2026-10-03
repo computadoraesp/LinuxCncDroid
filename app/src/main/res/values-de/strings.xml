@@ -125,8 +125,6 @@
     <string name="mpg_axis_select">ACHSE  WÄHLEN</string>
     <string name="mpg_step_pos">+ SCHRITT</string>
     <string name="mpg_step_neg">− SCHRITT</string>
-    <string name="jog_z_axis">Z-ACHSE</string>
-    <string name="jog_a_axis">A-ACHSE</string>
     <string name="jog_style_mode_style">MODUS: %1$s | STIL: %2$s</string>
     <string name="spindle_actual_rpm">IST-DREHZAHL</string>
     <string name="feed_override">VORSCHUB OVERRIDE</string>
@@ -225,7 +223,6 @@
     <string name="logs_audit_modal_title">INDUSTRIELLER AUDIT‑ &amp; TELEMETRIEBERICHT</string>
     <string name="logs_filter_all">ALLE</string>
     <string name="logs_filter_errors">FEHLER</string>
-    <string name="logs_filter_security">SICHERHEIT</string>
     <string name="logs_filter_warnings">WARNUNGEN</string>
     <string name="logs_no_entries">Keine Ereignisprotokolle für Filter „%s“ gefunden</string>
     <string name="config_title">HARDWARE-KONFIGURATION</string>
@@ -284,18 +281,14 @@ Diese Kompensationstabelle ordnet die Fehler für jeweils 10% der Achse direkt d
     <string name="camera_telemetry_info">WCS: %1$s | ZOOM: %2$.1fx | SKALA: %3$dmm</string>
     <string name="camera_recentre_btn">FADENKREUZ ZENTRIEREN</string>
     <string name="camera_micro_alignment_label">OPTISCHE FEINAUSRICHTUNG:</string>
-    <string name="camera_zero_x">NULL X</string>
-    <string name="camera_zero_y">NULL Y</string>
     <string name="calc_header">SCHNITTDATENRECHNER</string>
     <string name="calc_material_header">WERKSTÜCKMATERIAL</string>
-    <string name="calc_diameter_label">DURCHMESSER (mm)</string>
     <string name="calc_flutes_label">ZÄHNE (Z)</string>
     <string name="calc_spindle_speed">SPINDELDREHZAHL</string>
     <string name="calc_feedrate">VORSCHUB (F)</string>
     <string name="calc_depth_ap">Tiefe (Ap): %s mm</string>
     <string name="calc_stepover_ae">Breite (Ae): %s mm</string>
     <string name="calc_power">Leistung: %s kW</string>
-    <string name="calc_apply_btn">AN CNC ÜBERNEHMEN</string>
     <string name="sl_header">G-CODE SICHERHEIT &amp; DATEI-LOADER</string>
     <string name="sl_presets_header">BEISPIEL-SCRIPTE</string>
     <string name="sl_analysis_header">SICHERHEITSANALYSE</string>
@@ -552,7 +545,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="ini_axis_limit_fmt">Grenze: [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
     <string name="manual_category_calibration">KALIBRIERUNG</string>
     <string name="manual_category_operation">BETRIEB</string>
-    <string name="manual_category_probing">TASTEN</string>
     <string name="manual_category_diagnostics">DIAGNOSE</string>
     <string name="manual_category_vision_metrology">VISION &amp; MESSTECHNIK</string>
     <string name="manual_category_simulation_testing">SIMULATION &amp; TESTS</string>
@@ -588,7 +580,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="alarm_weak_signal_msg">Hohe Latenz (%1$d ms) oder schwaches Signal erkannt. Es besteht das Risiko von Telemetrie-Jitter oder verlorenen Frames.</string>
     <string name="alarm_reconnecting_title">VERBINDUNG ZU LINUXCNC GETRENNT</string>
     <string name="alarm_reconnecting_msg">Automatische Wiederverbindung in %1$d s (Versuch Nr. %2$d)…</string>
-    <string name="alarm_reconnect_now_btn">JETZT WIEDERVERBINDEN</string>
     <string name="alarm_dismiss_btn">SCHLIESSEN</string>
     <string name="alarm_pause_cycle_btn">VORSCHUBHALT (PAUSE)</string>
     <string name="status_screen_always_on">BILDSCHIRM-AKTIVSPERRE EINGESCHALTET</string>
@@ -694,7 +685,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="tool_table_import_confirm">IMPORTIEREN UND ANWENDEN</string>
     <string name="ini_editor_title">LINUXCNC-KONFIGURATION (machine.ini)</string>
     <string name="ini_editor_desc">Prüfen und bearbeiten Sie Verfahrweggrenzen, Beschleunigungen, Schrittwerte und die LinuxCNC-Kinematik.</string>
-    <string name="ini_apply_btn">GRENZEN AUF STEUERUNG ANWENDEN</string>
     <string name="ini_reset_default_btn">BEISPIEL-INI WIEDERHERSTELLEN</string>
     <string name="ini_copy_btn">INI KOPIEREN</string>
     <string name="ini_tab_summary">MASCHINENÜBERSICHT</string>
@@ -827,13 +817,9 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="soft_limits_danger_desc">Während der Ausführung würden physische Grenzen überschritten! Der Zyklusstart ist aus Sicherheitsgründen gesperrt.</string>
     <string name="soft_limits_violations_detected">VERFAHRWEGÜBERSCHREITUNGEN ERKANNT</string>
     <string name="soft_limits_bounding_box_title">PROGRAMM-HÜLLKONTUR (WERKSTÜCK UND MASCHINENBEREICH)</string>
-    <string name="soft_limits_axis_x">X-Achse</string>
-    <string name="soft_limits_axis_y">Y-Achse</string>
-    <string name="soft_limits_axis_z">Z-Achse</string>
     <string name="soft_limits_traj_length">Geschätzte Werkzeugbahnlänge:</string>
     <string name="soft_limits_adjust_wcs">WCS-Versatz anpassen</string>
     <string name="soft_limits_override_start">Übergehen und starten</string>
-    <string name="soft_limits_cycle_start">Zyklusstart</string>
     <string name="rfl_select_block">NEUSTARTSATZ AUSWÄHLEN:</string>
     <string name="rfl_no_program">Kein G-Code-Programm geladen</string>
     <string name="rfl_resume_here">HIER FORTSETZEN</string>
@@ -851,7 +837,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="status_screen_on_short">BILDSCHIRM EIN</string>
     <string name="status_screen_timeout_short">ZEITLIMIT</string>
     <string name="net_retry_format">NEUER VERSUCH IN %ds</string>
-    <string name="net_reconnect">WIEDERVERBINDEN</string>
     <string name="net_weak">SCHWACH</string>
     <string name="conn_status_connected">VERBUNDEN (%d ms)</string>
     <string name="conn_status_disconnected">GETRENNT</string>
@@ -883,7 +868,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="ini_units_fmt">Einheiten: %1$s</string>
     <string name="ini_steps_scale_fmt">Skalierung: %1$s Schritte/mm</string>
     <string name="ini_axis_label_fmt">ACHSE %1$s</string>
-    <string name="manual_category_security">SICHERHEIT</string>
     <string name="manual_category_jog">JOG</string>
     <string name="manual_category_tools">WERKZEUGE</string>
     <string name="manual_category_fail_safe">AUSFALLSICHER</string>
@@ -908,7 +892,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="tool_wear_diameter_label">Durchmesserverschleiß (ΔD mm)</string>
     <string name="tool_table_copied_msg">tool.tbl in die Zwischenablage kopiert!</string>
     <string name="tool_table_imported_msg">%1$d Werkzeuge erfolgreich importiert!</string>
-    <string name="wizard_badge_critical">KRITISCH</string>
     <string name="calib_nominal_btn">= Nominal</string>
     <string name="rfl_safety_automation">SICHERHEITSAUTOMATIK: Z fährt auf +10,0 mm Freigabe -&gt; Spindel startet bei Solldrehzahl neu -&gt; Bahn wird scharfgeschaltet.</string>
     <string name="soft_axis_overtravel_fmt">Achse %1$s Verfahrwegüberschreitung</string>
@@ -932,4 +915,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="cam_label_corner_radius">Eckenradius R (mm)</string>
     <string name="wizard_sim_banner_title">Offline-Simulator Aktiv</string>
     <string name="wizard_sim_banner_desc">Virtuelle Sandbox ausgewählt. Testen Sie DRO, MDI, 3D-Vorschau und Werkzeugverschleiß ohne physische Maschine.</string>
+    <string name="common_apply">ANWENDEN</string>
+    <string name="common_reconnect">WIEDERVERBINDEN</string>
 </resources>

@@ -503,7 +503,7 @@ fun JogControlPad(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
-                    Text(stringResource(R.string.jog_z_axis), fontSize = 10.sp, fontWeight = FontWeight.Black, color = AxisZColor)
+                    Text(stringResource(R.string.ini_axis_label_fmt, "Z"), fontSize = 10.sp, fontWeight = FontWeight.Black, color = AxisZColor)
 
                     JogTouchButton(
                         label = "Z+",
@@ -534,7 +534,7 @@ fun JogControlPad(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        Text(stringResource(R.string.jog_a_axis), fontSize = 10.sp, fontWeight = FontWeight.Black, color = AxisAColor)
+                        Text(stringResource(R.string.ini_axis_label_fmt, "A"), fontSize = 10.sp, fontWeight = FontWeight.Black, color = AxisAColor)
 
                         JogTouchButton(
                             label = "A+",

@@ -467,7 +467,7 @@ fun CncMainScreen(
                                 shape = RoundedCornerShape(6.dp),
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text(stringResource(R.string.alarm_reconnect_now_btn), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                Text(stringResource(R.string.common_reconnect), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                             }
                         }
                     }

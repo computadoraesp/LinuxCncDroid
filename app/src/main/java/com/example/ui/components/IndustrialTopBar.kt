@@ -593,7 +593,7 @@ fun IndustrialTopBar(
                             Text(
                                 text = if (connectionTelemetry.secondsUntilReconnect > 0)
                                     stringResource(R.string.net_retry_format, connectionTelemetry.secondsUntilReconnect)
-                                else stringResource(R.string.net_reconnect),
+                                else stringResource(R.string.common_reconnect),
                                 fontSize = 9.sp,
                                 fontWeight = FontWeight.Black,
                                 color = CncEstopRed

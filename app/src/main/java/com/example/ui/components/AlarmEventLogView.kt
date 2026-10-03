@@ -56,7 +56,7 @@ fun AlarmEventLogView(
     val filterOptions = listOf(
         stringResource(R.string.logs_filter_all),
         stringResource(R.string.logs_filter_errors),
-        stringResource(R.string.logs_filter_security),
+        stringResource(R.string.log_security_disp),
         stringResource(R.string.logs_filter_warnings)
     )
     var selectedFilter by remember { mutableStateOf(filterOptions[0]) }

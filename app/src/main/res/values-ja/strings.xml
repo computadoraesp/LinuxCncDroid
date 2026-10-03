@@ -112,8 +112,6 @@
     <string name="mpg_axis_select">軸  を選択</string>
     <string name="mpg_step_pos">+ 送り</string>
     <string name="mpg_step_neg">− 送り</string>
-    <string name="jog_z_axis">Z軸</string>
-    <string name="jog_a_axis">A軸</string>
     <string name="jog_style_mode_style">モード: %1$s | スタイル: %2$s</string>
     <string name="spindle_actual_rpm">実回転数</string>
     <string name="feed_override">送りオーバーライド</string>
@@ -195,7 +193,6 @@
     <string name="logs_simulate_alarm">アラーム擬似発生</string>
     <string name="logs_filter_all">全て</string>
     <string name="logs_filter_errors">エラー</string>
-    <string name="logs_filter_security">セキュリティ</string>
     <string name="logs_filter_warnings">警告</string>
     <string name="logs_no_entries">フィルター \'%s\' に該当するイベントログはありません</string>
     <string name="config_title">ハードウェア設定</string>
@@ -252,18 +249,14 @@
     <string name="camera_telemetry_info">WCS: %1$s | ズーム: %2$.1fx | スケール: %3$dmm</string>
     <string name="camera_recentre_btn">レチクルを再配置</string>
     <string name="camera_micro_alignment_label">光学微調整:</string>
-    <string name="camera_zero_x">Xゼロ</string>
-    <string name="camera_zero_y">Yゼロ</string>
     <string name="calc_header">切削条件計算</string>
     <string name="calc_material_header">被削材</string>
-    <string name="calc_diameter_label">刃径 (mm)</string>
     <string name="calc_flutes_label">刃数 (Z)</string>
     <string name="calc_spindle_speed">主軸回転数</string>
     <string name="calc_feedrate">送り速度 (F)</string>
     <string name="calc_depth_ap">切込 (Ap): %s mm</string>
     <string name="calc_stepover_ae">幅 (Ae): %s mm</string>
     <string name="calc_power">電力: %s kW</string>
-    <string name="calc_apply_btn">CNCへ適用</string>
     <string name="sl_header">Gコードセキュリティ・ローダー</string>
     <string name="sl_presets_header">サンプルGコード</string>
     <string name="sl_analysis_header">セキュリティ検出結果</string>
@@ -488,7 +481,6 @@
     <string name="ini_axis_limit_fmt">リミット: [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
     <string name="manual_category_calibration">校正</string>
     <string name="manual_category_operation">操作</string>
-    <string name="manual_category_probing">プロービング</string>
     <string name="manual_category_diagnostics">診断</string>
     <string name="manual_category_vision_metrology">ビジョンと計測</string>
     <string name="manual_category_simulation_testing">シミュレーションとテスト</string>
@@ -554,7 +546,6 @@
     <string name="alarm_weak_signal_msg">高遅延（%1$d ms）または弱い信号を検出しました。テレメトリーのジッターやフレーム損失のおそれがあります。</string>
     <string name="alarm_reconnecting_title">LinuxCNCから切断</string>
     <string name="alarm_reconnecting_msg">%1$d秒後に自動再接続します（試行 #%2$d）…</string>
-    <string name="alarm_reconnect_now_btn">今すぐ再接続</string>
     <string name="alarm_dismiss_btn">閉じる</string>
     <string name="alarm_pause_cycle_btn">送り一時停止</string>
     <string name="status_screen_always_on">画面ウェイクロック有効</string>
@@ -608,7 +599,6 @@
     <string name="tool_table_import_confirm">インポートして適用</string>
     <string name="ini_editor_title">LinuxCNC設定（machine.ini）</string>
     <string name="ini_editor_desc">ソフトリミット、加速度、ステップ、LinuxCNCの運動学を確認・編集します。</string>
-    <string name="ini_apply_btn">コントローラーにリミットを適用</string>
     <string name="ini_reset_default_btn">サンプルINIに戻す</string>
     <string name="ini_copy_btn">INIをコピー</string>
     <string name="ini_tab_summary">機械の概要</string>
@@ -752,13 +742,9 @@
     <string name="soft_limits_danger_desc">実行中に物理リミットを超過します！安全のためサイクル開始をロックしました。</string>
     <string name="soft_limits_violations_detected">オーバートラベル違反を検出</string>
     <string name="soft_limits_bounding_box_title">プログラム外接範囲（ワーク範囲と機械範囲）</string>
-    <string name="soft_limits_axis_x">X軸</string>
-    <string name="soft_limits_axis_y">Y軸</string>
-    <string name="soft_limits_axis_z">Z軸</string>
     <string name="soft_limits_traj_length">推定ツールパス軌道長:</string>
     <string name="soft_limits_adjust_wcs">WCSオフセットを調整</string>
     <string name="soft_limits_override_start">上書きして開始</string>
-    <string name="soft_limits_cycle_start">サイクル開始</string>
     <string name="rfl_select_block">再開するブロックを選択:</string>
     <string name="rfl_no_program">Gコードプログラムが読み込まれていません</string>
     <string name="rfl_resume_here">ここから再開</string>
@@ -776,7 +762,6 @@
     <string name="status_screen_on_short">画面オン</string>
     <string name="status_screen_timeout_short">タイムアウト</string>
     <string name="net_retry_format">再試行 %ds</string>
-    <string name="net_reconnect">再接続</string>
     <string name="net_weak">弱い</string>
     <string name="conn_status_connected">接続済み（%d ms）</string>
     <string name="conn_status_disconnected">切断</string>
@@ -808,7 +793,6 @@
     <string name="ini_units_fmt">単位: %1$s</string>
     <string name="ini_steps_scale_fmt">スケール: %1$s ステップ/mm</string>
     <string name="ini_axis_label_fmt">軸 %1$s</string>
-    <string name="manual_category_security">安全</string>
     <string name="manual_category_jog">ジョグ</string>
     <string name="manual_category_tools">工具</string>
     <string name="manual_category_fail_safe">フェイルセーフ</string>
@@ -833,7 +817,6 @@
     <string name="tool_wear_diameter_label">径摩耗 (ΔD mm)</string>
     <string name="tool_table_copied_msg">tool.tbl をクリップボードにコピーしました！</string>
     <string name="tool_table_imported_msg">%1$d 本のツールを正常にインポートしました！</string>
-    <string name="wizard_badge_critical">重要</string>
     <string name="calib_nominal_btn">= 公称値</string>
     <string name="rfl_safety_automation">安全自動制御：Z軸が+10.0mmの安全クリアランスに後退 -&gt; 指令回転数で主軸再起動 -&gt; 軌道準備完了。</string>
     <string name="soft_axis_overtravel_fmt">%1$s 軸オーバートラベル</string>
@@ -857,4 +840,6 @@
     <string name="cam_label_corner_radius">コーナー半径 R (mm)</string>
     <string name="wizard_sim_banner_title">オフラインシミュレータ有効</string>
     <string name="wizard_sim_banner_desc">仮想サンドボックスを選択しました。実機なしでDRO、MDI、3Dプレビュー、工具摩耗をテストできます。</string>
+    <string name="common_apply">適用</string>
+    <string name="common_reconnect">再接続</string>
 </resources>

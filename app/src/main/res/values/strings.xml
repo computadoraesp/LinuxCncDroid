@@ -125,8 +125,6 @@
     <string name="mpg_axis_select">SELECT AXIS</string>
     <string name="mpg_step_pos">+ STEP</string>
     <string name="mpg_step_neg">− STEP</string>
-    <string name="jog_z_axis">Z-AXIS</string>
-    <string name="jog_a_axis">A-AXIS</string>
     <string name="jog_style_mode_style">MODE: %1$s | STYLE: %2$s</string>
     <string name="spindle_actual_rpm">ACTUAL RPM</string>
     <string name="feed_override">FEEDRATE OVERRIDE</string>
@@ -225,7 +223,6 @@
     <string name="logs_audit_modal_title">INDUSTRIAL AUDIT &amp; TELEMETRY REPORT</string>
     <string name="logs_filter_all">ALL</string>
     <string name="logs_filter_errors">ERRORS</string>
-    <string name="logs_filter_security">SECURITY</string>
     <string name="logs_filter_warnings">WARNINGS</string>
     <string name="logs_no_entries">No event logs recorded for filter \'%s\'</string>
     <string name="config_title">HARDWARE ABSTRACTION &amp; PROFILES</string>
@@ -282,18 +279,14 @@
     <string name="camera_telemetry_info">WCS: %1$s | ZOOM: %2$.1fx | SCALE: %3$dmm</string>
     <string name="camera_recentre_btn">RE-CENTER RETICLE</string>
     <string name="camera_micro_alignment_label">OPTICAL MICRO-ALIGNMENT:</string>
-    <string name="camera_zero_x">ZERO X</string>
-    <string name="camera_zero_y">ZERO Y</string>
     <string name="calc_header">SPEEDS &amp; FEEDS CALCULATOR</string>
     <string name="calc_material_header">TARGET WORKPIECE MATERIAL</string>
-    <string name="calc_diameter_label">DIAMETER (mm)</string>
     <string name="calc_flutes_label">FLUTES (Z)</string>
     <string name="calc_spindle_speed">SPINDLE SPEED</string>
     <string name="calc_feedrate">FEEDRATE (F)</string>
     <string name="calc_depth_ap">Depth (Ap): %s mm</string>
     <string name="calc_stepover_ae">Stepover (Ae): %s mm</string>
     <string name="calc_power">Power: %s kW</string>
-    <string name="calc_apply_btn">APPLY TO CNC</string>
     <string name="sl_header">G-CODE CYBERSECURITY &amp; FILE LOADER</string>
     <string name="sl_presets_header">SAMPLE &amp; BENCHMARK G-CODE SCRIPTS</string>
     <string name="sl_analysis_header">DETECTED SECURITY FINDINGS</string>
@@ -405,7 +398,6 @@
     <string name="alarm_weak_signal_msg">High latency (%1$d ms) or poor signal detected. Risk of telemetry jitter or lost frames.</string>
     <string name="alarm_reconnecting_title">DISCONNECTED FROM LINUXCNC</string>
     <string name="alarm_reconnecting_msg">Auto-reconnecting in %1$d s (Attempt #%2$d)…</string>
-    <string name="alarm_reconnect_now_btn">RECONNECT NOW</string>
     <string name="alarm_dismiss_btn">DISMISS</string>
     <string name="alarm_pause_cycle_btn">FEED HOLD (PAUSE)</string>
     <string name="status_screen_always_on">SCREEN WAKE LOCK ACTIVE</string>
@@ -511,7 +503,6 @@
     <string name="tool_table_import_confirm">IMPORT AND APPLY</string>
     <string name="ini_editor_title">LINUXCNC CONFIGURATION (machine.ini)</string>
     <string name="ini_editor_desc">Inspect and edit soft limits, accelerations, steps, and LinuxCNC kinematics.</string>
-    <string name="ini_apply_btn">APPLY LIMITS TO CONTROLLER</string>
     <string name="ini_reset_default_btn">RESTORE SAMPLE INI</string>
     <string name="ini_copy_btn">COPY INI</string>
     <string name="ini_tab_summary">MACHINE SUMMARY</string>
@@ -655,13 +646,9 @@
     <string name="soft_limits_danger_desc">Physical limits will be violated during execution! Cycle Start is safety-locked.</string>
     <string name="soft_limits_violations_detected">DETECTED OVERTRAVEL VIOLATIONS</string>
     <string name="soft_limits_bounding_box_title">PROGRAM BOUNDING BOX (WORK vs MACHINE ENVELOPE)</string>
-    <string name="soft_limits_axis_x">X Axis</string>
-    <string name="soft_limits_axis_y">Y Axis</string>
-    <string name="soft_limits_axis_z">Z Axis</string>
     <string name="soft_limits_traj_length">Estimated Toolpath Trajectory Length:</string>
     <string name="soft_limits_adjust_wcs">Adjust WCS Offset</string>
     <string name="soft_limits_override_start">Override &amp; Start</string>
-    <string name="soft_limits_cycle_start">Cycle Start</string>
     <string name="rfl_select_block">SELECT RESTART BLOCK:</string>
     <string name="rfl_no_program">No G-Code program loaded</string>
     <string name="rfl_resume_here">RESUME HERE</string>
@@ -679,7 +666,6 @@
     <string name="status_screen_on_short">SCREEN ON</string>
     <string name="status_screen_timeout_short">TIMEOUT</string>
     <string name="net_retry_format">RETRY %ds</string>
-    <string name="net_reconnect">RECONNECT</string>
     <string name="net_weak">WEAK</string>
     <string name="conn_status_connected">CONNECTED (%d ms)</string>
     <string name="conn_status_disconnected">DISCONNECTED</string>
@@ -789,7 +775,6 @@
     <string name="ini_axis_limit_fmt">Limit: [%1$d mm .. %2$d mm] (Δ %3$d mm)</string>
     <string name="manual_category_calibration">CALIBRATION</string>
     <string name="manual_category_operation">OPERATION</string>
-    <string name="manual_category_probing">PROBING</string>
     <string name="manual_category_diagnostics">DIAGNOSTICS</string>
     <string name="manual_category_vision_metrology">VISION &amp; METROLOGY</string>
     <string name="manual_category_simulation_testing">SIMULATION &amp; TESTING</string>
@@ -815,7 +800,6 @@
     <string name="ini_units_fmt">Units: %1$s</string>
     <string name="ini_steps_scale_fmt">Scale: %1$s steps/mm</string>
     <string name="ini_axis_label_fmt">AXIS %1$s</string>
-    <string name="manual_category_security">SECURITY</string>
     <string name="manual_category_jog">JOG</string>
     <string name="manual_category_tools">TOOLS</string>
     <string name="manual_category_fail_safe">FAIL-SAFE</string>
@@ -840,7 +824,6 @@
     <string name="tool_wear_diameter_label">Diameter Wear (ΔD mm)</string>
     <string name="tool_table_copied_msg">tool.tbl copied to clipboard!</string>
     <string name="tool_table_imported_msg">%1$d tools imported successfully!</string>
-    <string name="wizard_badge_critical">CRITICAL</string>
     <string name="calib_nominal_btn">= Nominal</string>
     <string name="rfl_safety_automation">SAFETY AUTOMATION: Z retracts to +10.0mm clearance -&gt; Spindle restarts at commanded RPM -&gt; Trajectory arms.</string>
     <string name="soft_axis_overtravel_fmt">Axis %1$s Overtravel</string>
@@ -863,4 +846,6 @@
     <string name="status_active">Active</string>
     <string name="wizard_sim_banner_title">Offline Simulator Active</string>
     <string name="wizard_sim_banner_desc">Virtual sandbox selected. Test DRO, MDI, G-code 3D preview and tool wear without physical machine.</string>
+    <string name="common_apply">APPLY</string>
+    <string name="common_reconnect">RECONNECT</string>
 </resources>

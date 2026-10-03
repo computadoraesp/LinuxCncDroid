@@ -285,7 +285,7 @@ fun IniConfigDialog(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = if (appliedSuccess) stringResource(R.string.ini_limits_applied) else stringResource(R.string.ini_apply_btn),
+                                text = if (appliedSuccess) stringResource(R.string.ini_limits_applied) else stringResource(R.string.common_apply),
                                 color = Color.Black,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 11.sp

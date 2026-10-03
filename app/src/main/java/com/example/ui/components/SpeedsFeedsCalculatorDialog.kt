@@ -135,7 +135,7 @@ fun SpeedsFeedsCalculatorDialog(
                 // Tool Diameter and Flutes Row
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.calc_diameter_label), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncTextSecondary)
+                        Text(stringResource(R.string.tt_diameter_label), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = CncTextSecondary)
                         Spacer(modifier = Modifier.height(4.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             listOf(3.0, 6.0, 8.0, 12.0).forEach { dia ->
@@ -225,9 +225,9 @@ fun SpeedsFeedsCalculatorDialog(
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Icon(Icons.Default.Bolt, contentDescription = stringResource(R.string.calc_apply_btn))
+                Icon(Icons.Default.Bolt, contentDescription = stringResource(R.string.common_apply))
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(stringResource(R.string.calc_apply_btn), fontWeight = FontWeight.Black, fontSize = 11.sp)
+                Text(stringResource(R.string.common_apply), fontWeight = FontWeight.Black, fontSize = 11.sp)
             }
         },
         dismissButton = {

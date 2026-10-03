@@ -224,9 +224,9 @@ fun SoftLimitsDialog(
                         .padding(12.dp),
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    BoundingBoxRow(stringResource(R.string.soft_limits_axis_x), workBox.x.min, workBox.x.max, machBox.x.min, machBox.x.max)
-                    BoundingBoxRow(stringResource(R.string.soft_limits_axis_y), workBox.y.min, workBox.y.max, machBox.y.min, machBox.y.max)
-                    BoundingBoxRow(stringResource(R.string.soft_limits_axis_z), workBox.z.min, workBox.z.max, machBox.z.min, machBox.z.max)
+                    BoundingBoxRow(stringResource(R.string.ini_axis_label_fmt, "X"), workBox.x.min, workBox.x.max, machBox.x.min, machBox.x.max)
+                    BoundingBoxRow(stringResource(R.string.ini_axis_label_fmt, "Y"), workBox.y.min, workBox.y.max, machBox.y.min, machBox.y.max)
+                    BoundingBoxRow(stringResource(R.string.ini_axis_label_fmt, "Z"), workBox.z.min, workBox.z.max, machBox.z.min, machBox.z.max)
 
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
 
@@ -291,7 +291,7 @@ fun SoftLimitsDialog(
                         ) {
                             Icon(Icons.Default.PlayArrow, contentDescription = null)
                             Spacer(modifier = Modifier.width(6.dp))
-                            Text(stringResource(R.string.soft_limits_cycle_start))
+                            Text(stringResource(R.string.btn_cycle_start))
                         }
                     }
                 }
