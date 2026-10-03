@@ -28,10 +28,17 @@ Thumbs.db
 # --- Captures ---
 captures/
 
-# --- Keystores ---
+# --- Keystores & Keys ---
 *.jks
 *.keystore
+*.pem
+*.pk8
+*.key
+*.p12
+*.pfx
+*.asc
 debug.keystore
+upload-key.pem
 
 # --- Environment / Secrets ---
 .env
