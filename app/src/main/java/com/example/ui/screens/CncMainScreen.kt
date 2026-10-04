@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,7 +46,6 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -52,7 +53,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -120,7 +120,6 @@ fun CncNavigationTab.getIcon(): ImageVector = when (this) {
     CncNavigationTab.CONFIG -> Icons.Default.Settings
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CncMainScreen(
     modifier: Modifier = Modifier,
@@ -234,7 +233,10 @@ fun CncMainScreen(
                 onScreenPolicyClick = { viewModel.setSelectedTab(CncNavigationTab.CONFIG) },
                 onOpenManual = { viewModel.setShowManualDialog(show = true) },
                 onOpenHalMonitor = { viewModel.showHalMonitorDialog.value = true },
-                onOpenConnectionWizard = { viewModel.setShowConnectionWizardDialog(show = true) },
+                onOpenConnectionWizard = {
+                    viewModel.resetWizardPermanentlyDismissed()
+                    viewModel.setShowConnectionWizardDialog(show = true)
+                },
             )
         },
         bottomBar = {
@@ -574,6 +576,7 @@ fun CncMainScreen(
                             hasServoTorque = capabilities.hasServoTorque,
                             unitSystem = unitSystem,
                             onZeroAxis = { viewModel.zeroAxis(it) },
+                            onSetAxisPosition = { axis, pos -> viewModel.setAxisWorkPosition(axis, pos) },
                             onZeroAll = { viewModel.zeroAllAxes() },
                             onHomeAxis = { viewModel.homeAxis(it) },
                             onHomeAll = { viewModel.homeAllAxes() },
@@ -766,6 +769,7 @@ fun CncMainScreen(
                             onExecuteCommand = { viewModel.executeMdiCommand(it) },
                             onToggleFavorite = { id, fav -> viewModel.toggleMdiFavorite(id, fav) },
                             onClearNonFavorites = { viewModel.clearNonFavoriteHistory() },
+                            onSaveMacro = { name, code, desc -> viewModel.insertCustomMacro(name, code, desc) },
                         )
                     }
 
@@ -804,7 +808,10 @@ fun CncMainScreen(
                             onOpenWcsTable = { viewModel.showWcsTableDialog.value = true },
                             onOpenIniConfig = { viewModel.showIniDialog.value = true },
                             onOpenConversationalCam = { viewModel.showConversationalCamDialog.value = true },
-                            onOpenConnectionWizard = { viewModel.setShowConnectionWizardDialog(show = true) },
+                            onOpenConnectionWizard = {
+                                viewModel.resetWizardPermanentlyDismissed()
+                                viewModel.setShowConnectionWizardDialog(show = true)
+                            },
                             screenTimeoutPolicy = screenTimeoutPolicy,
                             onSelectScreenTimeoutPolicy = { viewModel.setScreenTimeoutPolicy(it) },
                             batterySafetyState = batterySafety,
@@ -853,7 +860,7 @@ fun CncMainScreen(
                     activeTool = activeTool,
                     currentSpindleZ = axes["Z"]?.workPos ?: 0.0,
                     onDismiss = { viewModel.setShowToolTableDialog(show = false) },
-                    onMountTool = { viewModel.mountToolWithG43(it) },
+                    onMountTool = { viewModel.mountTool(it) },
                     onUpdateTool = { viewModel.updateTool(it) },
                     onDeleteTool = { viewModel.deleteTool(it) },
                     onTouchOffZ = { toolId ->

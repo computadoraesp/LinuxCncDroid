@@ -815,7 +815,6 @@
     <string name="camera_snapshot_error_fmt">Capture error: %1$s</string>
     <string name="jog_continuous_mode">CONTINUOUS (CONT)</string>
     <string name="jog_step_mode">INCREMENTAL (STEP)</string>
-    <string name="config_protocol_sim">Simulator</string>
     <string name="config_hw_manifest_title">HARDWARE CAPABILITIES (MANIFEST)</string>
     <string name="config_spindle_encoder_short">SPINDLE ENC</string>
     <string name="config_temp_drives_short">DRIVE TEMPS</string>
@@ -857,4 +856,11 @@
     <string name="wizard_interface_simulator">Simulator</string>
     <string name="wizard_step_1_inst_5">Offline Simulator: Select the Simulator pill to test DRO, MDI, and toolpath visualizer without any physical LinuxCNC PC.</string>
     <string name="manual_search_no_results">No documentation sections found matching "%1"</string>
+    <string name="dro_set_axis_title">SET %1 AXIS WORK POSITION</string>
+    <string name="dro_touch_off_prompt">Enter target coordinate value (mm):</string>
+    <string name="dro_btn_touch_off">SET</string>
+    <string name="mdi_save_as_macro">Save as Custom Macro</string>
+    <string name="mdi_macro_name_label">Macro Name</string>
+    <string name="mdi_macro_saved_success">Macro saved successfully!</string>
+    <string name="soft_limits_stock_envelope">Raw Stock Envelope (ΔX • ΔY • ΔZ):</string>
 </resources>

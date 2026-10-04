@@ -814,7 +814,6 @@
     <string name="camera_snapshot_error_fmt">캡처 오류: %1$s</string>
     <string name="jog_continuous_mode">연속 (CONT)</string>
     <string name="jog_step_mode">스텝 (STEP)</string>
-    <string name="config_protocol_sim">시뮬레이터</string>
     <string name="config_hw_manifest_title">하드웨어 기능 목록 (MANIFEST)</string>
     <string name="config_spindle_encoder_short">스핀들 엔코더</string>
     <string name="config_temp_drives_short">드라이브 온도</string>
@@ -857,4 +856,11 @@
     <string name="wizard_interface_simulator">시뮬레이터</string>
     <string name="wizard_step_1_inst_5">오프라인 시뮬레이터: 실제 LinuxCNC PC 없이 DRO, MDI 및 3D 툴패스를 테스트하려면 시뮬레이터를 선택하세요.</string>
     <string name="manual_search_no_results">"%1"와(과) 일치하는 설명서 항목이 없습니다</string>
+    <string name="dro_set_axis_title">%1축 가공 좌표 설정</string>
+    <string name="dro_touch_off_prompt">목표 좌표값을 입력하십시오 (mm):</string>
+    <string name="dro_btn_touch_off">설정</string>
+    <string name="mdi_save_as_macro">사용자 지정 매크로로 저장</string>
+    <string name="mdi_macro_name_label">매크로 이름</string>
+    <string name="mdi_macro_saved_success">매크로가 성공적으로 저장되었습니다!</string>
+    <string name="soft_limits_stock_envelope">소재 외곽 치수 (ΔX • ΔY • ΔZ):</string>
 </resources>

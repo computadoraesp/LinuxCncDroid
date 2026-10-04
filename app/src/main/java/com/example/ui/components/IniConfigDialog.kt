@@ -35,7 +35,6 @@ import com.example.service.LinuxCncMachineConfig
 import com.example.service.LinuxCncIniParser
 import com.example.ui.theme.*
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IniConfigDialog(
     onDismiss: () -> Unit,

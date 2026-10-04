@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -34,24 +36,26 @@ import com.example.ui.theme.*
 
 @Composable
 fun MdiView(
-    machineState: MachineStateEnum = MachineStateEnum.IDLE,
     commandText: String,
+    onCommandTextChange: (String) -> Unit,
+    onExecuteCommand: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    machineState: MachineStateEnum = MachineStateEnum.IDLE,
     history: List<String> = emptyList(),
     historyEntities: List<MdiHistoryEntity> = emptyList(),
     favorites: List<MdiHistoryEntity> = emptyList(),
     macros: List<MdiMacroEntity> = emptyList(),
     validationResult: MdiValidationResult? = null,
-    onCommandTextChange: (String) -> Unit,
-    onExecuteCommand: (String) -> Unit,
     onToggleFavorite: (id: Long, isFavorite: Boolean) -> Unit = { _, _ -> },
     onClearNonFavorites: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
+    onSaveMacro: ((name: String, command: String, description: String) -> Unit)? = null,
 ) {
     val isEnabled = machineState != MachineStateEnum.RUNNING &&
             machineState != MachineStateEnum.ESTOP &&
             machineState != MachineStateEnum.ERROR
 
     var selectedHistoryTab by remember { mutableIntStateOf(0) } // 0: Recent, 1: Favorites
+    var showSaveMacroDialog by remember { mutableStateOf(false) }
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val isCompact = this.maxWidth < 500.dp
@@ -193,6 +197,24 @@ fun MdiView(
                             .weight(1f)
                             .testTag("mdi_input_field")
                     )
+
+                    if (onSaveMacro != null) {
+                        IconButton(
+                            onClick = { showSaveMacroDialog = true },
+                            enabled = isEnabled && commandText.isNotBlank() && (validationResult == null || validationResult.isValid),
+                            modifier = Modifier
+                                .size(52.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(CncSurfaceVariant)
+                                .testTag("mdi_save_macro_button")
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.BookmarkAdd,
+                                contentDescription = stringResource(R.string.mdi_save_as_macro),
+                                tint = if (commandText.isNotBlank()) CncActiveGreen else CncTextMuted
+                            )
+                        }
+                    }
 
                     Button(
                         onClick = { onExecuteCommand(commandText) },
@@ -409,5 +431,141 @@ fun MdiView(
             }
         }
     }
+
+    if (showSaveMacroDialog && onSaveMacro != null) {
+        SaveCustomMacroDialog(
+            commandText = commandText,
+            onDismiss = { showSaveMacroDialog = false },
+            onConfirm = { name, desc ->
+                onSaveMacro(name, commandText, desc)
+                showSaveMacroDialog = false
+            }
+        )
+    }
 }
+}
+
+@Composable
+fun SaveCustomMacroDialog(
+    commandText: String,
+    onDismiss: () -> Unit,
+    onConfirm: (name: String, description: String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var macroName by remember { mutableStateOf("") }
+    var macroDescription by remember { mutableStateOf("") }
+    val context = LocalContext.current
+
+    androidx.compose.ui.window.Dialog(onDismissRequest = onDismiss) {
+        Card(
+            colors = CardDefaults.cardColors(containerColor = CncSurface),
+            shape = RoundedCornerShape(12.dp),
+            border = androidx.compose.foundation.BorderStroke(1.dp, CncActiveGreen.copy(alpha = 0.6f)),
+            modifier = modifier.fillMaxWidth().padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.BookmarkAdd,
+                            contentDescription = null,
+                            tint = CncActiveGreen,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.mdi_save_as_macro),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp,
+                            color = CncTextPrimary
+                        )
+                    }
+                    IconButton(onClick = onDismiss, modifier = Modifier.size(24.dp)) {
+                        Icon(Icons.Default.Close, contentDescription = null, tint = CncTextMuted, modifier = Modifier.size(16.dp))
+                    }
+                }
+
+                Surface(
+                    shape = RoundedCornerShape(6.dp),
+                    color = CncSurfaceVariant,
+                    border = androidx.compose.foundation.BorderStroke(0.5.dp, CncCardBorder),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = commandText,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        color = CncCyberCyan,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+
+                OutlinedTextField(
+                    value = macroName,
+                    onValueChange = { macroName = it },
+                    label = { Text(stringResource(R.string.mdi_macro_name_label), fontSize = 11.sp) },
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = CncSurfaceVariant,
+                        unfocusedContainerColor = CncSurfaceVariant,
+                        focusedBorderColor = CncActiveGreen,
+                        unfocusedBorderColor = CncCardBorder,
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("macro_name_input")
+                )
+
+                OutlinedTextField(
+                    value = macroDescription,
+                    onValueChange = { macroDescription = it },
+                    label = { Text(stringResource(R.string.tt_description_label), fontSize = 11.sp) },
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = CncSurfaceVariant,
+                        unfocusedContainerColor = CncSurfaceVariant,
+                        focusedBorderColor = CncCyberCyan,
+                        unfocusedBorderColor = CncCardBorder,
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("macro_desc_input")
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OutlinedButton(
+                        onClick = onDismiss,
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.weight(1f).height(40.dp)
+                    ) {
+                        Text(stringResource(R.string.common_cancel), fontSize = 11.sp)
+                    }
+
+                    Button(
+                        onClick = {
+                            if (macroName.isNotBlank()) {
+                                onConfirm(macroName.trim(), macroDescription.trim())
+                                Toast.makeText(context, context.getString(R.string.mdi_macro_saved_success), Toast.LENGTH_SHORT).show()
+                            }
+                        },
+                        enabled = macroName.isNotBlank(),
+                        colors = ButtonDefaults.buttonColors(containerColor = CncActiveGreen),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.weight(1f).height(40.dp).testTag("save_macro_confirm_button")
+                    ) {
+                        Text(stringResource(R.string.common_save), fontWeight = FontWeight.Black, fontSize = 11.sp, color = Color.Black)
+                    }
+                }
+            }
+        }
+    }
 }

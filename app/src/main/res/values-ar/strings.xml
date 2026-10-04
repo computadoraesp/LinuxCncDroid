@@ -892,7 +892,6 @@
     <string name="camera_snapshot_error_fmt">خطأ في الالتقاط: %1$s</string>
     <string name="jog_continuous_mode">مستمر (CONT)</string>
     <string name="jog_step_mode">خطوة (STEP)</string>
-    <string name="config_protocol_sim">المحاكي</string>
     <string name="config_hw_manifest_title">إمكانيات الأجهزة (البيان)</string>
     <string name="config_spindle_encoder_short">مشفر المغزل</string>
     <string name="config_temp_drives_short">حرارة المحركات</string>
@@ -935,4 +934,11 @@
     <string name="wizard_interface_simulator">المحاكي</string>
     <string name="wizard_step_1_inst_5">المحاكي غير المتصل: اختر خيار المحاكي لاختبار العرض الرقمي وMDI والمعاينة ثلاثية الأبعاد دون الحاجة لحاسوب LinuxCNC فعلي.</string>
     <string name="manual_search_no_results">لم يتم العثور على أقسام في الدليل تطابق "%1"</string>
+    <string name="dro_set_axis_title">تعيين موضع تشغيل المحور %1</string>
+    <string name="dro_touch_off_prompt">أدخل قيمة الإحداثي المستهدف (مم):</string>
+    <string name="dro_btn_touch_off">تعيين</string>
+    <string name="mdi_save_as_macro">حفظ كماكرو مخصص</string>
+    <string name="mdi_macro_name_label">اسم الماكرو</string>
+    <string name="mdi_macro_saved_success">تم حفظ الماكرو بنجاح!</string>
+    <string name="soft_limits_stock_envelope">أبعاد الخامة (ΔX • ΔY • ΔZ):</string>
 </resources>

@@ -883,7 +883,6 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="camera_snapshot_error_fmt">Aufnahmefehler: %1$s</string>
     <string name="jog_continuous_mode">KONTINUIERLICH (KONT)</string>
     <string name="jog_step_mode">SCHRITTWEISE (SCHRITT)</string>
-    <string name="config_protocol_sim">Simulator</string>
     <string name="config_hw_manifest_title">HARDWARE-FÄHIGKEITEN (MANIFEST)</string>
     <string name="config_spindle_encoder_short">SPINDEL-ENC</string>
     <string name="config_temp_drives_short">ANTRIEBSTEMP</string>
@@ -926,4 +925,11 @@ Zur Leistungssteigerung in Industrieanlagen und komplexen Bearbeitungszentren we
     <string name="wizard_interface_simulator">Simulator</string>
     <string name="wizard_step_1_inst_5">Offline-Simulator: Wählen Sie die Simulator-Schaltfläche, um DRO, MDI und die 3D-Vorschau ohne physischen LinuxCNC-PC zu testen.</string>
     <string name="manual_search_no_results">Keine Handbuch-Abschnitte für "%1" gefunden</string>
+    <string name="dro_set_axis_title">WERKSTÜCKPOSITION ACHSE %1 SETZEN</string>
+    <string name="dro_touch_off_prompt">Zielkoordinate eingeben (mm):</string>
+    <string name="dro_btn_touch_off">SETZEN</string>
+    <string name="mdi_save_as_macro">Als benutzerdefiniertes Makro speichern</string>
+    <string name="mdi_macro_name_label">Makroname</string>
+    <string name="mdi_macro_saved_success">Makro erfolgreich gespeichert!</string>
+    <string name="soft_limits_stock_envelope">Rohteilabmessungen (ΔX • ΔY • ΔZ):</string>
 </resources>

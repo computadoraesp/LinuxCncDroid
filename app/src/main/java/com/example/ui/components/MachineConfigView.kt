@@ -1,5 +1,7 @@
 package com.example.ui.components
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -50,6 +52,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -59,10 +62,8 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -365,10 +366,8 @@ fun MachineConfigView(
                                 selected = isProtoSelected,
                                 onClick = {
                                     selectedProtocol = proto
-                                    if (proto == LinuxCncProtocolType.LINUXCNCRSH_TCP && portText == "8000") {
-                                        portText = "5007"
-                                    } else if (proto == LinuxCncProtocolType.WEBSOCKET_JSON && portText == "5007") {
-                                        portText = "8000"
+                                    if (proto.defaultPort > 0) {
+                                        portText = proto.defaultPort.toString()
                                     }
                                 },
                                 shape = RoundedCornerShape(6.dp),
@@ -376,11 +375,7 @@ fun MachineConfigView(
                                 border = BorderStroke(1.dp, if (isProtoSelected) CncCyberCyan else CncCardBorder)
                             ) {
                                 Text(
-                                    text = when (proto) {
-                                        LinuxCncProtocolType.LINUXCNCRSH_TCP -> "linuxcncrsh (TCP 5007)"
-                                        LinuxCncProtocolType.WEBSOCKET_JSON -> "WebSocket (JSON)"
-                                        LinuxCncProtocolType.SIMULATION_LOCAL -> stringResource(R.string.config_protocol_sim)
-                                    },
+                                    text = stringResource(proto.displayNameRes),
                                     fontSize = 9.sp,
                                     fontWeight = if (isProtoSelected) FontWeight.Bold else FontWeight.Normal,
                                     color = if (isProtoSelected) Color(0xFF00363D) else CncTextPrimary,
@@ -389,6 +384,14 @@ fun MachineConfigView(
                             }
                         }
                     }
+
+                    // Protocol description helper
+                    Text(
+                        text = stringResource(selectedProtocol.descriptionRes),
+                        fontSize = 9.5.sp,
+                        color = CncTextSecondary,
+                        style = MaterialTheme.typography.bodySmall
+                    )
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),

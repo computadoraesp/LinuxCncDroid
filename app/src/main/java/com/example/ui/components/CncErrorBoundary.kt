@@ -1,5 +1,7 @@
 package com.example.ui.components
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -22,10 +24,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -69,6 +71,8 @@ fun rememberCncErrorBoundaryState(): CncErrorBoundaryState {
     return remember { CncErrorBoundaryState() }
 }
 
+val LocalCncErrorBoundary = compositionLocalOf<CncErrorBoundaryState?> { null }
+
 /**
  * Industrial Grade Error Boundary for Compose views.
  * Allows graceful component-level degradation when a subsystem (camera, telemetry, 3D) encounters a fault.
@@ -82,8 +86,10 @@ fun CncErrorBoundary(
     content: @Composable () -> Unit,
 ) {
     if (!state.hasError) {
-        Box(modifier = modifier) {
-            content()
+        CompositionLocalProvider(LocalCncErrorBoundary provides state) {
+            Box(modifier = modifier) {
+                content()
+            }
         }
     } else {
         CncComponentFallbackCard(

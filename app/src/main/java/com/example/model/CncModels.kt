@@ -434,6 +434,8 @@ data class HalPin(
     val type: HalPinType = HalPinType.BIT,
     val booleanValue: Boolean = false,
     val floatValue: Double = 0.0,
+    val s32Value: Int = 0,
+    val u32Value: Long = 0L,
     val description: String,
     val isAlarmTrigger: Boolean = false,
     val invertSignal: Boolean = false,

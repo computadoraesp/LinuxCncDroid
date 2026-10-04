@@ -814,7 +814,6 @@
     <string name="camera_snapshot_error_fmt">Erreur de capture : %1$s</string>
     <string name="jog_continuous_mode">CONTINU (CONT)</string>
     <string name="jog_step_mode">PAS À PAS (PAS)</string>
-    <string name="config_protocol_sim">Simulateur</string>
     <string name="config_hw_manifest_title">CAPACITÉS MATÉRIELLES (MANIFEST)</string>
     <string name="config_spindle_encoder_short">CODEUR BROCHE</string>
     <string name="config_temp_drives_short">TEMP MOTEURS</string>
@@ -857,4 +856,11 @@
     <string name="wizard_interface_simulator">Simulateur</string>
     <string name="wizard_step_1_inst_5">Simulateur Hors-ligne: Sélectionnez l\'option Simulateur pour tester la DRO, le MDI et la trajectoire 3D sans PC LinuxCNC physique.</string>
     <string name="manual_search_no_results">Aucune section du manuel ne correspond à "%1"</string>
+    <string name="dro_set_axis_title">RÉGLER LA POSITION DE TRAVAIL AXE %1</string>
+    <string name="dro_touch_off_prompt">Entrez la valeur de coordonnée cible (mm) :</string>
+    <string name="dro_btn_touch_off">DÉFINIR</string>
+    <string name="mdi_save_as_macro">Enregistrer comme macro personnalisée</string>
+    <string name="mdi_macro_name_label">Nom de la macro</string>
+    <string name="mdi_macro_saved_success">Macro enregistrée avec succès !</string>
+    <string name="soft_limits_stock_envelope">Dimensions du brut (ΔX • ΔY • ΔZ) :</string>
 </resources>

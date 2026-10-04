@@ -1,5 +1,7 @@
 package com.example.ui.components
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
@@ -66,14 +68,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -148,6 +148,7 @@ fun IndustrialCameraView(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+    val errorBoundary = LocalCncErrorBoundary.current
 
     val attributionContext = remember(context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -535,6 +536,7 @@ fun IndustrialCameraView(
                                     }
                                 } catch (e: Exception) {
                                     Log.e("CncCamera", "Failed to bind camera: ${e.message}", e)
+                                    errorBoundary?.reportFault(e)
                                 }
                             },
                                 ContextCompat.getMainExecutor(attributionContext),

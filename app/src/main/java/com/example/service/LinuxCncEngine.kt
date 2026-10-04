@@ -60,6 +60,8 @@ class LinuxCncEngine {
         HalPin("motion.adaptive-feed", HalPinCategory.MOTION, HalPinType.FLOAT, floatValue = 1.0, description = "Real-Time Adaptive Feed Override Multiplier"),
         HalPin("motion.in-position", HalPinCategory.MOTION, HalPinType.BIT, booleanValue = true, description = "Trajectory Planner In-Position Flag"),
 
+        HalPin("spindle.0.gear-range", HalPinCategory.SPINDLE, HalPinType.S32, s32Value = 1, description = "Spindle Mechanical Gear Ratio (1=Low, 2=High)"),
+        HalPin("iocontrol.0.tool-pocket-count", HalPinCategory.IO_EXPANSION, HalPinType.U32, u32Value = 24L, description = "ATC Revolver Magazine Total Pockets"),
         HalPin("iocontrol.0.tool-prep-ok", HalPinCategory.IO_EXPANSION, HalPinType.BIT, booleanValue = true, description = "Carousel Pocket Ready for Tool Exchange"),
         HalPin("iocontrol.0.tool-change-ok", HalPinCategory.IO_EXPANSION, HalPinType.BIT, booleanValue = true, description = "ATC Arm Cycle Complete & Tool Clamped")
     )

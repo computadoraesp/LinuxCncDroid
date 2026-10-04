@@ -20,6 +20,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.platform.testTag
 import com.example.R
 import com.example.model.AxisCoord
 import com.example.model.MachineStateEnum
@@ -40,12 +44,14 @@ fun DroPanel(
     hasServoTorque: Boolean,
     unitSystem: UnitSystem = UnitSystem.METRIC,
     onZeroAxis: (String) -> Unit,
+    onSetAxisPosition: (axis: String, position: Double) -> Unit = { _, _ -> },
     onZeroAll: () -> Unit,
     onHomeAxis: (String) -> Unit,
     onHomeAll: () -> Unit,
     onOpenWcsTable: () -> Unit = {},
 ) {
     var displayMode by remember { mutableStateOf(DroDisplayMode.WORK) }
+    var presetTargetAxis by remember { mutableStateOf<String?>(null) }
 
     val isEnabled = machineState != MachineStateEnum.RUNNING && machineState != MachineStateEnum.ESTOP && machineState != MachineStateEnum.ERROR
 
@@ -148,7 +154,9 @@ fun DroPanel(
                         unitSystem = unitSystem,
                         enabled = isEnabled,
                         onZero = { onZeroAxis(axis.name) },
-                    ) { onHomeAxis(axis.name) }
+                        onSetPosition = { presetTargetAxis = axis.name },
+                        onHome = { onHomeAxis(axis.name) },
+                    )
                 }
             }
 
@@ -191,6 +199,20 @@ fun DroPanel(
             }
         }
     }
+
+    presetTargetAxis?.let { axisName ->
+        val currentWorkPos = axes[axisName]?.workPos ?: 0.0
+        PresetAxisCoordDialog(
+            axisName = axisName,
+            initialValue = currentWorkPos,
+            unitLabel = if (unitSystem == UnitSystem.METRIC) "mm" else "in",
+            onDismiss = { presetTargetAxis = null },
+            onConfirm = { newPos ->
+                onSetAxisPosition(axisName, newPos)
+                presetTargetAxis = null
+            }
+        )
+    }
 }
 
 @Composable
@@ -201,6 +223,7 @@ fun DroAxisRow(
     unitSystem: UnitSystem = UnitSystem.METRIC,
     enabled: Boolean = true,
     onZero: () -> Unit,
+    onSetPosition: () -> Unit,
     onHome: () -> Unit,
 ) {
     val axisColor = when (axis.name) {
@@ -278,7 +301,8 @@ fun DroAxisRow(
                 // Numeric Coordinate Display (Large Digital Font) + Unit
                 Row(
                     verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.clickable(enabled = enabled, onClick = onSetPosition)
                 ) {
                     Text(
                         text = formattedNumber,
@@ -298,13 +322,13 @@ fun DroAxisRow(
                     )
                 }
 
-                // Quick Action Buttons (Zero & Home)
+                // Quick Action Buttons (Zero, Set & Home)
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     FilledTonalButton(
                         onClick = onZero,
                         enabled = enabled,
                         shape = RoundedCornerShape(6.dp),
-                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
                         colors = ButtonDefaults.filledTonalButtonColors(
                             containerColor = if (enabled) CncSurfaceVariant else CncSurfaceVariant.copy(alpha = 0.5f),
                             contentColor = if (enabled) CncCyberCyan else CncTextMuted
@@ -312,6 +336,20 @@ fun DroAxisRow(
                         modifier = Modifier.height(32.dp)
                     ) {
                         Text(stringResource(R.string.common_zero), fontSize = 10.sp, fontWeight = FontWeight.Black)
+                    }
+
+                    FilledTonalButton(
+                        onClick = onSetPosition,
+                        enabled = enabled,
+                        shape = RoundedCornerShape(6.dp),
+                        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp),
+                        colors = ButtonDefaults.filledTonalButtonColors(
+                            containerColor = if (enabled) CncSurfaceVariant else CncSurfaceVariant.copy(alpha = 0.5f),
+                            contentColor = if (enabled) CncWarningAmber else CncTextMuted
+                        ),
+                        modifier = Modifier.height(32.dp)
+                    ) {
+                        Text(stringResource(R.string.dro_btn_touch_off), fontSize = 10.sp, fontWeight = FontWeight.Black)
                     }
 
                     IconButton(
@@ -381,3 +419,148 @@ fun DroAxisRow(
         }
     }
 }
+
+@Composable
+fun PresetAxisCoordDialog(
+    axisName: String,
+    initialValue: Double,
+    unitLabel: String,
+    onDismiss: () -> Unit,
+    onConfirm: (Double) -> Unit,
+) {
+    var textValue by remember { mutableStateOf(String.format(Locale.US, "%.4f", initialValue)) }
+    val axisColor = when (axisName) {
+        "X" -> AxisXColor
+        "Y" -> AxisYColor
+        "Z" -> AxisZColor
+        "A" -> AxisAColor
+        "B" -> AxisBColor
+        else -> AxisCColor
+    }
+
+    Dialog(onDismissRequest = onDismiss) {
+        Card(
+            colors = CardDefaults.cardColors(containerColor = CncSurface),
+            shape = RoundedCornerShape(12.dp),
+            border = androidx.compose.foundation.BorderStroke(1.dp, axisColor.copy(alpha = 0.6f)),
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(axisColor.copy(alpha = 0.2f))
+                                .border(1.dp, axisColor, RoundedCornerShape(6.dp))
+                        ) {
+                            Text(axisName, fontWeight = FontWeight.Black, fontSize = 14.sp, color = axisColor)
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.dro_set_axis_title, axisName),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 11.5.sp,
+                            color = CncTextPrimary
+                        )
+                    }
+                    IconButton(onClick = onDismiss, modifier = Modifier.size(24.dp)) {
+                        Icon(Icons.Default.Close, contentDescription = null, tint = CncTextMuted, modifier = Modifier.size(16.dp))
+                    }
+                }
+
+                Text(
+                    text = stringResource(R.string.dro_touch_off_prompt),
+                    fontSize = 10.sp,
+                    color = CncTextSecondary
+                )
+
+                // Input Field
+                OutlinedTextField(
+                    value = textValue,
+                    onValueChange = { textValue = it },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    textStyle = LocalTextStyle.current.copy(
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        color = CncDroDigits
+                    ),
+                    suffix = { Text(unitLabel, fontSize = 12.sp, color = CncTextSecondary, fontWeight = FontWeight.Bold) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = CncSurfaceVariant,
+                        unfocusedContainerColor = CncSurfaceVariant,
+                        focusedBorderColor = axisColor,
+                        unfocusedBorderColor = CncCardBorder,
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("dro_preset_input")
+                )
+
+                // Quick Preset Chips (common CNC edge finding offsets)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    listOf(0.0, -5.0, 5.0, -10.0, 10.0, 25.0).forEach { presetVal ->
+                        Surface(
+                            shape = RoundedCornerShape(4.dp),
+                            color = CncSurfaceVariant,
+                            border = androidx.compose.foundation.BorderStroke(0.5.dp, CncCardBorder),
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable { textValue = String.format(Locale.US, "%.4f", presetVal) }
+                        ) {
+                            Text(
+                                text = (if (presetVal > 0) "+$presetVal" else "$presetVal").removeSuffix(".0"),
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = CncCyberCyan,
+                                modifier = Modifier.padding(vertical = 4.dp),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                        }
+                    }
+                }
+
+                // Buttons
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OutlinedButton(
+                        onClick = onDismiss,
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.weight(1f).height(40.dp)
+                    ) {
+                        Text(stringResource(R.string.common_cancel), fontSize = 11.sp)
+                    }
+
+                    Button(
+                        onClick = {
+                            val parsed = textValue.toDoubleOrNull() ?: 0.0
+                            onConfirm(parsed)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = axisColor),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.weight(1f).height(40.dp).testTag("dro_preset_confirm")
+                    ) {
+                        Text(stringResource(R.string.common_apply), fontWeight = FontWeight.Black, fontSize = 11.sp, color = Color.Black)
+                    }
+                }
+            }
+        }
+    }
+}
+

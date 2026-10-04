@@ -759,6 +759,12 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
         showConnectionWizardDialog.value = false
     }
 
+    fun resetWizardPermanentlyDismissed() {
+        feedbackManager.triggerActionClick()
+        _isWizardPermanentlyDismissed.value = false
+        savedStateHandle["wizard_permanently_dismissed"] = false
+    }
+
     fun connectFromWizard(config: LinuxCncConnectionConfig) {
         feedbackManager.triggerSuccessHaptic()
         connectLinuxCnc(config)
@@ -786,8 +792,7 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
     }
 
     fun mountTool(toolId: Int) {
-        feedbackManager.triggerSuccessHaptic()
-        engine.mountTool(toolId)
+        mountToolWithG43(toolId)
     }
 
     fun updateTool(tool: CncToolItem) {
@@ -994,6 +999,21 @@ class CncViewModel(application: Application, private val savedStateHandle: Saved
             
             feedbackManager.triggerEstopHaptic()
             engine.logEvent(LogSeverity.CRITICAL, "SYSTEM", "ALL USER DATA WIPED - Defaults Restored")
+        }
+    }
+
+    fun insertCustomMacro(name: String, command: String, description: String = "") {
+        viewModelScope.launch(exceptionHandler) {
+            val entity = MdiMacroEntity(
+                id = "m_custom_${System.currentTimeMillis()}",
+                label = name.trim(),
+                command = command.trim(),
+                description = description.ifBlank { name.trim() },
+                category = "USER"
+            )
+            db.macroDao().insertMacro(entity)
+            feedbackManager.triggerSuccessHaptic()
+            engine.logEvent(LogSeverity.INFO, "MACRO", "Custom macro '${name.trim()}' saved")
         }
     }
 

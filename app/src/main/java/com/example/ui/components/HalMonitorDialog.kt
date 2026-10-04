@@ -30,7 +30,6 @@ import com.example.model.HalPinCategory
 import com.example.model.HalPinType
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HalMonitorDialog(
     pins: List<HalPin>,
@@ -240,32 +239,51 @@ private fun HalPinCard(
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                if (pin.type == HalPinType.BIT) {
-                    Text(
-                        text = if (pin.booleanValue) "TRUE (1)" else "FALSE (0)",
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                        color = ledColor,
-                        fontSize = 13.sp
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    IconButton(
-                        onClick = onToggle,
-                        modifier = Modifier.size(32.dp)
-                    ) {
-                        Icon(
-                            Icons.Default.ToggleOn,
-                            contentDescription = stringResource(R.string.hal_toggle_pin),
-                            tint = MaterialTheme.colorScheme.primary
+                when (pin.type) {
+                    HalPinType.BIT -> {
+                        Text(
+                            text = if (pin.booleanValue) "TRUE (1)" else "FALSE (0)",
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            color = ledColor,
+                            fontSize = 13.sp
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        IconButton(
+                            onClick = onToggle,
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                Icons.Default.ToggleOn,
+                                contentDescription = stringResource(R.string.hal_toggle_pin),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                    HalPinType.FLOAT -> {
+                        Text(
+                            text = String.format(Locale.US, "%.3f", pin.floatValue),
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
                         )
                     }
-                } else {
-                    Text(
-                        text = String.format(Locale.US, "%.3f", pin.floatValue),
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp
-                    )
+                    HalPinType.S32 -> {
+                        Text(
+                            text = String.format(Locale.US, "%d", pin.s32Value),
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
+                    }
+                    HalPinType.U32 -> {
+                        Text(
+                            text = String.format(Locale.US, "%d", pin.u32Value),
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
+                    }
                 }
             }
         }

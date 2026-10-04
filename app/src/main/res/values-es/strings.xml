@@ -815,7 +815,6 @@
     <string name="camera_snapshot_error_fmt">Error en captura: %1$s</string>
     <string name="jog_continuous_mode">CONTINUO (CONT)</string>
     <string name="jog_step_mode">PASO A PASO (PASO)</string>
-    <string name="config_protocol_sim">Simulador</string>
     <string name="config_hw_manifest_title">CAPACIDADES DE HARDWARE (MANIFEST)</string>
     <string name="config_spindle_encoder_short">ENC HUSILLO</string>
     <string name="config_temp_drives_short">TEMP DRIVES</string>
@@ -857,4 +856,11 @@
     <string name="wizard_interface_simulator">Simulador</string>
     <string name="wizard_step_1_inst_5">Simulador Offline: Seleccione la píldora Simulador para probar DRO, MDI y visualizador de trayectorias sin un PC LinuxCNC físico.</string>
     <string name="manual_search_no_results">No se encontraron secciones del manual que coincidan con "%1"</string>
+    <string name="dro_set_axis_title">FIJAR COTA DE TRABAJO EJE %1</string>
+    <string name="dro_touch_off_prompt">Introduzca valor de cota objetivo (mm):</string>
+    <string name="dro_btn_touch_off">FIJAR</string>
+    <string name="mdi_save_as_macro">Guardar como macro personalizada</string>
+    <string name="mdi_macro_name_label">Nombre de la macro</string>
+    <string name="mdi_macro_saved_success">¡Macro guardada con éxito!</string>
+    <string name="soft_limits_stock_envelope">Dimensiones de material bruto (ΔX • ΔY • ΔZ):</string>
 </resources>

@@ -814,7 +814,6 @@
     <string name="camera_snapshot_error_fmt">キャプチャエラー: %1$s</string>
     <string name="jog_continuous_mode">連続 (CONT)</string>
     <string name="jog_step_mode">ステップ (STEP)</string>
-    <string name="config_protocol_sim">シミュレーター</string>
     <string name="config_hw_manifest_title">ハードウェア機能 (MANIFEST)</string>
     <string name="config_spindle_encoder_short">主軸エンコーダ</string>
     <string name="config_temp_drives_short">ドライバ温度</string>
@@ -857,4 +856,11 @@
     <string name="wizard_interface_simulator">シミュレータ</string>
     <string name="wizard_step_1_inst_5">オフラインシミュレータ: 実機のLinuxCNC PCなしでDRO、MDI、3Dプレビューをテストするにはシミュレータを選択してください。</string>
     <string name="manual_search_no_results">「%1」に一致するマニュアル項目は見つかりませんでした</string>
+    <string name="dro_set_axis_title">%1軸のワーク座標設定</string>
+    <string name="dro_touch_off_prompt">目標座標値を入力してください (mm):</string>
+    <string name="dro_btn_touch_off">設定</string>
+    <string name="mdi_save_as_macro">カスタムマクロとして保存</string>
+    <string name="mdi_macro_name_label">マクロ名</string>
+    <string name="mdi_macro_saved_success">マクロが正常に保存されました！</string>
+    <string name="soft_limits_stock_envelope">ワーク素材寸法 (ΔX • ΔY • ΔZ):</string>
 </resources>
