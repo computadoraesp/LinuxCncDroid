@@ -19,7 +19,7 @@ class CncFeedbackManager(context: Context) {
 
     private val attributionContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         try {
-            context.createAttributionContext("vibration")
+            context.applicationContext.createAttributionContext("vibration")
         } catch (_: Exception) {
             context
         }

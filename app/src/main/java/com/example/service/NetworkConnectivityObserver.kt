@@ -39,9 +39,13 @@ class NetworkConnectivityObserver(
                     networkCapabilities: NetworkCapabilities,
                 ) {
                     super.onCapabilitiesChanged(network, networkCapabilities)
-                    val signalStrength = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        networkCapabilities.signalStrength
-                    } else {
+                    val signalStrength = try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                            networkCapabilities.signalStrength
+                        } else {
+                            0
+                        }
+                    } catch (_: Exception) {
                         0
                     }
                     val isWeakSignal = signalStrength != 0 && signalStrength <= -80

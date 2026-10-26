@@ -152,7 +152,11 @@ fun IndustrialCameraView(
 
     val attributionContext = remember(context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            context.createAttributionContext("camera")
+            try {
+                context.applicationContext.createAttributionContext("camera")
+            } catch (_: Exception) {
+                context
+            }
         } else {
             context
         }
